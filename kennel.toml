@@ -33,7 +33,6 @@ server = "kujo run server.kujo --interpreter"
 self-check = "kujo run server.kujo --interpreter --self-check"
 test = "kujo test"
 benchmark = "kujo run benchmarks/search_benchmark.kujo --interpreter"
-weekly-refresh = "kujo run scripts/weekly_refresh.kujo --interpreter"
 
 [package.metadata]
 server_config = "mcp-server.json"

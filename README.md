@@ -73,7 +73,6 @@ src/registry.kujo                   Tools, resources, and prompts
 src/catalog.kujo                    Catalog validation, indexing, and search
 data/catalog.json                   Reviewed deterministic catalog snapshot
 scripts/sync_catalog.kujo           Kujo-only catalog synchronization
-scripts/weekly_refresh.kujo         Guarded GitHub/deployment refresh workflow
 benchmarks/search_benchmark.kujo    Kujo-only search benchmark
 tests/                              Kujo test suites and snapshots
 ```
@@ -93,7 +92,7 @@ kujo run scripts/sync_catalog.kujo --interpreter -- --site /path/to/kujolang.ai 
 
 The synchronizer rejects duplicate or malformed slugs and unexpected source URL schemes. Installer profile membership is parsed from the website's public installer instead of duplicated by hand. The catalog revision covers both records and installation profiles; it detects accidental snapshot corruption but is not a substitute for signed releases or human review.
 
-For a guarded weekly GitHub refresh, deployment adapter contract, live digest verification, and copy/paste scheduled-task prompt, see [`docs/WEEKLY_REFRESH.md`](docs/WEEKLY_REFRESH.md).
+For the autonomous weekly agent prompt that reviews source accuracy, updates GitHub, deploys through the configured hosting workflow, and verifies the live catalog, see [`docs/WEEKLY_REFRESH.md`](docs/WEEKLY_REFRESH.md).
 
 ## Security and performance controls
 
@@ -111,7 +110,6 @@ The application body check happens after the current Kujo HTTP runtime buffers t
 
 ```bash
 kujo run scripts/sync_catalog.kujo --interpreter -- --site /path/to/kujolang.ai --check
-kujo run scripts/weekly_refresh.kujo --interpreter -- --help
 kujo run server.kujo --interpreter --self-check
 kujo test
 kujo run benchmarks/search_benchmark.kujo --interpreter
