@@ -52,3 +52,35 @@ test "legacy initialize remains available for handshake clients" {
     response := handle_jsonrpc(catalog, {"jsonrpc": "2.0", "id": 7, "method": "initialize", "params": {"protocolVersion": "2025-06-18", "capabilities": {}, "clientInfo": {"name": "test", "version": "1"}}})
     assert_equal(response["result"]["protocolVersion"], "2025-06-18")
 }
+
+test "protocol rejects unsupported versions and malformed params" {
+    catalog := load_catalog("data/catalog.json")
+    unsupported := handle_jsonrpc(catalog, {"jsonrpc": "2.0", "id": 8, "method": "initialize", "params": {"protocolVersion": "2025-11-25"}})
+    assert_equal(unsupported["error"]["code"], -32022)
+    malformed := handle_jsonrpc(catalog, {"jsonrpc": "2.0", "id": 9, "method": "tools/list", "params": []})
+    assert_equal(malformed["error"]["code"], -32602)
+}
+
+test "tool string inputs are bounded before catalog work" {
+    catalog := load_catalog("data/catalog.json")
+    oversized := repeat("mcp ", 200)
+    response := handle_jsonrpc(catalog, {"jsonrpc": "2.0", "id": 10, "method": "tools/call", "params": {"name": "search_kujo_catalog", "arguments": {"query": oversized}}})
+    assert_equal(response["result"]["isError"], true)
+    assert_true(index_of(response["result"]["structuredContent"]["error"], "at most 512") >= 0)
+}
+
+test "all installation profile returns deduplicated membership" {
+    catalog := load_catalog("data/catalog.json")
+    response := handle_jsonrpc(catalog, {"jsonrpc": "2.0", "id": 11, "method": "tools/call", "params": {"name": "get_installation", "arguments": {"profile": "all"}}})
+    members := response["result"]["structuredContent"]["members"]
+    assert_true(len(members) > len(catalog["installation"]["profiles"]["core"]))
+    assert_equal(index_of(members, "mcp") >= 0, true)
+}
+
+test "tool handlers enforce enum values and additionalProperties" {
+    catalog := load_catalog("data/catalog.json")
+    bad_kind := handle_jsonrpc(catalog, {"jsonrpc": "2.0", "id": 12, "method": "tools/call", "params": {"name": "list_ecosystem", "arguments": {"kind": "package"}}})
+    assert_equal(bad_kind["result"]["isError"], true)
+    extra := handle_jsonrpc(catalog, {"jsonrpc": "2.0", "id": 13, "method": "tools/call", "params": {"name": "get_kujo_overview", "arguments": {"unexpected": true}}})
+    assert_equal(extra["result"]["isError"], true)
+}

@@ -38,3 +38,10 @@ test "webops catalog is available through released skill records" {
     }
     assert_true(found)
 }
+
+test "search deduplicates attacker-controlled repeated terms" {
+    catalog := load_catalog("data/catalog.json")
+    results := search_catalog(catalog, "mcp mcp mcp mcp", "", "", 5)
+    assert_true(len(results) > 0)
+    assert_equal(results[0]["matched_terms"], ["mcp"])
+}

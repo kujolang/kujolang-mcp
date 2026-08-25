@@ -125,13 +125,24 @@ for item in project_items { all_items = push(all_items, item) }
 for item in skill_items { all_items = push(all_items, item) }
 for item in workflow_items { all_items = push(all_items, item) }
 
+seen_slugs := {}
+for item in all_items {
+    slug := item["slug"]
+    assert(regex_match(slug, "^[a-z0-9][a-z0-9-]*$"), "Invalid catalog slug: " + slug)
+    assert(has_field(seen_slugs, slug) == false, "Duplicate catalog slug: " + slug)
+    seen_slugs[slug] := true
+    if item["github_url"] != "" { assert(starts_with(item["github_url"], "https://github.com/"), "Unexpected GitHub URL for " + slug) }
+    assert(starts_with(item["website_url"], "https://kujolang.ai/"), "Unexpected website URL for " + slug)
+}
+
 catalog := {
     "schema_version": "kujolang-mcp/catalog-v1",
     "source": {
         "name": "Kujolang.ai",
         "url": "https://kujolang.ai",
         "repository": "https://github.com/kujolang/kujolang.ai",
-        "version": to_string(package_data["version"])
+        "version": to_string(package_data["version"]),
+        "content_sha256": sha256(to_json(all_items))
     },
     "installation": {
         "default_command": "curl -fsSL https://kujolang.ai/install.sh | bash",

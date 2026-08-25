@@ -1,0 +1,18 @@
+from src.catalog import load_catalog, search_catalog
+
+catalog := load_catalog("data/catalog.json")
+queries := ["mcp agent gateway", "website technical seo", "deterministic evaluation", "local rag retrieval", "release readiness"]
+iterations := 100
+started := performance_now()
+operations := 0
+idx := 0
+while idx < iterations {
+    for query in queries {
+        results := search_catalog(catalog, query, "", "", 10)
+        assert(len(results) > 0, "Benchmark query returned no results: " + query)
+        operations = operations + 1
+    }
+    idx = idx + 1
+}
+elapsed_ms := performance_now() - started
+print(to_json({"catalog_entries": catalog["counts"]["total"], "elapsed_ms": elapsed_ms, "operations": operations, "operations_per_second": (to_float(operations) * 1000.0) / elapsed_ms}))

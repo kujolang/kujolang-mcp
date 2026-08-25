@@ -11,7 +11,47 @@ export func load_catalog(path) {
     assert(type(parsed) == "dict", "Catalog must be a JSON object")
     assert(has_field(parsed, "schema_version"), "Catalog schema_version is required")
     assert(parsed["schema_version"] == "kujolang-mcp/catalog-v1", "Unsupported catalog schema")
+    assert(has_field(parsed, "source") && type(parsed["source"]) == "dict", "Catalog source must be an object")
+    assert(has_field(parsed["source"], "content_sha256") && type(parsed["source"]["content_sha256"]) == "string", "Catalog source content_sha256 is required")
+    assert(has_field(parsed, "installation") && type(parsed["installation"]) == "dict", "Catalog installation must be an object")
+    assert(has_field(parsed, "counts") && type(parsed["counts"]) == "dict", "Catalog counts must be an object")
     assert(has_field(parsed, "items") && type(parsed["items"]) == "array", "Catalog items must be an array")
+
+    search_index := []
+    seen_slugs := {}
+    projects := 0
+    skills := 0
+    workflows := 0
+    item_index := 0
+    for item in parsed["items"] {
+        assert(type(item) == "dict", "Catalog item " + to_string(item_index) + " must be an object")
+        for field in ["kind", "slug", "title", "description", "category", "keywords", "launch_story"] {
+            assert(has_field(item, field) && type(item[field]) == "string", "Catalog item " + to_string(item_index) + " field " + field + " must be a string")
+        }
+        assert(has_field(item, "tags") && type(item["tags"]) == "array", "Catalog item " + to_string(item_index) + " tags must be an array")
+        slug := trim(item["slug"])
+        assert(slug != "", "Catalog item " + to_string(item_index) + " slug must not be empty")
+        assert(has_field(seen_slugs, slug) == false, "Duplicate catalog slug: " + slug)
+        seen_slugs[slug] := true
+        kind := item["kind"]
+        assert(kind == "project" || kind == "skill" || kind == "workflow", "Unsupported catalog kind: " + kind)
+        if kind == "project" { projects = projects + 1 }
+        if kind == "skill" { skills = skills + 1 }
+        if kind == "workflow" { workflows = workflows + 1 }
+        search_index = push(search_index, {
+            "search": item_search_text(item),
+            "identity": normalized(item["title"] + " " + item["slug"]),
+            "slug": normalized(item["slug"]),
+            "title": normalized(item["title"])
+        })
+        item_index = item_index + 1
+    }
+    assert(parsed["counts"]["projects"] == projects, "Catalog project count is inconsistent")
+    assert(parsed["counts"]["skills"] == skills, "Catalog skill count is inconsistent")
+    assert(parsed["counts"]["workflows"] == workflows, "Catalog workflow count is inconsistent")
+    assert(parsed["counts"]["total"] == len(parsed["items"]), "Catalog total count is inconsistent")
+    assert(parsed["source"]["content_sha256"] == sha256(to_json(parsed["items"])), "Catalog content digest is inconsistent")
+    parsed["_search_index"] := search_index
     return parsed
 }
 
@@ -65,26 +105,43 @@ export func list_catalog_items(catalog, kind, category, limit) {
 
 export func find_catalog_item(catalog, slug) {
     wanted := normalized(slug)
-    for item in catalog["items"] {
-        if normalized(item["slug"]) == wanted || normalized(item["title"]) == wanted { return public_item(item) }
+    idx := 0
+    while idx < len(catalog["items"]) {
+        search_entry := catalog["_search_index"][idx]
+        if search_entry["slug"] == wanted || search_entry["title"] == wanted { return public_item(catalog["items"][idx]) }
+        idx = idx + 1
     }
     return null
 }
 
-export func search_catalog(catalog, query, kind, category, limit) {
-    terms := split(normalized(query), " ")
+func bounded_unique_terms(query) {
+    output := []
+    for term in split(normalized(query), " ") {
+        if len(term) < 2 || is_stop_term(term) || index_of(output, term) >= 0 { continue }
+        output = push(output, term)
+        if len(output) >= 24 { break }
+    }
+    return output
+}
+
+func search_catalog_internal(catalog, query, kind, category, slug_prefix, limit) {
+    terms := bounded_unique_terms(query)
     scored := []
-    for item in catalog["items"] {
+    idx := 0
+    while idx < len(catalog["items"]) {
+        item := catalog["items"][idx]
+        search_entry := catalog["_search_index"][idx]
+        idx = idx + 1
         if matches_filter(item, kind, category) == false { continue }
-        haystack := item_search_text(item)
+        if slug_prefix != "" && starts_with(item["slug"], slug_prefix) == false { continue }
+        haystack := search_entry["search"]
         score := 0
         matched_terms := []
         for term in terms {
-            if len(term) < 2 || is_stop_term(term) { continue }
             if index_of(haystack, term) >= 0 {
                 score = score + 1
                 matched_terms = push(matched_terms, term)
-                if index_of(normalized(item["title"] + " " + item["slug"]), term) >= 0 { score = score + 2 }
+                if index_of(search_entry["identity"], term) >= 0 { score = score + 2 }
             }
         }
         if score > 0 {
@@ -110,6 +167,14 @@ export func search_catalog(catalog, query, kind, category, limit) {
         scored = remaining
     }
     return output
+}
+
+export func search_catalog(catalog, query, kind, category, limit) {
+    return search_catalog_internal(catalog, query, kind, category, "", limit)
+}
+
+export func search_catalog_prefix(catalog, query, kind, category, slug_prefix, limit) {
+    return search_catalog_internal(catalog, query, kind, category, slug_prefix, limit)
 }
 
 export func catalog_summary(catalog) {

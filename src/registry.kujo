@@ -1,8 +1,9 @@
-from src.catalog import has_field, catalog_summary, list_catalog_items, find_catalog_item, search_catalog
+from src.catalog import has_field, catalog_summary, list_catalog_items, find_catalog_item, search_catalog, search_catalog_prefix
 
-func string_schema(description, values) {
+func string_schema(description, values, maximum) {
     schema := {"type": "string", "description": description}
     if type(values) == "array" { schema["enum"] := values }
+    if type(maximum) == "int" { schema["maxLength"] := maximum }
     return schema
 }
 
@@ -30,8 +31,8 @@ export func list_tools() {
             "name": "list_ecosystem", "title": "List Kujo Ecosystem",
             "description": "List current Kujo projects, primitives, tooling, showcases, agent skills, or workflows from the bundled Kujolang.ai catalog.",
             "inputSchema": object_schema("Catalog filters", {
-                "kind": string_schema("Optional item type", ["project", "skill", "workflow"]),
-                "category": string_schema("Optional category such as Primitives, Tooling, Showcase, Agent Skill, or a workflow readiness label", null),
+                "kind": string_schema("Optional item type", ["project", "skill", "workflow"], 32),
+                "category": string_schema("Optional category such as Primitives, Tooling, Showcase, Agent Skill, or a workflow readiness label", null, 128),
                 "limit": integer_schema("Maximum results", 1, 200)
             }, []),
             "annotations": read_only_annotations("List Kujo Ecosystem")
@@ -40,9 +41,9 @@ export func list_tools() {
             "name": "search_kujo_catalog", "title": "Search Kujo Catalog",
             "description": "Search current projects, skills, workflows, tags, and use cases using public catalog metadata.",
             "inputSchema": object_schema("Catalog search", {
-                "query": string_schema("Work to perform, capability, product name, or search phrase", null),
-                "kind": string_schema("Optional item type", ["project", "skill", "workflow"]),
-                "category": string_schema("Optional category filter", null),
+                "query": string_schema("Work to perform, capability, product name, or search phrase", null, 512),
+                "kind": string_schema("Optional item type", ["project", "skill", "workflow"], 32),
+                "category": string_schema("Optional category filter", null, 128),
                 "limit": integer_schema("Maximum results", 1, 50)
             }, ["query"]),
             "annotations": read_only_annotations("Search Kujo Catalog")
@@ -50,14 +51,14 @@ export func list_tools() {
         {
             "name": "get_catalog_item", "title": "Get Kujo Catalog Item",
             "description": "Get one Kujo project, skill, or workflow by slug or exact title, including install guidance and operating boundaries.",
-            "inputSchema": object_schema("Catalog lookup", {"slug": string_schema("Catalog slug or exact title", null)}, ["slug"]),
+            "inputSchema": object_schema("Catalog lookup", {"slug": string_schema("Catalog slug or exact title", null, 128)}, ["slug"]),
             "annotations": read_only_annotations("Get Kujo Catalog Item")
         },
         {
             "name": "recommend_kujo_stack", "title": "Recommend a Kujo Stack",
             "description": "Recommend a small evidence-linked Kujo stack for a stated task. Results are deterministic catalog matches, not autonomous installation or execution.",
             "inputSchema": object_schema("Stack recommendation", {
-                "task": string_schema("The work the user needs done", null),
+                "task": string_schema("The work the user needs done", null, 1000),
                 "limit": integer_schema("Maximum recommendations", 1, 12)
             }, ["task"]),
             "annotations": read_only_annotations("Recommend a Kujo Stack")
@@ -66,7 +67,7 @@ export func list_tools() {
             "name": "get_installation", "title": "Get Kujo Installation",
             "description": "Return the reviewed one-line Kujo installer command, profile membership, and commands for a selected install profile.",
             "inputSchema": object_schema("Installation lookup", {
-                "profile": string_schema("Install profile", ["default", "core", "ai", "quality", "showcases", "operating", "all"])
+                "profile": string_schema("Install profile", ["default", "core", "ai", "quality", "showcases", "operating", "all"], 32)
             }, []),
             "annotations": read_only_annotations("Get Kujo Installation")
         },
@@ -74,7 +75,7 @@ export func list_tools() {
             "name": "list_webops_capabilities", "title": "List WebOps Capabilities",
             "description": "List Kujo WebOps skills and workflows for accessibility, AI-search visibility, analytics, content, indexation, links, reporting, schema, SEO, and performance.",
             "inputSchema": object_schema("WebOps catalog", {
-                "query": string_schema("Optional WebOps need", null),
+                "query": string_schema("Optional WebOps need", null, 512),
                 "limit": integer_schema("Maximum results", 1, 100)
             }, []),
             "annotations": read_only_annotations("List WebOps Capabilities")
@@ -88,12 +89,29 @@ func string_arg(arguments, name, fallback) {
     return {"ok": true, "value": trim(arguments[name]), "error": ""}
 }
 
+func bounded_string_arg(arguments, name, fallback, maximum) {
+    result := string_arg(arguments, name, fallback)
+    if result["ok"] && len(result["value"]) > maximum {
+        return {"ok": false, "value": fallback, "error": name + " must be at most " + to_string(maximum) + " characters"}
+    }
+    return result
+}
+
 func int_arg(arguments, name, fallback, minimum, maximum) {
     if has_field(arguments, name) == false { return {"ok": true, "value": fallback, "error": ""} }
     if type(arguments[name]) != "int" { return {"ok": false, "value": fallback, "error": name + " must be an integer"} }
     if arguments[name] < minimum || arguments[name] > maximum { return {"ok": false, "value": fallback, "error": name + " must be between " + to_string(minimum) + " and " + to_string(maximum) } }
     return {"ok": true, "value": arguments[name], "error": ""}
 }
+
+func unknown_argument(arguments, allowed) {
+    for name in keys(arguments) {
+        if index_of(allowed, name) < 0 { return "unknown argument: " + to_string(name) }
+    }
+    return ""
+}
+
+func valid_kind(value) { return value == "" || value == "project" || value == "skill" || value == "workflow" }
 
 func tool_success(data) {
     return {"ok": true, "result": {"resultType": "complete", "content": [{"type": "text", "text": to_json_pretty(data)}], "structuredContent": data, "isError": false}}
@@ -107,6 +125,8 @@ export func call_tool(catalog, name, arguments) {
     if type(arguments) != "dict" { return tool_error("arguments must be an object") }
 
     if name == "get_kujo_overview" {
+        extra := unknown_argument(arguments, [])
+        if extra != "" { return tool_error(extra) }
         summary := catalog_summary(catalog)
         summary["description"] := "Kujo is a VM-first programming language and local-first ecosystem for AI-native software, agent workflows, evidence, safety, and practical automation."
         summary["discovery"] := ["Use list_ecosystem for a category", "Use search_kujo_catalog for a known capability", "Use recommend_kujo_stack for a task", "Use get_installation only after choosing a profile"]
@@ -115,10 +135,13 @@ export func call_tool(catalog, name, arguments) {
     }
 
     if name == "list_ecosystem" {
-        kind := string_arg(arguments, "kind", "")
-        category := string_arg(arguments, "category", "")
+        extra := unknown_argument(arguments, ["kind", "category", "limit"])
+        if extra != "" { return tool_error(extra) }
+        kind := bounded_string_arg(arguments, "kind", "", 32)
+        category := bounded_string_arg(arguments, "category", "", 128)
         limit := int_arg(arguments, "limit", 100, 1, 200)
         if !kind["ok"] { return tool_error(kind["error"]) }
+        if valid_kind(kind["value"]) == false { return tool_error("kind must be project, skill, or workflow") }
         if !category["ok"] { return tool_error(category["error"]) }
         if !limit["ok"] { return tool_error(limit["error"]) }
         items := list_catalog_items(catalog, kind["value"], category["value"], limit["value"])
@@ -126,12 +149,15 @@ export func call_tool(catalog, name, arguments) {
     }
 
     if name == "search_kujo_catalog" {
-        query := string_arg(arguments, "query", "")
-        kind := string_arg(arguments, "kind", "")
-        category := string_arg(arguments, "category", "")
+        extra := unknown_argument(arguments, ["query", "kind", "category", "limit"])
+        if extra != "" { return tool_error(extra) }
+        query := bounded_string_arg(arguments, "query", "", 512)
+        kind := bounded_string_arg(arguments, "kind", "", 32)
+        category := bounded_string_arg(arguments, "category", "", 128)
         limit := int_arg(arguments, "limit", 10, 1, 50)
         if !query["ok"] || query["value"] == "" { return tool_error("query is required and must be a non-empty string") }
         if !kind["ok"] { return tool_error(kind["error"]) }
+        if valid_kind(kind["value"]) == false { return tool_error("kind must be project, skill, or workflow") }
         if !category["ok"] { return tool_error(category["error"]) }
         if !limit["ok"] { return tool_error(limit["error"]) }
         results := search_catalog(catalog, query["value"], kind["value"], category["value"], limit["value"])
@@ -139,7 +165,9 @@ export func call_tool(catalog, name, arguments) {
     }
 
     if name == "get_catalog_item" {
-        slug := string_arg(arguments, "slug", "")
+        extra := unknown_argument(arguments, ["slug"])
+        if extra != "" { return tool_error(extra) }
+        slug := bounded_string_arg(arguments, "slug", "", 128)
         if !slug["ok"] || slug["value"] == "" { return tool_error("slug is required and must be a non-empty string") }
         item := find_catalog_item(catalog, slug["value"])
         if item == null { return tool_error("Catalog item not found: " + slug["value"]) }
@@ -147,7 +175,9 @@ export func call_tool(catalog, name, arguments) {
     }
 
     if name == "recommend_kujo_stack" {
-        task := string_arg(arguments, "task", "")
+        extra := unknown_argument(arguments, ["task", "limit"])
+        if extra != "" { return tool_error(extra) }
+        task := bounded_string_arg(arguments, "task", "", 1000)
         limit := int_arg(arguments, "limit", 6, 1, 12)
         if !task["ok"] || task["value"] == "" { return tool_error("task is required and must be a non-empty string") }
         if !limit["ok"] { return tool_error(limit["error"]) }
@@ -160,7 +190,9 @@ export func call_tool(catalog, name, arguments) {
     }
 
     if name == "get_installation" {
-        profile := string_arg(arguments, "profile", "default")
+        extra := unknown_argument(arguments, ["profile"])
+        if extra != "" { return tool_error(extra) }
+        profile := bounded_string_arg(arguments, "profile", "default", 32)
         if !profile["ok"] { return tool_error(profile["error"]) }
         selected := to_lower(profile["value"])
         if selected == "" { selected = "default" }
@@ -169,7 +201,15 @@ export func call_tool(catalog, name, arguments) {
         install := catalog["installation"]
         command := install["default_command"]
         members := install["profiles"]["core"]
-        if selected == "all" { command = install["all_command"]; members = [] }
+        if selected == "all" {
+            command = install["all_command"]
+            members = []
+            for profile_name in ["core", "ai", "quality", "showcases", "operating"] {
+                for member in install["profiles"][profile_name] {
+                    if index_of(members, member) < 0 { members = push(members, member) }
+                }
+            }
+        }
         if selected != "default" && selected != "all" { command = install["profile_commands"][selected]; members = install["profiles"][selected] }
         return tool_success({
             "profile": selected, "command": command, "members": members,
@@ -179,18 +219,16 @@ export func call_tool(catalog, name, arguments) {
     }
 
     if name == "list_webops_capabilities" {
-        query := string_arg(arguments, "query", "webops")
+        extra := unknown_argument(arguments, ["query", "limit"])
+        if extra != "" { return tool_error(extra) }
+        query := bounded_string_arg(arguments, "query", "webops", 512)
         limit := int_arg(arguments, "limit", 50, 1, 100)
         if !query["ok"] { return tool_error(query["error"]) }
         if !limit["ok"] { return tool_error(limit["error"]) }
         search_text := query["value"]
         if search_text == "" { search_text = "webops" }
-        results := search_catalog(catalog, "webops " + search_text, "", "", limit["value"])
-        filtered := []
-        for result in results {
-            if starts_with(result["item"]["slug"], "webops-") { filtered = push(filtered, result) }
-        }
-        return tool_success({"query": search_text, "capabilities": filtered, "returned": len(filtered)})
+        results := search_catalog_prefix(catalog, "webops " + search_text, "", "", "webops-", limit["value"])
+        return tool_success({"query": search_text, "capabilities": results, "returned": len(results)})
     }
 
     return {"ok": false, "error": "Tool not found: " + name}
@@ -234,8 +272,14 @@ export func list_prompts() {
 }
 
 export func get_prompt(name, arguments) {
-    task := string_arg(arguments, "task", "")
-    constraints := string_arg(arguments, "constraints", "")
+    if type(arguments) != "dict" { return {"ok": false, "error": "arguments must be an object"} }
+    if name != "choose_kujo_stack" && name != "plan_kujo_adoption" && name != "discover_webops" { return {"ok": false, "error": "Prompt not found: " + name} }
+    allowed := ["task"]
+    if name == "plan_kujo_adoption" { allowed = ["task", "constraints"] }
+    extra := unknown_argument(arguments, allowed)
+    if extra != "" { return {"ok": false, "error": extra} }
+    task := bounded_string_arg(arguments, "task", "", 1000)
+    constraints := bounded_string_arg(arguments, "constraints", "", 2000)
     if !task["ok"] || task["value"] == "" { return {"ok": false, "error": "task is required and must be a non-empty string"} }
     text := ""
     description := ""
@@ -248,8 +292,6 @@ export func get_prompt(name, arguments) {
     } else if name == "discover_webops" {
         description = "Discover WebOps capabilities for: " + task["value"]
         text = "Use list_webops_capabilities and inspect exact skill or workflow records before recommending a workflow. Distinguish guidance-only skills from runnable workflows. Need: " + task["value"]
-    } else {
-        return {"ok": false, "error": "Prompt not found: " + name}
     }
     return {"ok": true, "description": description, "messages": [{"role": "user", "content": {"type": "text", "text": text}}]}
 }

@@ -3,6 +3,7 @@ from src.registry import list_tools, call_tool, list_resources, read_resource, l
 
 export PROTOCOL_LATEST := "2026-07-28"
 export PROTOCOL_LEGACY := "2025-06-18"
+export SUPPORTED_PROTOCOL_VERSIONS := [PROTOCOL_LATEST, PROTOCOL_LEGACY]
 export SERVER_NAME := "kujolang-mcp"
 export SERVER_VERSION := "0.1.0"
 
@@ -37,7 +38,7 @@ func server_capabilities() {
 func discovery_result() {
     return {
         "protocolVersion": PROTOCOL_LATEST,
-        "supportedProtocolVersions": [PROTOCOL_LATEST, PROTOCOL_LEGACY],
+        "supportedProtocolVersions": SUPPORTED_PROTOCOL_VERSIONS,
         "capabilities": server_capabilities(),
         "serverInfo": {"name": SERVER_NAME, "title": "Kujolang.ai MCP", "version": SERVER_VERSION},
         "instructions": "Read-only public Kujo ecosystem discovery. Search or list the catalog, inspect exact items, then retrieve installer guidance. The server never installs or executes software."
@@ -48,10 +49,15 @@ export func handle_jsonrpc(catalog, payload) {
     if type(payload) != "dict" { return failure({}, -32600, "Request must be a JSON object", null) }
     if has_field(payload, "jsonrpc") == false || payload["jsonrpc"] != "2.0" { return failure(payload, -32600, "jsonrpc must equal 2.0", null) }
     if has_field(payload, "method") == false || type(payload["method"]) != "string" || trim(payload["method"]) == "" { return failure(payload, -32600, "method must be a non-empty string", null) }
+    if has_field(payload, "id") && type(payload["id"]) != "string" && type(payload["id"]) != "int" && payload["id"] != null { return failure({}, -32600, "id must be a string, integer, or null", null) }
+    if has_field(payload, "params") && type(payload["params"]) != "dict" { return failure(payload, -32602, "params must be an object", null) }
     method := trim(payload["method"])
     params := params_or_empty(payload)
 
-    if method == "notifications/initialized" { return {"notification": true} }
+    if method == "notifications/initialized" {
+        if has_field(payload, "id") == false { return {"notification": true} }
+        return success(payload, {})
+    }
     if method == "ping" { return success(payload, {}) }
     if method == "server/discover" { return success(payload, discovery_result()) }
     if method == "initialize" {
@@ -59,8 +65,8 @@ export func handle_jsonrpc(catalog, payload) {
         if has_field(params, "protocolVersion") && type(params["protocolVersion"]) == "string" { requested = params["protocolVersion"] }
         negotiated := PROTOCOL_LEGACY
         if requested == PROTOCOL_LATEST { negotiated = PROTOCOL_LATEST }
-        if requested != PROTOCOL_LATEST && requested != PROTOCOL_LEGACY && requested != "2025-11-25" && requested != "2025-03-26" {
-            return failure(payload, -32022, "Unsupported MCP protocol version", {"requested": requested, "supported": [PROTOCOL_LATEST, PROTOCOL_LEGACY]})
+        if index_of(SUPPORTED_PROTOCOL_VERSIONS, requested) < 0 {
+            return failure(payload, -32022, "Unsupported MCP protocol version", {"requested": requested, "supported": SUPPORTED_PROTOCOL_VERSIONS})
         }
         result := discovery_result()
         result["protocolVersion"] := negotiated

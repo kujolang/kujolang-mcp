@@ -21,7 +21,7 @@ notes = "Read-only public catalog server; hosted production operations require e
 minimum_version = "0.1.0"
 entry = "server.kujo"
 sources = ["."]
-includes = ["README.md", "data", "mcp.manifest.json", "mcp-server.production.example.json"]
+includes = ["README.md", "SECURITY.md", "data", "docs", "benchmarks", "scripts", "mcp.manifest.json", "mcp-server.json", "mcp-server.production.example.json"]
 excludes = [".git", "kennel_packages", "dist", "build"]
 
 [dependencies]
@@ -32,6 +32,7 @@ excludes = [".git", "kennel_packages", "dist", "build"]
 server = "kujo run server.kujo --interpreter"
 self-check = "kujo run server.kujo --interpreter --self-check"
 test = "kujo test"
+benchmark = "kujo run benchmarks/search_benchmark.kujo --interpreter"
 
 [package.metadata]
 server_config = "mcp-server.json"
