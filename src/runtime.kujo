@@ -1,0 +1,106 @@
+from src.catalog import has_field, load_catalog
+from src.protocol import handle_jsonrpc, SERVER_NAME, SERVER_VERSION, PROTOCOL_LATEST, SUPPORTED_PROTOCOL_VERSIONS
+from src.http_security import dict_value, header_value, validate_string_array, guard_request, secure_json_response
+
+func config_fail(message) { assert(false, "Invalid mcp-server.json: " + message) }
+
+func load_config() {
+    path := env("KUJOLANG_MCP_CONFIG")
+    if trim(path) == "" { path = "mcp-server.json" }
+    assert(file_exists(path), "MCP config not found: " + path)
+    parsed := parse_json(read_file(path))
+    if type(parsed) != "dict" { config_fail("top-level object is required") }
+    return parsed
+}
+
+func protocol_guard(req, payload, strict_headers) {
+    version := header_value(req, "MCP-Protocol-Version")
+    if version != "" && index_of(SUPPORTED_PROTOCOL_VERSIONS, version) < 0 { return {"ok": false, "error": {"jsonrpc": "2.0", "id": dict_value(payload, "id", null), "error": {"code": -32022, "message": "Unsupported MCP protocol version", "data": {"requested": version, "supported": SUPPORTED_PROTOCOL_VERSIONS}}}} }
+    if version == PROTOCOL_LATEST && strict_headers {
+        body_method := to_string(dict_value(payload, "method", ""))
+        if header_value(req, "Mcp-Method") != body_method { return {"ok": false, "error": {"jsonrpc": "2.0", "id": dict_value(payload, "id", null), "error": {"code": -32600, "message": "Mcp-Method header must match the JSON-RPC method"}}} }
+        if body_method == "tools/call" {
+            params := dict_value(payload, "params", {})
+            if type(params) != "dict" || header_value(req, "Mcp-Name") != to_string(dict_value(params, "name", "")) { return {"ok": false, "error": {"jsonrpc": "2.0", "id": dict_value(payload, "id", null), "error": {"code": -32600, "message": "Mcp-Name header must match params.name"}}} }
+        }
+    }
+    return {"ok": true, "error": {}}
+}
+
+export func run_server(argv) {
+    config := load_config()
+    http_cfg := dict_value(config, "http", {})
+    security_cfg := dict_value(config, "security", {})
+    if type(http_cfg) != "dict" { config_fail("http must be an object") }
+    if type(security_cfg) != "dict" { config_fail("security must be an object") }
+    host := trim(to_string(dict_value(http_cfg, "host", "127.0.0.1")))
+    port := dict_value(http_cfg, "port", 8941)
+    max_body := dict_value(http_cfg, "max_request_body_bytes", 131072)
+    rate_limit_enabled := dict_value(http_cfg, "rate_limit_enabled", true)
+    rate_limit := dict_value(http_cfg, "rate_limit_per_minute", 120)
+    allowed_hosts := dict_value(security_cfg, "allowed_hosts", ["127.0.0.1", "localhost"])
+    allowed_origins := dict_value(security_cfg, "allowed_origins", [])
+    strict_headers := dict_value(security_cfg, "strict_2026_headers", false)
+    auth_enabled := dict_value(security_cfg, "auth_enabled", false)
+    auth_token_env := trim(to_string(dict_value(security_cfg, "auth_token_env", "KUJOLANG_MCP_TOKEN")))
+    trusted_ingress_limits := dict_value(security_cfg, "trusted_ingress_limits", false)
+    catalog_path := trim(to_string(dict_value(config, "catalog_path", "data/catalog.json")))
+    if host == "" { config_fail("http.host must be a non-empty string") }
+    if type(port) != "int" || port < 1 || port > 65535 { config_fail("http.port must be between 1 and 65535") }
+    if type(max_body) != "int" || max_body < 1024 || max_body > 1048576 { config_fail("http.max_request_body_bytes must be between 1024 and 1048576") }
+    if type(rate_limit_enabled) != "bool" { config_fail("http.rate_limit_enabled must be a boolean") }
+    if type(rate_limit) != "int" || rate_limit < 1 || rate_limit > 100000 { config_fail("http.rate_limit_per_minute must be between 1 and 100000") }
+    host_error := validate_string_array(allowed_hosts, "security.allowed_hosts", false)
+    if host_error != "" { config_fail(host_error) }
+    origin_error := validate_string_array(allowed_origins, "security.allowed_origins", true)
+    if origin_error != "" { config_fail(origin_error) }
+    if type(auth_enabled) != "bool" || type(strict_headers) != "bool" || type(trusted_ingress_limits) != "bool" { config_fail("security boolean settings must be booleans") }
+    if auth_token_env == "" { config_fail("security.auth_token_env must be non-empty") }
+    if catalog_path == "" { config_fail("catalog_path must be non-empty") }
+    is_loopback := host == "127.0.0.1" || host == "localhost" || host == "::1"
+    if is_loopback == false && trusted_ingress_limits == false { config_fail("non-loopback listeners require security.trusted_ingress_limits=true") }
+    if is_loopback == false && rate_limit_enabled { config_fail("public listeners require gateway rate limiting; set http.rate_limit_enabled=false") }
+    auth_token := ""
+    if auth_enabled { auth_token = env(auth_token_env); if trim(auth_token) == "" { config_fail("authentication is enabled but " + auth_token_env + " is empty") } }
+    catalog := load_catalog(catalog_path)
+    policy := {"max_body": max_body, "allowed_hosts": allowed_hosts, "allowed_origins": allowed_origins, "auth_enabled": auth_enabled, "rate_limit_enabled": rate_limit_enabled, "rate_limit": rate_limit}
+    rate_state := {"window": "", "buckets": {}}
+    if len(argv) > 0 && argv[0] == "--self-check" {
+        tool_check := handle_jsonrpc(catalog, {"jsonrpc": "2.0", "id": 1, "method": "tools/list", "params": {}})
+        resource_check := handle_jsonrpc(catalog, {"jsonrpc": "2.0", "id": 2, "method": "resources/list", "params": {}})
+        print(to_json({"ok": true, "server": SERVER_NAME, "version": SERVER_VERSION, "catalog_entries": catalog["counts"]["total"], "tools": len(tool_check["result"]["tools"]), "resources": len(resource_check["result"]["resources"])}))
+        return
+    }
+    if len(argv) > 1 && argv[0] == "--request" { print(to_json_pretty(handle_jsonrpc(catalog, parse_json(argv[1])))); return }
+    handle_http := func(req) {
+        guard := guard_request(req, policy, auth_token, rate_state, true)
+        if !guard["ok"] { return secure_json_response(guard["status"], {"error": guard["message"]}) }
+        content_type := to_lower(header_value(req, "Content-Type"))
+        if starts_with(content_type, "application/json") == false { return secure_json_response(415, {"error": "Content-Type must be application/json"}) }
+        payload := {}
+        try { payload = parse_json(dict_value(req, "body", "")) } except err { return secure_json_response(200, {"jsonrpc": "2.0", "id": null, "error": {"code": -32700, "message": "Parse error"}}) }
+        protocol := protocol_guard(req, payload, strict_headers)
+        if !protocol["ok"] {
+            if type(payload) == "dict" && has_field(payload, "id") == false { return secure_json_response(202, {}) }
+            return secure_json_response(200, protocol["error"])
+        }
+        result := handle_jsonrpc(catalog, payload)
+        if type(payload) == "dict" && has_field(payload, "id") == false { return secure_json_response(202, {}) }
+        return secure_json_response(200, result)
+    }
+    server := http_listen(host, port)
+    server = server.route("GET", "/health", func(req) {
+        guard := guard_request(req, policy, auth_token, rate_state, false)
+        if !guard["ok"] { return secure_json_response(guard["status"], {"error": guard["message"]}) }
+        return secure_json_response(200, {"status": "ok", "server": SERVER_NAME, "version": SERVER_VERSION, "catalog": catalog["counts"]})
+    })
+    server = server.route("GET", "/mcp", func(req) {
+        guard := guard_request(req, policy, auth_token, rate_state, true)
+        if !guard["ok"] { return secure_json_response(guard["status"], {"error": guard["message"]}) }
+        return secure_json_response(405, {"error": "This stateless MCP endpoint accepts JSON-RPC messages with POST"})
+    })
+    server = server.route("POST", "/mcp", func(req) { return handle_http(req) })
+    server = server.route("POST", "/mcp/v1", func(req) { return handle_http(req) })
+    print("Kujolang.ai MCP listening on http://" + host + ":" + to_string(port) + "/mcp")
+    server.listen()
+}

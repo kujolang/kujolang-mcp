@@ -4,12 +4,14 @@
     "host": "127.0.0.1",
     "port": 8941,
     "max_request_body_bytes": 131072,
+    "rate_limit_enabled": true,
     "rate_limit_per_minute": 120
   },
   "security": {
     "allowed_hosts": ["127.0.0.1", "localhost"],
     "allowed_origins": [],
     "strict_2026_headers": false,
+    "trusted_ingress_limits": false,
     "auth_enabled": false,
     "auth_token_env": "KUJOLANG_MCP_TOKEN"
   }

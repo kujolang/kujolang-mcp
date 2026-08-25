@@ -4,12 +4,14 @@
     "host": "0.0.0.0",
     "port": 8941,
     "max_request_body_bytes": 131072,
+    "rate_limit_enabled": false,
     "rate_limit_per_minute": 120
   },
   "security": {
     "allowed_hosts": ["mcp.kujolang.ai"],
     "allowed_origins": ["https://kujolang.ai", "https://www.kujolang.ai"],
-    "strict_2026_headers": false,
+    "strict_2026_headers": true,
+    "trusted_ingress_limits": true,
     "auth_enabled": false,
     "auth_token_env": "KUJOLANG_MCP_TOKEN"
   }

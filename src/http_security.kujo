@@ -1,0 +1,89 @@
+from src.catalog import has_field
+
+export func dict_value(parent, key, fallback) {
+    if type(parent) == "dict" && has_field(parent, key) { return parent[key] }
+    return fallback
+}
+
+export func header_value(req, name) {
+    if has_field(req, "headers") == false || type(req["headers"]) != "dict" { return "" }
+    for key in keys(req["headers"]) {
+        if to_lower(to_string(key)) == to_lower(name) { return trim(to_string(req["headers"][key])) }
+    }
+    return ""
+}
+
+func includes_text(values, wanted) {
+    for value in values { if to_lower(trim(to_string(value))) == to_lower(trim(wanted)) { return true } }
+    return false
+}
+
+func normalized_host(value) {
+    host := to_lower(trim(to_string(value)))
+    if starts_with(host, "[") {
+        closing := index_of(host, "]")
+        if closing > 1 { return substring(host, 1, closing) }
+        return ""
+    }
+    parts := split(host, ":")
+    if len(parts) > 2 { return "" }
+    name := parts[0]
+    if ends_with(name, ".") { name = substring(name, 0, len(name) - 1) }
+    return name
+}
+
+func client_key(req, auth_enabled) {
+    if auth_enabled {
+        auth := header_value(req, "Authorization")
+        if auth != "" { return "auth:" + substring(sha256(auth), 0, 24) }
+    }
+    if has_field(req, "remote_addr") {
+        address := trim(to_string(req["remote_addr"]))
+        if address != "" && address != "unknown" { return "peer:" + address }
+    }
+    return "peer:unknown"
+}
+
+export func validate_string_array(values, field_name, allow_empty) {
+    if type(values) != "array" { return field_name + " must be an array" }
+    if allow_empty == false && len(values) == 0 { return field_name + " must be a non-empty array" }
+    for value in values {
+        if type(value) != "string" || trim(value) == "" { return field_name + " entries must be non-empty strings" }
+    }
+    return ""
+}
+
+export func guard_request(req, policy, auth_token, rate_state, apply_rate_limit) {
+    body := to_string(dict_value(req, "body", ""))
+    if len(body) > policy["max_body"] { return {"ok": false, "status": 413, "message": "Request body exceeds configured maximum"} }
+    host := normalized_host(header_value(req, "Host"))
+    if host == "" || includes_text(policy["allowed_hosts"], host) == false { return {"ok": false, "status": 403, "message": "Host header is missing or not allowed"} }
+    origin := header_value(req, "Origin")
+    if origin != "" && includes_text(policy["allowed_origins"], origin) == false { return {"ok": false, "status": 403, "message": "Origin header is not allowed"} }
+    if policy["auth_enabled"] && header_value(req, "Authorization") != "Bearer " + auth_token { return {"ok": false, "status": 401, "message": "Unauthorized request"} }
+    if apply_rate_limit && policy["rate_limit_enabled"] {
+        window := format_date(now(), "YYYY-MM-DD HH:mm")
+        if rate_state["window"] != window { rate_state["window"] := window; rate_state["buckets"] := {} }
+        key := client_key(req, policy["auth_enabled"])
+        buckets := rate_state["buckets"]
+        count := 0
+        if has_field(buckets, key) { count = buckets[key] }
+        if count >= policy["rate_limit"] { return {"ok": false, "status": 429, "message": "Rate limit exceeded"} }
+        buckets[key] := count + 1
+        rate_state["buckets"] := buckets
+    }
+    return {"ok": true, "status": 200, "message": ""}
+}
+
+export func secure_json_response(status, payload) {
+    response := json_response(status, payload)
+    if status == 401 { response = set_header(response, "WWW-Authenticate", "Bearer") }
+    if status == 429 { response = set_header(response, "Retry-After", "60") }
+    response = set_header(response, "Cache-Control", "no-store")
+    response = set_header(response, "Content-Security-Policy", "default-src 'none'; frame-ancestors 'none'")
+    response = set_header(response, "Cross-Origin-Resource-Policy", "same-origin")
+    response = set_header(response, "Referrer-Policy", "no-referrer")
+    response = set_header(response, "X-Content-Type-Options", "nosniff")
+    response = set_header(response, "X-Frame-Options", "DENY")
+    return response
+}

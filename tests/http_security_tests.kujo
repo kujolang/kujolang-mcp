@@ -1,0 +1,31 @@
+test_setup {
+    from src.http_security import guard_request, validate_string_array
+}
+
+test "request guard requires an allowed Host" {
+    policy := {"max_body": 1024, "allowed_hosts": ["localhost"], "allowed_origins": [], "auth_enabled": false, "rate_limit_enabled": false, "rate_limit": 10}
+    state := {"window": "", "buckets": {}}
+    missing := guard_request({"headers": {}, "body": ""}, policy, "", state, true)
+    assert_equal(missing["status"], 403)
+    allowed := guard_request({"headers": {"Host": "LOCALHOST:8941"}, "body": ""}, policy, "", state, true)
+    assert_equal(allowed["ok"], true)
+}
+
+test "request guard isolates local rate buckets and exempts health checks" {
+    policy := {"max_body": 1024, "allowed_hosts": ["localhost"], "allowed_origins": [], "auth_enabled": false, "rate_limit_enabled": true, "rate_limit": 1}
+    state := {"window": "", "buckets": {}}
+    first := guard_request({"headers": {"Host": "localhost"}, "remote_addr": "client-a", "body": ""}, policy, "", state, true)
+    blocked := guard_request({"headers": {"Host": "localhost"}, "remote_addr": "client-a", "body": ""}, policy, "", state, true)
+    isolated := guard_request({"headers": {"Host": "localhost"}, "remote_addr": "client-b", "body": ""}, policy, "", state, true)
+    health := guard_request({"headers": {"Host": "localhost"}, "remote_addr": "client-a", "body": ""}, policy, "", state, false)
+    assert_equal(first["ok"], true)
+    assert_equal(blocked["status"], 429)
+    assert_equal(isolated["ok"], true)
+    assert_equal(health["ok"], true)
+}
+
+test "configuration allowlists reject malformed entries" {
+    assert_true(validate_string_array([], "hosts", false) != "")
+    assert_true(validate_string_array([""], "hosts", false) != "")
+    assert_equal(validate_string_array(["localhost"], "hosts", false), "")
+}
