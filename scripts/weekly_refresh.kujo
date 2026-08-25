@@ -1,0 +1,141 @@
+from src.catalog import has_field, load_catalog
+from src.catalog_source import sync_catalog
+
+# Weekly maintainer workflow. Commands are fixed argv arrays; no shell text is evaluated.
+
+func option_value(argv, name, fallback) {
+    idx := 0
+    while idx < len(argv) {
+        if argv[idx] == name && idx + 1 < len(argv) { return to_string(argv[idx + 1]) }
+        idx := idx + 1
+    }
+    return fallback
+}
+
+func has_option(argv, name) {
+    for value in argv { if value == name { return true } }
+    return false
+}
+
+func run_checked(label, command, cwd, timeout_ms) {
+    result := spawn_process(command, {"cwd": cwd, "timeout_ms": timeout_ms, "max_output_bytes": 2097152})
+    if result.exitcode != 0 {
+        message := trim(result.stderr)
+        if message == "" { message = trim(result.stdout) }
+        assert(false, label + " failed (exit " + to_string(result.exitcode) + "): " + message)
+    }
+    return result
+}
+
+func git_output(repo, arguments) {
+    result := run_checked("git " + join(arguments, " "), concat(["git", "-C", repo], arguments), repo, 120000)
+    return trim(result.stdout)
+}
+
+func require_clean(repo, label) {
+    status := git_output(repo, ["status", "--porcelain", "--untracked-files=all"])
+    assert(status == "", label + " working tree must be clean before refresh: " + status)
+}
+
+func fast_forward(repo, branch, label) {
+    current := git_output(repo, ["branch", "--show-current"])
+    assert(current == branch, label + " must be on branch " + branch + ", found " + current)
+    run_checked(label + " fetch", ["git", "-C", repo, "fetch", "origin", branch], repo, 180000)
+    run_checked(label + " fast-forward", ["git", "-C", repo, "merge", "--ff-only", "origin/" + branch], repo, 120000)
+}
+
+func verify_live(health_url, revision) {
+    allowed := starts_with(health_url, "https://") || starts_with(health_url, "http://127.0.0.1:") || starts_with(health_url, "http://localhost:")
+    assert(allowed, "Live health URL must use HTTPS (loopback HTTP is allowed for local verification)")
+    # Kujo's HTTP client applies its bounded 30-second default timeout.
+    response := http_get(health_url)
+    assert(response["status"] == 200, "Live health check returned HTTP " + to_string(response["status"]))
+    health := parse_json(response["body"])
+    assert(type(health) == "dict", "Live health response must be a JSON object")
+    assert(has_field(health, "status") && health["status"] == "ok", "Live MCP health status is not ok")
+    assert(has_field(health, "catalog_revision"), "Live health response does not expose catalog_revision")
+    assert(health["catalog_revision"] == revision, "Live catalog revision does not match the repository snapshot")
+    return true
+}
+
+func print_help() {
+    print("kujolang-mcp weekly refresh")
+    print("")
+    print("Usage: kujo run scripts/weekly_refresh.kujo --interpreter -- [options]")
+    print("  --site PATH             Reviewed Kujolang.ai checkout (default: ../../kujolang.ai)")
+    print("  --branch NAME           Git branch to fast-forward/publish (default: main)")
+    print("  --update-source         Fast-forward the website checkout from origin")
+    print("  --publish               Fast-forward, commit a changed catalog, and push to GitHub")
+    print("  --live-health-url URL   Verify this live /health endpoint")
+    print("  --deploy-script PATH    Run an operator-owned Kujo deployment adapter before verification")
+    print("  --require-live          Fail unless live verification is configured and succeeds")
+}
+
+argv := args()
+if has_option(argv, "--help") { print_help(); exit(0) }
+
+repo_root := path_absolute(os_getcwd())
+site_root := path_absolute(option_value(argv, "--site", "../../kujolang.ai"))
+branch := option_value(argv, "--branch", "main")
+live_health_url := trim(option_value(argv, "--live-health-url", ""))
+deploy_script := trim(option_value(argv, "--deploy-script", ""))
+update_source := has_option(argv, "--update-source")
+publish := has_option(argv, "--publish")
+require_live := has_option(argv, "--require-live")
+
+assert(regex_match(branch, "^[A-Za-z0-9][A-Za-z0-9._/-]{0,127}$"), "Invalid branch name")
+assert(path_is_dir(path_join(repo_root, ".git")), "Run the weekly refresh from the kujolang-mcp repository root")
+assert(path_is_dir(site_root), "Kujolang.ai checkout not found: " + site_root)
+require_clean(repo_root, "kujolang-mcp")
+
+if update_source {
+    require_clean(site_root, "Kujolang.ai")
+    fast_forward(site_root, branch, "Kujolang.ai")
+    require_clean(site_root, "Kujolang.ai")
+}
+if publish { fast_forward(repo_root, branch, "kujolang-mcp") }
+
+catalog_path := path_join(repo_root, "data/catalog.json")
+refresh := sync_catalog(site_root, catalog_path, false)
+catalog := refresh["catalog"]
+revision := catalog["source"]["snapshot_sha256"]
+
+run_checked("Kujo test suite", ["kujo", "test"], repo_root, 300000)
+run_checked("MCP self-check", ["kujo", "run", "server.kujo", "--interpreter", "--self-check"], repo_root, 120000)
+sync_catalog(site_root, catalog_path, true)
+load_catalog(catalog_path)
+
+status := git_output(repo_root, ["status", "--porcelain", "--untracked-files=all"])
+if refresh["changed"] { assert(status == " M data/catalog.json", "Refresh changed unexpected files: " + status) }
+else { assert(status == "", "Refresh left unexpected changes: " + status) }
+
+published := false
+if publish && refresh["changed"] {
+    run_checked("stage catalog", ["git", "-C", repo_root, "add", "--", "data/catalog.json"], repo_root, 30000)
+    day := trim(run_checked("read UTC date", ["date", "-u", "+%Y-%m-%d"], repo_root, 5000).stdout)
+    run_checked("commit catalog", ["git", "-C", repo_root, "commit", "-m", "chore(catalog): weekly refresh " + day], repo_root, 120000)
+    run_checked("push catalog", ["git", "-C", repo_root, "push", "origin", branch], repo_root, 180000)
+    published = true
+}
+
+deployed := false
+if deploy_script != "" {
+    assert(live_health_url != "", "--deploy-script requires --live-health-url")
+    deploy_script = path_absolute(deploy_script)
+    assert(path_is_file(deploy_script), "Deployment adapter not found: " + deploy_script)
+    assert(ends_with(deploy_script, ".kujo"), "Deployment adapter must be a Kujo script")
+    run_checked("live deployment", ["kujo", "run", deploy_script, "--interpreter", "--", "--repository", repo_root, "--branch", branch, "--catalog-revision", revision, "--health-url", live_health_url], repo_root, 600000)
+    deployed = true
+}
+
+live_verified := false
+if live_health_url != "" { live_verified = verify_live(live_health_url, revision) }
+if require_live { assert(live_verified, "--require-live needs --live-health-url and a matching live deployment") }
+require_clean(repo_root, "kujolang-mcp")
+
+commit := git_output(repo_root, ["rev-parse", "HEAD"])
+print(to_json({
+    "ok": true, "changed": refresh["changed"], "published": published, "deployed": deployed,
+    "live_verified": live_verified, "commit": commit, "branch": branch,
+    "source_version": catalog["source"]["version"], "catalog_revision": revision, "counts": catalog["counts"]
+}))
