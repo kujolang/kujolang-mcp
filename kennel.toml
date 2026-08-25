@@ -1,0 +1,47 @@
+[package]
+name = "kujolang-mcp"
+version = "0.1.0"
+description = "Read-only Kujolang.ai ecosystem discovery MCP server."
+license = "MIT"
+authors = ["Kujolang <contact@kujolang.ai>"]
+homepage = "https://kujolang.ai"
+repository = "https://github.com/kujolang/kujolang-mcp"
+documentation = "https://github.com/kujolang/kujolang-mcp#readme"
+keywords = ["kujo", "mcp", "agents", "ecosystem", "discovery"]
+categories = ["ai", "developer-tools"]
+readme = "README.md"
+
+[package.status]
+stage = "preview"
+stability = "experimental"
+public_api = true
+notes = "Read-only public catalog server; hosted production operations require environment-specific review."
+
+[kujo]
+minimum_version = "0.1.0"
+entry = "server.kujo"
+sources = ["."]
+includes = ["README.md", "data", "mcp.manifest.json", "mcp-server.production.example.json"]
+excludes = [".git", "kennel_packages", "dist", "build"]
+
+[dependencies]
+
+[dev-dependencies]
+
+[scripts]
+server = "kujo run server.kujo --interpreter"
+self-check = "kujo run server.kujo --interpreter --self-check"
+test = "kujo test"
+
+[package.metadata]
+server_config = "mcp-server.json"
+manifest = "mcp.manifest.json"
+
+[registry]
+index = ""
+publish = ""
+
+[trust]
+checksum = ""
+signature = ""
+signing_key = ""
