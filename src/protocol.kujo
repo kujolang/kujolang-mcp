@@ -1,0 +1,103 @@
+from src.catalog import has_field
+from src.registry import list_tools, call_tool, list_resources, read_resource, list_prompts, get_prompt
+
+export PROTOCOL_LATEST := "2026-07-28"
+export PROTOCOL_LEGACY := "2025-06-18"
+export SERVER_NAME := "kujolang-mcp"
+export SERVER_VERSION := "0.1.0"
+
+func response_id(payload) {
+    if has_field(payload, "id") { return payload["id"] }
+    return null
+}
+
+func success(payload, result) {
+    return {"jsonrpc": "2.0", "id": response_id(payload), "result": result}
+}
+
+func failure(payload, code, message, data) {
+    error := {"code": code, "message": message}
+    if data != null { error["data"] := data }
+    return {"jsonrpc": "2.0", "id": response_id(payload), "error": error}
+}
+
+func params_or_empty(payload) {
+    if has_field(payload, "params") && type(payload["params"]) == "dict" { return payload["params"] }
+    return {}
+}
+
+func server_capabilities() {
+    return {
+        "tools": {"listChanged": false},
+        "resources": {"subscribe": false, "listChanged": false},
+        "prompts": {"listChanged": false}
+    }
+}
+
+func discovery_result() {
+    return {
+        "protocolVersion": PROTOCOL_LATEST,
+        "supportedProtocolVersions": [PROTOCOL_LATEST, PROTOCOL_LEGACY],
+        "capabilities": server_capabilities(),
+        "serverInfo": {"name": SERVER_NAME, "title": "Kujolang.ai MCP", "version": SERVER_VERSION},
+        "instructions": "Read-only public Kujo ecosystem discovery. Search or list the catalog, inspect exact items, then retrieve installer guidance. The server never installs or executes software."
+    }
+}
+
+export func handle_jsonrpc(catalog, payload) {
+    if type(payload) != "dict" { return failure({}, -32600, "Request must be a JSON object", null) }
+    if has_field(payload, "jsonrpc") == false || payload["jsonrpc"] != "2.0" { return failure(payload, -32600, "jsonrpc must equal 2.0", null) }
+    if has_field(payload, "method") == false || type(payload["method"]) != "string" || trim(payload["method"]) == "" { return failure(payload, -32600, "method must be a non-empty string", null) }
+    method := trim(payload["method"])
+    params := params_or_empty(payload)
+
+    if method == "notifications/initialized" { return {"notification": true} }
+    if method == "ping" { return success(payload, {}) }
+    if method == "server/discover" { return success(payload, discovery_result()) }
+    if method == "initialize" {
+        requested := PROTOCOL_LEGACY
+        if has_field(params, "protocolVersion") && type(params["protocolVersion"]) == "string" { requested = params["protocolVersion"] }
+        negotiated := PROTOCOL_LEGACY
+        if requested == PROTOCOL_LATEST { negotiated = PROTOCOL_LATEST }
+        if requested != PROTOCOL_LATEST && requested != PROTOCOL_LEGACY && requested != "2025-11-25" && requested != "2025-03-26" {
+            return failure(payload, -32022, "Unsupported MCP protocol version", {"requested": requested, "supported": [PROTOCOL_LATEST, PROTOCOL_LEGACY]})
+        }
+        result := discovery_result()
+        result["protocolVersion"] := negotiated
+        return success(payload, result)
+    }
+    if method == "tools/list" {
+        return success(payload, {"resultType": "complete", "tools": list_tools(), "ttlMs": 300000, "cacheScope": "public"})
+    }
+    if method == "tools/call" {
+        if has_field(params, "name") == false || type(params["name"]) != "string" || trim(params["name"]) == "" { return failure(payload, -32602, "params.name must be a non-empty string", null) }
+        arguments := {}
+        if has_field(params, "arguments") {
+            if type(params["arguments"]) != "dict" { return failure(payload, -32602, "params.arguments must be an object", null) }
+            arguments = params["arguments"]
+        }
+        called := call_tool(catalog, trim(params["name"]), arguments)
+        if called["ok"] == false { return failure(payload, -32601, called["error"], null) }
+        return success(payload, called["result"])
+    }
+    if method == "resources/list" { return success(payload, {"resources": list_resources()}) }
+    if method == "resources/read" {
+        if has_field(params, "uri") == false || type(params["uri"]) != "string" || trim(params["uri"]) == "" { return failure(payload, -32602, "params.uri must be a non-empty string", null) }
+        resource := read_resource(catalog, trim(params["uri"]))
+        if resource["ok"] == false { return failure(payload, -32002, resource["error"], null) }
+        return success(payload, {"contents": resource["contents"]})
+    }
+    if method == "prompts/list" { return success(payload, {"prompts": list_prompts()}) }
+    if method == "prompts/get" {
+        if has_field(params, "name") == false || type(params["name"]) != "string" || trim(params["name"]) == "" { return failure(payload, -32602, "params.name must be a non-empty string", null) }
+        arguments := {}
+        if has_field(params, "arguments") {
+            if type(params["arguments"]) != "dict" { return failure(payload, -32602, "params.arguments must be an object", null) }
+            arguments = params["arguments"]
+        }
+        prompt := get_prompt(trim(params["name"]), arguments)
+        if prompt["ok"] == false { return failure(payload, -32602, prompt["error"], null) }
+        return success(payload, {"description": prompt["description"], "messages": prompt["messages"]})
+    }
+    return failure(payload, -32601, "Method not found: " + method, null)
+}

@@ -1,0 +1,169 @@
+# Synchronize the public Kujolang.ai catalog into a deterministic MCP data file.
+# This script intentionally uses only Kujo built-ins.
+
+func has_field(value, name) {
+    probe := has_key(value, name)
+    if type(probe) == "bool" { return probe }
+    if type(probe) == "int" { return probe == 1 }
+    return false
+}
+
+func option_value(argv, name, fallback) {
+    idx := 0
+    while idx < len(argv) {
+        if argv[idx] == name && idx + 1 < len(argv) { return to_string(argv[idx + 1]) }
+        idx := idx + 1
+    }
+    return fallback
+}
+
+func has_option(argv, name) {
+    for value in argv { if value == name { return true } }
+    return false
+}
+
+func ensure_directory(directory) {
+    if trim(directory) != "" && directory != "." { create_dir(directory) }
+}
+
+func parse_frontmatter(path) {
+    content := read_file(path)
+    content_lines := split(content, "\n")
+    if len(content_lines) == 0 || trim(content_lines[0]) != "---" {
+        return {"ok": false, "error": "missing frontmatter", "meta": {}}
+    }
+    frontmatter := []
+    idx := 1
+    found := false
+    while idx < len(content_lines) {
+        if trim(content_lines[idx]) == "---" { found = true; break }
+        frontmatter := push(frontmatter, content_lines[idx])
+        idx := idx + 1
+    }
+    if found == false { return {"ok": false, "error": "unclosed frontmatter", "meta": {}} }
+    parsed := parse_yaml(join(frontmatter, "\n"))
+    if type(parsed) != "dict" { return {"ok": false, "error": "frontmatter is not an object", "meta": {}} }
+    return {"ok": true, "error": "", "meta": parsed}
+}
+
+func text_field(meta, name) {
+    if has_field(meta, name) == false { return "" }
+    return trim(to_string(meta[name]))
+}
+
+func array_field(meta, name) {
+    if has_field(meta, name) == false { return [] }
+    value := meta[name]
+    if type(value) == "array" {
+        output := []
+        for item in value { output = push(output, trim(to_string(item))) }
+        return output
+    }
+    text := trim(to_string(value))
+    if text == "" { return [] }
+    return [text]
+}
+
+func route_for(kind, slug) {
+    if kind == "skill" { return "https://kujolang.ai/ecosystem/skills/" + slug + "/" }
+    if kind == "workflow" { return "https://kujolang.ai/ecosystem/workflows/" + slug + "/" }
+    return "https://kujolang.ai/ecosystem/" + slug + "/"
+}
+
+func collect_collection(site_root, folder, kind) {
+    root := path_join(path_join(site_root, "content"), folder)
+    assert(path_is_dir(root), "Missing site collection: " + root)
+    items := []
+    for name in sort(list_dir(root)) {
+        if ends_with(name, ".md") == false { continue }
+        path := path_join(root, name)
+        parsed := parse_frontmatter(path)
+        assert(parsed["ok"], "Invalid content file " + path + ": " + parsed["error"])
+        meta := parsed["meta"]
+        slug := text_field(meta, "custom_url")
+        assert(slug != "", "custom_url is required in " + path)
+        title := text_field(meta, "title")
+        description := text_field(meta, "description")
+        assert(title != "", "title is required in " + path)
+        assert(description != "", "description is required in " + path)
+        items = push(items, {
+            "kind": kind,
+            "slug": slug,
+            "title": title,
+            "description": description,
+            "category": text_field(meta, "section"),
+            "tags": array_field(meta, "tags"),
+            "install_command": text_field(meta, "install_command"),
+            "github_url": text_field(meta, "github_url"),
+            "website_url": route_for(kind, slug),
+            "launch_story": text_field(meta, "launch_story"),
+            "scope_note": text_field(meta, "scope_note"),
+            "version": text_field(meta, "version"),
+            "last_updated": text_field(meta, "last_updated"),
+            "keywords": text_field(meta, "keywords"),
+            "source_path": "content/" + folder + "/" + name
+        })
+    }
+    return items
+}
+
+argv := args()
+site_root := path_absolute(option_value(argv, "--site", "../../kujolang.ai"))
+output_path := option_value(argv, "--out", "data/catalog.json")
+if starts_with(output_path, "/") == false { output_path = path_join(os_getcwd(), output_path) }
+check_only := has_option(argv, "--check")
+
+package_path := path_join(site_root, "package.json")
+assert(file_exists(package_path), "Kujolang.ai package.json not found: " + package_path)
+package_data := parse_json(read_file(package_path))
+
+project_items := collect_collection(site_root, "ecosystem", "project")
+skill_items := collect_collection(site_root, "skills", "skill")
+workflow_items := collect_collection(site_root, "workflows", "workflow")
+all_items := []
+for item in project_items { all_items = push(all_items, item) }
+for item in skill_items { all_items = push(all_items, item) }
+for item in workflow_items { all_items = push(all_items, item) }
+
+catalog := {
+    "schema_version": "kujolang-mcp/catalog-v1",
+    "source": {
+        "name": "Kujolang.ai",
+        "url": "https://kujolang.ai",
+        "repository": "https://github.com/kujolang/kujolang.ai",
+        "version": to_string(package_data["version"])
+    },
+    "installation": {
+        "default_command": "curl -fsSL https://kujolang.ai/install.sh | bash",
+        "source_command": "curl -fsSL https://kujolang.ai/install.sh | bash -s -- --source",
+        "all_command": "curl -fsSL https://kujolang.ai/install.sh | bash -s -- --all",
+        "profile_commands": {
+            "core": "curl -fsSL https://kujolang.ai/install.sh | bash -s -- --core",
+            "ai": "curl -fsSL https://kujolang.ai/install.sh | bash -s -- --group ai",
+            "quality": "curl -fsSL https://kujolang.ai/install.sh | bash -s -- --group quality",
+            "showcases": "curl -fsSL https://kujolang.ai/install.sh | bash -s -- --group showcases",
+            "operating": "curl -fsSL https://kujolang.ai/install.sh | bash -s -- --group operating"
+        },
+        "profiles": {
+            "core": ["kujo", "kennel", "spec", "eval", "scout", "scent", "packwrite", "runledger", "casefile", "patchbrief", "changebucket", "muzzle", "kujo-skills", "kujo-agents", "kujo-workflows"],
+            "ai": ["ai-sdk", "agents-sdk", "dispatch", "watchdog", "mcp", "rag", "relay"],
+            "quality": ["concord", "shipcheck", "fence", "redact", "lens", "tribunal", "workcell", "howl"],
+            "showcases": ["ssg", "cms", "crud-api", "ai-chat", "intake", "site-kit"],
+            "operating": ["kujo-skills", "kujo-agents", "kujo-workflows"]
+        }
+    },
+    "counts": {"projects": len(project_items), "skills": len(skill_items), "workflows": len(workflow_items), "total": len(all_items)},
+    "items": all_items
+}
+
+serialized := to_json_pretty(catalog) + "\n"
+if check_only {
+    assert(file_exists(output_path), "Catalog output does not exist: " + output_path)
+    assert(read_file(output_path) == serialized, "Catalog is stale. Run scripts/sync_catalog.kujo without --check")
+    print("Catalog is current: " + to_string(len(all_items)) + " entries")
+    exit(0)
+}
+
+ensure_directory(dirname(output_path))
+write_file(output_path, serialized, true)
+print("Wrote " + output_path + " with " + to_string(len(all_items)) + " entries")

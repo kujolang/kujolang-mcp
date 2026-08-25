@@ -1,0 +1,25 @@
+{
+  "schema_version": "kujolang-mcp/manifest-v1",
+  "server": {
+    "name": "kujolang-mcp",
+    "title": "Kujolang.ai MCP",
+    "version": "0.1.0",
+    "source_framework": "https://github.com/kujolang/mcp",
+    "source_catalog": "https://github.com/kujolang/kujolang.ai"
+  },
+  "protocol_versions": ["2026-07-28", "2025-06-18"],
+  "transport": {"type": "stateless_streamable_http", "endpoint": "/mcp", "compatibility_endpoint": "/mcp/v1"},
+  "safety_tiers": ["read_only"],
+  "tools": [
+    {"name": "get_kujo_overview", "safety_tier": "read_only"},
+    {"name": "list_ecosystem", "safety_tier": "read_only"},
+    {"name": "search_kujo_catalog", "safety_tier": "read_only"},
+    {"name": "get_catalog_item", "safety_tier": "read_only"},
+    {"name": "recommend_kujo_stack", "safety_tier": "read_only"},
+    {"name": "get_installation", "safety_tier": "read_only"},
+    {"name": "list_webops_capabilities", "safety_tier": "read_only"}
+  ],
+  "resources": ["kujolang://overview", "kujolang://catalog/projects", "kujolang://catalog/skills", "kujolang://catalog/workflows", "kujolang://installation", "kujolang://security"],
+  "prompts": ["choose_kujo_stack", "plan_kujo_adoption", "discover_webops"],
+  "blocked_capabilities": ["filesystem_input", "arbitrary_url_fetch", "shell_input", "write", "install", "deploy", "secret_read"]
+}

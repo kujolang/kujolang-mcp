@@ -1,0 +1,122 @@
+export func has_field(value, name) {
+    probe := has_key(value, name)
+    if type(probe) == "bool" { return probe }
+    if type(probe) == "int" { return probe == 1 }
+    return false
+}
+
+export func load_catalog(path) {
+    assert(file_exists(path), "Catalog file not found: " + path)
+    parsed := parse_json(read_file(path))
+    assert(type(parsed) == "dict", "Catalog must be a JSON object")
+    assert(has_field(parsed, "schema_version"), "Catalog schema_version is required")
+    assert(parsed["schema_version"] == "kujolang-mcp/catalog-v1", "Unsupported catalog schema")
+    assert(has_field(parsed, "items") && type(parsed["items"]) == "array", "Catalog items must be an array")
+    return parsed
+}
+
+func normalized(value) {
+    text := to_lower(trim(to_string(value)))
+    for character in ["-", "_", "/", ".", ",", ":", ";", "(", ")", "[", "]", "`"] {
+        text = replace(text, character, " ")
+    }
+    return regex_replace(text, "\\s+", " ")
+}
+
+func item_search_text(item) {
+    tags := ""
+    if has_field(item, "tags") && type(item["tags"]) == "array" { tags = join(item["tags"], " ") }
+    return normalized(item["slug"] + " " + item["title"] + " " + item["description"] + " " + item["category"] + " " + tags + " " + item["keywords"] + " " + item["launch_story"])
+}
+
+func is_stop_term(term) {
+    for stop in ["a", "an", "and", "for", "from", "in", "of", "on", "or", "the", "to", "with"] {
+        if term == stop { return true }
+    }
+    return false
+}
+
+func matches_filter(item, kind, category) {
+    if kind != "" && to_lower(item["kind"]) != to_lower(kind) { return false }
+    if category != "" && index_of(to_lower(item["category"]), to_lower(category)) < 0 { return false }
+    return true
+}
+
+func public_item(item) {
+    return {
+        "kind": item["kind"], "slug": item["slug"], "title": item["title"],
+        "description": item["description"], "category": item["category"], "tags": item["tags"],
+        "install_command": item["install_command"], "github_url": item["github_url"],
+        "website_url": item["website_url"], "scope_note": item["scope_note"],
+        "version": item["version"], "last_updated": item["last_updated"]
+    }
+}
+
+export func list_catalog_items(catalog, kind, category, limit) {
+    output := []
+    for item in catalog["items"] {
+        if matches_filter(item, kind, category) {
+            output = push(output, public_item(item))
+            if len(output) >= limit { break }
+        }
+    }
+    return output
+}
+
+export func find_catalog_item(catalog, slug) {
+    wanted := normalized(slug)
+    for item in catalog["items"] {
+        if normalized(item["slug"]) == wanted || normalized(item["title"]) == wanted { return public_item(item) }
+    }
+    return null
+}
+
+export func search_catalog(catalog, query, kind, category, limit) {
+    terms := split(normalized(query), " ")
+    scored := []
+    for item in catalog["items"] {
+        if matches_filter(item, kind, category) == false { continue }
+        haystack := item_search_text(item)
+        score := 0
+        matched_terms := []
+        for term in terms {
+            if len(term) < 2 || is_stop_term(term) { continue }
+            if index_of(haystack, term) >= 0 {
+                score = score + 1
+                matched_terms = push(matched_terms, term)
+                if index_of(normalized(item["title"] + " " + item["slug"]), term) >= 0 { score = score + 2 }
+            }
+        }
+        if score > 0 {
+            scored = push(scored, {"score": score, "matched_terms": matched_terms, "item": public_item(item)})
+        }
+    }
+    # Catalogs are small; deterministic selection avoids external sort helpers.
+    output := []
+    while len(output) < limit && len(scored) > 0 {
+        best_index := 0
+        idx := 1
+        while idx < len(scored) {
+            if scored[idx]["score"] > scored[best_index]["score"] { best_index = idx }
+            idx = idx + 1
+        }
+        output = push(output, scored[best_index])
+        remaining := []
+        idx = 0
+        while idx < len(scored) {
+            if idx != best_index { remaining = push(remaining, scored[idx]) }
+            idx = idx + 1
+        }
+        scored = remaining
+    }
+    return output
+}
+
+export func catalog_summary(catalog) {
+    return {
+        "name": catalog["source"]["name"], "url": catalog["source"]["url"],
+        "source_version": catalog["source"]["version"], "counts": catalog["counts"],
+        "categories": ["Primitives", "Tooling", "Showcase", "Agent Skill", "Workflow"],
+        "default_install_command": catalog["installation"]["default_command"]
+    }
+}
