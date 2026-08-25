@@ -1,0 +1,40 @@
+test_setup {
+    from src.catalog import load_catalog, catalog_summary, list_catalog_items, find_catalog_item, search_catalog
+}
+
+test "catalog exposes released projects skills and workflows" {
+    catalog := load_catalog("data/catalog.json")
+    summary := catalog_summary(catalog)
+    assert_true(summary["counts"]["projects"] > 0)
+    assert_true(summary["counts"]["skills"] > 0)
+    assert_true(summary["counts"]["workflows"] > 0)
+    assert_equal(summary["counts"]["total"], len(catalog["items"]))
+}
+
+test "catalog filtering and exact lookup preserve public guidance" {
+    catalog := load_catalog("data/catalog.json")
+    primitives := list_catalog_items(catalog, "project", "Primitives", 200)
+    assert_true(len(primitives) >= 10)
+    mcp := find_catalog_item(catalog, "mcp")
+    assert_equal(mcp["title"], "MCP")
+    assert_true(starts_with(mcp["github_url"], "https://github.com/kujolang/"))
+    assert_true(len(mcp["scope_note"]) > 0)
+}
+
+test "catalog search returns deterministic relevant records" {
+    catalog := load_catalog("data/catalog.json")
+    results := search_catalog(catalog, "MCP agent gateway", "", "", 8)
+    assert_true(len(results) > 0)
+    assert_true(results[0]["score"] > 0)
+    assert_true(len(results[0]["matched_terms"]) > 0)
+}
+
+test "webops catalog is available through released skill records" {
+    catalog := load_catalog("data/catalog.json")
+    results := search_catalog(catalog, "webops technical seo", "skill", "", 100)
+    found := false
+    for result in results {
+        if result["item"]["slug"] == "webops-technical-seo" { found = true }
+    }
+    assert_true(found)
+}

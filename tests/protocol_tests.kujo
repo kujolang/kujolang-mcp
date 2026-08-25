@@ -1,0 +1,54 @@
+test_setup {
+    from src.catalog import load_catalog
+    from src.protocol import handle_jsonrpc
+}
+
+test "server discovery advertises tools resources and prompts" {
+    catalog := load_catalog("data/catalog.json")
+    response := handle_jsonrpc(catalog, {"jsonrpc": "2.0", "id": "discover", "method": "server/discover", "params": {}})
+    assert_equal(response["id"], "discover")
+    assert_equal(response["result"]["protocolVersion"], "2026-07-28")
+    assert_equal(has_key(response["result"]["capabilities"], "tools"), 1)
+    assert_equal(has_key(response["result"]["capabilities"], "resources"), 1)
+    assert_equal(has_key(response["result"]["capabilities"], "prompts"), 1)
+}
+
+test "tools list uses MCP schema names and read-only annotations" {
+    catalog := load_catalog("data/catalog.json")
+    response := handle_jsonrpc(catalog, {"jsonrpc": "2.0", "id": 1, "method": "tools/list", "params": {}})
+    assert_equal(len(response["result"]["tools"]), 7)
+    first := response["result"]["tools"][0]
+    assert_equal(has_key(first, "inputSchema"), 1)
+    assert_equal(first["annotations"]["readOnlyHint"], true)
+    assert_equal(response["result"]["cacheScope"], "public")
+}
+
+test "tool calls return text and structured content" {
+    catalog := load_catalog("data/catalog.json")
+    response := handle_jsonrpc(catalog, {"jsonrpc": "2.0", "id": 2, "method": "tools/call", "params": {"name": "get_catalog_item", "arguments": {"slug": "kujo"}}})
+    assert_equal(response["result"]["isError"], false)
+    assert_equal(response["result"]["structuredContent"]["slug"], "kujo")
+    assert_equal(response["result"]["content"][0]["type"], "text")
+}
+
+test "malformed calls and unknown methods return JSON-RPC errors" {
+    catalog := load_catalog("data/catalog.json")
+    malformed := handle_jsonrpc(catalog, {"jsonrpc": "2.0", "id": 3, "method": "tools/call", "params": {"name": "search_kujo_catalog", "arguments": {}}})
+    assert_equal(malformed["result"]["isError"], true)
+    unknown := handle_jsonrpc(catalog, {"jsonrpc": "2.0", "id": 4, "method": "not/real", "params": {}})
+    assert_equal(unknown["error"]["code"], -32601)
+}
+
+test "resources and prompts expose agent-ready content" {
+    catalog := load_catalog("data/catalog.json")
+    resource := handle_jsonrpc(catalog, {"jsonrpc": "2.0", "id": 5, "method": "resources/read", "params": {"uri": "kujolang://installation"}})
+    assert_true(index_of(resource["result"]["contents"][0]["text"], "install.sh") >= 0)
+    prompt := handle_jsonrpc(catalog, {"jsonrpc": "2.0", "id": 6, "method": "prompts/get", "params": {"name": "choose_kujo_stack", "arguments": {"task": "review a website"}}})
+    assert_equal(prompt["result"]["messages"][0]["role"], "user")
+}
+
+test "legacy initialize remains available for handshake clients" {
+    catalog := load_catalog("data/catalog.json")
+    response := handle_jsonrpc(catalog, {"jsonrpc": "2.0", "id": 7, "method": "initialize", "params": {"protocolVersion": "2025-06-18", "capabilities": {}, "clientInfo": {"name": "test", "version": "1"}}})
+    assert_equal(response["result"]["protocolVersion"], "2025-06-18")
+}
