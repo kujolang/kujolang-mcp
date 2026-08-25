@@ -9,6 +9,17 @@ test "catalog exposes released projects skills and workflows" {
     assert_true(summary["counts"]["skills"] > 0)
     assert_true(summary["counts"]["workflows"] > 0)
     assert_equal(summary["counts"]["total"], len(catalog["items"]))
+    assert_equal(summary["catalog_revision"], catalog["source"]["snapshot_sha256"])
+    assert_equal(len(summary["catalog_revision"]), 64)
+}
+
+test "catalog installer profiles come from the website installer source" {
+    from src.catalog_source import parse_installer_profiles
+    source := "profile_catalog() {\n  cat <<'EOF'\ncore kujo kennel\nai mcp rag\nquality fence lens\nshowcases ssg cms\noperating kujo-skills kujo-workflows\nEOF\n}"
+    profiles := parse_installer_profiles(source)
+    assert_equal(profiles["core"], ["kujo", "kennel"])
+    assert_equal(profiles["ai"], ["mcp", "rag"])
+    assert_equal(profiles["operating"], ["kujo-skills", "kujo-workflows"])
 }
 
 test "catalog filtering and exact lookup preserve public guidance" {

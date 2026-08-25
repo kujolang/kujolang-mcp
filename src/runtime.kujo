@@ -68,7 +68,7 @@ export func run_server(argv) {
     if len(argv) > 0 && argv[0] == "--self-check" {
         tool_check := handle_jsonrpc(catalog, {"jsonrpc": "2.0", "id": 1, "method": "tools/list", "params": {}})
         resource_check := handle_jsonrpc(catalog, {"jsonrpc": "2.0", "id": 2, "method": "resources/list", "params": {}})
-        print(to_json({"ok": true, "server": SERVER_NAME, "version": SERVER_VERSION, "catalog_entries": catalog["counts"]["total"], "tools": len(tool_check["result"]["tools"]), "resources": len(resource_check["result"]["resources"])}))
+        print(to_json({"ok": true, "server": SERVER_NAME, "version": SERVER_VERSION, "catalog_entries": catalog["counts"]["total"], "catalog_source_version": catalog["source"]["version"], "catalog_revision": catalog["source"]["snapshot_sha256"], "tools": len(tool_check["result"]["tools"]), "resources": len(resource_check["result"]["resources"])}))
         return
     }
     if len(argv) > 1 && argv[0] == "--request" { print(to_json_pretty(handle_jsonrpc(catalog, parse_json(argv[1])))); return }
@@ -92,7 +92,7 @@ export func run_server(argv) {
     server = server.route("GET", "/health", func(req) {
         guard := guard_request(req, policy, auth_token, rate_state, false)
         if !guard["ok"] { return secure_json_response(guard["status"], {"error": guard["message"]}) }
-        return secure_json_response(200, {"status": "ok", "server": SERVER_NAME, "version": SERVER_VERSION, "catalog": catalog["counts"]})
+        return secure_json_response(200, {"status": "ok", "server": SERVER_NAME, "version": SERVER_VERSION, "catalog": catalog["counts"], "catalog_source_version": catalog["source"]["version"], "catalog_revision": catalog["source"]["snapshot_sha256"]})
     })
     server = server.route("GET", "/mcp", func(req) {
         guard := guard_request(req, policy, auth_token, rate_state, true)

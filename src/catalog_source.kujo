@@ -1,0 +1,170 @@
+from src.catalog import has_field
+
+# Deterministically build the public MCP catalog from a reviewed Kujolang.ai checkout.
+
+func parse_frontmatter(path) {
+    content_lines := split(read_file(path), "\n")
+    if len(content_lines) == 0 || trim(content_lines[0]) != "---" { return {"ok": false, "error": "missing frontmatter", "meta": {}} }
+    frontmatter := []
+    idx := 1
+    found := false
+    while idx < len(content_lines) {
+        if trim(content_lines[idx]) == "---" { found = true; break }
+        frontmatter = push(frontmatter, content_lines[idx])
+        idx := idx + 1
+    }
+    if found == false { return {"ok": false, "error": "unclosed frontmatter", "meta": {}} }
+    parsed := parse_yaml(join(frontmatter, "\n"))
+    if type(parsed) != "dict" { return {"ok": false, "error": "frontmatter is not an object", "meta": {}} }
+    return {"ok": true, "error": "", "meta": parsed}
+}
+
+func text_field(meta, name) {
+    if has_field(meta, name) == false { return "" }
+    return trim(to_string(meta[name]))
+}
+
+func array_field(meta, name) {
+    if has_field(meta, name) == false { return [] }
+    value := meta[name]
+    if type(value) == "array" {
+        output := []
+        for item in value { output = push(output, trim(to_string(item))) }
+        return output
+    }
+    text := trim(to_string(value))
+    if text == "" { return [] }
+    return [text]
+}
+
+func route_for(kind, slug) {
+    if kind == "skill" { return "https://kujolang.ai/ecosystem/skills/" + slug + "/" }
+    if kind == "workflow" { return "https://kujolang.ai/ecosystem/workflows/" + slug + "/" }
+    return "https://kujolang.ai/ecosystem/" + slug + "/"
+}
+
+func collect_collection(site_root, folder, kind) {
+    root := path_join(path_join(site_root, "content"), folder)
+    assert(path_is_dir(root), "Missing site collection: " + root)
+    items := []
+    for name in sort(list_dir(root)) {
+        if ends_with(name, ".md") == false { continue }
+        path := path_join(root, name)
+        parsed := parse_frontmatter(path)
+        assert(parsed["ok"], "Invalid content file " + path + ": " + parsed["error"])
+        meta := parsed["meta"]
+        slug := text_field(meta, "custom_url")
+        title := text_field(meta, "title")
+        description := text_field(meta, "description")
+        assert(slug != "", "custom_url is required in " + path)
+        assert(title != "", "title is required in " + path)
+        assert(description != "", "description is required in " + path)
+        items = push(items, {
+            "kind": kind, "slug": slug, "title": title, "description": description,
+            "category": text_field(meta, "section"), "tags": array_field(meta, "tags"),
+            "install_command": text_field(meta, "install_command"), "github_url": text_field(meta, "github_url"),
+            "website_url": route_for(kind, slug), "launch_story": text_field(meta, "launch_story"),
+            "scope_note": text_field(meta, "scope_note"), "version": text_field(meta, "version"),
+            "last_updated": text_field(meta, "last_updated"), "keywords": text_field(meta, "keywords"),
+            "source_path": "content/" + folder + "/" + name
+        })
+    }
+    return items
+}
+
+export func parse_installer_profiles(installer_text) {
+    profiles := {}
+    in_function := false
+    in_catalog := false
+    for raw_line in split(installer_text, "\n") {
+        line := trim(raw_line)
+        if in_function == false && line == "profile_catalog() {" { in_function = true; continue }
+        if in_function && in_catalog == false && contains(line, "cat <<'EOF'") > 0 { in_catalog = true; continue }
+        if in_catalog {
+            if line == "EOF" { break }
+            parts := split(regex_replace(line, "\\s+", " "), " ")
+            assert(len(parts) > 1, "Malformed installer profile row: " + line)
+            members := []
+            idx := 1
+            while idx < len(parts) { members = push(members, parts[idx]); idx = idx + 1 }
+            profiles[parts[0]] := members
+        }
+    }
+    for required in ["core", "ai", "quality", "showcases", "operating"] {
+        assert(has_field(profiles, required), "Installer profile is missing: " + required)
+        assert(len(profiles[required]) > 0, "Installer profile is empty: " + required)
+    }
+    return profiles
+}
+
+export func installer_profiles(site_root) {
+    installer_path := path_join(path_join(site_root, "public"), "install.sh")
+    assert(file_exists(installer_path), "Kujolang.ai installer not found: " + installer_path)
+    return parse_installer_profiles(read_file(installer_path))
+}
+
+export func build_catalog(site_root) {
+    package_path := path_join(site_root, "package.json")
+    assert(file_exists(package_path), "Kujolang.ai package.json not found: " + package_path)
+    package_data := parse_json(read_file(package_path))
+    project_items := collect_collection(site_root, "ecosystem", "project")
+    skill_items := collect_collection(site_root, "skills", "skill")
+    workflow_items := collect_collection(site_root, "workflows", "workflow")
+    all_items := []
+    for item in project_items { all_items = push(all_items, item) }
+    for item in skill_items { all_items = push(all_items, item) }
+    for item in workflow_items { all_items = push(all_items, item) }
+
+    seen_slugs := {}
+    for item in all_items {
+        slug := item["slug"]
+        assert(regex_match(slug, "^[a-z0-9][a-z0-9-]*$"), "Invalid catalog slug: " + slug)
+        assert(has_field(seen_slugs, slug) == false, "Duplicate catalog slug: " + slug)
+        seen_slugs[slug] := true
+        if item["github_url"] != "" { assert(starts_with(item["github_url"], "https://github.com/"), "Unexpected GitHub URL for " + slug) }
+        assert(starts_with(item["website_url"], "https://kujolang.ai/"), "Unexpected website URL for " + slug)
+    }
+
+    installation := {
+        "default_command": "curl -fsSL https://kujolang.ai/install.sh | bash",
+        "source_command": "curl -fsSL https://kujolang.ai/install.sh | bash -s -- --source",
+        "all_command": "curl -fsSL https://kujolang.ai/install.sh | bash -s -- --all",
+        "profile_commands": {
+            "core": "curl -fsSL https://kujolang.ai/install.sh | bash -s -- --core",
+            "ai": "curl -fsSL https://kujolang.ai/install.sh | bash -s -- --group ai",
+            "quality": "curl -fsSL https://kujolang.ai/install.sh | bash -s -- --group quality",
+            "showcases": "curl -fsSL https://kujolang.ai/install.sh | bash -s -- --group showcases",
+            "operating": "curl -fsSL https://kujolang.ai/install.sh | bash -s -- --group operating"
+        },
+        "profiles": installer_profiles(site_root)
+    }
+    snapshot := {"installation": installation, "items": all_items}
+    return {
+        "schema_version": "kujolang-mcp/catalog-v1",
+        "source": {
+            "name": "Kujolang.ai", "url": "https://kujolang.ai",
+            "repository": "https://github.com/kujolang/kujolang.ai", "version": to_string(package_data["version"]),
+            "content_sha256": sha256(to_json(all_items)), "snapshot_sha256": sha256(to_json(snapshot))
+        },
+        "installation": installation,
+        "counts": {"projects": len(project_items), "skills": len(skill_items), "workflows": len(workflow_items), "total": len(all_items)},
+        "items": all_items
+    }
+}
+
+export func sync_catalog(site_root, output_path, check_only) {
+    catalog := build_catalog(site_root)
+    serialized := to_json_pretty(catalog) + "\n"
+    exists := file_exists(output_path)
+    changed := exists == false
+    if exists { changed = read_file(output_path) != serialized }
+    if check_only {
+        assert(exists, "Catalog output does not exist: " + output_path)
+        assert(changed == false, "Catalog is stale. Run scripts/sync_catalog.kujo without --check")
+    } else if changed {
+        directory := dirname(output_path)
+        if trim(directory) != "" && directory != "." { create_dir(directory) }
+        write_file(output_path, serialized, true)
+    }
+    return {"ok": true, "changed": changed, "catalog_path": output_path, "catalog": catalog}
+}

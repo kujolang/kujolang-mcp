@@ -13,6 +13,7 @@ export func load_catalog(path) {
     assert(parsed["schema_version"] == "kujolang-mcp/catalog-v1", "Unsupported catalog schema")
     assert(has_field(parsed, "source") && type(parsed["source"]) == "dict", "Catalog source must be an object")
     assert(has_field(parsed["source"], "content_sha256") && type(parsed["source"]["content_sha256"]) == "string", "Catalog source content_sha256 is required")
+    assert(has_field(parsed["source"], "snapshot_sha256") && type(parsed["source"]["snapshot_sha256"]) == "string", "Catalog source snapshot_sha256 is required")
     assert(has_field(parsed, "installation") && type(parsed["installation"]) == "dict", "Catalog installation must be an object")
     assert(has_field(parsed, "counts") && type(parsed["counts"]) == "dict", "Catalog counts must be an object")
     assert(has_field(parsed, "items") && type(parsed["items"]) == "array", "Catalog items must be an array")
@@ -51,6 +52,8 @@ export func load_catalog(path) {
     assert(parsed["counts"]["workflows"] == workflows, "Catalog workflow count is inconsistent")
     assert(parsed["counts"]["total"] == len(parsed["items"]), "Catalog total count is inconsistent")
     assert(parsed["source"]["content_sha256"] == sha256(to_json(parsed["items"])), "Catalog content digest is inconsistent")
+    snapshot := {"installation": parsed["installation"], "items": parsed["items"]}
+    assert(parsed["source"]["snapshot_sha256"] == sha256(to_json(snapshot)), "Catalog snapshot digest is inconsistent")
     parsed["_search_index"] := search_index
     return parsed
 }
@@ -180,7 +183,7 @@ export func search_catalog_prefix(catalog, query, kind, category, slug_prefix, l
 export func catalog_summary(catalog) {
     return {
         "name": catalog["source"]["name"], "url": catalog["source"]["url"],
-        "source_version": catalog["source"]["version"], "counts": catalog["counts"],
+        "source_version": catalog["source"]["version"], "catalog_revision": catalog["source"]["snapshot_sha256"], "counts": catalog["counts"],
         "categories": ["Primitives", "Tooling", "Showcase", "Agent Skill", "Workflow"],
         "default_install_command": catalog["installation"]["default_command"]
     }

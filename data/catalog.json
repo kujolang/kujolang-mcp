@@ -3001,6 +3001,7 @@
     "content_sha256": "e06d11c23b96c5bb001313ba813815f385a41fa35bc5e8692060b055acb83560",
     "name": "Kujolang.ai",
     "repository": "https://github.com/kujolang/kujolang.ai",
+    "snapshot_sha256": "09360240405ff06de2226a16e7abdc04d104d272bc05706686559bee2bbe4bea",
     "url": "https://kujolang.ai",
     "version": "1.2.5"
   }
