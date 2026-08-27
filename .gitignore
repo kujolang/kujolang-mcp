@@ -1,5 +1,10 @@
 .DS_Store
-dist/
+# The Cloudflare Worker and integrity receipts are reviewed generated output.
+dist/*
+!dist/worker.js
+!dist/worker.js.sha256
+!dist/generation.json
+!dist/parity-fixtures.json
 build/
 kennel_packages/
 *.log

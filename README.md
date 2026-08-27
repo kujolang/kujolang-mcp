@@ -6,9 +6,9 @@ This repository is the Kujolang.ai catalog server, not the reusable [`kujolang/m
 
 ## Readiness
 
-The repository is currently a **preview**, not a claim of universally production-ready or formally enterprise-certified software. The application surface is bounded, tested, read-only, and suitable for controlled deployments. A public production service still requires a real ingress, TLS, pre-buffer request limits, per-client abuse controls, monitoring, capacity testing, deployment automation, and an incident-response owner.
+The repository contains the native reference server and a generated Cloudflare Worker target. The public service is bounded, stateless, deterministic, and read-only. The Worker is generated from Kujo definitions and the reviewed catalog; Cloudflare executes the generated JavaScript artifact, not Kujo source directly. This is not a claim of formal enterprise certification.
 
-The planned public URL is `https://mcp.kujolang.ai/mcp`. Do not configure clients with that URL until the hosted service is announced as live. Local use is available now.
+The public URL is `https://mcp.kujolang.ai/mcp` and health is `https://mcp.kujolang.ai/health` once deployment verification passes. Local use is always available.
 
 ## What agents can do
 

@@ -1,0 +1,47 @@
+# Generate the Cloudflare Worker from the generic framework adapter and the
+# reviewed catalog. This file is intentionally Kujo-authored.
+from src.catalog import load_catalog
+
+func option_value(argv, name, fallback) {
+    idx := 0
+    while idx < len(argv) {
+        if argv[idx] == name && idx + 1 < len(argv) { return to_string(argv[idx + 1]) }
+        idx := idx + 1
+    }
+    return fallback
+}
+
+argv := args()
+framework_value := option_value(argv, "--framework", "../mcp")
+framework_root := framework_value
+if starts_with(framework_root, "/") == false { framework_root = path_join(os_getcwd(), framework_root) }
+template_path := path_join(framework_root, "src/cloudflare/worker_template.js")
+catalog_path := option_value(argv, "--catalog", "data/catalog.json")
+if starts_with(catalog_path, "/") == false { catalog_path = path_join(os_getcwd(), catalog_path) }
+output_path := option_value(argv, "--out", "dist/worker.js")
+if starts_with(output_path, "/") == false { output_path = path_join(os_getcwd(), output_path) }
+assert(file_exists(template_path), "Cloudflare Worker template not found: " + template_path)
+catalog := load_catalog(catalog_path)
+catalog["server_version"] := "0.1.0"
+template := read_file(template_path)
+assert(index_of(template, "__KUJO_MCP_DATA__") >= 0, "Worker template is missing the catalog marker")
+worker := replace(template, "__KUJO_MCP_DATA__", to_json(catalog))
+create_dir(dirname(output_path))
+write_file(output_path, worker, true)
+write_file(output_path + ".sha256", sha256(worker) + "\n", true)
+
+fixtures := [
+    {"name":"initialize","request":{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2026-07-28"}}},
+    {"name":"ping","request":{"jsonrpc":"2.0","id":2,"method":"ping","params":{}}},
+    {"name":"tools-list","request":{"jsonrpc":"2.0","id":3,"method":"tools/list","params":{}}},
+    {"name":"overview","request":{"jsonrpc":"2.0","id":4,"method":"tools/call","params":{"name":"get_kujo_overview","arguments":{}}}},
+    {"name":"search","request":{"jsonrpc":"2.0","id":5,"method":"tools/call","params":{"name":"search_kujo_catalog","arguments":{"query":"MCP agent gateway","limit":5}}}},
+    {"name":"item","request":{"jsonrpc":"2.0","id":6,"method":"tools/call","params":{"name":"get_catalog_item","arguments":{"slug":"kujo"}}}},
+    {"name":"resources-list","request":{"jsonrpc":"2.0","id":7,"method":"resources/list","params":{}}},
+    {"name":"installation","request":{"jsonrpc":"2.0","id":8,"method":"tools/call","params":{"name":"get_installation","arguments":{"profile":"core"}}}},
+    {"name":"prompts-list","request":{"jsonrpc":"2.0","id":9,"method":"prompts/list","params":{}}},
+    {"name":"invalid-method","request":{"jsonrpc":"2.0","id":10,"method":"nope","params":{}}}
+]
+write_file(path_join(dirname(output_path), "parity-fixtures.json"), to_json_pretty({"catalog_revision":catalog["source"]["snapshot_sha256"],"fixtures":fixtures}) + "\n", true)
+write_file(path_join(dirname(output_path), "generation.json"), to_json_pretty({"generator":"kujolang-mcp/scripts/generate_worker.kujo","framework_template":template_path,"catalog_path":catalog_path,"catalog_revision":catalog["source"]["snapshot_sha256"],"worker_sha256":sha256(worker),"generated_from":"Kujo source and reviewed catalog"}) + "\n", true)
+print(to_json({"ok":true,"worker":output_path,"catalog_revision":catalog["source"]["snapshot_sha256"],"worker_sha256":sha256(worker),"bytes":len(worker)}))

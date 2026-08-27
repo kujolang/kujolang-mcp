@@ -1,0 +1,41 @@
+name: Validate and deploy Kujo MCP
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: kujolang/mcp
+          path: framework-mcp
+      - uses: actions/checkout@v4
+        with:
+          repository: kujolang/kujolang.ai
+          path: kujolang.ai
+      - name: Install Kujo runtime
+        run: curl -fsSL https://kujolang.ai/install.sh | bash
+      - name: Check catalog and native tests
+        run: |
+          kujo run scripts/sync_catalog.kujo --interpreter -- --site "$GITHUB_WORKSPACE/kujolang.ai" --check --json
+          kujo test
+      - name: Generate and verify Worker
+        run: |
+          kujo run scripts/generate_worker.kujo --interpreter -- --framework "$GITHUB_WORKSPACE/framework-mcp" --catalog data/catalog.json --out dist/worker.js
+          git diff --exit-code -- dist/worker.js dist/worker.js.sha256 dist/parity-fixtures.json dist/generation.json
+          test "$(wc -c < dist/worker.js)" -lt 2621440
+      - name: Deploy production Worker
+        if: github.ref == 'refs/heads/main'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy

@@ -8,7 +8,7 @@
     "source_catalog": "https://github.com/kujolang/kujolang.ai"
   },
   "protocol_versions": ["2026-07-28", "2025-06-18"],
-  "transport": {"type": "stateless_streamable_http", "endpoint": "/mcp", "compatibility_endpoint": "/mcp/v1"},
+  "transport": {"type": "stateless_streamable_http", "endpoint": "/mcp", "compatibility_endpoint": "/mcp/v1", "health_endpoint": "/health"},
   "safety_tiers": ["read_only"],
   "tools": [
     {"name": "get_kujo_overview", "safety_tier": "read_only"},
@@ -21,5 +21,7 @@
   ],
   "resources": ["kujolang://overview", "kujolang://catalog/projects", "kujolang://catalog/skills", "kujolang://catalog/workflows", "kujolang://installation", "kujolang://security"],
   "prompts": ["choose_kujo_stack", "plan_kujo_adoption", "discover_webops"],
+  "catalog": {"source_of_truth": "reviewed Kujolang.ai checkout", "standalone_agent_records": false, "agent_offerings_are_discoverable_as": ["project", "skill", "workflow"]},
+  "cloudflare": {"target": "generated_stateless_worker", "template": "kujolang/mcp/src/cloudflare/worker_template.js", "runtime_network_subrequests": false, "persistent_storage": false, "paid_bindings": false},
   "blocked_capabilities": ["filesystem_input", "arbitrary_url_fetch", "shell_input", "write", "install", "deploy", "secret_read"]
 }

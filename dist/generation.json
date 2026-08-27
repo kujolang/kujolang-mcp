@@ -1,0 +1,8 @@
+{
+  "catalog_path": "/Users/robertdevore/2026/Kujolang/kujo-repos/kujolang-mcp/data/catalog.json",
+  "catalog_revision": "e9e86197b7d74e5da7ba6ae49729b1b08dc79457e651681a1842dd1554572d39",
+  "framework_template": "/Users/robertdevore/2026/Kujolang/kujo-repos/kujolang-mcp/../mcp/src/cloudflare/worker_template.js",
+  "generated_from": "Kujo source and reviewed catalog",
+  "generator": "kujolang-mcp/scripts/generate_worker.kujo",
+  "worker_sha256": "68a89e61f4e9477146d6e3dc23b5b05fc65f9c150279c9fade3ab4b8e6bed478"
+}

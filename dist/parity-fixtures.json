@@ -1,0 +1,116 @@
+{
+  "catalog_revision": "e9e86197b7d74e5da7ba6ae49729b1b08dc79457e651681a1842dd1554572d39",
+  "fixtures": [
+    {
+      "name": "initialize",
+      "request": {
+        "id": 1,
+        "jsonrpc": "2.0",
+        "method": "initialize",
+        "params": {
+          "protocolVersion": "2026-07-28"
+        }
+      }
+    },
+    {
+      "name": "ping",
+      "request": {
+        "id": 2,
+        "jsonrpc": "2.0",
+        "method": "ping",
+        "params": {}
+      }
+    },
+    {
+      "name": "tools-list",
+      "request": {
+        "id": 3,
+        "jsonrpc": "2.0",
+        "method": "tools/list",
+        "params": {}
+      }
+    },
+    {
+      "name": "overview",
+      "request": {
+        "id": 4,
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "arguments": {},
+          "name": "get_kujo_overview"
+        }
+      }
+    },
+    {
+      "name": "search",
+      "request": {
+        "id": 5,
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "arguments": {
+            "limit": 5,
+            "query": "MCP agent gateway"
+          },
+          "name": "search_kujo_catalog"
+        }
+      }
+    },
+    {
+      "name": "item",
+      "request": {
+        "id": 6,
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "arguments": {
+            "slug": "kujo"
+          },
+          "name": "get_catalog_item"
+        }
+      }
+    },
+    {
+      "name": "resources-list",
+      "request": {
+        "id": 7,
+        "jsonrpc": "2.0",
+        "method": "resources/list",
+        "params": {}
+      }
+    },
+    {
+      "name": "installation",
+      "request": {
+        "id": 8,
+        "jsonrpc": "2.0",
+        "method": "tools/call",
+        "params": {
+          "arguments": {
+            "profile": "core"
+          },
+          "name": "get_installation"
+        }
+      }
+    },
+    {
+      "name": "prompts-list",
+      "request": {
+        "id": 9,
+        "jsonrpc": "2.0",
+        "method": "prompts/list",
+        "params": {}
+      }
+    },
+    {
+      "name": "invalid-method",
+      "request": {
+        "id": 10,
+        "jsonrpc": "2.0",
+        "method": "nope",
+        "params": {}
+      }
+    }
+  ]
+}
