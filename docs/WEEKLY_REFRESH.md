@@ -6,17 +6,23 @@ Suggested schedule: Monday at 9:00 AM in the operator's local timezone, with ove
 
 ## Before scheduling
 
-Replace the placeholders in the prompt with:
+This repository is the approved production branch for the public service. The
+website checkout is the source repository and `scripts/generate_worker.kujo`
+produces the reviewed Worker artifact. Replace neither repository with an
+uncommitted checkout.
 
-- the absolute local path or checkout instructions for `kujolang.ai`;
-- the absolute local path or checkout instructions for `kujolang-mcp`;
-- the production MCP and health URLs;
-- the repository's real deployment runbook or platform instructions;
-- the branch the automation is allowed to update.
+The automation uses these fixed values:
+
+- website source: `kujolang/kujolang.ai`;
+- MCP repository: `kujolang/kujolang-mcp`;
+- production MCP: `https://mcp.kujolang.ai/mcp`;
+- health: `https://mcp.kujolang.ai/health`;
+- deployment runbook: [`CLOUDFLARE.md`](CLOUDFLARE.md);
+- allowed branch: `main`.
 
 The automation identity needs narrowly scoped permission to read both repositories, push `kujolang-mcp`, trigger its production deployment, and read deployment and health status. Store GitHub and hosting credentials in the automation platform's secret store. Do not place credentials in this prompt or either repository.
 
-Run the prompt manually once and inspect its commit, deployment, and final report before enabling the schedule.
+Run the prompt manually once and inspect its commit, deployment, and final report before enabling the schedule. Do not advertise the endpoint as live until the first successful Custom Domain verification.
 
 ## Copy/paste automation prompt
 

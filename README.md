@@ -73,6 +73,9 @@ src/registry.kujo                   Tools, resources, and prompts
 src/catalog.kujo                    Catalog validation, indexing, and search
 data/catalog.json                   Reviewed deterministic catalog snapshot
 scripts/sync_catalog.kujo           Kujo-only catalog synchronization
+scripts/generate_worker.kujo        Kujo-only Worker generation
+dist/worker.js                      Reviewed generated Cloudflare Worker
+wrangler.jsonc                      Free-tier Worker deployment configuration
 benchmarks/search_benchmark.kujo    Kujo-only search benchmark
 tests/                              Kujo test suites and snapshots
 ```
@@ -91,6 +94,8 @@ kujo run scripts/sync_catalog.kujo --interpreter -- --site /path/to/kujolang.ai 
 ```
 
 The synchronizer rejects duplicate or malformed slugs and unexpected source URL schemes. Installer profile membership is parsed from the website's public installer instead of duplicated by hand. The catalog revision covers both records and installation profiles; it detects accidental snapshot corruption but is not a substitute for signed releases or human review.
+
+The current snapshot contains 46 projects, 96 skills, and 37 workflows (179 records total). There is no authoritative standalone agent catalog in the source; agent-related projects, SDKs, skills, and workflows remain discoverable under their actual source kinds rather than being presented as invented agent records.
 
 For the autonomous weekly agent prompt that reviews source accuracy, updates GitHub, deploys through the configured hosting workflow, and verifies the live catalog, see [`docs/WEEKLY_REFRESH.md`](docs/WEEKLY_REFRESH.md).
 
@@ -113,6 +118,8 @@ kujo run scripts/sync_catalog.kujo --interpreter -- --site /path/to/kujolang.ai 
 kujo run server.kujo --interpreter --self-check
 kujo test
 kujo run benchmarks/search_benchmark.kujo --interpreter
+kujo run scripts/generate_worker.kujo --interpreter -- --framework /path/to/mcp
+node --check dist/worker.js
 ```
 
 ## Production deployment contract
