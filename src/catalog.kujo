@@ -91,7 +91,8 @@ func public_item(item) {
         "description": item["description"], "category": item["category"], "tags": item["tags"],
         "install_command": item["install_command"], "github_url": item["github_url"],
         "website_url": item["website_url"], "scope_note": item["scope_note"],
-        "version": item["version"], "last_updated": item["last_updated"]
+        "version": item["version"], "last_updated": item["last_updated"],
+        "source_path": item["source_path"], "provenance": "Reviewed committed Kujolang.ai content"
     }
 }
 
