@@ -31,6 +31,10 @@ jobs:
         run: |
           kujo run scripts/generate_worker.kujo --interpreter -- --framework "$GITHUB_WORKSPACE/framework-mcp" --catalog data/catalog.json --out dist/worker.js
           git diff --exit-code -- dist/worker.js dist/worker.js.sha256 dist/parity-fixtures.json dist/generation.json
+          node --check dist/worker.js
+          test "$(jq -r '.catalog_revision' dist/generation.json)" = "$(jq -r '.source.snapshot_sha256' data/catalog.json)"
+          test "$(jq -r '.catalog_content_digest' dist/generation.json)" = "$(jq -r '.source.content_sha256' data/catalog.json)"
+          ! grep -Eq '(/Users/|/home/|[A-Za-z]:\\\\)' dist/generation.json dist/parity-fixtures.json dist/worker.js
           test "$(wc -c < dist/worker.js)" -lt 2621440
       - name: Deploy production Worker
         if: github.ref == 'refs/heads/main'

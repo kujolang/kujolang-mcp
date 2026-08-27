@@ -1,0 +1,19 @@
+test_setup {
+    from src.catalog import load_catalog
+}
+
+test "generated Worker receipts are complete and portable" {
+    catalog := load_catalog("data/catalog.json")
+    receipt := parse_json(read_file("dist/generation.json"))
+    assert_equal(receipt["generator"], "kujolang-mcp/scripts/generate_worker.kujo")
+    assert_equal(receipt["framework"], "kujolang/mcp")
+    assert_equal(receipt["catalog_revision"], catalog["source"]["snapshot_sha256"])
+    assert_equal(receipt["catalog_content_digest"], catalog["source"]["content_sha256"])
+    assert_equal(len(receipt["template_sha256"]), 64)
+    assert_equal(len(receipt["parity_fixtures_sha256"]), 64)
+    assert_equal(len(receipt["worker_sha256"]), 64)
+    assert_true(index_of(receipt["framework_template"], "/") >= 0)
+    assert_true(index_of(receipt["catalog"], "/") >= 0)
+    assert_equal(index_of(read_file("dist/generation.json"), "/Users/"), -1)
+    assert_equal(index_of(read_file("dist/generation.json"), "\\\\"), -1)
+}

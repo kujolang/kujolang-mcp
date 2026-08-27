@@ -42,6 +42,19 @@ fixtures := [
     {"name":"prompts-list","request":{"jsonrpc":"2.0","id":9,"method":"prompts/list","params":{}}},
     {"name":"invalid-method","request":{"jsonrpc":"2.0","id":10,"method":"nope","params":{}}}
 ]
-write_file(path_join(dirname(output_path), "parity-fixtures.json"), to_json_pretty({"catalog_revision":catalog["source"]["snapshot_sha256"],"fixtures":fixtures}) + "\n", true)
-write_file(path_join(dirname(output_path), "generation.json"), to_json_pretty({"generator":"kujolang-mcp/scripts/generate_worker.kujo","framework_template":template_path,"catalog_path":catalog_path,"catalog_revision":catalog["source"]["snapshot_sha256"],"worker_sha256":sha256(worker),"generated_from":"Kujo source and reviewed catalog"}) + "\n", true)
+fixtures_json := to_json_pretty({"catalog_revision":catalog["source"]["snapshot_sha256"],"fixtures":fixtures}) + "\n"
+write_file(path_join(dirname(output_path), "parity-fixtures.json"), fixtures_json, true)
+write_file(path_join(dirname(output_path), "generation.json"), to_json_pretty({
+    "generator": "kujolang-mcp/scripts/generate_worker.kujo",
+    "generator_version": "1",
+    "framework": "kujolang/mcp",
+    "framework_template": "src/cloudflare/worker_template.js",
+    "catalog": "data/catalog.json",
+    "catalog_revision": catalog["source"]["snapshot_sha256"],
+    "catalog_content_digest": catalog["source"]["content_sha256"],
+    "template_sha256": sha256(template),
+    "parity_fixtures_sha256": sha256(fixtures_json),
+    "worker_sha256": sha256(worker),
+    "generated_from": "Kujo source and reviewed catalog"
+}) + "\n", true)
 print(to_json({"ok":true,"worker":output_path,"catalog_revision":catalog["source"]["snapshot_sha256"],"worker_sha256":sha256(worker),"bytes":len(worker)}))
