@@ -1,0 +1,3070 @@
+{
+  "checked_at": "2026-09-09",
+  "scope": "86 public kujolang repositories; GitHub Release publication is separate from a tag, manifest version, or main-branch changes.",
+  "repositories": [
+    {
+      "repository": "https://github.com/kujolang/kujo",
+      "latest_published_release": {
+        "tag": "v1.4.0",
+        "url": "https://github.com/kujolang/kujo/releases/tag/v1.4.0",
+        "published_at": "2026-09-09T14:22:33Z",
+        "id": 385585123
+      },
+      "readme_blob_sha": "30c6e3e168ea65138428d1754ae9998b75480264",
+      "readme_source": "https://github.com/kujolang/kujo/blob/main/README.md",
+      "checked_at": "2026-09-09T15:30:53.698Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "1a7b6ef0eacd4918912ef58cfb5ec8533bff9e91",
+          "url": "https://github.com/kujolang/kujo/commit/1a7b6ef0eacd4918912ef58cfb5ec8533bff9e91",
+          "subject": "Finalize runtime and production website release signoff [skip ci]"
+        },
+        {
+          "sha": "e1d4429222f2de1287b3318b0a21ee54ceb8aff5",
+          "url": "https://github.com/kujolang/kujo/commit/e1d4429222f2de1287b3318b0a21ee54ceb8aff5",
+          "subject": "Document release installer synchronization and verification [skip ci]"
+        },
+        {
+          "sha": "7089ded84dc9ced4157b7b1662d3fae6d95418e2",
+          "url": "https://github.com/kujolang/kujo/commit/7089ded84dc9ced4157b7b1662d3fae6d95418e2",
+          "subject": "Keep ecosystem bootstrap aligned with released runtime"
+        },
+        {
+          "sha": "96fbd92166d12cd6c0c026e25bdd914b157316eb",
+          "url": "https://github.com/kujolang/kujo/commit/96fbd92166d12cd6c0c026e25bdd914b157316eb",
+          "subject": "Record verified v1.4.0 publication evidence [skip ci]"
+        },
+        {
+          "sha": "fc1f89a74f81edf002a242ef2dea43cd09cfa14f",
+          "url": "https://github.com/kujolang/kujo/commit/fc1f89a74f81edf002a242ef2dea43cd09cfa14f",
+          "subject": "Align verified v1.4.0 stable release references [skip ci]"
+        },
+        {
+          "sha": "266a8902068a14c3d17f803bef467dc28f1fe162",
+          "url": "https://github.com/kujolang/kujo/commit/266a8902068a14c3d17f803bef467dc28f1fe162",
+          "subject": "Prepare Kujo v1.4.0 compatible runtime release"
+        },
+        {
+          "sha": "1778152f3ec38555511b3e09e841f83a1d984541",
+          "url": "https://github.com/kujolang/kujo/commit/1778152f3ec38555511b3e09e841f83a1d984541",
+          "subject": "Support Kujo-native package installation and command launch (#8)"
+        },
+        {
+          "sha": "b2299fce643ba8b3d2504b2cee47c139afff91f9",
+          "url": "https://github.com/kujolang/kujo/commit/b2299fce643ba8b3d2504b2cee47c139afff91f9",
+          "subject": "Isolate installed tool imports from caller workspaces (#7)"
+        },
+        {
+          "sha": "3cab46ee043b0e452950d7de358487b4c4a3bde8",
+          "url": "https://github.com/kujolang/kujo/commit/3cab46ee043b0e452950d7de358487b4c4a3bde8",
+          "subject": "Merge remote-tracking branch 'origin/main' into fix/fence-confined-output"
+        },
+        {
+          "sha": "97aa13a338b154646d96e5c257e5d17fed17bef9",
+          "url": "https://github.com/kujolang/kujo/commit/97aa13a338b154646d96e5c257e5d17fed17bef9",
+          "subject": "test: normalize Windows junction command paths"
+        },
+        {
+          "sha": "5dcbfcda2e48c2fe56dd2a4ecdb2d5947e18ff59",
+          "url": "https://github.com/kujolang/kujo/commit/5dcbfcda2e48c2fe56dd2a4ecdb2d5947e18ff59",
+          "subject": "Keep parity verification compatible with non-JIT runtime profiles"
+        },
+        {
+          "sha": "c11673ba44792825b2eb81153270fbe1d3110dac",
+          "url": "https://github.com/kujolang/kujo/commit/c11673ba44792825b2eb81153270fbe1d3110dac",
+          "subject": "Merge remote-tracking branch 'origin/fix/siteprobe-runtime-followups' into fix/fence-confined-output"
+        },
+        {
+          "sha": "bfd9a6389e9b063a9c9e3e0651c287e051b14a60",
+          "url": "https://github.com/kujolang/kujo/commit/bfd9a6389e9b063a9c9e3e0651c287e051b14a60",
+          "subject": "test: assert Windows kernel prevention of ancestor mutation"
+        },
+        {
+          "sha": "ccd1b43c51c192d6ea411c55cf79929a95f4da12",
+          "url": "https://github.com/kujolang/kujo/commit/ccd1b43c51c192d6ea411c55cf79929a95f4da12",
+          "subject": "test: ratchet reviewed Windows FFI and refresh inventories"
+        },
+        {
+          "sha": "2be1f04b89dbecd591ef1af0d68974c05586900e",
+          "url": "https://github.com/kujolang/kujo/commit/2be1f04b89dbecd591ef1af0d68974c05586900e",
+          "subject": "Unwind exception scopes and restore complete binary file regression coverage"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/concord",
+      "latest_published_release": {
+        "tag": "v1.0.0",
+        "url": "https://github.com/kujolang/concord/releases/tag/v1.0.0",
+        "published_at": "2026-08-08T06:59:31Z",
+        "id": 367136445
+      },
+      "readme_blob_sha": "d8fc37470db53037e31252e43c31055a0126f90e",
+      "readme_source": "https://github.com/kujolang/concord/blob/main/README.md",
+      "checked_at": "2026-09-09T15:30:53.718Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/howl",
+      "latest_published_release": {
+        "tag": "v1.1.0",
+        "url": "https://github.com/kujolang/howl/releases/tag/v1.1.0",
+        "published_at": "2026-08-11T17:24:47Z",
+        "id": 368735202
+      },
+      "readme_blob_sha": "abe806613aa46bbde18b94ceb2b83409c7d1db37",
+      "readme_source": "https://github.com/kujolang/howl/blob/main/README.md",
+      "checked_at": "2026-09-09T15:30:53.819Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "2a489084b8ebe5e1192eb7fdbaa3b3e19a52600e",
+          "url": "https://github.com/kujolang/howl/commit/2a489084b8ebe5e1192eb7fdbaa3b3e19a52600e",
+          "subject": "Store exact downstream diff evidence without whitespace ambiguity"
+        },
+        {
+          "sha": "14fbf48a97353fb9c42bd00f5a4557ecbfb8aeac",
+          "url": "https://github.com/kujolang/howl/commit/14fbf48a97353fb9c42bd00f5a4557ecbfb8aeac",
+          "subject": "Record Howl hardening evidence and current operating contracts"
+        },
+        {
+          "sha": "468799ef417826c8b2935c129fd81fab038296c8",
+          "url": "https://github.com/kujolang/howl/commit/468799ef417826c8b2935c129fd81fab038296c8",
+          "subject": "Avoid duplicate path resolution around protected reads"
+        },
+        {
+          "sha": "1c321622cb38a20ecaaac87dcca83134d354d9f3",
+          "url": "https://github.com/kujolang/howl/commit/1c321622cb38a20ecaaac87dcca83134d354d9f3",
+          "subject": "Gate Howl source and artifact contracts on a pinned Kujo runtime"
+        },
+        {
+          "sha": "5879b9c66d05a8dabd36724ffd430f8936391d75",
+          "url": "https://github.com/kujolang/howl/commit/5879b9c66d05a8dabd36724ffd430f8936391d75",
+          "subject": "Harden Howl filesystem boundaries and load card content on demand"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/scout",
+      "latest_published_release": {
+        "tag": "v1.0.0",
+        "url": "https://github.com/kujolang/scout/releases/tag/v1.0.0",
+        "published_at": "2026-08-08T07:01:37Z",
+        "id": 367136922
+      },
+      "readme_blob_sha": "610e6fa1387d5fcbe3c5a440227ac3e022f2355b",
+      "readme_source": "https://github.com/kujolang/scout/blob/main/README.md",
+      "checked_at": "2026-09-09T15:30:55.088Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "70454d44b3c719bec08f9707b39c231da49b7886",
+          "url": "https://github.com/kujolang/scout/commit/70454d44b3c719bec08f9707b39c231da49b7886",
+          "subject": "docs: record Scout hardening audit and verification evidence"
+        },
+        {
+          "sha": "902cb2c2691684d5365d0cea3ac6965816760f3e",
+          "url": "https://github.com/kujolang/scout/commit/902cb2c2691684d5365d0cea3ac6965816760f3e",
+          "subject": "fix: reject unquoted multiword prefixes in sensitive snippets"
+        },
+        {
+          "sha": "f5c62e4f8d7fd5a6e297ce5081beca1f4316298a",
+          "url": "https://github.com/kujolang/scout/commit/f5c62e4f8d7fd5a6e297ce5081beca1f4316298a",
+          "subject": "ci: pin a published Kujo release and document verification limits"
+        },
+        {
+          "sha": "435d936b801fcd2bb5c971e1586e5a966a5c525e",
+          "url": "https://github.com/kujolang/scout/commit/435d936b801fcd2bb5c971e1586e5a966a5c525e",
+          "subject": "perf: use stable merge sorting with measured contract equivalence"
+        },
+        {
+          "sha": "29847f9e34ee3d0117b3a6356d31fab9ea8174a7",
+          "url": "https://github.com/kujolang/scout/commit/29847f9e34ee3d0117b3a6356d31fab9ea8174a7",
+          "subject": "fix: harden Scout traversal, redaction, and failure handling"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/ssg",
+      "latest_published_release": {
+        "tag": "v1.0.0",
+        "url": "https://github.com/kujolang/ssg/releases/tag/v1.0.0",
+        "published_at": "2026-08-08T07:25:05Z",
+        "id": 367141750
+      },
+      "readme_blob_sha": "386237ec0492af42ab9a512ac63507ccee1be6ab",
+      "readme_source": "https://github.com/kujolang/ssg/blob/main/README.md",
+      "checked_at": "2026-09-09T15:30:55.257Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "e165dbc1b596ea759a2b9c2ff0b9ca988c333eea",
+          "url": "https://github.com/kujolang/ssg/commit/e165dbc1b596ea759a2b9c2ff0b9ca988c333eea",
+          "subject": "feat: add approved SSG preview builds"
+        },
+        {
+          "sha": "c9b90f5fab6b9fa6c2a9eba22bb94e1e59827bcb",
+          "url": "https://github.com/kujolang/ssg/commit/c9b90f5fab6b9fa6c2a9eba22bb94e1e59827bcb",
+          "subject": "fix: harden SSG Ability boundaries"
+        },
+        {
+          "sha": "d893c350f7e9927def219edf7abc9d1889f89bcd",
+          "url": "https://github.com/kujolang/ssg/commit/d893c350f7e9927def219edf7abc9d1889f89bcd",
+          "subject": "chore: version the SSG Ability pack"
+        },
+        {
+          "sha": "f5028a3cc452935650dd80ad1811d7ececdc3d07",
+          "url": "https://github.com/kujolang/ssg/commit/f5028a3cc452935650dd80ad1811d7ececdc3d07",
+          "subject": "test: certify expanded SSG workflows"
+        },
+        {
+          "sha": "54ab7d5e8f763b008450aa2f05f0ca9274fc9efc",
+          "url": "https://github.com/kujolang/ssg/commit/54ab7d5e8f763b008450aa2f05f0ca9274fc9efc",
+          "subject": "feat: expand the SSG Ability pack"
+        },
+        {
+          "sha": "31f452ff7bae038f1dbeba7e7386229154a3c7a0",
+          "url": "https://github.com/kujolang/ssg/commit/31f452ff7bae038f1dbeba7e7386229154a3c7a0",
+          "subject": "test: exercise SSG Ability build fixture"
+        },
+        {
+          "sha": "0ad0b4737e5e72c307d2c3571b9505f1f8fdd4fa",
+          "url": "https://github.com/kujolang/ssg/commit/0ad0b4737e5e72c307d2c3571b9505f1f8fdd4fa",
+          "subject": "docs: document SSG Ability adapter"
+        },
+        {
+          "sha": "a4f1e5d14f74d4f588d07c7ec5981366fa9a662c",
+          "url": "https://github.com/kujolang/ssg/commit/a4f1e5d14f74d4f588d07c7ec5981366fa9a662c",
+          "subject": "feat: add executable SSG Ability pack"
+        },
+        {
+          "sha": "4df56ef475e81a8bfe5c98c6bd7d419663877b6d",
+          "url": "https://github.com/kujolang/ssg/commit/4df56ef475e81a8bfe5c98c6bd7d419663877b6d",
+          "subject": "fix: emit sitemap xml without stylesheet"
+        },
+        {
+          "sha": "4a902fa57257bd533952375439b5c183ca9d1bc9",
+          "url": "https://github.com/kujolang/ssg/commit/4a902fa57257bd533952375439b5c183ca9d1bc9",
+          "subject": "docs: clarify webp fallback behavior"
+        },
+        {
+          "sha": "0707765c35ff7fbf8667b63fa41a67265ea4f9c2",
+          "url": "https://github.com/kujolang/ssg/commit/0707765c35ff7fbf8667b63fa41a67265ea4f9c2",
+          "subject": "fix: optimize webp output and style sitemaps"
+        },
+        {
+          "sha": "cff05b3ab6db29c473608c55e0c02420ef8add3c",
+          "url": "https://github.com/kujolang/ssg/commit/cff05b3ab6db29c473608c55e0c02420ef8add3c",
+          "subject": "feat: publish SSG Ability contracts"
+        },
+        {
+          "sha": "f3e51f737d38792589a4f205a103892ac9cb9b06",
+          "url": "https://github.com/kujolang/ssg/commit/f3e51f737d38792589a4f205a103892ac9cb9b06",
+          "subject": "docs: separate webmcp from ability execution"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/ai-chat",
+      "latest_published_release": {
+        "tag": "v1.2.0",
+        "url": "https://github.com/kujolang/ai-chat/releases/tag/v1.2.0",
+        "published_at": "2026-09-07T10:44:48Z",
+        "id": 384014389
+      },
+      "readme_blob_sha": "522d139051ce8f6b372f79e6d82e1a65d429fb44",
+      "readme_source": "https://github.com/kujolang/ai-chat/blob/main/README.md",
+      "checked_at": "2026-09-09T15:30:55.263Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "18e8667505d79f72a96f0589c4e9160af6f7b944",
+          "url": "https://github.com/kujolang/ai-chat/commit/18e8667505d79f72a96f0589c4e9160af6f7b944",
+          "subject": "release: prepare v1.2.0 and document upgrade and validation limits"
+        },
+        {
+          "sha": "d8cc88af3fb95e14b9cf8976bfb43cc400611369",
+          "url": "https://github.com/kujolang/ai-chat/commit/d8cc88af3fb95e14b9cf8976bfb43cc400611369",
+          "subject": "docs: record incomplete soak and partial reliability evidence"
+        },
+        {
+          "sha": "386bd31c54c0f6781fd180eea6ff2f3b21643e9a",
+          "url": "https://github.com/kujolang/ai-chat/commit/386bd31c54c0f6781fd180eea6ff2f3b21643e9a",
+          "subject": "feat: let users hide the composer language picker"
+        },
+        {
+          "sha": "e77b394a84526cc1ace54b2161055c5aa13dd93c",
+          "url": "https://github.com/kujolang/ai-chat/commit/e77b394a84526cc1ace54b2161055c5aa13dd93c",
+          "subject": "fix: keep Ollama documentation chats within transport and context limits"
+        },
+        {
+          "sha": "3d21d11a8b19b384c59c3fee9e738b7e1eea0e9d",
+          "url": "https://github.com/kujolang/ai-chat/commit/3d21d11a8b19b384c59c3fee9e738b7e1eea0e9d",
+          "subject": "fix: match composer language picker to model selector"
+        },
+        {
+          "sha": "8cfc6457f50cb8f4fe22bd0136a4e2cbe6dcf55f",
+          "url": "https://github.com/kujolang/ai-chat/commit/8cfc6457f50cb8f4fe22bd0136a4e2cbe6dcf55f",
+          "subject": "feat: preserve RAG source links and configure bounded local query timeouts"
+        },
+        {
+          "sha": "feaf11a03bd675531a46b84f7b3b6c9ff9ca2bab",
+          "url": "https://github.com/kujolang/ai-chat/commit/feaf11a03bd675531a46b84f7b3b6c9ff9ca2bab",
+          "subject": "merge: retain retrieval preferences alongside saved execution resume"
+        },
+        {
+          "sha": "407ed2efabbd3bdef2b45a42441c78b0e6900923",
+          "url": "https://github.com/kujolang/ai-chat/commit/407ed2efabbd3bdef2b45a42441c78b0e6900923",
+          "subject": "feat: save code-example preferences and query configured RAG documentation"
+        },
+        {
+          "sha": "5785fca9e609e632fe40ab00f856564b5b4df676",
+          "url": "https://github.com/kujolang/ai-chat/commit/5785fca9e609e632fe40ab00f856564b5b4df676",
+          "subject": "docs: record final-runtime soak and passing resume CI"
+        },
+        {
+          "sha": "5ce4c0ae156fd5ca85c47d91b0228423982f6d4f",
+          "url": "https://github.com/kujolang/ai-chat/commit/5ce4c0ae156fd5ca85c47d91b0228423982f6d4f",
+          "subject": "feat: review receipts and resume saved HTTP and native executions"
+        },
+        {
+          "sha": "4c9544f9eb11101675ed14a9eb4576e2cf5b1c64",
+          "url": "https://github.com/kujolang/ai-chat/commit/4c9544f9eb11101675ed14a9eb4576e2cf5b1c64",
+          "subject": "feat: expire journal payloads without permitting duplicate execution"
+        },
+        {
+          "sha": "49d0363107feb8c6529f8e4a3068f4041f9feab8",
+          "url": "https://github.com/kujolang/ai-chat/commit/49d0363107feb8c6529f8e4a3068f4041f9feab8",
+          "subject": "feat: measure real-family task outcomes and failed-request usage"
+        },
+        {
+          "sha": "d168497dcf358682431f3b47393e3da4766429e9",
+          "url": "https://github.com/kujolang/ai-chat/commit/d168497dcf358682431f3b47393e3da4766429e9",
+          "subject": "feat: budget JSON and native context with dated model metadata"
+        },
+        {
+          "sha": "1d7eba924c5968ea61a08da39e4cbc42a833b79f",
+          "url": "https://github.com/kujolang/ai-chat/commit/1d7eba924c5968ea61a08da39e4cbc42a833b79f",
+          "subject": "fix: persist SSE replay cursors and verify browser recovery"
+        },
+        {
+          "sha": "0200a0cd80b96c3d2aad75e94b5529395b8bd167",
+          "url": "https://github.com/kujolang/ai-chat/commit/0200a0cd80b96c3d2aad75e94b5529395b8bd167",
+          "subject": "feat: add real-provider evaluation and sustained soak evidence harness"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/crud-api",
+      "latest_published_release": {
+        "tag": "v1.0.0",
+        "url": "https://github.com/kujolang/crud-api/releases/tag/v1.0.0",
+        "published_at": "2026-06-11T03:34:36Z",
+        "id": 337646133
+      },
+      "readme_blob_sha": "c6de16f9df9b34f0db5a580dc4a269e314a45d74",
+      "readme_source": "https://github.com/kujolang/crud-api/blob/main/README.md",
+      "checked_at": "2026-09-09T15:30:56.459Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/cms",
+      "latest_published_release": {
+        "tag": "v1.1.0",
+        "url": "https://github.com/kujolang/cms/releases/tag/v1.1.0",
+        "published_at": "2026-08-30T17:12:05Z",
+        "id": 379347884
+      },
+      "readme_blob_sha": "bc18771bc0058af3065f19e991d1b6f6646647e6",
+      "readme_source": "https://github.com/kujolang/cms/blob/main/README.md",
+      "checked_at": "2026-09-09T15:30:56.711Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "b16d22ead14e86484d99ead07fc13a5ad3be49e8",
+          "url": "https://github.com/kujolang/cms/commit/b16d22ead14e86484d99ead07fc13a5ad3be49e8",
+          "subject": "docs: distinguish CMS pack certification revisions"
+        },
+        {
+          "sha": "189438bf1a9495b1bd8af0bd904ab37f3afcec99",
+          "url": "https://github.com/kujolang/cms/commit/189438bf1a9495b1bd8af0bd904ab37f3afcec99",
+          "subject": "chore: version the CMS core Ability pack"
+        },
+        {
+          "sha": "5bccc2a9bee7e092260ea81e2417d4dab4cc9055",
+          "url": "https://github.com/kujolang/cms/commit/5bccc2a9bee7e092260ea81e2417d4dab4cc9055",
+          "subject": "fix(ci): avoid port-probe ephemeral collisions"
+        },
+        {
+          "sha": "1efe28218dba67a7fce7dfa00e1690b7163b7e62",
+          "url": "https://github.com/kujolang/cms/commit/1efe28218dba67a7fce7dfa00e1690b7163b7e62",
+          "subject": "test(security): reject wildcard port collisions"
+        },
+        {
+          "sha": "d2c29b40285a8e6d2f470b87f428b0c9f06009da",
+          "url": "https://github.com/kujolang/cms/commit/d2c29b40285a8e6d2f470b87f428b0c9f06009da",
+          "subject": "docs: certify CMS core Ability pack locally"
+        },
+        {
+          "sha": "11fb5ee96313e4faeeb5a004acad74338dab6a18",
+          "url": "https://github.com/kujolang/cms/commit/11fb5ee96313e4faeeb5a004acad74338dab6a18",
+          "subject": "test: refuse occupied CMS release ports safely"
+        },
+        {
+          "sha": "7c9fa5a77f1e5d87c6c9bf0be728d3dac6e1af8f",
+          "url": "https://github.com/kujolang/cms/commit/7c9fa5a77f1e5d87c6c9bf0be728d3dac6e1af8f",
+          "subject": "ci: use setup action runtime path"
+        },
+        {
+          "sha": "b2c9abac0942c9bffc496c74b746898b38d6ffff",
+          "url": "https://github.com/kujolang/cms/commit/b2c9abac0942c9bffc496c74b746898b38d6ffff",
+          "subject": "ci: restore unique Kujo setup step ids"
+        },
+        {
+          "sha": "c58bd808ccd342eddb48196cf354cf4ba78f80f5",
+          "url": "https://github.com/kujolang/cms/commit/c58bd808ccd342eddb48196cf354cf4ba78f80f5",
+          "subject": "ci: pin Kujo v1.2.2 runtime"
+        },
+        {
+          "sha": "dca9f99cfd5ec4052e96e0c0d2bde1dcd0c9b19c",
+          "url": "https://github.com/kujolang/cms/commit/dca9f99cfd5ec4052e96e0c0d2bde1dcd0c9b19c",
+          "subject": "docs: connect CMS Ability gateway to agent hosts"
+        },
+        {
+          "sha": "bd7ee2134a44ac220fbae18489def9650c890304",
+          "url": "https://github.com/kujolang/cms/commit/bd7ee2134a44ac220fbae18489def9650c890304",
+          "subject": "ci: adopt checksum-verified Kujo v1.2.1 setup"
+        },
+        {
+          "sha": "3816e17ab38f5af8acd90d2564db0db161948c45",
+          "url": "https://github.com/kujolang/cms/commit/3816e17ab38f5af8acd90d2564db0db161948c45",
+          "subject": "build: pin hardened ability runtime"
+        },
+        {
+          "sha": "de60d7b7e05b45719048092306bbbb3322416bb4",
+          "url": "https://github.com/kujolang/cms/commit/de60d7b7e05b45719048092306bbbb3322416bb4",
+          "subject": "ci: pin artifact guard checkout"
+        },
+        {
+          "sha": "5ed0950cf67b63e7f7251813cb319845f2316279",
+          "url": "https://github.com/kujolang/cms/commit/5ed0950cf67b63e7f7251813cb319845f2316279",
+          "subject": "build: pin final ability release revision"
+        },
+        {
+          "sha": "44bffa472430c4dea93161ce3351820197c06b87",
+          "url": "https://github.com/kujolang/cms/commit/44bffa472430c4dea93161ce3351820197c06b87",
+          "subject": "ci: use maintained action runtimes"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/casefile",
+      "latest_published_release": {
+        "tag": "v1.0.0",
+        "url": "https://github.com/kujolang/casefile/releases/tag/v1.0.0",
+        "published_at": "2026-08-08T06:59:33Z",
+        "id": 367136450
+      },
+      "readme_blob_sha": "1a2e0a7666b6ca9787ab89beaf92fa50af499ae2",
+      "readme_source": "https://github.com/kujolang/casefile/blob/main/README.md",
+      "checked_at": "2026-09-09T15:30:56.666Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "f26df300df0e9db570f7730341077084f5594f0d",
+          "url": "https://github.com/kujolang/casefile/commit/f26df300df0e9db570f7730341077084f5594f0d",
+          "subject": "docs: record repository hardening evidence and remaining boundaries"
+        },
+        {
+          "sha": "4df01ffeabd31714f4337d6ff7d2e602a2a9b105",
+          "url": "https://github.com/kujolang/casefile/commit/4df01ffeabd31714f4337d6ff7d2e602a2a9b105",
+          "subject": "test: add portable verification receipts and document CaseFile contracts"
+        },
+        {
+          "sha": "29dd5901e95e448f99e0aa799d90e3dedaccf23c",
+          "url": "https://github.com/kujolang/casefile/commit/29dd5901e95e448f99e0aa799d90e3dedaccf23c",
+          "subject": "fix: harden case capture containment and bounded evidence collection"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/muzzle",
+      "latest_published_release": {
+        "tag": "v1.1.0",
+        "url": "https://github.com/kujolang/muzzle/releases/tag/v1.1.0",
+        "published_at": "2026-08-30T23:38:44Z",
+        "id": 379433804
+      },
+      "readme_blob_sha": "26a0d708f75b34cc97be73ab19047ca588074e3d",
+      "readme_source": "https://github.com/kujolang/muzzle/blob/main/README.md",
+      "checked_at": "2026-09-09T15:30:57.566Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/scent",
+      "latest_published_release": {
+        "tag": "v1.0.0",
+        "url": "https://github.com/kujolang/scent/releases/tag/v1.0.0",
+        "published_at": "2026-08-08T07:01:47Z",
+        "id": 367136953
+      },
+      "readme_blob_sha": "b506374e6458c75d4590b0a45aed0312c1c87302",
+      "readme_source": "https://github.com/kujolang/scent/blob/main/README.md",
+      "checked_at": "2026-09-09T15:30:58.021Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "969f0fdc853c88cd051248a6ebcd9ce0434d9f43",
+          "url": "https://github.com/kujolang/scent/commit/969f0fdc853c88cd051248a6ebcd9ce0434d9f43",
+          "subject": "Record repository hardening audit and measured evidence"
+        },
+        {
+          "sha": "cdf6e7668824d2e52dd1155bddc5d12912fc5f2f",
+          "url": "https://github.com/kujolang/scent/commit/cdf6e7668824d2e52dd1155bddc5d12912fc5f2f",
+          "subject": "Verify Eval smoke with isolated public CLI assertions"
+        },
+        {
+          "sha": "3f5d8983a435dfb8d0edab4e189900270aa860dc",
+          "url": "https://github.com/kujolang/scent/commit/3f5d8983a435dfb8d0edab4e189900270aa860dc",
+          "subject": "Avoid repeated copies of large Git inventories"
+        },
+        {
+          "sha": "37eb7b106d5b1e2f0fd2c7aa6f4c894b5912862f",
+          "url": "https://github.com/kujolang/scent/commit/37eb7b106d5b1e2f0fd2c7aa6f4c894b5912862f",
+          "subject": "Add portable verification and document packing contracts"
+        },
+        {
+          "sha": "a2ebe206b7939164f50304ceef6d459312b0a711",
+          "url": "https://github.com/kujolang/scent/commit/a2ebe206b7939164f50304ceef6d459312b0a711",
+          "subject": "Harden context packing and reduce redundant processing"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/mcp",
+      "latest_published_release": {
+        "tag": "v1.1.1",
+        "url": "https://github.com/kujolang/mcp/releases/tag/v1.1.1",
+        "published_at": "2026-09-04T12:43:30Z",
+        "id": 382717847
+      },
+      "readme_blob_sha": "c3b000cca51303d1240795baf6364ffa3a2a54bd",
+      "readme_source": "https://github.com/kujolang/mcp/blob/main/README.md",
+      "checked_at": "2026-09-09T15:30:59.065Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "20f1c83f702aa0a86595db5a824634c1dde96aaa",
+          "url": "https://github.com/kujolang/mcp/commit/20f1c83f702aa0a86595db5a824634c1dde96aaa",
+          "subject": "refresh host certification matrix"
+        },
+        {
+          "sha": "1a4dbb926eb3f6db62242311c88443cf6ee42103",
+          "url": "https://github.com/kujolang/mcp/commit/1a4dbb926eb3f6db62242311c88443cf6ee42103",
+          "subject": "record gateway live conformance"
+        },
+        {
+          "sha": "ac8a6d49421bae79d091039aed2e65e09b2e9770",
+          "url": "https://github.com/kujolang/mcp/commit/ac8a6d49421bae79d091039aed2e65e09b2e9770",
+          "subject": "test: refresh gateway host certification"
+        },
+        {
+          "sha": "7a183b8cee610a3d9ea5955705dca8897d50bab9",
+          "url": "https://github.com/kujolang/mcp/commit/7a183b8cee610a3d9ea5955705dca8897d50bab9",
+          "subject": "docs: certify quota-bound gateway revision"
+        },
+        {
+          "sha": "900e693d81e27da183878cd0bc9a893cd0ef9c36",
+          "url": "https://github.com/kujolang/mcp/commit/900e693d81e27da183878cd0bc9a893cd0ef9c36",
+          "subject": "docs: bind host evidence to operations drill"
+        },
+        {
+          "sha": "c0883fe76a6bbdf2b3cf0519bd52c5a5a02dc10e",
+          "url": "https://github.com/kujolang/mcp/commit/c0883fe76a6bbdf2b3cf0519bd52c5a5a02dc10e",
+          "subject": "docs: refresh standalone host evidence"
+        },
+        {
+          "sha": "344baf7a91b7b4ade3b79e4878073c72550eac76",
+          "url": "https://github.com/kujolang/mcp/commit/344baf7a91b7b4ade3b79e4878073c72550eac76",
+          "subject": "fix: support standalone certification validation"
+        },
+        {
+          "sha": "8e11cc012d32d36e88187bd60a0a3076f3370e6b",
+          "url": "https://github.com/kujolang/mcp/commit/8e11cc012d32d36e88187bd60a0a3076f3370e6b",
+          "subject": "docs: refresh Ability host certification matrix"
+        },
+        {
+          "sha": "c40e3f6b8805834b3bb9ccd8fdd9126f21a6ec0e",
+          "url": "https://github.com/kujolang/mcp/commit/c40e3f6b8805834b3bb9ccd8fdd9126f21a6ec0e",
+          "subject": "fix: bind host evidence to source revisions"
+        },
+        {
+          "sha": "bc5ac0325a0a8a796bce0fee8abb4807d8b895d8",
+          "url": "https://github.com/kujolang/mcp/commit/bc5ac0325a0a8a796bce0fee8abb4807d8b895d8",
+          "subject": "feat: expand Ability host certification evidence"
+        },
+        {
+          "sha": "7c938d765702b07cb7051a50c7bf206cffe1d78e",
+          "url": "https://github.com/kujolang/mcp/commit/7c938d765702b07cb7051a50c7bf206cffe1d78e",
+          "subject": "test: certify MCP 1.1.1 release"
+        },
+        {
+          "sha": "be29feee072ecf5736b051191ef37720a7e27b12",
+          "url": "https://github.com/kujolang/mcp/commit/be29feee072ecf5736b051191ef37720a7e27b12",
+          "subject": "test: align MCP 1.1.1 package assertions"
+        },
+        {
+          "sha": "764e2bcaca11f1ce2398abe810e58eb25d54f147",
+          "url": "https://github.com/kujolang/mcp/commit/764e2bcaca11f1ce2398abe810e58eb25d54f147",
+          "subject": "fix: prepare MCP 1.1.1 npm package"
+        },
+        {
+          "sha": "b1cf75565f8fcb95f4e1dc46fa1f12c5784e12cc",
+          "url": "https://github.com/kujolang/mcp/commit/b1cf75565f8fcb95f4e1dc46fa1f12c5784e12cc",
+          "subject": "test: refresh MCP 1.1 release evidence"
+        },
+        {
+          "sha": "4c775a0f005f78b81ff1914c05021523b1c8dfa9",
+          "url": "https://github.com/kujolang/mcp/commit/4c775a0f005f78b81ff1914c05021523b1c8dfa9",
+          "subject": "ci: fetch history for certification checks"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/lens",
+      "latest_published_release": {
+        "tag": "v1.1.0",
+        "url": "https://github.com/kujolang/lens/releases/tag/v1.1.0",
+        "published_at": "2026-09-07T11:12:52Z",
+        "id": 384030048
+      },
+      "readme_blob_sha": "5166b92741f80235489b16d569e457ecbdc1ab6f",
+      "readme_source": "https://github.com/kujolang/lens/blob/main/README.md",
+      "checked_at": "2026-09-09T15:30:58.618Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "fd388efd4f55f3f844cf7de4fc541abfd07a6785",
+          "url": "https://github.com/kujolang/lens/commit/fd388efd4f55f3f844cf7de4fc541abfd07a6785",
+          "subject": "fix(bench): avoid reverse DNS when binding local fixture servers"
+        },
+        {
+          "sha": "1d414b24ee9f8d8ff3e18b4331c31dde513cb36a",
+          "url": "https://github.com/kujolang/lens/commit/1d414b24ee9f8d8ff3e18b4331c31dde513cb36a",
+          "subject": "test(bench): diagnose stalled fixture initialization on macOS"
+        },
+        {
+          "sha": "6d17f0a0c46ad62bdc241fc69aa746e94a7adbd5",
+          "url": "https://github.com/kujolang/lens/commit/6d17f0a0c46ad62bdc241fc69aa746e94a7adbd5",
+          "subject": "test(bench): retain fixture startup diagnostics on failure"
+        },
+        {
+          "sha": "88ce4587f69642940464548854c46fb9ff3f5f05",
+          "url": "https://github.com/kujolang/lens/commit/88ce4587f69642940464548854c46fb9ff3f5f05",
+          "subject": "release: prepare Lens 1.1.0 and stabilize fixture compatibility CI"
+        },
+        {
+          "sha": "93de8e464a9249e2ec6edc3dd6c05eb7ae23bcb9",
+          "url": "https://github.com/kujolang/lens/commit/93de8e464a9249e2ec6edc3dd6c05eb7ae23bcb9",
+          "subject": "ci: keep fixture probes local and accept structured launch errors"
+        },
+        {
+          "sha": "11ffe29a8e791cb89836ee3d8f17c856de9641d0",
+          "url": "https://github.com/kujolang/lens/commit/11ffe29a8e791cb89836ee3d8f17c856de9641d0",
+          "subject": "Merge PR #4: browser runtime performance and reliability"
+        },
+        {
+          "sha": "b6a5edb0c0b0c7c534427be64d1d1f14bda0302d",
+          "url": "https://github.com/kujolang/lens/commit/b6a5edb0c0b0c7c534427be64d1d1f14bda0302d",
+          "subject": "docs(perf): publish verified runtime results and lifecycle contracts"
+        },
+        {
+          "sha": "42c73c3ff12f877ec58b4ad8978c9c587606dc8a",
+          "url": "https://github.com/kujolang/lens/commit/42c73c3ff12f877ec58b4ad8978c9c587606dc8a",
+          "subject": "ci(perf): sample browser phase variance across 24 pairs"
+        },
+        {
+          "sha": "3eaff7989c67ee347e870508223187362257799c",
+          "url": "https://github.com/kujolang/lens/commit/3eaff7989c67ee347e870508223187362257799c",
+          "subject": "ci(perf): expose phase diagnostics through the registered workflow"
+        },
+        {
+          "sha": "42b711d96b6c6523b976ff98ecbb23256983cb7c",
+          "url": "https://github.com/kujolang/lens/commit/42b711d96b6c6523b976ff98ecbb23256983cb7c",
+          "subject": "ci(perf): isolate alternating browser phase diagnostics"
+        },
+        {
+          "sha": "e8cf9357462aa1ab438b5b358eee3c9d84d131dc",
+          "url": "https://github.com/kujolang/lens/commit/e8cf9357462aa1ab438b5b358eee3c9d84d131dc",
+          "subject": "ci: install isolated visual comparison dependencies for E2E"
+        },
+        {
+          "sha": "45af1d798ffe19bc876750c2b36a2d1c5ec542f3",
+          "url": "https://github.com/kujolang/lens/commit/45af1d798ffe19bc876750c2b36a2d1c5ec542f3",
+          "subject": "fix(runtime): honor readiness deadlines despite early timer wakeups"
+        },
+        {
+          "sha": "23cbd4af92416ec725faeed8d6214eae022b53de",
+          "url": "https://github.com/kujolang/lens/commit/23cbd4af92416ec725faeed8d6214eae022b53de",
+          "subject": "ci(perf): support release-sized runs with functional verification"
+        },
+        {
+          "sha": "75416a0b87d8d82ee598428f5b57d8b987fc3e71",
+          "url": "https://github.com/kujolang/lens/commit/75416a0b87d8d82ee598428f5b57d8b987fc3e71",
+          "subject": "test(perf): add resumable benchmarks and runtime compatibility checks"
+        },
+        {
+          "sha": "2d4b76413b60d28161314f30aa1b2e5f896a643e",
+          "url": "https://github.com/kujolang/lens/commit/2d4b76413b60d28161314f30aa1b2e5f896a643e",
+          "subject": "perf(cli): reuse isolated sessions and bound crawl discovery"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/packwrite",
+      "latest_published_release": {
+        "tag": "v1.1.0",
+        "url": "https://github.com/kujolang/packwrite/releases/tag/v1.1.0",
+        "published_at": "2026-08-30T23:51:59Z",
+        "id": 379436208
+      },
+      "readme_blob_sha": "737a25786d4facfb0b93bc0a5527e7ec796ad080",
+      "readme_source": "https://github.com/kujolang/packwrite/blob/main/README.md",
+      "checked_at": "2026-09-09T15:30:59.143Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "3f0cbf4b5052677d22040cdf486adf2817b40a20",
+          "url": "https://github.com/kujolang/packwrite/commit/3f0cbf4b5052677d22040cdf486adf2817b40a20",
+          "subject": "ci: pin Kujo v1.2.2 setup contract"
+        },
+        {
+          "sha": "ac7838e5a229596edaf431b44240484d7198f0ec",
+          "url": "https://github.com/kujolang/packwrite/commit/ac7838e5a229596edaf431b44240484d7198f0ec",
+          "subject": "ci: adopt Kujo v1.2.0 setup action"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/shipcheck",
+      "latest_published_release": {
+        "tag": "v1.0.0",
+        "url": "https://github.com/kujolang/shipcheck/releases/tag/v1.0.0",
+        "published_at": "2026-08-08T07:02:07Z",
+        "id": 367137016
+      },
+      "readme_blob_sha": "68f7e105f26dc6f58c6d7eccfe71bae3c8a8b54b",
+      "readme_source": "https://github.com/kujolang/shipcheck/blob/main/README.md",
+      "checked_at": "2026-09-09T15:30:59.640Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "111bfc83c832050877cb9d4fd82908aaf6d14749",
+          "url": "https://github.com/kujolang/shipcheck/commit/111bfc83c832050877cb9d4fd82908aaf6d14749",
+          "subject": "Document hardening evidence and compatibility corrections"
+        },
+        {
+          "sha": "f9b25c44b4da5d0d24b093e3f10437b5dd42de3b",
+          "url": "https://github.com/kujolang/shipcheck/commit/f9b25c44b4da5d0d24b093e3f10437b5dd42de3b",
+          "subject": "Harden readiness signals and output; avoid release-note scans"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/patchbrief",
+      "latest_published_release": {
+        "tag": "v1.0.1",
+        "url": "https://github.com/kujolang/patchbrief/releases/tag/v1.0.1",
+        "published_at": "2026-08-30T23:33:27Z",
+        "id": 379432745
+      },
+      "readme_blob_sha": "9dbdc770d836fa11c158958d6943e4f18090503d",
+      "readme_source": "https://github.com/kujolang/patchbrief/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:00.337Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "321d961c19c4ee09713cf1f737ba5e112b0caa5b",
+          "url": "https://github.com/kujolang/patchbrief/commit/321d961c19c4ee09713cf1f737ba5e112b0caa5b",
+          "subject": "ci: pin Kujo v1.2.2 setup contract"
+        },
+        {
+          "sha": "d88397da0d98825191a76fdbce7a68fb9acb9a55",
+          "url": "https://github.com/kujolang/patchbrief/commit/d88397da0d98825191a76fdbce7a68fb9acb9a55",
+          "subject": "ci: adopt Kujo v1.2.0 setup action"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/changebucket",
+      "latest_published_release": {
+        "tag": "v1.0.0",
+        "url": "https://github.com/kujolang/changebucket/releases/tag/v1.0.0",
+        "published_at": "2026-08-08T06:59:28Z",
+        "id": 367136441
+      },
+      "readme_blob_sha": "332d4b8e535b83c17ebaf2c0dd9c347fa0080686",
+      "readme_source": "https://github.com/kujolang/changebucket/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:00.302Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "16491d2badd11a9d641c7c748f853b476a4d1134",
+          "url": "https://github.com/kujolang/changebucket/commit/16491d2badd11a9d641c7c748f853b476a4d1134",
+          "subject": "Advance official release publisher pin"
+        },
+        {
+          "sha": "38d67aacee7258f3c84c2d8d8e9ae671df943c90",
+          "url": "https://github.com/kujolang/changebucket/commit/38d67aacee7258f3c84c2d8d8e9ae671df943c90",
+          "subject": "Pin official package publisher workflow"
+        },
+        {
+          "sha": "ff7ee142767c03f0e18fa36b30ac5e662123ba37",
+          "url": "https://github.com/kujolang/changebucket/commit/ff7ee142767c03f0e18fa36b30ac5e662123ba37",
+          "subject": "Build Kennel packages from published GitHub Releases"
+        },
+        {
+          "sha": "f030bcc99866ad383480afc9eb01904d08fd7389",
+          "url": "https://github.com/kujolang/changebucket/commit/f030bcc99866ad383480afc9eb01904d08fd7389",
+          "subject": "Record hardening audit, regression evidence, and measured performance"
+        },
+        {
+          "sha": "21a67978b18e280e4233f28ab6394d80b03662d6",
+          "url": "https://github.com/kujolang/changebucket/commit/21a67978b18e280e4233f28ab6394d80b03662d6",
+          "subject": "Add portable verification gate and document hardened contracts"
+        },
+        {
+          "sha": "b299ef9999cf557b992cd7eeb2d73b5ced6edba5",
+          "url": "https://github.com/kujolang/changebucket/commit/b299ef9999cf557b992cd7eeb2d73b5ced6edba5",
+          "subject": "Harden Git analysis failures, path handling, and bounded report selection"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/runledger",
+      "latest_published_release": {
+        "tag": "v1.1.0",
+        "url": "https://github.com/kujolang/runledger/releases/tag/v1.1.0",
+        "published_at": "2026-08-31T00:49:32Z",
+        "id": 379448355
+      },
+      "readme_blob_sha": "a898b07c9e5dd794ce2b84151d16909fd3be4ce6",
+      "readme_source": "https://github.com/kujolang/runledger/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:00.979Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "92cb06344386fc0a78d92b1db92f417edb22b285",
+          "url": "https://github.com/kujolang/runledger/commit/92cb06344386fc0a78d92b1db92f417edb22b285",
+          "subject": "feat: add cross-system telemetry correlation links"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/watchdog",
+      "latest_published_release": {
+        "tag": "v1.0.1",
+        "url": "https://github.com/kujolang/watchdog/releases/tag/v1.0.1",
+        "published_at": "2026-08-11T17:15:49Z",
+        "id": 368730538
+      },
+      "readme_blob_sha": "05e0f61e91375daa1781b3b9febfd3271700a6fe",
+      "readme_source": "https://github.com/kujolang/watchdog/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:01.900Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "314698b0502c5d2139df46b7523482c6d089b6ff",
+          "url": "https://github.com/kujolang/watchdog/commit/314698b0502c5d2139df46b7523482c6d089b6ff",
+          "subject": "Use repository validation result for canonical HTTP intake"
+        },
+        {
+          "sha": "52d581f5fc9bb5865db1919fba7724c6dbbb8fb4",
+          "url": "https://github.com/kujolang/watchdog/commit/52d581f5fc9bb5865db1919fba7724c6dbbb8fb4",
+          "subject": "Reuse canonical bytes and hashes within telemetry batches"
+        },
+        {
+          "sha": "cdd4d9bee10fdfa2592309347a5b131cdc88bed3",
+          "url": "https://github.com/kujolang/watchdog/commit/cdd4d9bee10fdfa2592309347a5b131cdc88bed3",
+          "subject": "Reject partial canonical batches before privacy filtering"
+        },
+        {
+          "sha": "fadad4eaff40e3b1a86333ab1fd9a3037736f94c",
+          "url": "https://github.com/kujolang/watchdog/commit/fadad4eaff40e3b1a86333ab1fd9a3037736f94c",
+          "subject": "Allow an explicit bind host for local Watchdog instances"
+        },
+        {
+          "sha": "a639d9accc418a1d59f0f8c61b122250ab007145",
+          "url": "https://github.com/kujolang/watchdog/commit/a639d9accc418a1d59f0f8c61b122250ab007145",
+          "subject": "Expose stable canonical store identity and cursor anchors"
+        },
+        {
+          "sha": "6cbd121d989967526058c58a63105b047fe3f000",
+          "url": "https://github.com/kujolang/watchdog/commit/6cbd121d989967526058c58a63105b047fe3f000",
+          "subject": "fix: retain integer metadata through native and canonical intake"
+        },
+        {
+          "sha": "557b822294e70bfd4f42e1751fde5652f932c34c",
+          "url": "https://github.com/kujolang/watchdog/commit/557b822294e70bfd4f42e1751fde5652f932c34c",
+          "subject": "test: verify current pricing provenance"
+        },
+        {
+          "sha": "80c9775ae01c543117481780a8aba803d9d71051",
+          "url": "https://github.com/kujolang/watchdog/commit/80c9775ae01c543117481780a8aba803d9d71051",
+          "subject": "chore: refresh pricing catalogs"
+        },
+        {
+          "sha": "3140bde93ad1069507e7e11df864c304ab82bd10",
+          "url": "https://github.com/kujolang/watchdog/commit/3140bde93ad1069507e7e11df864c304ab82bd10",
+          "subject": "fix: refine connected source controls"
+        },
+        {
+          "sha": "1dc7970505758b668f2c302f75f58918dd9a27bf",
+          "url": "https://github.com/kujolang/watchdog/commit/1dc7970505758b668f2c302f75f58918dd9a27bf",
+          "subject": "feat: expose safe proxy profile editing data"
+        },
+        {
+          "sha": "c593a0171cf751c2a13a7b7a83af176fafaa723c",
+          "url": "https://github.com/kujolang/watchdog/commit/c593a0171cf751c2a13a7b7a83af176fafaa723c",
+          "subject": "docs: document and evaluate connected sources"
+        },
+        {
+          "sha": "36366ed703981723a1d09630e802af4f71d2cdec",
+          "url": "https://github.com/kujolang/watchdog/commit/36366ed703981723a1d09630e802af4f71d2cdec",
+          "subject": "feat: add connected sources dashboard"
+        },
+        {
+          "sha": "180a7e6826e9f1d7be9c7b5734775c6548b48b8e",
+          "url": "https://github.com/kujolang/watchdog/commit/180a7e6826e9f1d7be9c7b5734775c6548b48b8e",
+          "subject": "feat: add connected source management API"
+        },
+        {
+          "sha": "c23cc87fe6fff21c397491a09204f92469896ebd",
+          "url": "https://github.com/kujolang/watchdog/commit/c23cc87fe6fff21c397491a09204f92469896ebd",
+          "subject": "docs: add connected sources implementation prompt"
+        },
+        {
+          "sha": "cbcbb9cd9a39e11310a693f12e565fcc34f1ffee",
+          "url": "https://github.com/kujolang/watchdog/commit/cbcbb9cd9a39e11310a693f12e565fcc34f1ffee",
+          "subject": "feat(dashboard): balance metrics and replace emoji icons"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/fence",
+      "latest_published_release": {
+        "tag": "v1.0.0",
+        "url": "https://github.com/kujolang/fence/releases/tag/v1.0.0",
+        "published_at": "2026-08-08T06:59:26Z",
+        "id": 367136432
+      },
+      "readme_blob_sha": "113b65512f82505121702794b15990bee7da24d1",
+      "readme_source": "https://github.com/kujolang/fence/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:01.904Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "fda049ed9aa55ba50c150b84bb9ca1bdf49af0dc",
+          "url": "https://github.com/kujolang/fence/commit/fda049ed9aa55ba50c150b84bb9ca1bdf49af0dc",
+          "subject": "docs: close confined output audit with platform receipts"
+        },
+        {
+          "sha": "6312e6520a9deaa48a44918a3eb0194b6db413bb",
+          "url": "https://github.com/kujolang/fence/commit/6312e6520a9deaa48a44918a3eb0194b6db413bb",
+          "subject": "test: verify real symlink fixtures and pin corrected junction test"
+        },
+        {
+          "sha": "22d1f75d21ab98b44dd5e717cefd167d4ee58a94",
+          "url": "https://github.com/kujolang/fence/commit/22d1f75d21ab98b44dd5e717cefd167d4ee58a94",
+          "subject": "build: verify corrected runtime pin with one Cargo test graph"
+        },
+        {
+          "sha": "30201583b46af039549033f00af29bab13bb7a8a",
+          "url": "https://github.com/kujolang/fence/commit/30201583b46af039549033f00af29bab13bb7a8a",
+          "subject": "build: pin native Windows handle publication fix"
+        },
+        {
+          "sha": "809ac7ad4f5d9a3e821d930c01a84f5a95791501",
+          "url": "https://github.com/kujolang/fence/commit/809ac7ad4f5d9a3e821d930c01a84f5a95791501",
+          "subject": "fix: publish Fence outputs through confined runtime handles"
+        },
+        {
+          "sha": "78dcff3f21fb4ea3685313296044202ca432fda9",
+          "url": "https://github.com/kujolang/fence/commit/78dcff3f21fb4ea3685313296044202ca432fda9",
+          "subject": "docs: record remaining hardening evidence and native write contract"
+        },
+        {
+          "sha": "10961e20b3c8bd1c7eb4d3ff9a9a5e2eb4013f52",
+          "url": "https://github.com/kujolang/fence/commit/10961e20b3c8bd1c7eb4d3ff9a9a5e2eb4013f52",
+          "subject": "fix: bound cache lifecycle and unify explanation policy"
+        },
+        {
+          "sha": "981e6064a6ffa17b5898ab8a703f0acf5cdb28df",
+          "url": "https://github.com/kujolang/fence/commit/981e6064a6ffa17b5898ab8a703f0acf5cdb28df",
+          "subject": "Record Fence hardening audit and verification receipts"
+        },
+        {
+          "sha": "4a91a40f5385f49456e319fa5b30f378e8e3f5da",
+          "url": "https://github.com/kujolang/fence/commit/4a91a40f5385f49456e319fa5b30f378e8e3f5da",
+          "subject": "Harden Fence enforcement, traversal, and artifact publication"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/agents-sdk",
+      "latest_published_release": {
+        "tag": "v1.0.0",
+        "url": "https://github.com/kujolang/agents-sdk/releases/tag/v1.0.0",
+        "published_at": "2026-08-08T07:01:44Z",
+        "id": 367136944
+      },
+      "readme_blob_sha": "04cbc3dcbc7c28ed2c50cc77c1853e51b1493497",
+      "readme_source": "https://github.com/kujolang/agents-sdk/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:02.216Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "bb2202d8b54f44717b1b1f0157a6774f2027cea1",
+          "url": "https://github.com/kujolang/agents-sdk/commit/bb2202d8b54f44717b1b1f0157a6774f2027cea1",
+          "subject": "feat: preserve observed identities and demonstrate real MCP tool lifecycles"
+        },
+        {
+          "sha": "5cef522594df3b1ba929ce60272c798d7f086ad8",
+          "url": "https://github.com/kujolang/agents-sdk/commit/5cef522594df3b1ba929ce60272c798d7f086ad8",
+          "subject": "feat: observe bounded live run retrieval tool and handoff lifecycles"
+        },
+        {
+          "sha": "e0be75bb153296e0d2e93c7b4608a90abcb6f60e",
+          "url": "https://github.com/kujolang/agents-sdk/commit/e0be75bb153296e0d2e93c7b4608a90abcb6f60e",
+          "subject": "docs: format durable evidence redaction guidance"
+        },
+        {
+          "sha": "b5c8c90b9b1a3c7cf22c41e24ec7343b13df8720",
+          "url": "https://github.com/kujolang/agents-sdk/commit/b5c8c90b9b1a3c7cf22c41e24ec7343b13df8720",
+          "subject": "fix: preserve observer delivery and redacted execution evidence"
+        },
+        {
+          "sha": "68d9b8470c15fd1075aa43c327f7bc6c37d94375",
+          "url": "https://github.com/kujolang/agents-sdk/commit/68d9b8470c15fd1075aa43c327f7bc6c37d94375",
+          "subject": "fix: make context ratchet check invocation explicit"
+        },
+        {
+          "sha": "388188d21a98f76429533a5e281b3b69f0636f9f",
+          "url": "https://github.com/kujolang/agents-sdk/commit/388188d21a98f76429533a5e281b3b69f0636f9f",
+          "subject": "feat: integrate compact context execution and dispatch evidence"
+        },
+        {
+          "sha": "46b3f2b31d39ef15553f9d7832444427a2513d47",
+          "url": "https://github.com/kujolang/agents-sdk/commit/46b3f2b31d39ef15553f9d7832444427a2513d47",
+          "subject": "test: ratchet normalized context costs with verified paired fixtures"
+        },
+        {
+          "sha": "c9c1e2f1d18807e4fa673dcb6b3947d783089faa",
+          "url": "https://github.com/kujolang/agents-sdk/commit/c9c1e2f1d18807e4fa673dcb6b3947d783089faa",
+          "subject": "feat: load selected skill cores and verified references"
+        },
+        {
+          "sha": "c3f9ede4fe60db778be3712b91114af324266344",
+          "url": "https://github.com/kujolang/agents-sdk/commit/c3f9ede4fe60db778be3712b91114af324266344",
+          "subject": "feat: scope tool views and structural source retrieval"
+        },
+        {
+          "sha": "133467a1b44b49d82bba78ddaf5fe4367f645240",
+          "url": "https://github.com/kujolang/agents-sdk/commit/133467a1b44b49d82bba78ddaf5fe4367f645240",
+          "subject": "feat: add typed handoff and compact recovery state contracts"
+        },
+        {
+          "sha": "9586593d64d9bfe8e31bebfc7e5bfb6859ab45e5",
+          "url": "https://github.com/kujolang/agents-sdk/commit/9586593d64d9bfe8e31bebfc7e5bfb6859ab45e5",
+          "subject": "feat: extend artifacts with verified context manifests"
+        },
+        {
+          "sha": "89bcce6caa62509593c1efbe7e1f302ab63a37f8",
+          "url": "https://github.com/kujolang/agents-sdk/commit/89bcce6caa62509593c1efbe7e1f302ab63a37f8",
+          "subject": "feat: observe context costs at AI adapter boundary"
+        },
+        {
+          "sha": "f5e7312580d15cda13e76574bdbb1af72a90afb3",
+          "url": "https://github.com/kujolang/agents-sdk/commit/f5e7312580d15cda13e76574bdbb1af72a90afb3",
+          "subject": "docs: record local Kujo documentation dogfood activation"
+        },
+        {
+          "sha": "251919a433199f7e119b5b057958e473302b4b8e",
+          "url": "https://github.com/kujolang/agents-sdk/commit/251919a433199f7e119b5b057958e473302b4b8e",
+          "subject": "docs: record main merges, local deployment and existing RAG release blocker"
+        },
+        {
+          "sha": "2677c1853a862dd415324d020e970a3140ed95dd",
+          "url": "https://github.com/kujolang/agents-sdk/commit/2677c1853a862dd415324d020e970a3140ed95dd",
+          "subject": "docs: record completed four-repository retrieval rollout and measured evidence"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/ai-sdk",
+      "latest_published_release": {
+        "tag": "v1.0.0",
+        "url": "https://github.com/kujolang/ai-sdk/releases/tag/v1.0.0",
+        "published_at": "2026-08-08T06:59:24Z",
+        "id": 367136429
+      },
+      "readme_blob_sha": "2bf9c23fe6225fda02c8fec26821f3b2775ffb72",
+      "readme_source": "https://github.com/kujolang/ai-sdk/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:03.331Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "71bad1468fbc97eab830a27c185c032f07fd76cf",
+          "url": "https://github.com/kujolang/ai-sdk/commit/71bad1468fbc97eab830a27c185c032f07fd76cf",
+          "subject": "docs: record repository hardening evidence and follow-ups"
+        },
+        {
+          "sha": "62aaaeafe573c9f0dd69b93293b696de916d025f",
+          "url": "https://github.com/kujolang/ai-sdk/commit/62aaaeafe573c9f0dd69b93293b696de916d025f",
+          "subject": "fix: clean staged workspaces and repair verification gates"
+        },
+        {
+          "sha": "b881310a6e68068ef4f5e154533eb27d6118b74e",
+          "url": "https://github.com/kujolang/ai-sdk/commit/b881310a6e68068ef4f5e154533eb27d6118b74e",
+          "subject": "fix: validate catalog identities and avoid redundant lookup work"
+        },
+        {
+          "sha": "3a66629064360699da161b86b43eceb1fa865d23",
+          "url": "https://github.com/kujolang/ai-sdk/commit/3a66629064360699da161b86b43eceb1fa865d23",
+          "subject": "fix: contain transport exceptions and redact error credentials"
+        },
+        {
+          "sha": "0bb4b313867d6dd341f91da852afcc5ea25606bf",
+          "url": "https://github.com/kujolang/ai-sdk/commit/0bb4b313867d6dd341f91da852afcc5ea25606bf",
+          "subject": "feat: add provider-neutral Watchdog telemetry contract"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/rag",
+      "latest_published_release": {
+        "tag": "v1.0.0",
+        "url": "https://github.com/kujolang/rag/releases/tag/v1.0.0",
+        "published_at": "2026-08-08T07:01:42Z",
+        "id": 367136936
+      },
+      "readme_blob_sha": "f41a7653e9bac4265598cb393f2fc87cea1f0aef",
+      "readme_source": "https://github.com/kujolang/rag/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:03.310Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "85743f88c152d7c65f59d4697111faf85e36d8eb",
+          "url": "https://github.com/kujolang/rag/commit/85743f88c152d7c65f59d4697111faf85e36d8eb",
+          "subject": "feat: add local published Kujo docs snapshot and service workflow"
+        },
+        {
+          "sha": "ef0d640e515fc744a41829b92773a6484547bcbb",
+          "url": "https://github.com/kujolang/rag/commit/ef0d640e515fc744a41829b92773a6484547bcbb",
+          "subject": "test: measure RAG response and model context across all retrieval hosts"
+        },
+        {
+          "sha": "9092dddaca9221425504257572454a59b938deb6",
+          "url": "https://github.com/kujolang/rag/commit/9092dddaca9221425504257572454a59b938deb6",
+          "subject": "feat: ingest HTTP documentation using negotiated response media types"
+        },
+        {
+          "sha": "f00f68b652b8e36863bc64069ebb6882bd815f76",
+          "url": "https://github.com/kujolang/rag/commit/f00f68b652b8e36863bc64069ebb6882bd815f76",
+          "subject": "feat: select equivalent documentation examples before RAG responses"
+        },
+        {
+          "sha": "2005da72a8f4b30a7c138dde6d95a09b9bbfd6c0",
+          "url": "https://github.com/kujolang/rag/commit/2005da72a8f4b30a7c138dde6d95a09b9bbfd6c0",
+          "subject": "ci(security): verify staging audit chain"
+        },
+        {
+          "sha": "5927166ad674ccfbb078405b8e8103dc76aec08d",
+          "url": "https://github.com/kujolang/rag/commit/5927166ad674ccfbb078405b8e8103dc76aec08d",
+          "subject": "ci: make attestation checksums portable"
+        },
+        {
+          "sha": "a2ad92d0fe7b204aaf9ce11308b9e326072df2f4",
+          "url": "https://github.com/kujolang/rag/commit/a2ad92d0fe7b204aaf9ce11308b9e326072df2f4",
+          "subject": "feat(security): enforce RBAC at Cloudflare proxy"
+        },
+        {
+          "sha": "b587bbe0920cb6adf6c7ba455c9bf29436408db4",
+          "url": "https://github.com/kujolang/rag/commit/b587bbe0920cb6adf6c7ba455c9bf29436408db4",
+          "subject": "fix(security): sanitize upstream rejection bodies"
+        },
+        {
+          "sha": "058e6e769617e7c7aab18592d9334deff7343061",
+          "url": "https://github.com/kujolang/rag/commit/058e6e769617e7c7aab18592d9334deff7343061",
+          "subject": "fix: close Kujo origin connections after requests"
+        },
+        {
+          "sha": "58d468001def057c19912762e64fccb7d9a3bbd4",
+          "url": "https://github.com/kujolang/rag/commit/58d468001def057c19912762e64fccb7d9a3bbd4",
+          "subject": "test: use bounded admin endpoint for forgery check"
+        },
+        {
+          "sha": "dcfb18f232f909ababf9a0ac23f35c6a9cb53e1c",
+          "url": "https://github.com/kujolang/rag/commit/dcfb18f232f909ababf9a0ac23f35c6a9cb53e1c",
+          "subject": "fix: make proxy response failures deterministic"
+        },
+        {
+          "sha": "5333b4dd744d1c7dde8823e610ae163f19297261",
+          "url": "https://github.com/kujolang/rag/commit/5333b4dd744d1c7dde8823e610ae163f19297261",
+          "subject": "fix(security): synthesize trusted proxy auth envelope"
+        },
+        {
+          "sha": "bf7af5d91c6bdfc32d1a82017b9770de170a6ee6",
+          "url": "https://github.com/kujolang/rag/commit/bf7af5d91c6bdfc32d1a82017b9770de170a6ee6",
+          "subject": "ci: surface staging process failures"
+        },
+        {
+          "sha": "e148f006e4bf1c7ff85053b554fe087152d2964d",
+          "url": "https://github.com/kujolang/rag/commit/e148f006e4bf1c7ff85053b554fe087152d2964d",
+          "subject": "ci: track staging process health"
+        },
+        {
+          "sha": "0a8a5d2cb5d9723744e97118bb987c04dcae0196",
+          "url": "https://github.com/kujolang/rag/commit/0a8a5d2cb5d9723744e97118bb987c04dcae0196",
+          "subject": "test: make JWT corruption deterministic"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/dispatch",
+      "latest_published_release": {
+        "tag": "v1.2.0",
+        "url": "https://github.com/kujolang/dispatch/releases/tag/v1.2.0",
+        "published_at": "2026-08-27T12:34:37Z",
+        "id": 377808250
+      },
+      "readme_blob_sha": "ed651275a1c236a1c82025d0a0b6a58d66bb5304",
+      "readme_source": "https://github.com/kujolang/dispatch/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:03.495Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "dcffd8f8c3fb9bac1e66bc5a0ad6a5d078c88019",
+          "url": "https://github.com/kujolang/dispatch/commit/dcffd8f8c3fb9bac1e66bc5a0ad6a5d078c88019",
+          "subject": "feat: expose bounded task and retry observations with source attempt identity"
+        },
+        {
+          "sha": "505683dd8c5e96fa892a9548ba414d8e7ce3a202",
+          "url": "https://github.com/kujolang/dispatch/commit/505683dd8c5e96fa892a9548ba414d8e7ce3a202",
+          "subject": "feat: demonstrate real SDK RAG execution through a Dispatch agent handler"
+        },
+        {
+          "sha": "83eea7d9d9c2a8c125bee8d64b13c1181f60c609",
+          "url": "https://github.com/kujolang/dispatch/commit/83eea7d9d9c2a8c125bee8d64b13c1181f60c609",
+          "subject": "feat: persist task retrieval preferences and add RAG documentation plugin"
+        },
+        {
+          "sha": "6fc6fedbe2fe1c388d88e80dde5ffb7e8fc8a3d8",
+          "url": "https://github.com/kujolang/dispatch/commit/6fc6fedbe2fe1c388d88e80dde5ffb7e8fc8a3d8",
+          "subject": "docs: record repository hardening verification"
+        },
+        {
+          "sha": "1caefcc696e10bd1d7d287c307a3fb55c6eae2e8",
+          "url": "https://github.com/kujolang/dispatch/commit/1caefcc696e10bd1d7d287c307a3fb55c6eae2e8",
+          "subject": "test: harden release gates and document audit controls"
+        },
+        {
+          "sha": "117d2499c32f7f3a3a24570a2f07bd442f07b4e1",
+          "url": "https://github.com/kujolang/dispatch/commit/117d2499c32f7f3a3a24570a2f07bd442f07b4e1",
+          "subject": "perf: reduce redaction and artifact write amplification"
+        },
+        {
+          "sha": "76be9525dca67a4adc5d6703edeb315a4c19a363",
+          "url": "https://github.com/kujolang/dispatch/commit/76be9525dca67a4adc5d6703edeb315a4c19a363",
+          "subject": "fix: enforce workflow execution and filesystem boundaries"
+        },
+        {
+          "sha": "83ffa0e3c1602ec1058d0455b03fba32a061f636",
+          "url": "https://github.com/kujolang/dispatch/commit/83ffa0e3c1602ec1058d0455b03fba32a061f636",
+          "subject": "feat: add metadata-only Watchdog workflow projection"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/eval",
+      "latest_published_release": {
+        "tag": "v1.0.0",
+        "url": "https://github.com/kujolang/eval/releases/tag/v1.0.0",
+        "published_at": "2026-08-08T07:01:34Z",
+        "id": 367136915
+      },
+      "readme_blob_sha": "991ff2a326cac93df1aafd0c02647143d56c32cc",
+      "readme_source": "https://github.com/kujolang/eval/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:04.837Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "7ad5caef1b718ab8a6ccdd02ef1b645af93ac133",
+          "url": "https://github.com/kujolang/eval/commit/7ad5caef1b718ab8a6ccdd02ef1b645af93ac133",
+          "subject": "feat: correlate Eval scores with Watchdog traces"
+        },
+        {
+          "sha": "bdc517f458ef6bb3b6754006ee0eefde4bbf0b9b",
+          "url": "https://github.com/kujolang/eval/commit/bdc517f458ef6bb3b6754006ee0eefde4bbf0b9b",
+          "subject": "fix: avoid command policy substring false positives"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/spec",
+      "latest_published_release": {
+        "tag": "v1.0.1",
+        "url": "https://github.com/kujolang/spec/releases/tag/v1.0.1",
+        "published_at": "2026-08-30T23:08:24Z",
+        "id": 379427817
+      },
+      "readme_blob_sha": "70f8983dfb352c2c4ee5f6f42a08fac053ad6cc8",
+      "readme_source": "https://github.com/kujolang/spec/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:04.571Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/kennel",
+      "latest_published_release": {
+        "tag": "v1.0.1",
+        "url": "https://github.com/kujolang/kennel/releases/tag/v1.0.1",
+        "published_at": "2026-08-31T03:20:26Z",
+        "id": 379486187
+      },
+      "readme_blob_sha": "ce32454c95aa7f7214edb85ca9f6b417eadef960",
+      "readme_source": "https://github.com/kujolang/kennel/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:04.730Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "128ca858b6b3b4553636c4e1dc1b5755b461e12d",
+          "url": "https://github.com/kujolang/kennel/commit/128ca858b6b3b4553636c4e1dc1b5755b461e12d",
+          "subject": "Merge pull request #2 from kujolang/codex/native-installer-tools"
+        },
+        {
+          "sha": "546dd4205b90825f3e326336941c3068b1add0f0",
+          "url": "https://github.com/kujolang/kennel/commit/546dd4205b90825f3e326336941c3068b1add0f0",
+          "subject": "Pin release entrypoint to corrected native runtime workflow"
+        },
+        {
+          "sha": "f683a487725a6ad61cce64982d907129d1e48865",
+          "url": "https://github.com/kujolang/kennel/commit/f683a487725a6ad61cce64982d907129d1e48865",
+          "subject": "Use runtime with safe native symlink cleanup"
+        },
+        {
+          "sha": "e9f0c3611956d070ada6063abe6419ae7bb8e0e4",
+          "url": "https://github.com/kujolang/kennel/commit/e9f0c3611956d070ada6063abe6419ae7bb8e0e4",
+          "subject": "Select reviewed native release builder"
+        },
+        {
+          "sha": "4fbe6481f6740abc9b239d617d0f366921978b3b",
+          "url": "https://github.com/kujolang/kennel/commit/4fbe6481f6740abc9b239d617d0f366921978b3b",
+          "subject": "Pin final native publishing implementation"
+        },
+        {
+          "sha": "e92dc670e3c726bc3511d0c5318883551c9e52e4",
+          "url": "https://github.com/kujolang/kennel/commit/e92dc670e3c726bc3511d0c5318883551c9e52e4",
+          "subject": "Verify Python-free consumers and preserve packaging glob controls"
+        },
+        {
+          "sha": "090d25b6e47ba9af269953cc0fcf620326b69584",
+          "url": "https://github.com/kujolang/kennel/commit/090d25b6e47ba9af269953cc0fcf620326b69584",
+          "subject": "Select the native reusable release builder"
+        },
+        {
+          "sha": "161e54801f1c5d64ec01b2d0d3a5a007c870b89a",
+          "url": "https://github.com/kujolang/kennel/commit/161e54801f1c5d64ec01b2d0d3a5a007c870b89a",
+          "subject": "Run publisher and release gates with pinned native Kujo tooling"
+        },
+        {
+          "sha": "f2e898ceadd91a07f80de61804a6ae7e9f3637fb",
+          "url": "https://github.com/kujolang/kennel/commit/f2e898ceadd91a07f80de61804a6ae7e9f3637fb",
+          "subject": "Move release packaging, registry generation and acceptance to native Kujo"
+        },
+        {
+          "sha": "219640b95957d02dec41381e6cbdbe244c7d98df",
+          "url": "https://github.com/kujolang/kennel/commit/219640b95957d02dec41381e6cbdbe244c7d98df",
+          "subject": "Replace Python bootstrap and global tool management with native Kujo"
+        },
+        {
+          "sha": "7662403d635ad1102fc17fac729528bb8fa1b6ef",
+          "url": "https://github.com/kujolang/kennel/commit/7662403d635ad1102fc17fac729528bb8fa1b6ef",
+          "subject": "Merge pull request #1 from kujolang/codex/global-tools-installer"
+        },
+        {
+          "sha": "d4b08eb8e273190b78431b776bb405fa9258b038",
+          "url": "https://github.com/kujolang/kennel/commit/d4b08eb8e273190b78431b776bb405fa9258b038",
+          "subject": "Gate release review on anonymous production package and tool installs"
+        },
+        {
+          "sha": "06299a002765c7bd2e4e693e0746b6576fdd6e75",
+          "url": "https://github.com/kujolang/kennel/commit/06299a002765c7bd2e4e693e0746b6576fdd6e75",
+          "subject": "Select the reviewed reusable release builder"
+        },
+        {
+          "sha": "226515d7a570cfaf8127dfae973953182f3a9280",
+          "url": "https://github.com/kujolang/kennel/commit/226515d7a570cfaf8127dfae973953182f3a9280",
+          "subject": "Pin release packaging to the final installer implementation"
+        },
+        {
+          "sha": "17ab4b01463aedc503b74286d733984a1731067c",
+          "url": "https://github.com/kujolang/kennel/commit/17ab4b01463aedc503b74286d733984a1731067c",
+          "subject": "Keep runtime upgrade guidance valid after the first release"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/kujo-skills",
+      "latest_published_release": {
+        "tag": "v0.7.0",
+        "url": "https://github.com/kujolang/kujo-skills/releases/tag/v0.7.0",
+        "published_at": "2026-09-08T19:20:33Z",
+        "id": 385002654
+      },
+      "readme_blob_sha": "fdc5e395d502ef5399c86b5fa59a717042e5905a",
+      "readme_source": "https://github.com/kujolang/kujo-skills/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:06.043Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "eb7128b88b904e7fa2a2eb7f093a89db955e1bac",
+          "url": "https://github.com/kujolang/kujo-skills/commit/eb7128b88b904e7fa2a2eb7f093a89db955e1bac",
+          "subject": "Merge pull request #22 from kujolang/codex/migrate-video-skills"
+        },
+        {
+          "sha": "6124d1b67505f4e9ac1a0aea2eacefba320a8296",
+          "url": "https://github.com/kujolang/kujo-skills/commit/6124d1b67505f4e9ac1a0aea2eacefba320a8296",
+          "subject": "chore(release): prepare v0.7.0 video skills distribution"
+        },
+        {
+          "sha": "dfac7ab40f488850044731e13b7c8c7bc7576e0b",
+          "url": "https://github.com/kujolang/kujo-skills/commit/dfac7ab40f488850044731e13b7c8c7bc7576e0b",
+          "subject": "docs: record migration validation and Workcell host blocker"
+        },
+        {
+          "sha": "a91ba3450b5d6f97a72646b42a7ad5054d99c747",
+          "url": "https://github.com/kujolang/kujo-skills/commit/a91ba3450b5d6f97a72646b42a7ad5054d99c747",
+          "subject": "feat(skills): migrate reusable video presets and style workflows"
+        },
+        {
+          "sha": "266b08e27b5d70005c593e5eb1d64ff0de2e60c5",
+          "url": "https://github.com/kujolang/kujo-skills/commit/266b08e27b5d70005c593e5eb1d64ff0de2e60c5",
+          "subject": "Merge pull request #21 from kujolang/codex/videoops-canonical-tools"
+        },
+        {
+          "sha": "7c2cb59291f24040ba1c622b2d605f30dd18699f",
+          "url": "https://github.com/kujolang/kujo-skills/commit/7c2cb59291f24040ba1c622b2d605f30dd18699f",
+          "subject": "Point VideoOps media skills to canonical agent-owned tools"
+        },
+        {
+          "sha": "b2fad262278b1daa68172cdf78066a61d352ffb4",
+          "url": "https://github.com/kujolang/kujo-skills/commit/b2fad262278b1daa68172cdf78066a61d352ffb4",
+          "subject": "Merge pull request #20 from kujolang/codex/videoops-media-systems"
+        },
+        {
+          "sha": "a93b83613a65a0dc0ac7f2ef2fbbf97e519fa053",
+          "url": "https://github.com/kujolang/kujo-skills/commit/a93b83613a65a0dc0ac7f2ef2fbbf97e519fa053",
+          "subject": "Prepare Kujo Skills 0.6.0 media systems release"
+        },
+        {
+          "sha": "a9209ba53bee2f48bf9338a764bd7db7ba2d0dd9",
+          "url": "https://github.com/kujolang/kujo-skills/commit/a9209ba53bee2f48bf9338a764bd7db7ba2d0dd9",
+          "subject": "Add shared media provider execution and honest review skills"
+        },
+        {
+          "sha": "0d41ab407d6e8d071b755940c21570c8d0a11de1",
+          "url": "https://github.com/kujolang/kujo-skills/commit/0d41ab407d6e8d071b755940c21570c8d0a11de1",
+          "subject": "Refresh weekly Kujo skill drift"
+        },
+        {
+          "sha": "1e0a2eadee0c11ac04b5bc871714bedcb75a2a6e",
+          "url": "https://github.com/kujolang/kujo-skills/commit/1e0a2eadee0c11ac04b5bc871714bedcb75a2a6e",
+          "subject": "feat(videoops): add team operation skill"
+        },
+        {
+          "sha": "41ea735c957d73e5a2bf11b9febb7fccd4de92f6",
+          "url": "https://github.com/kujolang/kujo-skills/commit/41ea735c957d73e5a2bf11b9febb7fccd4de92f6",
+          "subject": "feat: add Kujo VideoOps skill pack"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/kujo-workflows",
+      "latest_published_release": {
+        "tag": "v0.6.0",
+        "url": "https://github.com/kujolang/kujo-workflows/releases/tag/v0.6.0",
+        "published_at": "2026-09-07T01:01:20Z",
+        "id": 383773186
+      },
+      "readme_blob_sha": "d57e074f6114e26b28c10e11fc9daa2c6c1075ac",
+      "readme_source": "https://github.com/kujolang/kujo-workflows/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:06.122Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "5df0458d4918215128e62597796a1d5eef98bb1e",
+          "url": "https://github.com/kujolang/kujo-workflows/commit/5df0458d4918215128e62597796a1d5eef98bb1e",
+          "subject": "Merge pull request #4 from kujolang/codex/videoops-canonical-tools"
+        },
+        {
+          "sha": "9d7f35c72779bb9610d34f1ccf00396273cc6ad4",
+          "url": "https://github.com/kujolang/kujo-workflows/commit/9d7f35c72779bb9610d34f1ccf00396273cc6ad4",
+          "subject": "Resolve production media tools from canonical VideoOps agent package"
+        },
+        {
+          "sha": "09a95d197c266df186adc602f9aa80a4d649d4d7",
+          "url": "https://github.com/kujolang/kujo-workflows/commit/09a95d197c266df186adc602f9aa80a4d649d4d7",
+          "subject": "Merge pull request #3 from kujolang/codex/videoops-media-systems"
+        },
+        {
+          "sha": "a1d7b5c0d1c9fd7a1115dabd8014f056d3018db9",
+          "url": "https://github.com/kujolang/kujo-workflows/commit/a1d7b5c0d1c9fd7a1115dabd8014f056d3018db9",
+          "subject": "Prepare VideoOps workflow integration release 0.6.0"
+        },
+        {
+          "sha": "a0239f4de12b3525e09bb170d98c19d2938a213e",
+          "url": "https://github.com/kujolang/kujo-workflows/commit/a0239f4de12b3525e09bb170d98c19d2938a213e",
+          "subject": "Select Workcell identity from observed daemon security profile"
+        },
+        {
+          "sha": "1c64167401a5e10cf41b01943373483e075e49c2",
+          "url": "https://github.com/kujolang/kujo-workflows/commit/1c64167401a5e10cf41b01943373483e075e49c2",
+          "subject": "Route production media stages through shared VideoOps runtime"
+        },
+        {
+          "sha": "3195d67a44f364f7e4f9326dddbb91da3af9dd99",
+          "url": "https://github.com/kujolang/kujo-workflows/commit/3195d67a44f364f7e4f9326dddbb91da3af9dd99",
+          "subject": "docs: refresh weekly workflow audit"
+        },
+        {
+          "sha": "f1060615de0aeff279d08ed4e95d67c0c41ff1f0",
+          "url": "https://github.com/kujolang/kujo-workflows/commit/f1060615de0aeff279d08ed4e95d67c0c41ff1f0",
+          "subject": "feat(videoops): add harness production initializer"
+        },
+        {
+          "sha": "fe6b82c5d4129a87df89108ede055dd7b2213e42",
+          "url": "https://github.com/kujolang/kujo-workflows/commit/fe6b82c5d4129a87df89108ede055dd7b2213e42",
+          "subject": "test: pass Kujo runtime into cleanup fixtures"
+        },
+        {
+          "sha": "5aac46f3f9921f9c84eaa2165f654104924e5fe3",
+          "url": "https://github.com/kujolang/kujo-workflows/commit/5aac46f3f9921f9c84eaa2165f654104924e5fe3",
+          "subject": "docs: finalize VideoOps implementation status"
+        },
+        {
+          "sha": "01476818e2721e60a34b1949a39bc5676eac29a5",
+          "url": "https://github.com/kujolang/kujo-workflows/commit/01476818e2721e60a34b1949a39bc5676eac29a5",
+          "subject": "test: harden publishing fixture timeouts on loaded hosts"
+        },
+        {
+          "sha": "2690b22232e020cbb5ac62e1e3c95080fddcdf6a",
+          "url": "https://github.com/kujolang/kujo-workflows/commit/2690b22232e020cbb5ac62e1e3c95080fddcdf6a",
+          "subject": "docs: register VideoOps release and compatibility"
+        },
+        {
+          "sha": "67ff713e4c0bf3170f0ab2e7642b34edcb9107db",
+          "url": "https://github.com/kujolang/kujo-workflows/commit/67ff713e4c0bf3170f0ab2e7642b34edcb9107db",
+          "subject": "feat: add Kujo VideoOps workflows and offline proof"
+        },
+        {
+          "sha": "8c518f09f79b39ce76f79606e77d4121d7b6d8d7",
+          "url": "https://github.com/kujolang/kujo-workflows/commit/8c518f09f79b39ce76f79606e77d4121d7b6d8d7",
+          "subject": "chore: prepare Kujo Workflows v0.4.0"
+        },
+        {
+          "sha": "cb7c5834c87bd9eff1fbb7664b444625704e0474",
+          "url": "https://github.com/kujolang/kujo-workflows/commit/cb7c5834c87bd9eff1fbb7664b444625704e0474",
+          "subject": "feat: report live adapter readiness"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/intake",
+      "latest_published_release": null,
+      "readme_blob_sha": "c41e5f10b692d958b920cedcf3fbe5690e0c1f97",
+      "readme_source": "https://github.com/kujolang/intake/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:06.227Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/site-kit",
+      "latest_published_release": {
+        "tag": "v1.0.0",
+        "url": "https://github.com/kujolang/site-kit/releases/tag/v1.0.0",
+        "published_at": "2026-08-09T02:09:15Z",
+        "id": 367355693
+      },
+      "readme_blob_sha": "a56df53621deed3c9851f1c39052b6a834d77265",
+      "readme_source": "https://github.com/kujolang/site-kit/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:07.359Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "9629c4cb2a42f62f80be6159c9d63a141ccbb696",
+          "url": "https://github.com/kujolang/site-kit/commit/9629c4cb2a42f62f80be6159c9d63a141ccbb696",
+          "subject": "Preserve button contrast when switching inverse colors"
+        },
+        {
+          "sha": "c7768df1b6b53e2dc7aba8538fc8a63f9cf15859",
+          "url": "https://github.com/kujolang/site-kit/commit/c7768df1b6b53e2dc7aba8538fc8a63f9cf15859",
+          "subject": "Bundle Tabler icons and theme-aware native scrollbars"
+        },
+        {
+          "sha": "cda799676f719517429d8937813e09d1487321eb",
+          "url": "https://github.com/kujolang/site-kit/commit/cda799676f719517429d8937813e09d1487321eb",
+          "subject": "Keep complete browser coverage for the three supported themes"
+        },
+        {
+          "sha": "2db4e7229abd9d63975655b8fa50011d0f16ddc3",
+          "url": "https://github.com/kujolang/site-kit/commit/2db4e7229abd9d63975655b8fa50011d0f16ddc3",
+          "subject": "Add full-screen Mobile Menu and retire commercial theme"
+        },
+        {
+          "sha": "61dfa815ee5910df200c38600dd004fa2e48c3eb",
+          "url": "https://github.com/kujolang/site-kit/commit/61dfa815ee5910df200c38600dd004fa2e48c3eb",
+          "subject": "fix: preserve severity text contrast in personal-dark theme"
+        },
+        {
+          "sha": "e4d1d37032d84a77e84d55533b2f5523535f3bb3",
+          "url": "https://github.com/kujolang/site-kit/commit/e4d1d37032d84a77e84d55533b2f5523535f3bb3",
+          "subject": "docs: record successful CI and verified memory consolidation"
+        },
+        {
+          "sha": "c6630914f09c57dec49b0a523eab5396a0264a3c",
+          "url": "https://github.com/kujolang/site-kit/commit/c6630914f09c57dec49b0a523eab5396a0264a3c",
+          "subject": "docs: finalize verified gap closure and showcase readiness evidence"
+        },
+        {
+          "sha": "9c7da48c2cb4c5af8094be1b29d759cd7d45201d",
+          "url": "https://github.com/kujolang/site-kit/commit/9c7da48c2cb4c5af8094be1b29d759cd7d45201d",
+          "subject": "test: separate reviewed native-platform reference snapshots"
+        },
+        {
+          "sha": "8459da315ba6a20c1b6179950d7f7b5276159e77",
+          "url": "https://github.com/kujolang/site-kit/commit/8459da315ba6a20c1b6179950d7f7b5276159e77",
+          "subject": "test: verify native fallbacks without the optional behavior layer"
+        },
+        {
+          "sha": "83cf23ee019840992e73e6b4480718f56043f1e1",
+          "url": "https://github.com/kujolang/site-kit/commit/83cf23ee019840992e73e6b4480718f56043f1e1",
+          "subject": "fix: preserve editor state and contain enlarged navigation text"
+        },
+        {
+          "sha": "5d679c5b2e53a025b832e976220c046c2f957c0c",
+          "url": "https://github.com/kujolang/site-kit/commit/5d679c5b2e53a025b832e976220c046c2f957c0c",
+          "subject": "fix: align example inputs with rendered semantic compositions"
+        },
+        {
+          "sha": "f737bae3b7b90b10864e2681bbcb1e753a5f478c",
+          "url": "https://github.com/kujolang/site-kit/commit/f737bae3b7b90b10864e2681bbcb1e753a5f478c",
+          "subject": "docs: document bounded APIs and establish the current implementation handoff"
+        },
+        {
+          "sha": "34dd5adfb59a5a720cb3920430ea90cd44295ab9",
+          "url": "https://github.com/kujolang/site-kit/commit/34dd5adfb59a5a720cb3920430ea90cd44295ab9",
+          "subject": "test: verify isolated components and add portable reference compositions"
+        },
+        {
+          "sha": "cce9bb1775c71b152e9cec15d0bd699b818f5365",
+          "url": "https://github.com/kujolang/site-kit/commit/cce9bb1775c71b152e9cec15d0bd699b818f5365",
+          "subject": "feat: reconcile component authoring contracts and generate maintained metadata"
+        },
+        {
+          "sha": "339b669e4231d65e86d16a0c7da7e87ce0a4d691",
+          "url": "https://github.com/kujolang/site-kit/commit/339b669e4231d65e86d16a0c7da7e87ce0a4d691",
+          "subject": "feat: complete bounded widgets and repair reusable accessibility and layout"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/kujo-agents",
+      "latest_published_release": {
+        "tag": "v1.4.0",
+        "url": "https://github.com/kujolang/kujo-agents/releases/tag/v1.4.0",
+        "published_at": "2026-09-07T01:01:09Z",
+        "id": 383773134
+      },
+      "readme_blob_sha": "1b7af30a8b579673b084b2048ec16fbfff3ae5cb",
+      "readme_source": "https://github.com/kujolang/kujo-agents/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:07.276Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "65f23b8ee8fc535e3d929860742020976b121d43",
+          "url": "https://github.com/kujolang/kujo-agents/commit/65f23b8ee8fc535e3d929860742020976b121d43",
+          "subject": "Merge pull request #2 from kujolang/codex/videoops-canonical-tools"
+        },
+        {
+          "sha": "0d5b9bef9a3910bd475b889668caaf04e08f8b93",
+          "url": "https://github.com/kujolang/kujo-agents/commit/0d5b9bef9a3910bd475b889668caaf04e08f8b93",
+          "subject": "Verify installed VideoOps tools include their canonical schemas"
+        },
+        {
+          "sha": "1ce827dcc47cf947c67719b13b137a498e800235",
+          "url": "https://github.com/kujolang/kujo-agents/commit/1ce827dcc47cf947c67719b13b137a498e800235",
+          "subject": "Make VideoOps tooling and schema ownership repository-local"
+        },
+        {
+          "sha": "5d02b7ac29538511c72ebd525e6fee8be2997980",
+          "url": "https://github.com/kujolang/kujo-agents/commit/5d02b7ac29538511c72ebd525e6fee8be2997980",
+          "subject": "Move production media, audio QA and review tools into VideoOps agents"
+        },
+        {
+          "sha": "09c7a72bbbd24d64bbe53483af7ed86711ae62ad",
+          "url": "https://github.com/kujolang/kujo-agents/commit/09c7a72bbbd24d64bbe53483af7ed86711ae62ad",
+          "subject": "Merge pull request #1 from kujolang/codex/videoops-media-systems"
+        },
+        {
+          "sha": "e75821a496e8177e316209711ece76c0aab37aa3",
+          "url": "https://github.com/kujolang/kujo-agents/commit/e75821a496e8177e316209711ece76c0aab37aa3",
+          "subject": "Prepare Kujo Agents 1.4.0 media systems release"
+        },
+        {
+          "sha": "5db17b3689644293a4fa6b0b1ab525c9ee920633",
+          "url": "https://github.com/kujolang/kujo-agents/commit/5db17b3689644293a4fa6b0b1ab525c9ee920633",
+          "subject": "Integrate shared media and exact-candidate review contracts"
+        },
+        {
+          "sha": "6298807946b573585d91d55e3e6cb22170aa2e91",
+          "url": "https://github.com/kujolang/kujo-agents/commit/6298807946b573585d91d55e3e6cb22170aa2e91",
+          "subject": "Refresh weekly agent capability audit"
+        },
+        {
+          "sha": "062ada111e204934ad4e6adf8c2d06a1366acd48",
+          "url": "https://github.com/kujolang/kujo-agents/commit/062ada111e204934ad4e6adf8c2d06a1366acd48",
+          "subject": "feat(videoops): add reusable producer entry point"
+        },
+        {
+          "sha": "b90089ac55f643c19d421f1457a01431882eee46",
+          "url": "https://github.com/kujolang/kujo-agents/commit/b90089ac55f643c19d421f1457a01431882eee46",
+          "subject": "fix: allow asset checksums in VideoOps manifests"
+        },
+        {
+          "sha": "bc74a984b4e9eaa22bcbd39f4ec65255616c111c",
+          "url": "https://github.com/kujolang/kujo-agents/commit/bc74a984b4e9eaa22bcbd39f4ec65255616c111c",
+          "subject": "fix: align VideoOps output schemas with receipts"
+        },
+        {
+          "sha": "b8e62745462aa771d010a60675a36abdf4ab9b64",
+          "url": "https://github.com/kujolang/kujo-agents/commit/b8e62745462aa771d010a60675a36abdf4ab9b64",
+          "subject": "feat: add Kujo VideoOps agent team"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/redact",
+      "latest_published_release": {
+        "tag": "v1.0.0",
+        "url": "https://github.com/kujolang/redact/releases/tag/v1.0.0",
+        "published_at": "2026-08-09T03:30:18Z",
+        "id": 367367864
+      },
+      "readme_blob_sha": "056d06ccb484f75c13973012da6280da2f0011a5",
+      "readme_source": "https://github.com/kujolang/redact/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:07.588Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "e1f3e1863c468433e1a4f426ad991c0fb7f33dac",
+          "url": "https://github.com/kujolang/redact/commit/e1f3e1863c468433e1a4f426ad991c0fb7f33dac",
+          "subject": "Record hardening audit and reproducible performance evidence"
+        },
+        {
+          "sha": "b398462716ae6ec13e9d2c0ff2e83998623384c9",
+          "url": "https://github.com/kujolang/redact/commit/b398462716ae6ec13e9d2c0ff2e83998623384c9",
+          "subject": "Harden Redact boundaries and reduce repeated processing"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/tribunal",
+      "latest_published_release": {
+        "tag": "v1.0.1",
+        "url": "https://github.com/kujolang/tribunal/releases/tag/v1.0.1",
+        "published_at": "2026-09-05T15:15:16Z",
+        "id": 383282910
+      },
+      "readme_blob_sha": "eff2ffc7c70e4f123e7f6f08eb8f07375b4d7922",
+      "readme_source": "https://github.com/kujolang/tribunal/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:08.597Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "936c5e99b689e1675845fe23ef25ba8d6b9f6efc",
+          "url": "https://github.com/kujolang/tribunal/commit/936c5e99b689e1675845fe23ef25ba8d6b9f6efc",
+          "subject": "Merge pull request #5 from kujolang/codex/tribunal-v1.0.1"
+        },
+        {
+          "sha": "5ff90bdcaba749f0689760c48695f9a4961d494f",
+          "url": "https://github.com/kujolang/tribunal/commit/5ff90bdcaba749f0689760c48695f9a4961d494f",
+          "subject": "docs: distinguish published tags from optional signing evidence"
+        },
+        {
+          "sha": "6c0aebf1adaf3a74e23fb5e7cffa2b07a8bdc1b7",
+          "url": "https://github.com/kujolang/tribunal/commit/6c0aebf1adaf3a74e23fb5e7cffa2b07a8bdc1b7",
+          "subject": "ci: verify releases with pinned isolated ecosystem dependencies"
+        },
+        {
+          "sha": "c7fe2b769b13f8d2ee00b57ebb1c93f39c300170",
+          "url": "https://github.com/kujolang/tribunal/commit/c7fe2b769b13f8d2ee00b57ebb1c93f39c300170",
+          "subject": "release: prepare Tribunal 1.0.1 while preserving v1 contracts"
+        },
+        {
+          "sha": "20adfca88d5ed8f4a191c27d6635669d30b46c98",
+          "url": "https://github.com/kujolang/tribunal/commit/20adfca88d5ed8f4a191c27d6635669d30b46c98",
+          "subject": "Merge PR #4: Harden Tribunal evidence boundaries and concurrent storage"
+        },
+        {
+          "sha": "29a34b442654fe52911dda8ac85f106981ba266b",
+          "url": "https://github.com/kujolang/tribunal/commit/29a34b442654fe52911dda8ac85f106981ba266b",
+          "subject": "Unlink cleanup symlinks portably without following their targets"
+        },
+        {
+          "sha": "68857186e449a91cb0dcb2e90c39ed474dbe1925",
+          "url": "https://github.com/kujolang/tribunal/commit/68857186e449a91cb0dcb2e90c39ed474dbe1925",
+          "subject": "Record concurrency proof, recovery boundaries and cross-repository follow-up"
+        },
+        {
+          "sha": "fa81c9209747c2232dcea86cc5a3cf28fbdff692",
+          "url": "https://github.com/kujolang/tribunal/commit/fa81c9209747c2232dcea86cc5a3cf28fbdff692",
+          "subject": "Coordinate shared index operations and enforce exclusive directory claims"
+        },
+        {
+          "sha": "fd670eb24ddfb14f594cf153dff1299f063bf5c6",
+          "url": "https://github.com/kujolang/tribunal/commit/fd670eb24ddfb14f594cf153dff1299f063bf5c6",
+          "subject": "Record hardening verification and remaining operational risks"
+        },
+        {
+          "sha": "b9c3129122670cad2a9d557a7e3e5bc6f3bfae01",
+          "url": "https://github.com/kujolang/tribunal/commit/b9c3129122670cad2a9d557a7e3e5bc6f3bfae01",
+          "subject": "Preserve structured SDK errors when rejecting failed processes"
+        },
+        {
+          "sha": "24f0b3f38f3f11c998478d23baea1dfa0028131d",
+          "url": "https://github.com/kujolang/tribunal/commit/24f0b3f38f3f11c998478d23baea1dfa0028131d",
+          "subject": "Reduce model context formatting and clarify operator boundaries"
+        },
+        {
+          "sha": "6d171f70ebf5a55eba73ab9c182e7e400b311260",
+          "url": "https://github.com/kujolang/tribunal/commit/6d171f70ebf5a55eba73ab9c182e7e400b311260",
+          "subject": "Harden bridge failures and evidence validation boundaries"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/workcell",
+      "latest_published_release": {
+        "tag": "v1.1.0",
+        "url": "https://github.com/kujolang/workcell/releases/tag/v1.1.0",
+        "published_at": "2026-09-04T20:29:42Z",
+        "id": 382998311
+      },
+      "readme_blob_sha": "cdc8b3113e70e31d4f992eb0832f245b8018171e",
+      "readme_source": "https://github.com/kujolang/workcell/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:08.639Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "3999f1100e4ef978a19a742a6e91bdb36c0c74f0",
+          "url": "https://github.com/kujolang/workcell/commit/3999f1100e4ef978a19a742a6e91bdb36c0c74f0",
+          "subject": "Exclude generated runtime files from quality discovery"
+        },
+        {
+          "sha": "af0665423417a0872303e69b7c22777c697361bb",
+          "url": "https://github.com/kujolang/workcell/commit/af0665423417a0872303e69b7c22777c697361bb",
+          "subject": "docs: research WorkCell Box architecture and build gates"
+        },
+        {
+          "sha": "074d7262ef6c565e3dabd22ee046228c7329e5c1",
+          "url": "https://github.com/kujolang/workcell/commit/074d7262ef6c565e3dabd22ee046228c7329e5c1",
+          "subject": "release: prepare Workcell v1.1.0"
+        },
+        {
+          "sha": "523548380bcb749ec67899d64f9d7959cae406c3",
+          "url": "https://github.com/kujolang/workcell/commit/523548380bcb749ec67899d64f9d7959cae406c3",
+          "subject": "docs: record restored hosted verification"
+        },
+        {
+          "sha": "7af5623370a63b038f233e8f37dc221f6a522ba6",
+          "url": "https://github.com/kujolang/workcell/commit/7af5623370a63b038f233e8f37dc221f6a522ba6",
+          "subject": "fix(adapters): compare integrity manifests semantically"
+        },
+        {
+          "sha": "f7a69997b075cf43a9a9bc72734680b627607004",
+          "url": "https://github.com/kujolang/workcell/commit/f7a69997b075cf43a9a9bc72734680b627607004",
+          "subject": "ci: install adapter dependencies before offline gates"
+        },
+        {
+          "sha": "48ac528da1ec377baac1bb334aca08a31214747a",
+          "url": "https://github.com/kujolang/workcell/commit/48ac528da1ec377baac1bb334aca08a31214747a",
+          "subject": "docs: record Cloudflare gate and refreshed Docker evidence"
+        },
+        {
+          "sha": "746b532a027b6ecf6b832e0acd8b927b49059ade",
+          "url": "https://github.com/kujolang/workcell/commit/746b532a027b6ecf6b832e0acd8b927b49059ade",
+          "subject": "feat: add Cloudflare Sandbox entitlement preflight"
+        },
+        {
+          "sha": "c6c140c24e31338ff1e3d700cc68eca601417e71",
+          "url": "https://github.com/kujolang/workcell/commit/c6c140c24e31338ff1e3d700cc68eca601417e71",
+          "subject": "test(eval): extend subprocess gate timeouts"
+        },
+        {
+          "sha": "a7ab083a51832919f82eb1ad0944418a627f8834",
+          "url": "https://github.com/kujolang/workcell/commit/a7ab083a51832919f82eb1ad0944418a627f8834",
+          "subject": "test(eval): allow full productionization gates"
+        },
+        {
+          "sha": "f39adfa35e0bedf4830ff637b7900a852703fd23",
+          "url": "https://github.com/kujolang/workcell/commit/f39adfa35e0bedf4830ff637b7900a852703fd23",
+          "subject": "test(adapters): cover dependency-aware integrity"
+        },
+        {
+          "sha": "3888bf3d46100143d0f2935206b9800e31d76d0e",
+          "url": "https://github.com/kujolang/workcell/commit/3888bf3d46100143d0f2935206b9800e31d76d0e",
+          "subject": "perf(adapters): batch dependency integrity reads"
+        },
+        {
+          "sha": "f6a77da543181629f115795d462372df4f5ea9f5",
+          "url": "https://github.com/kujolang/workcell/commit/f6a77da543181629f115795d462372df4f5ea9f5",
+          "subject": "test(recovery): isolate inventory fixtures"
+        },
+        {
+          "sha": "e1a36101b02bb5f40b8973523faddb8df83b4b92",
+          "url": "https://github.com/kujolang/workcell/commit/e1a36101b02bb5f40b8973523faddb8df83b4b92",
+          "subject": "docs: record provider operations and implementation evidence"
+        },
+        {
+          "sha": "5f358e61e0fba1366afc733de5ea9d3a9889f385",
+          "url": "https://github.com/kujolang/workcell/commit/5f358e61e0fba1366afc733de5ea9d3a9889f385",
+          "subject": "feat(adapters): authenticate bundled SDK dependencies"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/relay",
+      "latest_published_release": {
+        "tag": "v1.1.0",
+        "url": "https://github.com/kujolang/relay/releases/tag/v1.1.0",
+        "published_at": "2026-08-27T13:35:01Z",
+        "id": 377849492
+      },
+      "readme_blob_sha": "7f922da8a4363e682c2ef7e55236ef0d5c542a90",
+      "readme_source": "https://github.com/kujolang/relay/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:08.911Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/kujolang.ai",
+      "latest_published_release": {
+        "tag": "v1.2.9",
+        "url": "https://github.com/kujolang/kujolang.ai/releases/tag/v1.2.9",
+        "published_at": "2026-09-04T17:44:24Z",
+        "id": 382912713
+      },
+      "readme_blob_sha": "069ba63cedd9e3f8c882ac3ddb82b7c0ad982c4f",
+      "readme_source": "https://github.com/kujolang/kujolang.ai/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:09.656Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "0d264e12e34ad6f249bd83f54925ef0b3129596c",
+          "url": "https://github.com/kujolang/kujolang.ai/commit/0d264e12e34ad6f249bd83f54925ef0b3129596c",
+          "subject": "Record verified v1.4.0 production installer and AI SEO audit [skip ci]"
+        },
+        {
+          "sha": "1f45a580fa184a7b696d1f435211de45eaf45084",
+          "url": "https://github.com/kujolang/kujolang.ai/commit/1f45a580fa184a7b696d1f435211de45eaf45084",
+          "subject": "Clarify ecosystem bootstrap and standalone runtime requirements"
+        },
+        {
+          "sha": "9c208a32bc08a64b522694c2df05888226019828",
+          "url": "https://github.com/kujolang/kujolang.ai/commit/9c208a32bc08a64b522694c2df05888226019828",
+          "subject": "Serve the verified v1.4.0 runtime from the public installer"
+        },
+        {
+          "sha": "fb329ab827fd9820dc4fb8cef3e77a73fa2ae21b",
+          "url": "https://github.com/kujolang/kujolang.ai/commit/fb329ab827fd9820dc4fb8cef3e77a73fa2ae21b",
+          "subject": "Validate release branches without deploying them to production"
+        },
+        {
+          "sha": "2f543595e54ef3c07ef728bbb057fe7b1fee2a74",
+          "url": "https://github.com/kujolang/kujolang.ai/commit/2f543595e54ef3c07ef728bbb057fe7b1fee2a74",
+          "subject": "Explain current Kujo runtime installation and capabilities"
+        },
+        {
+          "sha": "5e40f6fba6ea6de7a33f5903feac333490a769df",
+          "url": "https://github.com/kujolang/kujolang.ai/commit/5e40f6fba6ea6de7a33f5903feac333490a769df",
+          "subject": "docs(audit): record released catalog SEO verification [skip ci]"
+        },
+        {
+          "sha": "b3d7304c39eecb72fefe287aecb98b4d744166c0",
+          "url": "https://github.com/kujolang/kujolang.ai/commit/b3d7304c39eecb72fefe287aecb98b4d744166c0",
+          "subject": "fix: recognize hashed shared skill heroes and intrinsic dimensions"
+        },
+        {
+          "sha": "b23a132a6528391a4b146d518a510ccbd755376b",
+          "url": "https://github.com/kujolang/kujolang.ai/commit/b23a132a6528391a4b146d518a510ccbd755376b",
+          "subject": "fix: peel release tags when reading catalog dates"
+        },
+        {
+          "sha": "dcf93bc500ab3bb3c9d800e90c47429d58978685",
+          "url": "https://github.com/kujolang/kujolang.ai/commit/dcf93bc500ab3bb3c9d800e90c47429d58978685",
+          "subject": "fix: retain CMS guidance and validate expanded catalog assets"
+        },
+        {
+          "sha": "e23bc25bf1a18a8e7fa36eb571f7d3a97895b153",
+          "url": "https://github.com/kujolang/kujolang.ai/commit/e23bc25bf1a18a8e7fa36eb571f7d3a97895b153",
+          "subject": "perf: batch font reads before catalog text decoration"
+        },
+        {
+          "sha": "ea5258c6dffd07406c0564e578025a670ce5569d",
+          "url": "https://github.com/kujolang/kujolang.ai/commit/ea5258c6dffd07406c0564e578025a670ce5569d",
+          "subject": "feat(skills): publish the 135-skill v0.7.0 catalog"
+        },
+        {
+          "sha": "3567fd83db3bf8e3fd1b664a93dc03f862d87f3a",
+          "url": "https://github.com/kujolang/kujolang.ai/commit/3567fd83db3bf8e3fd1b664a93dc03f862d87f3a",
+          "subject": "docs: remove unnecessary SiteProbe implementation aside"
+        },
+        {
+          "sha": "7bea3e03302d9f7de4cd8dcaf8ac68e2bf22c6b8",
+          "url": "https://github.com/kujolang/kujolang.ai/commit/7bea3e03302d9f7de4cd8dcaf8ac68e2bf22c6b8",
+          "subject": "docs: preserve SiteProbe release SEO and deployment evidence [skip ci]"
+        },
+        {
+          "sha": "28e6f0980814ffe89a9023a7c325ec00d696dad5",
+          "url": "https://github.com/kujolang/kujolang.ai/commit/28e6f0980814ffe89a9023a7c325ec00d696dad5",
+          "subject": "docs: publish SiteProbe 0.3.0 native Kujo release guidance"
+        },
+        {
+          "sha": "078d3ae77861fef489445dfec0b446e341cbc019",
+          "url": "https://github.com/kujolang/kujolang.ai/commit/078d3ae77861fef489445dfec0b446e341cbc019",
+          "subject": "docs: record current Kujo content verification [skip ci]"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/docs.kujolang.ai",
+      "latest_published_release": {
+        "tag": "v1.3.3",
+        "url": "https://github.com/kujolang/docs.kujolang.ai/releases/tag/v1.3.3",
+        "published_at": "2026-09-04T15:19:40Z",
+        "id": 382826007
+      },
+      "readme_blob_sha": "145298f5d48b4ef4fa6f15d0bb0948e7bceaf4ce",
+      "readme_source": "https://github.com/kujolang/docs.kujolang.ai/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:09.824Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "3d7459155c220dd4e603a7638d9bcf0114d5efce",
+          "url": "https://github.com/kujolang/docs.kujolang.ai/commit/3d7459155c220dd4e603a7638d9bcf0114d5efce",
+          "subject": "Complete production v1.4.0 installer and documentation audit [skip ci]"
+        },
+        {
+          "sha": "268c76483164ff648fd7242287ed2721b2227f13",
+          "url": "https://github.com/kujolang/docs.kujolang.ai/commit/268c76483164ff648fd7242287ed2721b2227f13",
+          "subject": "Clarify ecosystem installer platform support"
+        },
+        {
+          "sha": "7f90a5dcd76e3e434e1fb414be69a744c0eacab7",
+          "url": "https://github.com/kujolang/docs.kujolang.ai/commit/7f90a5dcd76e3e434e1fb414be69a744c0eacab7",
+          "subject": "Normalize audit CSV line endings [skip ci]"
+        },
+        {
+          "sha": "46a5cacd53eb4dfe968ff2287c3520d56b7a1ae6",
+          "url": "https://github.com/kujolang/docs.kujolang.ai/commit/46a5cacd53eb4dfe968ff2287c3520d56b7a1ae6",
+          "subject": "Record deployed v1.4.0 documentation and AI SEO audit [skip ci]"
+        },
+        {
+          "sha": "0ce24cbc32939d378d6ead6ab064d55381c592c5",
+          "url": "https://github.com/kujolang/docs.kujolang.ai/commit/0ce24cbc32939d378d6ead6ab064d55381c592c5",
+          "subject": "Align runtime setup references while preserving provider compatibility evidence"
+        },
+        {
+          "sha": "59c9bbd526ce3ff40f2086a5cf44b314ce686e28",
+          "url": "https://github.com/kujolang/docs.kujolang.ai/commit/59c9bbd526ce3ff40f2086a5cf44b314ce686e28",
+          "subject": "Make native runtime guidance discoverable in documentation search"
+        },
+        {
+          "sha": "c923a4101232f2ec7e53905450d24c5b51f97893",
+          "url": "https://github.com/kujolang/docs.kujolang.ai/commit/c923a4101232f2ec7e53905450d24c5b51f97893",
+          "subject": "Document Kujo v1.4.0 native scripting and installation"
+        },
+        {
+          "sha": "8b624f482a8b7004f45e836d69712cd4c5911c8d",
+          "url": "https://github.com/kujolang/docs.kujolang.ai/commit/8b624f482a8b7004f45e836d69712cd4c5911c8d",
+          "subject": "docs(audit): record deployed video skills verification [skip ci]"
+        },
+        {
+          "sha": "f44a76b1b2bee6293f9822dd02b4f0bd86e7207f",
+          "url": "https://github.com/kujolang/docs.kujolang.ai/commit/f44a76b1b2bee6293f9822dd02b4f0bd86e7207f",
+          "subject": "fix: contain wide documentation tables on mobile"
+        },
+        {
+          "sha": "ae134d086c4bd76fc9ba0cf8ed74a86452098389",
+          "url": "https://github.com/kujolang/docs.kujolang.ai/commit/ae134d086c4bd76fc9ba0cf8ed74a86452098389",
+          "subject": "docs: add released video skills guide and catalog update"
+        },
+        {
+          "sha": "563051301c8e2e814d0ab053b3f4eac80a85963e",
+          "url": "https://github.com/kujolang/docs.kujolang.ai/commit/563051301c8e2e814d0ab053b3f4eac80a85963e",
+          "subject": "docs: keep SiteProbe guide focused on usage"
+        },
+        {
+          "sha": "92039d2c9078411db72082f079f5a58d240bcecb",
+          "url": "https://github.com/kujolang/docs.kujolang.ai/commit/92039d2c9078411db72082f079f5a58d240bcecb",
+          "subject": "docs: record SiteProbe website deployment verification [skip ci]"
+        },
+        {
+          "sha": "d4c5c007ff28db57455eeacd59903d4502be1841",
+          "url": "https://github.com/kujolang/docs.kujolang.ai/commit/d4c5c007ff28db57455eeacd59903d4502be1841",
+          "subject": "docs: document SiteProbe 0.3.0 runtime and release qualification"
+        },
+        {
+          "sha": "539ff2efebeac60f1ae9e27eda3717442d561c94",
+          "url": "https://github.com/kujolang/docs.kujolang.ai/commit/539ff2efebeac60f1ae9e27eda3717442d561c94",
+          "subject": "Verify full documentation builds with pinned runtime and SSG"
+        },
+        {
+          "sha": "8a78b84e247664623142955950bf7032f20f7399",
+          "url": "https://github.com/kujolang/docs.kujolang.ai/commit/8a78b84e247664623142955950bf7032f20f7399",
+          "subject": "docs: record verified v1.3.1 production publication"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/sitekit-docs-template",
+      "latest_published_release": {
+        "tag": "v1.0.0",
+        "url": "https://github.com/kujolang/sitekit-docs-template/releases/tag/v1.0.0",
+        "published_at": "2026-08-09T02:50:46Z",
+        "id": 367361860
+      },
+      "readme_blob_sha": "983a862571f7cc95491a2cda08f04fd0a06f2f8c",
+      "readme_source": "https://github.com/kujolang/sitekit-docs-template/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:10.086Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/agents.kujolang.ai",
+      "latest_published_release": null,
+      "readme_blob_sha": "fce11a4a91368add743ea6b7fc1da17abe50304c",
+      "readme_source": "https://github.com/kujolang/agents.kujolang.ai/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:10.727Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "4ef0d5e7be3cda02192251599b8279f07d97c84b",
+          "url": "https://github.com/kujolang/agents.kujolang.ai/commit/4ef0d5e7be3cda02192251599b8279f07d97c84b",
+          "subject": "docs: record Tribunal agent-site SEO and production audit [skip ci]"
+        },
+        {
+          "sha": "4ff16dcdede002d2fc27d980e5e80617e25c194c",
+          "url": "https://github.com/kujolang/agents.kujolang.ai/commit/4ff16dcdede002d2fc27d980e5e80617e25c194c",
+          "subject": "docs: connect agent reviews to Tribunal 1.0.1 evidence guidance"
+        },
+        {
+          "sha": "a0a121268fc701a850cb869db9487c9deabbb4a4",
+          "url": "https://github.com/kujolang/agents.kujolang.ai/commit/a0a121268fc701a850cb869db9487c9deabbb4a4",
+          "subject": "build(site): publish VideoOps portraits"
+        },
+        {
+          "sha": "117fa64816e7bb56770da952dd04b254b5621a66",
+          "url": "https://github.com/kujolang/agents.kujolang.ai/commit/117fa64816e7bb56770da952dd04b254b5621a66",
+          "subject": "feat(videoops): add role avatar portraits"
+        },
+        {
+          "sha": "f59d908defef2995b8435e3944bd2a2774d76f8b",
+          "url": "https://github.com/kujolang/agents.kujolang.ai/commit/f59d908defef2995b8435e3944bd2a2774d76f8b",
+          "subject": "feat(videoops): publish producer profile"
+        },
+        {
+          "sha": "88d9de244674d4547c85f57778fe558fcbb86fa5",
+          "url": "https://github.com/kujolang/agents.kujolang.ai/commit/88d9de244674d4547c85f57778fe558fcbb86fa5",
+          "subject": "build: publish generated VideoOps agent pages"
+        },
+        {
+          "sha": "ba61d669c444c2f8a0fe8ff6e8b3df9e95f41e4c",
+          "url": "https://github.com/kujolang/agents.kujolang.ai/commit/ba61d669c444c2f8a0fe8ff6e8b3df9e95f41e4c",
+          "subject": "feat: add VideoOps to the public agent catalog"
+        },
+        {
+          "sha": "c5c4acfb8d604562bb7d5f3f75b923d608df9e07",
+          "url": "https://github.com/kujolang/agents.kujolang.ai/commit/c5c4acfb8d604562bb7d5f3f75b923d608df9e07",
+          "subject": "fix: finish Agent profile table styling"
+        },
+        {
+          "sha": "35d0434c70d39460dcc6ca538ab5f526b67444ed",
+          "url": "https://github.com/kujolang/agents.kujolang.ai/commit/35d0434c70d39460dcc6ca538ab5f526b67444ed",
+          "subject": "feat: refine Agent site content presentation"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/commerce",
+      "latest_published_release": {
+        "tag": "v0.4.0",
+        "url": "https://github.com/kujolang/commerce/releases/tag/v0.4.0",
+        "published_at": "2026-08-30T21:33:44Z",
+        "id": 379408330
+      },
+      "readme_blob_sha": "403c7c725b5259fd92dd736f1c90f35b07576eb0",
+      "readme_source": "https://github.com/kujolang/commerce/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:11.001Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/siteprobe",
+      "latest_published_release": {
+        "tag": "v0.3.0",
+        "url": "https://github.com/kujolang/siteprobe/releases/tag/v0.3.0",
+        "published_at": "2026-09-07T14:03:17Z",
+        "id": 384131831
+      },
+      "readme_blob_sha": "8bbfcfdd6caa0f73303fc55cf5cfaae89cb69c3a",
+      "readme_source": "https://github.com/kujolang/siteprobe/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:11.263Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "0c5599c8bce3255bd3e45f556ebbb4711a7c982e",
+          "url": "https://github.com/kujolang/siteprobe/commit/0c5599c8bce3255bd3e45f556ebbb4711a7c982e",
+          "subject": "docs: record native maintenance platform qualification [skip ci]"
+        },
+        {
+          "sha": "88d007faccfa7b86bd46c96a811b0253a37d607c",
+          "url": "https://github.com/kujolang/siteprobe/commit/88d007faccfa7b86bd46c96a811b0253a37d607c",
+          "subject": "fix: preserve portable Windows maintenance fixture paths"
+        },
+        {
+          "sha": "42a5a181040ea50cf7406858ecae899cc9551cba",
+          "url": "https://github.com/kujolang/siteprobe/commit/42a5a181040ea50cf7406858ecae899cc9551cba",
+          "subject": "perf: bound benchmark fixture request history"
+        },
+        {
+          "sha": "37e5642006b45afcb10efd6446b287ae811736e7",
+          "url": "https://github.com/kujolang/siteprobe/commit/37e5642006b45afcb10efd6446b287ae811736e7",
+          "subject": "fix: report nested maintenance violations deterministically"
+        },
+        {
+          "sha": "1ad11933306e3b06c4ae69ab91839e602bf6d6c6",
+          "url": "https://github.com/kujolang/siteprobe/commit/1ad11933306e3b06c4ae69ab91839e602bf6d6c6",
+          "subject": "refactor: move SiteProbe maintenance workflows entirely to Kujo"
+        },
+        {
+          "sha": "71a2071b60174cf755084e167ccc392710a104b8",
+          "url": "https://github.com/kujolang/siteprobe/commit/71a2071b60174cf755084e167ccc392710a104b8",
+          "subject": "Prepare SiteProbe 0.3.0 native Kujo release and verified source packages"
+        },
+        {
+          "sha": "43eb0f42af4065e8f39fe1f163fc4a505c05f3e6",
+          "url": "https://github.com/kujolang/siteprobe/commit/43eb0f42af4065e8f39fe1f163fc4a505c05f3e6",
+          "subject": "Record completed native runtime hardening and platform qualification"
+        },
+        {
+          "sha": "83e9bf2f54d9d608052a7981390de6ec899e58fa",
+          "url": "https://github.com/kujolang/siteprobe/commit/83e9bf2f54d9d608052a7981390de6ec899e58fa",
+          "subject": "Pin runtime with verified exception-scope cleanup"
+        },
+        {
+          "sha": "4c9d0b9ef8e09bffa605079fcd71ad49519b73bf",
+          "url": "https://github.com/kujolang/siteprobe/commit/4c9d0b9ef8e09bffa605079fcd71ad49519b73bf",
+          "subject": "Pin runtime with refreshed generated verification artifacts"
+        },
+        {
+          "sha": "74877801cdec20a351efb0a7807a1f670912f933",
+          "url": "https://github.com/kujolang/siteprobe/commit/74877801cdec20a351efb0a7807a1f670912f933",
+          "subject": "Normalize canonical documentation roots across operating systems"
+        },
+        {
+          "sha": "c931e0dc136399f674e166198e858211de1ad45c",
+          "url": "https://github.com/kujolang/siteprobe/commit/c931e0dc136399f674e166198e858211de1ad45c",
+          "subject": "Gate full native crawl concurrency and preserve hosted evidence"
+        },
+        {
+          "sha": "15877bdd55698d3e4c59fb6b51acb911f60debf3",
+          "url": "https://github.com/kujolang/siteprobe/commit/15877bdd55698d3e4c59fb6b51acb911f60debf3",
+          "subject": "Pin runtime preserving native loop JIT eligibility"
+        },
+        {
+          "sha": "7305c2f28711f819507b916a0a9731c56ca611f2",
+          "url": "https://github.com/kujolang/siteprobe/commit/7305c2f28711f819507b916a0a9731c56ca611f2",
+          "subject": "Pin runtime with complete VM and JIT lexical scope handling"
+        },
+        {
+          "sha": "038fac4cc41e9d16eac7a2a1e5549abf14ef38b7",
+          "url": "https://github.com/kujolang/siteprobe/commit/038fac4cc41e9d16eac7a2a1e5549abf14ef38b7",
+          "subject": "Run native crawl batches concurrently and qualify Windows contracts"
+        },
+        {
+          "sha": "1bb17f9a213bad858e5eb3a76211270b3605f962",
+          "url": "https://github.com/kujolang/siteprobe/commit/1bb17f9a213bad858e5eb3a76211270b3605f962",
+          "subject": "Keep source line endings deterministic across Windows checkouts"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/searchbridge",
+      "latest_published_release": {
+        "tag": "v1.0.0",
+        "url": "https://github.com/kujolang/searchbridge/releases/tag/v1.0.0",
+        "published_at": "2026-09-04T22:02:26Z",
+        "id": 383036738
+      },
+      "readme_blob_sha": "57b09be269cae19f25b3ddf21cd77bd059da85db",
+      "readme_source": "https://github.com/kujolang/searchbridge/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:11.903Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "88aad1c0eacf2588dac305beb18eb0a3adbb53e2",
+          "url": "https://github.com/kujolang/searchbridge/commit/88aad1c0eacf2588dac305beb18eb0a3adbb53e2",
+          "subject": "docs: record final release publication (#14)"
+        },
+        {
+          "sha": "00362f0d54065f02cc47f34f7cf964761412cc81",
+          "url": "https://github.com/kujolang/searchbridge/commit/00362f0d54065f02cc47f34f7cf964761412cc81",
+          "subject": "Record SearchBridge 1.0 release evidence (#13)"
+        },
+        {
+          "sha": "080db9ab9416c5d31fbd28ce1373db3cfcf0f7d9",
+          "url": "https://github.com/kujolang/searchbridge/commit/080db9ab9416c5d31fbd28ce1373db3cfcf0f7d9",
+          "subject": "Fix aggregate release publication (#12)"
+        },
+        {
+          "sha": "7e514417bd5fbee541277fefb210a194fe296043",
+          "url": "https://github.com/kujolang/searchbridge/commit/7e514417bd5fbee541277fefb210a194fe296043",
+          "subject": "Fix immutable tag release rebuilds (#11)"
+        },
+        {
+          "sha": "70a63c0b0e25e7b875bddf74f7e5ea746e506f30",
+          "url": "https://github.com/kujolang/searchbridge/commit/70a63c0b0e25e7b875bddf74f7e5ea746e506f30",
+          "subject": "Release SearchBridge v1.0.0 (#10)"
+        },
+        {
+          "sha": "9bbbab77665390f3c62f73f0e465cbb63073fec1",
+          "url": "https://github.com/kujolang/searchbridge/commit/9bbbab77665390f3c62f73f0e465cbb63073fec1",
+          "subject": "Define no-cost v1 execution plan (#9)"
+        },
+        {
+          "sha": "a4817166130f2bbbc31a6aa04be0ac9d0273e4e8",
+          "url": "https://github.com/kujolang/searchbridge/commit/a4817166130f2bbbc31a6aa04be0ac9d0273e4e8",
+          "subject": "Document SearchBridge v1 readiness work (#8)"
+        },
+        {
+          "sha": "2a0f4ab0c61984e4d83e80c0643b7447c066c42d",
+          "url": "https://github.com/kujolang/searchbridge/commit/2a0f4ab0c61984e4d83e80c0643b7447c066c42d",
+          "subject": "Refresh Dependabot-managed dependencies (#7)"
+        },
+        {
+          "sha": "48dadbcdda1286d15d8815ab1d36f706041da383",
+          "url": "https://github.com/kujolang/searchbridge/commit/48dadbcdda1286d15d8815ab1d36f706041da383",
+          "subject": "Record offline production qualification"
+        },
+        {
+          "sha": "3330bff552ab0bfb9860b0b658ef21cc084d73b5",
+          "url": "https://github.com/kujolang/searchbridge/commit/3330bff552ab0bfb9860b0b658ef21cc084d73b5",
+          "subject": "Normalize cross-platform version input"
+        },
+        {
+          "sha": "6fad851217932897e8b5fd51d4c20ce94b4a4414",
+          "url": "https://github.com/kujolang/searchbridge/commit/6fad851217932897e8b5fd51d4c20ce94b4a4414",
+          "subject": "Support portable SHA-256 tooling"
+        },
+        {
+          "sha": "69b81ca4c63894accac05a6a68f60fc9b3c6dc7c",
+          "url": "https://github.com/kujolang/searchbridge/commit/69b81ca4c63894accac05a6a68f60fc9b3c6dc7c",
+          "subject": "Make release evidence independently verifiable"
+        },
+        {
+          "sha": "3341bb44aeec23096c9361f9454fd556d31da5b4",
+          "url": "https://github.com/kujolang/searchbridge/commit/3341bb44aeec23096c9361f9454fd556d31da5b4",
+          "subject": "Make runtime checksums portable"
+        },
+        {
+          "sha": "54ccc51a407f4769e5657f85564d7f5585cff94a",
+          "url": "https://github.com/kujolang/searchbridge/commit/54ccc51a407f4769e5657f85564d7f5585cff94a",
+          "subject": "Pin policy-complete Kujo runtime"
+        },
+        {
+          "sha": "084c3564ca01e21fce7dba5a3fbbee873a93365d",
+          "url": "https://github.com/kujolang/searchbridge/commit/084c3564ca01e21fce7dba5a3fbbee873a93365d",
+          "subject": "Isolate network qualification from proxies"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/contentgraph",
+      "latest_published_release": {
+        "tag": "v0.3.0",
+        "url": "https://github.com/kujolang/contentgraph/releases/tag/v0.3.0",
+        "published_at": "2026-08-13T04:13:13Z",
+        "id": 369662644
+      },
+      "readme_blob_sha": "215ea3dfd2c9f4ece1d3dffa5e3b53ca711d4b8c",
+      "readme_source": "https://github.com/kujolang/contentgraph/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:12.245Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/storydesk",
+      "latest_published_release": {
+        "tag": "v0.2.0",
+        "url": "https://github.com/kujolang/storydesk/releases/tag/v0.2.0",
+        "published_at": "2026-08-14T21:16:31Z",
+        "id": 370827532
+      },
+      "readme_blob_sha": "7bd951b7c3eb39b1ffd7dc69ada531b59e5acb8f",
+      "readme_source": "https://github.com/kujolang/storydesk/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:12.511Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/dossier",
+      "latest_published_release": {
+        "tag": "v0.2.0",
+        "url": "https://github.com/kujolang/dossier/releases/tag/v0.2.0",
+        "published_at": "2026-08-14T21:16:26Z",
+        "id": 370827490
+      },
+      "readme_blob_sha": "983db1b3402a77bbdfc5ff2aac0f07aaa0123c20",
+      "readme_source": "https://github.com/kujolang/dossier/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:13.083Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "1d8ccee740820e25332ae8f25e422ca522a3ac0b",
+          "url": "https://github.com/kujolang/dossier/commit/1d8ccee740820e25332ae8f25e422ca522a3ac0b",
+          "subject": "Record successful pinned-runtime CI verification"
+        },
+        {
+          "sha": "b9ed7e3dda01089303aa2e6ee83436dc34223ca9",
+          "url": "https://github.com/kujolang/dossier/commit/b9ed7e3dda01089303aa2e6ee83436dc34223ca9",
+          "subject": "Record legacy reproduction and pinned-runtime follow-up evidence"
+        },
+        {
+          "sha": "2991a5bdc63717ac8c4f54bf729ab06b83bfd112",
+          "url": "https://github.com/kujolang/dossier/commit/2991a5bdc63717ac8c4f54bf729ab06b83bfd112",
+          "subject": "Preserve original ledger compatibility and normalize native failures"
+        },
+        {
+          "sha": "dd0b9978cf8b12628570f620ac7593e0337da33f",
+          "url": "https://github.com/kujolang/dossier/commit/dd0b9978cf8b12628570f620ac7593e0337da33f",
+          "subject": "Record dossier hardening audit and reproducible verification evidence"
+        },
+        {
+          "sha": "eea32708d6b018c05d030507cc5b6d02f23ff9cf",
+          "url": "https://github.com/kujolang/dossier/commit/eea32708d6b018c05d030507cc5b6d02f23ff9cf",
+          "subject": "Harden dossier persistence, bounded queries, and validation contracts"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/galleypack",
+      "latest_published_release": {
+        "tag": "v0.2.0",
+        "url": "https://github.com/kujolang/galleypack/releases/tag/v0.2.0",
+        "published_at": "2026-08-14T21:16:28Z",
+        "id": 370827499
+      },
+      "readme_blob_sha": "37ad363d8ab5b8bff1a50a84ad67ae085845bd5e",
+      "readme_source": "https://github.com/kujolang/galleypack/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:13.447Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/bluepencil",
+      "latest_published_release": {
+        "tag": "v0.2.0",
+        "url": "https://github.com/kujolang/bluepencil/releases/tag/v0.2.0",
+        "published_at": "2026-08-14T21:16:25Z",
+        "id": 370827484
+      },
+      "readme_blob_sha": "7a3f27ddbccd6f99bcd4450613f76dda8ca151db",
+      "readme_source": "https://github.com/kujolang/bluepencil/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:13.739Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/assetworks",
+      "latest_published_release": {
+        "tag": "v0.2.0",
+        "url": "https://github.com/kujolang/assetworks/releases/tag/v0.2.0",
+        "published_at": "2026-08-14T21:16:24Z",
+        "id": 370827472
+      },
+      "readme_blob_sha": "a25dddbe6fc680268e732daa5425d78e28fa4931",
+      "readme_source": "https://github.com/kujolang/assetworks/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:14.271Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/versionseal",
+      "latest_published_release": {
+        "tag": "v0.2.0",
+        "url": "https://github.com/kujolang/versionseal/releases/tag/v0.2.0",
+        "published_at": "2026-08-14T21:16:33Z",
+        "id": 370827541
+      },
+      "readme_blob_sha": "ce860375a0e737b3d228f82ccc5c9000f1406f57",
+      "readme_source": "https://github.com/kujolang/versionseal/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:14.634Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/presswire",
+      "latest_published_release": {
+        "tag": "v0.2.0",
+        "url": "https://github.com/kujolang/presswire/releases/tag/v0.2.0",
+        "published_at": "2026-08-14T21:16:29Z",
+        "id": 370827510
+      },
+      "readme_blob_sha": "6a2b0aaeafd104a600aac73cb6b0542cbf6d168a",
+      "readme_source": "https://github.com/kujolang/presswire/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:14.796Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/readersignal",
+      "latest_published_release": {
+        "tag": "v0.2.0",
+        "url": "https://github.com/kujolang/readersignal/releases/tag/v0.2.0",
+        "published_at": "2026-08-14T21:16:30Z",
+        "id": 370827520
+      },
+      "readme_blob_sha": "b5aac8a6ff60776e6f24f73dbbd1d60bd4759d69",
+      "readme_source": "https://github.com/kujolang/readersignal/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:15.312Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/kujolang-mcp",
+      "latest_published_release": null,
+      "readme_blob_sha": "a05e95c661c0c4e4ae86c371d24b6537f122fcc1",
+      "readme_source": "https://github.com/kujolang/kujolang-mcp/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:15.864Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/workcell-studio",
+      "latest_published_release": null,
+      "readme_blob_sha": "4a4a4cde1850cdbdf20132dcd49aa22c14c7668c",
+      "readme_source": "https://github.com/kujolang/workcell-studio/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:15.953Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/ollama",
+      "latest_published_release": {
+        "tag": "v0.1.10",
+        "url": "https://github.com/kujolang/ollama/releases/tag/v0.1.10",
+        "published_at": "2026-08-27T13:05:22Z",
+        "id": 377829134
+      },
+      "readme_blob_sha": "76e46f9b4c5a35a86cd68810dcb6adc94efd3ccb",
+      "readme_source": "https://github.com/kujolang/ollama/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:16.372Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/anthropic",
+      "latest_published_release": {
+        "tag": "v0.1.2",
+        "url": "https://github.com/kujolang/anthropic/releases/tag/v0.1.2",
+        "published_at": "2026-08-27T13:05:22Z",
+        "id": 377829135
+      },
+      "readme_blob_sha": "4ebcba982e8d2d2dc5d0fe5bc1aad80abe85401e",
+      "readme_source": "https://github.com/kujolang/anthropic/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:17.012Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/gemini",
+      "latest_published_release": null,
+      "readme_blob_sha": "80aeeb30d41c3501ba248fce4cd2fc383dec4e6e",
+      "readme_source": "https://github.com/kujolang/gemini/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:17.077Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/openai",
+      "latest_published_release": null,
+      "readme_blob_sha": "9302f4c9b69a6e2b5a0e43fb898111b7fcce6e72",
+      "readme_source": "https://github.com/kujolang/openai/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:17.417Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/openrouter",
+      "latest_published_release": null,
+      "readme_blob_sha": "3ac54540f98654f90bc1933ee42fd42a579a1446",
+      "readme_source": "https://github.com/kujolang/openrouter/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:18.326Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/xai",
+      "latest_published_release": null,
+      "readme_blob_sha": "df771e58f3cf9d32ac263e094edfc81362fe0d2e",
+      "readme_source": "https://github.com/kujolang/xai/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:18.498Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/groq",
+      "latest_published_release": null,
+      "readme_blob_sha": "68d6ceb5288e3dc92f3eb09f84a90659d33ccde3",
+      "readme_source": "https://github.com/kujolang/groq/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:18.528Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/together",
+      "latest_published_release": null,
+      "readme_blob_sha": "31a4e474f55e8de6d5342b685338799c22f7f77f",
+      "readme_source": "https://github.com/kujolang/together/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:19.586Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/fireworks",
+      "latest_published_release": null,
+      "readme_blob_sha": "f3f4eb3cd4422a471dfe41c07be83ff6ea9369e8",
+      "readme_source": "https://github.com/kujolang/fireworks/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:19.894Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/mistral",
+      "latest_published_release": null,
+      "readme_blob_sha": "08e2d814a2c5539a338ba8ba1693b7ea807c44eb",
+      "readme_source": "https://github.com/kujolang/mistral/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:19.873Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/cerebras",
+      "latest_published_release": null,
+      "readme_blob_sha": "1c2a5ed75e7d0dcef18555fc6d9b607445777d12",
+      "readme_source": "https://github.com/kujolang/cerebras/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:20.559Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/deepinfra",
+      "latest_published_release": null,
+      "readme_blob_sha": "cfe5dabe822b78eb8296dd96e9072da2dc0ddc82",
+      "readme_source": "https://github.com/kujolang/deepinfra/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:21.087Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/deepseek",
+      "latest_published_release": null,
+      "readme_blob_sha": "fc1e8efd0279aa03ef146b109f2163eef313e986",
+      "readme_source": "https://github.com/kujolang/deepseek/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:21.160Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/cloudflare-ai",
+      "latest_published_release": null,
+      "readme_blob_sha": "b1ec376c8e30ca114f104a5f36b8536f9889e78f",
+      "readme_source": "https://github.com/kujolang/cloudflare-ai/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:21.608Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/huggingface",
+      "latest_published_release": null,
+      "readme_blob_sha": "47b3622e2413f8662a841b89eeceee2ba2c14ce7",
+      "readme_source": "https://github.com/kujolang/huggingface/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:22.216Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/replicate",
+      "latest_published_release": null,
+      "readme_blob_sha": "f8feb21fbccb1bf938ed745d81311185af94352d",
+      "readme_source": "https://github.com/kujolang/replicate/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:22.422Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/cohere",
+      "latest_published_release": null,
+      "readme_blob_sha": "b0314f21539c49b0439f03826275bb86893c7608",
+      "readme_source": "https://github.com/kujolang/cohere/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:22.650Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/bedrock",
+      "latest_published_release": null,
+      "readme_blob_sha": "5e7ee4089a5dd12b5368737e3f091b56ec9f8414",
+      "readme_source": "https://github.com/kujolang/bedrock/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:23.388Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/azure-ai",
+      "latest_published_release": null,
+      "readme_blob_sha": "98491542ac40c2092d64ace0d1d2ee426692daaf",
+      "readme_source": "https://github.com/kujolang/azure-ai/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:23.706Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/vertex-ai",
+      "latest_published_release": null,
+      "readme_blob_sha": "543904fd7eb65cf40c631c96cf57f3d0c3703ca9",
+      "readme_source": "https://github.com/kujolang/vertex-ai/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:23.767Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/nvidia-nim",
+      "latest_published_release": null,
+      "readme_blob_sha": "5cc5a16e2a67409eafa5b43fea4f3b4ef692110e",
+      "readme_source": "https://github.com/kujolang/nvidia-nim/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:24.623Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/perplexity",
+      "latest_published_release": null,
+      "readme_blob_sha": "765a20d759188548d14fac780f953bf75303f1ca",
+      "readme_source": "https://github.com/kujolang/perplexity/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:24.964Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/zai",
+      "latest_published_release": null,
+      "readme_blob_sha": "5bd30476bb09ff85bad2ea706e2b7251a9d885a2",
+      "readme_source": "https://github.com/kujolang/zai/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:25.002Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/fal",
+      "latest_published_release": null,
+      "readme_blob_sha": "2d067a829962741402fc7ef6b4017bba0d299046",
+      "readme_source": "https://github.com/kujolang/fal/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:25.803Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/baseten",
+      "latest_published_release": null,
+      "readme_blob_sha": "9d1464013f36dd049cfea905213549722c6fe128",
+      "readme_source": "https://github.com/kujolang/baseten/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:26.126Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/kujo-pi",
+      "latest_published_release": {
+        "tag": "v1.0.0",
+        "url": "https://github.com/kujolang/kujo-pi/releases/tag/v1.0.0",
+        "published_at": "2026-08-30T20:06:00Z",
+        "id": 379388491
+      },
+      "readme_blob_sha": "726b8ceb96d9f1fc6f557ab912887e3956f43e84",
+      "readme_source": "https://github.com/kujolang/kujo-pi/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:26.224Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "9d977bdda760830e3cb00c1e0e756ab2d9acfe1e",
+          "url": "https://github.com/kujolang/kujo-pi/commit/9d977bdda760830e3cb00c1e0e756ab2d9acfe1e",
+          "subject": "chore: prepare Kujo Pi 1.1.0"
+        },
+        {
+          "sha": "70b61f4db86347e606efa202a39f52864ea8ba12",
+          "url": "https://github.com/kujolang/kujo-pi/commit/70b61f4db86347e606efa202a39f52864ea8ba12",
+          "subject": "feat: add native Ability gateway tools"
+        },
+        {
+          "sha": "168b8c759e1e707beddb94a894754bb148ccc528",
+          "url": "https://github.com/kujolang/kujo-pi/commit/168b8c759e1e707beddb94a894754bb148ccc528",
+          "subject": "feat: migrate Pi telemetry to Watchdog v2"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/cms-contact-form",
+      "latest_published_release": {
+        "tag": "v1.0.0",
+        "url": "https://github.com/kujolang/cms-contact-form/releases/tag/v1.0.0",
+        "published_at": "2026-08-29T19:41:12Z",
+        "id": 379082973
+      },
+      "readme_blob_sha": "b0253f3ea47cd520f0cdf707b4578da76352d4fe",
+      "readme_source": "https://github.com/kujolang/cms-contact-form/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:27.052Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/cms-example",
+      "latest_published_release": {
+        "tag": "v1.1.0",
+        "url": "https://github.com/kujolang/cms-example/releases/tag/v1.1.0",
+        "published_at": "2026-08-30T17:12:05Z",
+        "id": 379347883
+      },
+      "readme_blob_sha": "7eacbd7b28e91e39a2a5516fa75d79cd97b6dbde",
+      "readme_source": "https://github.com/kujolang/cms-example/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:27.465Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "be778ae970a625fdb21e37b91a2e6244ef5521ae",
+          "url": "https://github.com/kujolang/cms-example/commit/be778ae970a625fdb21e37b91a2e6244ef5521ae",
+          "subject": "feat: surface canonical ability safeguards"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/cms-field-notes-theme",
+      "latest_published_release": {
+        "tag": "v1.0.2",
+        "url": "https://github.com/kujolang/cms-field-notes-theme/releases/tag/v1.0.2",
+        "published_at": "2026-08-29T19:41:00Z",
+        "id": 379082934
+      },
+      "readme_blob_sha": "9c15e38748583aef357d683a8f369866246e0b88",
+      "readme_source": "https://github.com/kujolang/cms-field-notes-theme/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:27.383Z",
+      "recent_default_branch_commits": []
+    },
+    {
+      "repository": "https://github.com/kujolang/ability",
+      "latest_published_release": {
+        "tag": "v1.1.0",
+        "url": "https://github.com/kujolang/ability/releases/tag/v1.1.0",
+        "published_at": "2026-09-04T22:43:43Z",
+        "id": 383050709
+      },
+      "readme_blob_sha": "4b73b197ac22ddcda568bfe72d7848e74f224ff7",
+      "readme_source": "https://github.com/kujolang/ability/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:28.165Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "e5a74803c822de79e934d2bea82d615d8be3bbee",
+          "url": "https://github.com/kujolang/ability/commit/e5a74803c822de79e934d2bea82d615d8be3bbee",
+          "subject": "release: publish Ability 1.1.0 developer tooling"
+        },
+        {
+          "sha": "4873bbbd5b1ed4ca74cdf88b97eb926a5cce7070",
+          "url": "https://github.com/kujolang/ability/commit/4873bbbd5b1ed4ca74cdf88b97eb926a5cce7070",
+          "subject": "feat: add fixture Ability development kit"
+        },
+        {
+          "sha": "c3241995a9a204da542d69b318c1c2713ed2e059",
+          "url": "https://github.com/kujolang/ability/commit/c3241995a9a204da542d69b318c1c2713ed2e059",
+          "subject": "fix: make Ability v2 digests portable"
+        },
+        {
+          "sha": "8ccf7f0af51ed9ab68b1e4dc3c9cc1e2d69d5d25",
+          "url": "https://github.com/kujolang/ability/commit/8ccf7f0af51ed9ab68b1e4dc3c9cc1e2d69d5d25",
+          "subject": "fix: isolate offline registry verification"
+        },
+        {
+          "sha": "b6a9bc26e1696b6edf2b3985594c039301d191f0",
+          "url": "https://github.com/kujolang/ability/commit/b6a9bc26e1696b6edf2b3985594c039301d191f0",
+          "subject": "feat: add offline Ability Pack trust verification"
+        },
+        {
+          "sha": "ac94b93c72aaa12b83f04e71a9d08ec7c5c97d79",
+          "url": "https://github.com/kujolang/ability/commit/ac94b93c72aaa12b83f04e71a9d08ec7c5c97d79",
+          "subject": "build: ignore Python bytecode"
+        },
+        {
+          "sha": "09205f36ae98169b95677b4ce2d134a2af92ade4",
+          "url": "https://github.com/kujolang/ability/commit/09205f36ae98169b95677b4ce2d134a2af92ade4",
+          "subject": "feat: add TypeScript and Python Ability SDK previews"
+        },
+        {
+          "sha": "f8ea4cecb8257abe2f18533d4926767c5d9b733e",
+          "url": "https://github.com/kujolang/ability/commit/f8ea4cecb8257abe2f18533d4926767c5d9b733e",
+          "subject": "feat: add versioned cross-language Ability digest"
+        },
+        {
+          "sha": "a23b822a59b63809e569d954c38efbad8325702e",
+          "url": "https://github.com/kujolang/ability/commit/a23b822a59b63809e569d954c38efbad8325702e",
+          "subject": "chore: ignore local loop engineering evidence"
+        },
+        {
+          "sha": "be093e62bc93e5ec01e99e7da16c5657507ac820",
+          "url": "https://github.com/kujolang/ability/commit/be093e62bc93e5ec01e99e7da16c5657507ac820",
+          "subject": "ci: pin Kujo v1.2.2 runtime"
+        },
+        {
+          "sha": "ec054ad9a89beeafc4cb9713ca0026f9b9b4156d",
+          "url": "https://github.com/kujolang/ability/commit/ec054ad9a89beeafc4cb9713ca0026f9b9b4156d",
+          "subject": "docs: document agent host Ability packages"
+        },
+        {
+          "sha": "5c12449028a98a3f4cbe07304476fbf1c0f10d79",
+          "url": "https://github.com/kujolang/ability/commit/5c12449028a98a3f4cbe07304476fbf1c0f10d79",
+          "subject": "ci: adopt checksum-verified Kujo v1.2.1 setup"
+        },
+        {
+          "sha": "4f9756c20907aa6dc076c5d2466bb864aa181f6d",
+          "url": "https://github.com/kujolang/ability/commit/4f9756c20907aa6dc076c5d2466bb864aa181f6d",
+          "subject": "docs: align README with Kujo ecosystem"
+        },
+        {
+          "sha": "4aa354da8d02b027c459f692f69b523f96e97056",
+          "url": "https://github.com/kujolang/ability/commit/4aa354da8d02b027c459f692f69b523f96e97056",
+          "subject": "fix: harden ability runtime security boundaries"
+        },
+        {
+          "sha": "322353834ef11d8859ef66720517ce7fd066c9a2",
+          "url": "https://github.com/kujolang/ability/commit/322353834ef11d8859ef66720517ce7fd066c9a2",
+          "subject": "ci: use maintained checkout runtime"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/paperclip",
+      "latest_published_release": {
+        "tag": "v0.1.7",
+        "url": "https://github.com/kujolang/paperclip/releases/tag/v0.1.7",
+        "published_at": "2026-09-04T12:09:31Z",
+        "id": 382697086
+      },
+      "readme_blob_sha": "0d026240c4d3fd28249f53a5f1543d4393c472af",
+      "readme_source": "https://github.com/kujolang/paperclip/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:28.534Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "7002e94aeddba3ed60fa18f3a6df41e8adf1cf9d",
+          "url": "https://github.com/kujolang/paperclip/commit/7002e94aeddba3ed60fa18f3a6df41e8adf1cf9d",
+          "subject": "Release v0.1.7 with clearer setup and current runtime (#14)"
+        },
+        {
+          "sha": "2d10f849a627c60bcccbd6a0739d6d087ec5c4bf",
+          "url": "https://github.com/kujolang/paperclip/commit/2d10f849a627c60bcccbd6a0739d6d087ec5c4bf",
+          "subject": "docs: finalize maintenance handoff (#13)"
+        },
+        {
+          "sha": "924ae40cac2ba2447c235ae4d6ea033ea62b6361",
+          "url": "https://github.com/kujolang/paperclip/commit/924ae40cac2ba2447c235ae4d6ea033ea62b6361",
+          "subject": "chore: prepare v0.1.6 (#12)"
+        },
+        {
+          "sha": "fbbc99710edade381ba30c763eade04edc57a87c",
+          "url": "https://github.com/kujolang/paperclip/commit/fbbc99710edade381ba30c763eade04edc57a87c",
+          "subject": "test: add Paperclip UI browser coverage (#11)"
+        },
+        {
+          "sha": "0fa1cbe2a7face4c560ebd4abd59736033922468",
+          "url": "https://github.com/kujolang/paperclip/commit/0fa1cbe2a7face4c560ebd4abd59736033922468",
+          "subject": "build(deps-dev): bump the development-dependencies group across 1 directory with 6 updates (#2)"
+        },
+        {
+          "sha": "3049fb8a9e42fdc77fa6647757281a3df536fd2c",
+          "url": "https://github.com/kujolang/paperclip/commit/3049fb8a9e42fdc77fa6647757281a3df536fd2c",
+          "subject": "build(deps): bump actions/attest-build-provenance from 3.0.0 to 4.2.2 (#1)"
+        },
+        {
+          "sha": "e9851cb79e8cc269f752f2fad78ec4e05bb00749",
+          "url": "https://github.com/kujolang/paperclip/commit/e9851cb79e8cc269f752f2fad78ec4e05bb00749",
+          "subject": "build(deps): bump actions/dependency-review-action from 4.9.0 to 5.0.0 (#4)"
+        },
+        {
+          "sha": "eef33c7cc6537200a4668f816a704baaf35fdbfc",
+          "url": "https://github.com/kujolang/paperclip/commit/eef33c7cc6537200a4668f816a704baaf35fdbfc",
+          "subject": "build(deps): bump zod from 4.4.3 to 4.5.4 (#3)"
+        },
+        {
+          "sha": "7b52a812b7086797bfa515fa760ad099fa39fa3c",
+          "url": "https://github.com/kujolang/paperclip/commit/7b52a812b7086797bfa515fa760ad099fa39fa3c",
+          "subject": "docs: update Paperclip maintenance handoff (#10)"
+        },
+        {
+          "sha": "02ce0f0fe05986dae98bbb7da914b0b15c7d6f4a",
+          "url": "https://github.com/kujolang/paperclip/commit/02ce0f0fe05986dae98bbb7da914b0b15c7d6f4a",
+          "subject": "docs: add maintenance handoff (#9)"
+        },
+        {
+          "sha": "459d76048cebdf9e532fc871a93a535b28dc677a",
+          "url": "https://github.com/kujolang/paperclip/commit/459d76048cebdf9e532fc871a93a535b28dc677a",
+          "subject": "feat: use official Kujo logomark (#8)"
+        },
+        {
+          "sha": "89c2bcdfb0310de6f6b06a3823e409e854fb21de",
+          "url": "https://github.com/kujolang/paperclip/commit/89c2bcdfb0310de6f6b06a3823e409e854fb21de",
+          "subject": "Paperclip: native task view and polished Kujo UI (#7)"
+        },
+        {
+          "sha": "04794b8ba3a83557adac41b73f5fa42a07677a51",
+          "url": "https://github.com/kujolang/paperclip/commit/04794b8ba3a83557adac41b73f5fa42a07677a51",
+          "subject": "fix: resolve installed Kujo runtime externally (#6)"
+        },
+        {
+          "sha": "102313f5772ded6156de3f790bbe3667fedbecf7",
+          "url": "https://github.com/kujolang/paperclip/commit/102313f5772ded6156de3f790bbe3667fedbecf7",
+          "subject": "docs: document tokenless npm releases (#5)"
+        },
+        {
+          "sha": "f25f8e7b1c91153fb56974ec992363f69ff5d32f",
+          "url": "https://github.com/kujolang/paperclip/commit/f25f8e7b1c91153fb56974ec992363f69ff5d32f",
+          "subject": "release: switch npm publishing to OIDC"
+        }
+      ]
+    },
+    {
+      "repository": "https://github.com/kujolang/kennel-registry",
+      "latest_published_release": null,
+      "readme_blob_sha": "07bccf4f9979ab4b61a03689cb5e6e8eb823650c",
+      "readme_source": "https://github.com/kujolang/kennel-registry/blob/main/README.md",
+      "checked_at": "2026-09-09T15:31:28.724Z",
+      "recent_default_branch_commits": [
+        {
+          "sha": "5d4ed6853afdd8bf9e05785f34467257ac302c67",
+          "url": "https://github.com/kujolang/kennel-registry/commit/5d4ed6853afdd8bf9e05785f34467257ac302c67",
+          "subject": "Merge pull request #2 from kujolang/codex/native-installer-delivery"
+        },
+        {
+          "sha": "091798e54c63b937bbe6a60c2a885a482b8e25d5",
+          "url": "https://github.com/kujolang/kennel-registry/commit/091798e54c63b937bbe6a60c2a885a482b8e25d5",
+          "subject": "Use publisher runtime with cross-platform symlink cleanup"
+        },
+        {
+          "sha": "4b8370f4b4e5f6b58c70d5dcba7652083f6b71d2",
+          "url": "https://github.com/kujolang/kennel-registry/commit/4b8370f4b4e5f6b58c70d5dcba7652083f6b71d2",
+          "subject": "Deliver the Kujo-native installer and publishing workflow"
+        },
+        {
+          "sha": "0531c44257e4f30e70d124d176c74ae5802a1fbf",
+          "url": "https://github.com/kujolang/kennel-registry/commit/0531c44257e4f30e70d124d176c74ae5802a1fbf",
+          "subject": "Merge pull request #1 from kujolang/codex/installer-onboarding-review"
+        },
+        {
+          "sha": "7fd986f3591e5b7f64fabdcf37e4cfb93ef70ab9",
+          "url": "https://github.com/kujolang/kennel-registry/commit/7fd986f3591e5b7f64fabdcf37e4cfb93ef70ab9",
+          "subject": "Refresh installer delivery from the final reviewed publisher"
+        },
+        {
+          "sha": "78bf74e37c8a83c73d4c410ee7d5473bc51e22b9",
+          "url": "https://github.com/kujolang/kennel-registry/commit/78bf74e37c8a83c73d4c410ee7d5473bc51e22b9",
+          "subject": "Add reviewed installer delivery and getting-started pages"
+        },
+        {
+          "sha": "82a3df7e0c03d797a2edd67ecb60dc3d4eb86b4f",
+          "url": "https://github.com/kujolang/kennel-registry/commit/82a3df7e0c03d797a2edd67ecb60dc3d4eb86b4f",
+          "subject": "Deploy Tabler copy buttons and mobile registry menu"
+        },
+        {
+          "sha": "04673dc626575317f0aa2e5e978f6b5d8693b7b1",
+          "url": "https://github.com/kujolang/kennel-registry/commit/04673dc626575317f0aa2e5e978f6b5d8693b7b1",
+          "subject": "Deploy Kennel wordmark, Kujo icon and self-hosted fonts"
+        },
+        {
+          "sha": "416df26be8e33e0c971c7f9e7a80fe3297134dc0",
+          "url": "https://github.com/kujolang/kennel-registry/commit/416df26be8e33e0c971c7f9e7a80fe3297134dc0",
+          "subject": "Record successful production installs for all enrolled packages"
+        },
+        {
+          "sha": "71d5454ab7680f93278c608c49616337236609f4",
+          "url": "https://github.com/kujolang/kennel-registry/commit/71d5454ab7680f93278c608c49616337236609f4",
+          "subject": "Document ecosystem coverage and publish curated package discovery"
+        },
+        {
+          "sha": "8c3448683d06ccf6622aab3d809adb933b0f7039",
+          "url": "https://github.com/kujolang/kennel-registry/commit/8c3448683d06ccf6622aab3d809adb933b0f7039",
+          "subject": "Publish verified official package releases"
+        },
+        {
+          "sha": "b4f7ec4f0ab90380ef772bd16e967faf62a9312f",
+          "url": "https://github.com/kujolang/kennel-registry/commit/b4f7ec4f0ab90380ef772bd16e967faf62a9312f",
+          "subject": "Enroll released public Kujo primitives and tooling"
+        },
+        {
+          "sha": "674a92bcf9359184328bc36d8d1c2db6b9a3d6bf",
+          "url": "https://github.com/kujolang/kennel-registry/commit/674a92bcf9359184328bc36d8d1c2db6b9a3d6bf",
+          "subject": "Record active Pages Git deployment and production domain"
+        },
+        {
+          "sha": "810892b95d7f89a3a4d0771b5bda1858372dd48c",
+          "url": "https://github.com/kujolang/kennel-registry/commit/810892b95d7f89a3a4d0771b5bda1858372dd48c",
+          "subject": "Advance official release publisher pin"
+        },
+        {
+          "sha": "10e9786c04083db6a6eae4531ebce3b65340ceea",
+          "url": "https://github.com/kujolang/kennel-registry/commit/10e9786c04083db6a6eae4531ebce3b65340ceea",
+          "subject": "Pin official package publisher workflow"
+        }
+      ]
+    }
+  ]
+}

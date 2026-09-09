@@ -42,3 +42,19 @@ must be scoped to this Worker and the `kujolang.ai` zone only.
 Cloudflare's current Free plan provides 100,000 Worker requests per day and 10 ms
 CPU per invocation. Reassess before sustained traffic approaches that allowance,
 CPU or bundle budgets, or any requirement for private data or persistent state.
+
+## Reproducible refreshes
+
+`build-inputs.json` pins the reviewed website and framework commits. CI installs
+only the pinned Kujo runtime with its setup action, verifies the catalog,
+executes real `test-run` assertions, regenerates the Worker, and exercises native
+HTTP and Worker parity contracts. Updating a catalog requires updating its
+website pin and committing the regenerated Worker receipts together.
+
+GitHub deployment runs only when both protected Cloudflare secrets exist.
+A successful validation job alone is not proof of deployment. Without those
+secrets, use the existing authorized Wrangler login from a trusted maintainer
+machine: run `npx wrangler@4.130.0 deploy --dry-run`, then
+`npx wrangler@4.130.0 deploy`, and compare live health and exact item responses
+with the committed catalog. No new credential is needed for that existing
+maintainer path. The weekly refresh must complete those live checks.

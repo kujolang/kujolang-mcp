@@ -95,7 +95,7 @@ kujo run scripts/sync_catalog.kujo --interpreter -- --site /path/to/kujolang.ai 
 
 The synchronizer rejects duplicate or malformed slugs and unexpected source URL schemes. Installer profile membership is parsed from the website's public installer instead of duplicated by hand. The catalog revision covers both records and installation profiles; it detects accidental snapshot corruption but is not a substitute for signed releases or human review.
 
-The current snapshot contains 46 projects, 96 skills, and 37 workflows (179 records total). There is no authoritative standalone agent catalog in the source; agent-related projects, SDKs, skills, and workflows remain discoverable under their actual source kinds rather than being presented as invented agent records.
+The current snapshot contains 50 projects, 135 skills, and 45 workflow records (230 records total; 44 kits plus the Publishing House Operator). There is no authoritative standalone agent catalog in the source; agent-related projects, SDKs, skills, and workflows remain discoverable under their actual source kinds rather than being presented as invented agent records.
 
 For the autonomous weekly agent prompt that reviews source accuracy, updates GitHub, deploys through the configured hosting workflow, and verifies the live catalog, see [`docs/WEEKLY_REFRESH.md`](docs/WEEKLY_REFRESH.md).
 
@@ -116,7 +116,7 @@ The application body check happens after the current Kujo HTTP runtime buffers t
 ```bash
 kujo run scripts/sync_catalog.kujo --interpreter -- --site /path/to/kujolang.ai --check
 kujo run server.kujo --interpreter --self-check
-kujo test
+kujo run tests/run_all.kujo --interpreter
 kujo run benchmarks/search_benchmark.kujo --interpreter
 kujo run scripts/generate_worker.kujo --interpreter -- --framework /path/to/mcp
 node --check dist/worker.js
@@ -146,3 +146,20 @@ See [`SECURITY.md`](SECURITY.md) for the complete boundary and [`docs/NEXT_SESSI
 ## License
 
 MIT
+
+## Release freshness
+
+The catalog's `version` and `latest_release_url` identify a published component
+release when one exists. `scope_note` distinguishes later default-branch work,
+preview support, and operator requirements. The catalog's `source_version` is
+**the website version**, not the Kujo runtime version; the `kujo` item records
+the current runtime. Private projects retain empty public source/install fields.
+
+The September 9 review covers all 86 public organization repositories, the 135
+released skill records, and all 44 workflows in the 0.6.0 distribution. Its
+source inventory is in `evidence/ecosystem-refresh-2026-09-09/`.
+
+Use Kujo 1.4.0 for native catalog generation and assertion tests. Node verifies
+the generated JavaScript Worker and its parity with the native implementation;
+it is not a runtime dependency of the hosted read-only catalog. Neither server
+installs or executes commands returned in catalog content.
