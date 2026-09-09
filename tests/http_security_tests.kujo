@@ -15,8 +15,11 @@ test "request guard isolates local rate buckets and exempts health checks" {
     policy := {"max_body": 1024, "allowed_hosts": ["localhost"], "allowed_origins": [], "auth_enabled": false, "rate_limit_enabled": true, "rate_limit": 1}
     state := {"window": "", "buckets": {}}
     first := guard_request({"headers": {"Host": "localhost"}, "remote_addr": "client-a", "body": ""}, policy, "", state, true)
+    state = first["rate_state"]
     blocked := guard_request({"headers": {"Host": "localhost"}, "remote_addr": "client-a", "body": ""}, policy, "", state, true)
+    state = blocked["rate_state"]
     isolated := guard_request({"headers": {"Host": "localhost"}, "remote_addr": "client-b", "body": ""}, policy, "", state, true)
+    state = isolated["rate_state"]
     health := guard_request({"headers": {"Host": "localhost"}, "remote_addr": "client-a", "body": ""}, policy, "", state, false)
     assert_equal(first["ok"], true)
     assert_equal(blocked["status"], 429)

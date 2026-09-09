@@ -74,6 +74,7 @@ export func run_server(argv) {
     if len(argv) > 1 && argv[0] == "--request" { print(to_json_pretty(handle_jsonrpc(catalog, parse_json(argv[1])))); return }
     handle_http := func(req) {
         guard := guard_request(req, policy, auth_token, rate_state, true)
+        if has_field(guard, "rate_state") { rate_state = guard["rate_state"] }
         if !guard["ok"] { return secure_json_response(guard["status"], {"error": guard["message"]}) }
         content_type := to_lower(header_value(req, "Content-Type"))
         if starts_with(content_type, "application/json") == false { return secure_json_response(415, {"error": "Content-Type must be application/json"}) }
@@ -96,6 +97,7 @@ export func run_server(argv) {
     })
     server = server.route("GET", "/mcp", func(req) {
         guard := guard_request(req, policy, auth_token, rate_state, true)
+        if has_field(guard, "rate_state") { rate_state = guard["rate_state"] }
         if !guard["ok"] { return secure_json_response(guard["status"], {"error": guard["message"]}) }
         return secure_json_response(405, {"error": "This stateless MCP endpoint accepts JSON-RPC messages with POST"})
     })

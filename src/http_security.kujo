@@ -68,11 +68,11 @@ export func guard_request(req, policy, auth_token, rate_state, apply_rate_limit)
         buckets := rate_state["buckets"]
         count := 0
         if has_field(buckets, key) { count = buckets[key] }
-        if count >= policy["rate_limit"] { return {"ok": false, "status": 429, "message": "Rate limit exceeded"} }
+        if count >= policy["rate_limit"] { return {"ok": false, "status": 429, "message": "Rate limit exceeded", "rate_state": rate_state} }
         buckets[key] := count + 1
         rate_state["buckets"] := buckets
     }
-    return {"ok": true, "status": 200, "message": ""}
+    return {"ok": true, "status": 200, "message": "", "rate_state": rate_state}
 }
 
 export func secure_json_response(status, payload) {

@@ -1,0 +1,14 @@
+# Run assertion-based test blocks, not stdout snapshots of unevaluated tests.
+runtime := env("KUJO_BIN")
+if trim(runtime) == "" { runtime = "kujo" }
+count := 0
+for name in sort(list_dir("tests")) {
+    if ends_with(name, "_tests.kujo") {
+        result := spawn_process([runtime, "test-run", "tests/" + name, "-v"], {"timeout_ms": 60000, "max_output_bytes": 1048576})
+        print(result.stdout)
+        assert(result.exitcode == 0, "Test failure: " + name + "\n" + result.stderr)
+        count = count + 1
+    }
+}
+assert(count > 0, "No assertion test files discovered")
+print("Assertion test files passed: " + to_string(count))

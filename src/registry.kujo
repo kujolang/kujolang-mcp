@@ -67,7 +67,7 @@ export func list_tools() {
             "name": "get_installation", "title": "Get Kujo Installation",
             "description": "Return the reviewed one-line Kujo installer command, profile membership, and commands for a selected install profile.",
             "inputSchema": object_schema("Installation lookup", {
-                "profile": string_schema("Install profile", ["default", "core", "ai", "quality", "showcases", "operating", "all"], 32)
+                "profile": string_schema("Install profile", ["default", "core", "agent", "ai", "quality", "showcases", "operating", "all"], 32)
             }, []),
             "annotations": read_only_annotations("Get Kujo Installation")
         },
@@ -155,7 +155,8 @@ export func call_tool(catalog, name, arguments) {
         kind := bounded_string_arg(arguments, "kind", "", 32)
         category := bounded_string_arg(arguments, "category", "", 128)
         limit := int_arg(arguments, "limit", 10, 1, 50)
-        if !query["ok"] || query["value"] == "" { return tool_error("query is required and must be a non-empty string") }
+        if !query["ok"] { return tool_error(query["error"]) }
+        if query["value"] == "" { return tool_error("query is required and must be a non-empty string") }
         if !kind["ok"] { return tool_error(kind["error"]) }
         if valid_kind(kind["value"]) == false { return tool_error("kind must be project, skill, or workflow") }
         if !category["ok"] { return tool_error(category["error"]) }
@@ -196,7 +197,7 @@ export func call_tool(catalog, name, arguments) {
         if !profile["ok"] { return tool_error(profile["error"]) }
         selected := to_lower(profile["value"])
         if selected == "" { selected = "default" }
-        allowed := ["default", "core", "ai", "quality", "showcases", "operating", "all"]
+        allowed := ["default", "core", "agent", "ai", "quality", "showcases", "operating", "all"]
         if index_of(allowed, selected) < 0 { return tool_error("profile must be one of: " + join(allowed, ", ")) }
         install := catalog["installation"]
         command := install["default_command"]
@@ -204,7 +205,7 @@ export func call_tool(catalog, name, arguments) {
         if selected == "all" {
             command = install["all_command"]
             members = []
-            for profile_name in ["core", "ai", "quality", "showcases", "operating"] {
+            for profile_name in sort(keys(install["profiles"])) {
                 for member in install["profiles"][profile_name] {
                     if index_of(members, member) < 0 { members = push(members, member) }
                 }
