@@ -187,9 +187,17 @@ export func search_catalog_prefix(catalog, query, kind, category, slug_prefix, l
 }
 
 export func catalog_summary(catalog) {
+    runtime_version := ""
+    runtime_release_url := ""
+    for item in catalog["items"] {
+        if item["kind"] == "project" && item["slug"] == "kujo" {
+            runtime_version = item["version"]
+            if has_field(item, "latest_release_url") { runtime_release_url = item["latest_release_url"] }
+        }
+    }
     return {
         "name": catalog["source"]["name"], "url": catalog["source"]["url"],
-        "source_version": catalog["source"]["version"], "catalog_revision": catalog["source"]["snapshot_sha256"], "counts": catalog["counts"],
+        "source_version": catalog["source"]["version"], "runtime_version": runtime_version, "runtime_release_url": runtime_release_url, "catalog_revision": catalog["source"]["snapshot_sha256"], "counts": catalog["counts"],
         "categories": ["Primitives", "Tooling", "Showcase", "Agent Skill", "Workflow"],
         "default_install_command": catalog["installation"]["default_command"]
     }

@@ -8,6 +8,6 @@
   "generator": "kujolang-mcp/scripts/generate_worker.kujo",
   "generator_version": "1",
   "parity_fixtures_sha256": "e57a8b5e77df77fff861a78bbff4c7f0c2189b8f14e97534ffb518c8b9aa46c3",
-  "template_sha256": "f7e4428b89f1ca8f07a014dddbae34f35c7e16577f6e7acdb204d3081c575945",
-  "worker_sha256": "b28aff13a22e858e3198089680440b6f75d4601c9b1f4d6d5fb2c4782eb198bf"
+  "template_sha256": "6758427a2f9abb2f9dcd9a5cc3580ce14eac798647d901571c84f1e4fea606ce",
+  "worker_sha256": "f5349d2ed10f06f3ed3b1d55924b1e1b38b68191781ad7453638eb68cec0fb25"
 }
