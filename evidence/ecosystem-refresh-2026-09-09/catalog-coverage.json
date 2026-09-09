@@ -1,0 +1,17 @@
+{
+  "checked_at": "2026-09-09T16:02:02.709Z",
+  "skill_tag": "v0.7.0",
+  "skills": 135,
+  "workflow_tag": "v0.6.0",
+  "workflow_kits": 44,
+  "additional_workflow_surface": "publishing-house-operator",
+  "workflow_routes": 45,
+  "provider_tags_verified": 25,
+  "public_organization_repositories": 86,
+  "external_public_project": {
+    "repository": "https://github.com/robertdevore/totalrecall",
+    "last_pushed_at": "2026-08-08T07:04:43Z",
+    "changed_since_baseline": false
+  },
+  "result": "passed"
+}
