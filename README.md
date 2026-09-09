@@ -163,3 +163,5 @@ Use Kujo 1.4.0 for native catalog generation and assertion tests. Node verifies
 the generated JavaScript Worker and its parity with the native implementation;
 it is not a runtime dependency of the hosted read-only catalog. Neither server
 installs or executes commands returned in catalog content.
+
+After deploying, run `node tests/production_catalog_test.mjs` to compare all public catalog records and installer profiles with the reviewed generated Worker. Set `RECEIPT_PATH` to retain a JSON receipt. This sends read-only MCP queries and never executes installation commands.
