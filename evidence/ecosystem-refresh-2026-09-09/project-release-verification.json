@@ -1,0 +1,304 @@
+{
+  "checked_at": "2026-09-09T16:22:54.313Z",
+  "result": "passed",
+  "catalog_revision": "49adf21a49bfa9e158ad39cabb16231417ba583f8bb620d28774fdf24406242c",
+  "projects": [
+    {
+      "slug": "kujo",
+      "status": "published version and release URL match source inventory",
+      "version": "1.4.0",
+      "release_url": "https://github.com/kujolang/kujo/releases/tag/v1.4.0"
+    },
+    {
+      "slug": "kennel",
+      "status": "published version and release URL match source inventory",
+      "version": "1.0.1",
+      "release_url": "https://github.com/kujolang/kennel/releases/tag/v1.0.1"
+    },
+    {
+      "slug": "ai-sdk",
+      "status": "published version and release URL match source inventory",
+      "version": "1.0.0",
+      "release_url": "https://github.com/kujolang/ai-sdk/releases/tag/v1.0.0"
+    },
+    {
+      "slug": "agents-sdk",
+      "status": "published version and release URL match source inventory",
+      "version": "1.0.0",
+      "release_url": "https://github.com/kujolang/agents-sdk/releases/tag/v1.0.0"
+    },
+    {
+      "slug": "spec",
+      "status": "published version and release URL match source inventory",
+      "version": "1.0.1",
+      "release_url": "https://github.com/kujolang/spec/releases/tag/v1.0.1"
+    },
+    {
+      "slug": "eval",
+      "status": "published version and release URL match source inventory",
+      "version": "1.0.0",
+      "release_url": "https://github.com/kujolang/eval/releases/tag/v1.0.0"
+    },
+    {
+      "slug": "dispatch",
+      "status": "published version and release URL match source inventory",
+      "version": "1.2.0",
+      "release_url": "https://github.com/kujolang/dispatch/releases/tag/v1.2.0"
+    },
+    {
+      "slug": "watchdog",
+      "status": "published version and release URL match source inventory",
+      "version": "1.0.1",
+      "release_url": "https://github.com/kujolang/watchdog/releases/tag/v1.0.1"
+    },
+    {
+      "slug": "ability",
+      "status": "published version and release URL match source inventory",
+      "version": "1.1.0",
+      "release_url": "https://github.com/kujolang/ability/releases/tag/v1.1.0"
+    },
+    {
+      "slug": "mcp",
+      "status": "published version and release URL match source inventory",
+      "version": "1.1.1",
+      "release_url": "https://github.com/kujolang/mcp/releases/tag/v1.1.1"
+    },
+    {
+      "slug": "rag",
+      "status": "published version and release URL match source inventory",
+      "version": "1.0.0",
+      "release_url": "https://github.com/kujolang/rag/releases/tag/v1.0.0"
+    },
+    {
+      "slug": "leash",
+      "status": "external public repository separately reviewed",
+      "repository": ""
+    },
+    {
+      "slug": "runledger",
+      "status": "published version and release URL match source inventory",
+      "version": "1.1.0",
+      "release_url": "https://github.com/kujolang/runledger/releases/tag/v1.1.0"
+    },
+    {
+      "slug": "casefile",
+      "status": "published version and release URL match source inventory",
+      "version": "1.0.0",
+      "release_url": "https://github.com/kujolang/casefile/releases/tag/v1.0.0"
+    },
+    {
+      "slug": "muzzle",
+      "status": "published version and release URL match source inventory",
+      "version": "1.1.0",
+      "release_url": "https://github.com/kujolang/muzzle/releases/tag/v1.1.0"
+    },
+    {
+      "slug": "shipcheck",
+      "status": "published version and release URL match source inventory",
+      "version": "1.0.0",
+      "release_url": "https://github.com/kujolang/shipcheck/releases/tag/v1.0.0"
+    },
+    {
+      "slug": "concord",
+      "status": "published version and release URL match source inventory",
+      "version": "1.0.0",
+      "release_url": "https://github.com/kujolang/concord/releases/tag/v1.0.0"
+    },
+    {
+      "slug": "patchbrief",
+      "status": "published version and release URL match source inventory",
+      "version": "1.0.1",
+      "release_url": "https://github.com/kujolang/patchbrief/releases/tag/v1.0.1"
+    },
+    {
+      "slug": "changebucket",
+      "status": "published version and release URL match source inventory",
+      "version": "1.0.0",
+      "release_url": "https://github.com/kujolang/changebucket/releases/tag/v1.0.0"
+    },
+    {
+      "slug": "scent",
+      "status": "published version and release URL match source inventory",
+      "version": "1.0.0",
+      "release_url": "https://github.com/kujolang/scent/releases/tag/v1.0.0"
+    },
+    {
+      "slug": "scout",
+      "status": "published version and release URL match source inventory",
+      "version": "1.0.0",
+      "release_url": "https://github.com/kujolang/scout/releases/tag/v1.0.0"
+    },
+    {
+      "slug": "lens",
+      "status": "published version and release URL match source inventory",
+      "version": "1.1.0",
+      "release_url": "https://github.com/kujolang/lens/releases/tag/v1.1.0"
+    },
+    {
+      "slug": "fence",
+      "status": "published version and release URL match source inventory",
+      "version": "1.0.0",
+      "release_url": "https://github.com/kujolang/fence/releases/tag/v1.0.0"
+    },
+    {
+      "slug": "ward",
+      "status": "external public repository separately reviewed",
+      "repository": ""
+    },
+    {
+      "slug": "howl",
+      "status": "published version and release URL match source inventory",
+      "version": "1.1.0",
+      "release_url": "https://github.com/kujolang/howl/releases/tag/v1.1.0"
+    },
+    {
+      "slug": "packwrite",
+      "status": "published version and release URL match source inventory",
+      "version": "1.1.0",
+      "release_url": "https://github.com/kujolang/packwrite/releases/tag/v1.1.0"
+    },
+    {
+      "slug": "workcell",
+      "status": "published version and release URL match source inventory",
+      "version": "1.1.0",
+      "release_url": "https://github.com/kujolang/workcell/releases/tag/v1.1.0"
+    },
+    {
+      "slug": "redact",
+      "status": "published version and release URL match source inventory",
+      "version": "1.0.0",
+      "release_url": "https://github.com/kujolang/redact/releases/tag/v1.0.0"
+    },
+    {
+      "slug": "sitekit",
+      "status": "published version and release URL match source inventory",
+      "version": "1.0.0",
+      "release_url": "https://github.com/kujolang/site-kit/releases/tag/v1.0.0"
+    },
+    {
+      "slug": "contentgraph",
+      "status": "published version and release URL match source inventory",
+      "version": "0.3.0",
+      "release_url": "https://github.com/kujolang/contentgraph/releases/tag/v0.3.0"
+    },
+    {
+      "slug": "searchbridge",
+      "status": "published version and release URL match source inventory",
+      "version": "1.0.0",
+      "release_url": "https://github.com/kujolang/searchbridge/releases/tag/v1.0.0"
+    },
+    {
+      "slug": "ai-chat",
+      "status": "published version and release URL match source inventory",
+      "version": "1.2.0",
+      "release_url": "https://github.com/kujolang/ai-chat/releases/tag/v1.2.0"
+    },
+    {
+      "slug": "siteprobe",
+      "status": "published version and release URL match source inventory",
+      "version": "0.3.0",
+      "release_url": "https://github.com/kujolang/siteprobe/releases/tag/v0.3.0"
+    },
+    {
+      "slug": "cms",
+      "status": "published version and release URL match source inventory",
+      "version": "1.1.0",
+      "release_url": "https://github.com/kujolang/cms/releases/tag/v1.1.0"
+    },
+    {
+      "slug": "crud-api",
+      "status": "published version and release URL match source inventory",
+      "version": "1.0.0",
+      "release_url": "https://github.com/kujolang/crud-api/releases/tag/v1.0.0"
+    },
+    {
+      "slug": "ssg",
+      "status": "published version and release URL match source inventory",
+      "version": "1.0.0",
+      "release_url": "https://github.com/kujolang/ssg/releases/tag/v1.0.0"
+    },
+    {
+      "slug": "totalrecall",
+      "status": "external public repository separately reviewed",
+      "repository": "https://github.com/robertdevore/totalrecall"
+    },
+    {
+      "slug": "tribunal",
+      "status": "published version and release URL match source inventory",
+      "version": "1.0.1",
+      "release_url": "https://github.com/kujolang/tribunal/releases/tag/v1.0.1"
+    },
+    {
+      "slug": "relay",
+      "status": "published version and release URL match source inventory",
+      "version": "1.1.0",
+      "release_url": "https://github.com/kujolang/relay/releases/tag/v1.1.0"
+    },
+    {
+      "slug": "assetworks",
+      "status": "published version and release URL match source inventory",
+      "version": "0.2.0",
+      "release_url": "https://github.com/kujolang/assetworks/releases/tag/v0.2.0"
+    },
+    {
+      "slug": "bluepencil",
+      "status": "published version and release URL match source inventory",
+      "version": "0.2.0",
+      "release_url": "https://github.com/kujolang/bluepencil/releases/tag/v0.2.0"
+    },
+    {
+      "slug": "dossier",
+      "status": "published version and release URL match source inventory",
+      "version": "0.2.0",
+      "release_url": "https://github.com/kujolang/dossier/releases/tag/v0.2.0"
+    },
+    {
+      "slug": "galleypack",
+      "status": "published version and release URL match source inventory",
+      "version": "0.2.0",
+      "release_url": "https://github.com/kujolang/galleypack/releases/tag/v0.2.0"
+    },
+    {
+      "slug": "presswire",
+      "status": "published version and release URL match source inventory",
+      "version": "0.2.0",
+      "release_url": "https://github.com/kujolang/presswire/releases/tag/v0.2.0"
+    },
+    {
+      "slug": "readersignal",
+      "status": "published version and release URL match source inventory",
+      "version": "0.2.0",
+      "release_url": "https://github.com/kujolang/readersignal/releases/tag/v0.2.0"
+    },
+    {
+      "slug": "storydesk",
+      "status": "published version and release URL match source inventory",
+      "version": "0.2.0",
+      "release_url": "https://github.com/kujolang/storydesk/releases/tag/v0.2.0"
+    },
+    {
+      "slug": "versionseal",
+      "status": "published version and release URL match source inventory",
+      "version": "0.2.0",
+      "release_url": "https://github.com/kujolang/versionseal/releases/tag/v0.2.0"
+    },
+    {
+      "slug": "paperclip",
+      "status": "published version and release URL match source inventory",
+      "version": "0.1.7",
+      "release_url": "https://github.com/kujolang/paperclip/releases/tag/v0.1.7"
+    },
+    {
+      "slug": "commerce",
+      "status": "published version and release URL match source inventory",
+      "version": "0.4.0",
+      "release_url": "https://github.com/kujolang/commerce/releases/tag/v0.4.0"
+    },
+    {
+      "slug": "kujo-pi",
+      "status": "published version and release URL match source inventory",
+      "version": "1.0.0",
+      "release_url": "https://github.com/kujolang/kujo-pi/releases/tag/v1.0.0"
+    }
+  ]
+}
