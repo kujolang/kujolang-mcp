@@ -9,3 +9,6 @@ build/
 kennel_packages/
 *.log
 *.tmp
+
+# Local Cloudflare deployment cache and temporary bundles.
+.wrangler/
