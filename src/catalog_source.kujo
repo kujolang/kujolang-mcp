@@ -65,6 +65,7 @@ func collect_collection(site_root, folder, kind) {
             "install_command": text_field(meta, "install_command"), "github_url": text_field(meta, "github_url"),
             "website_url": route_for(kind, slug), "launch_story": text_field(meta, "launch_story"),
             "scope_note": text_field(meta, "scope_note"), "version": text_field(meta, "version"),
+            "latest_release_url": text_field(meta, "latest_release_url"), "release_status": text_field(meta, "release_status"),
             "last_updated": text_field(meta, "last_updated"), "keywords": text_field(meta, "keywords"),
             "source_path": "content/" + folder + "/" + name
         })
@@ -131,6 +132,7 @@ export func build_catalog(site_root) {
         "all_command": "curl -fsSL https://kujolang.ai/install.sh | bash -s -- --all",
         "profile_commands": {
             "core": "curl -fsSL https://kujolang.ai/install.sh | bash -s -- --core",
+            "agent": "curl -fsSL https://kujolang.ai/install.sh | bash -s -- --group agent",
             "ai": "curl -fsSL https://kujolang.ai/install.sh | bash -s -- --group ai",
             "quality": "curl -fsSL https://kujolang.ai/install.sh | bash -s -- --group quality",
             "showcases": "curl -fsSL https://kujolang.ai/install.sh | bash -s -- --group showcases",

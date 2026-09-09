@@ -86,12 +86,17 @@ func matches_filter(item, kind, category) {
 }
 
 func public_item(item) {
+    release_url := ""
+    release_status := ""
+    if has_field(item, "latest_release_url") { release_url = item["latest_release_url"] }
+    if has_field(item, "release_status") { release_status = item["release_status"] }
     return {
         "kind": item["kind"], "slug": item["slug"], "title": item["title"],
         "description": item["description"], "category": item["category"], "tags": item["tags"],
         "install_command": item["install_command"], "github_url": item["github_url"],
         "website_url": item["website_url"], "scope_note": item["scope_note"],
         "version": item["version"], "last_updated": item["last_updated"],
+        "latest_release_url": release_url, "release_status": release_status,
         "source_path": item["source_path"], "provenance": "Reviewed committed Kujolang.ai content"
     }
 }
