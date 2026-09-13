@@ -111,14 +111,14 @@
       "category": "Primitives",
       "description": "Deterministic Kujo package and dependency workflows with manifests, lockfiles, source policy, trust policy, indexes, and mirrors.",
       "github_url": "https://github.com/kujolang/kennel",
-      "install_command": "git clone https://github.com/kujolang/kennel.git",
+      "install_command": "curl -fsSL https://kennel.kujolang.ai/install.sh -o /tmp/kennel-install.sh && sh /tmp/kennel-install.sh",
       "keywords": "Kennel, Kujo ecosystem, Core, Packages",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/kennel/releases/tag/v1.0.1",
+      "last_updated": "2026-09-13",
+      "latest_release_url": "https://github.com/kujolang/kennel/releases/tag/v1.1.0",
       "launch_story": "The package foundation for reproducible local and static dependency workflows.",
-      "release_status": "Version identifies the latest published GitHub Release. Unpinned clone commands select default-branch source; see scope_note for release boundaries.",
-      "scope_note": "The official first-party static registry is live at https://kennel.kujolang.ai. Latest published client: 1.0.1. Native bootstrap and global tool commands are merged 1.1.0 candidate work awaiting a separate release. Accounts and third-party publishing are future work.",
+      "release_status": "Version identifies the published Kennel release. Install Kujo 1.4.0 or newer first; the public installer selects the latest compatible stable Kennel package.",
+      "scope_note": "The official first-party static registry is live at https://kennel.kujolang.ai. Kennel 1.1.0 provides native bootstrap and global tool commands on macOS/Linux with Kujo 1.4.0 or newer. Official package installation requires no Git or Python. Accounts and third-party publishing are future work.",
       "slug": "kennel",
       "source_path": "content/ecosystem/02-kennel.md",
       "tags": [
@@ -126,7 +126,7 @@
         "Packages"
       ],
       "title": "Kennel",
-      "version": "1.0.1",
+      "version": "1.1.0",
       "website_url": "https://kujolang.ai/ecosystem/kennel/"
     },
     {
@@ -4610,10 +4610,10 @@
   ],
   "schema_version": "kujolang-mcp/catalog-v1",
   "source": {
-    "content_sha256": "1ada9f4af7847d5f6be40f752930499865a2a52bac12e9c4f01cf1c646a2da3a",
+    "content_sha256": "aa9b4d9d5a8d324fb8ef9abe86be59a14cb2813d8e2f55ccca17afe75de6c999",
     "name": "Kujolang.ai",
     "repository": "https://github.com/kujolang/kujolang.ai",
-    "snapshot_sha256": "49adf21a49bfa9e158ad39cabb16231417ba583f8bb620d28774fdf24406242c",
+    "snapshot_sha256": "d327a84019c0c8a9357e00757ddd71fa8790d164f031da82b12fa279baff8526",
     "url": "https://kujolang.ai",
     "version": "1.2.10"
   }
