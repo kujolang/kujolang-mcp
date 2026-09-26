@@ -246,11 +246,11 @@
       "install_command": "git clone https://github.com/kujolang/watchdog.git",
       "keywords": "Watchdog, Kujo ecosystem, Primitive, Observability",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/watchdog/releases/tag/v1.0.1",
+      "last_updated": "2026-09-26",
+      "latest_release_url": "https://github.com/kujolang/watchdog/releases/tag/v1.1.0",
       "launch_story": "Make AI application behavior observable without hiding the request path from the operator.",
       "release_status": "Version identifies the latest published GitHub Release. Unpinned clone commands select default-branch source; see scope_note for release boundaries.",
-      "scope_note": "The published release is 1.0.1. Canonical v2 telemetry and cross-system correlation are newer default-branch work. Direct-provider cost estimates are not invoices; auth, retention, and deployment remain operator-owned.",
+      "scope_note": "Watchdog 1.1.0 adds canonical v2 telemetry, lossless JSONL/OTLP projections, and the evidence-backed Connected Sources panel. Direct-provider cost estimates are not invoices; auth, retention, exporter credentials, and deployment remain operator-owned.",
       "slug": "watchdog",
       "source_path": "content/ecosystem/15-watchdog.md",
       "tags": [
@@ -258,7 +258,7 @@
         "Observability"
       ],
       "title": "Watchdog",
-      "version": "1.0.1",
+      "version": "1.1.0",
       "website_url": "https://kujolang.ai/ecosystem/watchdog/"
     },
     {
@@ -4610,10 +4610,10 @@
   ],
   "schema_version": "kujolang-mcp/catalog-v1",
   "source": {
-    "content_sha256": "8a392c19945a1e0eb16ca0caec58b46d555af0716eafa65416ee7fd24af3ac48",
+    "content_sha256": "d0020fe99ad66419aff4ba5e7f3560754ff0d42ca3c5a623a08ea8188b11f524",
     "name": "Kujolang.ai",
     "repository": "https://github.com/kujolang/kujolang.ai",
-    "snapshot_sha256": "f6beb734e02ceaadfe39d8e68ab19d15df42d880aa4ea2132071e5c599e808be",
+    "snapshot_sha256": "af7aa0d7105bd57c112dfb29701a56912f03d52bba931103b3d18c5dde006534",
     "url": "https://kujolang.ai",
     "version": "1.2.10"
   }
