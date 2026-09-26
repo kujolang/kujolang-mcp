@@ -111,14 +111,14 @@
       "category": "Primitives",
       "description": "Deterministic Kujo package and dependency workflows with manifests, lockfiles, source policy, trust policy, indexes, and mirrors.",
       "github_url": "https://github.com/kujolang/kennel",
-      "install_command": "git clone https://github.com/kujolang/kennel.git",
+      "install_command": "curl -fsSL https://kennel.kujolang.ai/install.sh -o /tmp/kennel-install.sh && sh /tmp/kennel-install.sh",
       "keywords": "Kennel, Kujo ecosystem, Core, Packages",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/kennel/releases/tag/v1.0.1",
+      "last_updated": "2026-09-13",
+      "latest_release_url": "https://github.com/kujolang/kennel/releases/tag/v1.1.0",
       "launch_story": "The package foundation for reproducible local and static dependency workflows.",
-      "release_status": "Version identifies the latest published GitHub Release. Unpinned clone commands select default-branch source; see scope_note for release boundaries.",
-      "scope_note": "The official first-party static registry is live at https://kennel.kujolang.ai. Latest published client: 1.0.1. Native bootstrap and global tool commands are merged 1.1.0 candidate work awaiting a separate release. Accounts and third-party publishing are future work.",
+      "release_status": "Version identifies the published Kennel release. Install Kujo 1.4.0 or newer first; the public installer selects the latest compatible stable Kennel package.",
+      "scope_note": "The official first-party static registry is live at https://kennel.kujolang.ai. Kennel 1.1.0 provides native bootstrap and global tool commands on macOS/Linux with Kujo 1.4.0 or newer. Official package installation requires no Git or Python. Accounts and third-party publishing are future work.",
       "slug": "kennel",
       "source_path": "content/ecosystem/02-kennel.md",
       "tags": [
@@ -126,7 +126,7 @@
         "Packages"
       ],
       "title": "Kennel",
-      "version": "1.0.1",
+      "version": "1.1.0",
       "website_url": "https://kujolang.ai/ecosystem/kennel/"
     },
     {
@@ -246,11 +246,11 @@
       "install_command": "git clone https://github.com/kujolang/watchdog.git",
       "keywords": "Watchdog, Kujo ecosystem, Primitive, Observability",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/watchdog/releases/tag/v1.0.1",
+      "last_updated": "2026-09-26",
+      "latest_release_url": "https://github.com/kujolang/watchdog/releases/tag/v1.1.0",
       "launch_story": "Make AI application behavior observable without hiding the request path from the operator.",
       "release_status": "Version identifies the latest published GitHub Release. Unpinned clone commands select default-branch source; see scope_note for release boundaries.",
-      "scope_note": "The published release is 1.0.1. Canonical v2 telemetry and cross-system correlation are newer default-branch work. Direct-provider cost estimates are not invoices; auth, retention, and deployment remain operator-owned.",
+      "scope_note": "Watchdog 1.1.0 adds canonical v2 telemetry, lossless JSONL/OTLP projections, and the evidence-backed Connected Sources panel. Direct-provider cost estimates are not invoices; auth, retention, exporter credentials, and deployment remain operator-owned.",
       "slug": "watchdog",
       "source_path": "content/ecosystem/15-watchdog.md",
       "tags": [
@@ -258,7 +258,7 @@
         "Observability"
       ],
       "title": "Watchdog",
-      "version": "1.0.1",
+      "version": "1.1.0",
       "website_url": "https://kujolang.ai/ecosystem/watchdog/"
     },
     {
@@ -527,15 +527,15 @@
     },
     {
       "category": "Primitives",
-      "description": "Repository intelligence packs with trees, languages, dependencies, routes, security signals, llms.txt, checklists, and structured indexes.",
+      "description": "Local repository intelligence with bounded scanning, route and dependency discovery, security exports, agent context packs, and deterministic CI contracts.",
       "github_url": "https://github.com/kujolang/scout",
-      "install_command": "git clone https://github.com/kujolang/scout.git",
+      "install_command": "git clone --depth 1 --branch v1.1.0 https://github.com/kujolang/scout.git",
       "keywords": "Scout, Kujo ecosystem, Tool, Intelligence",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/scout/releases/tag/v1.0.0",
+      "last_updated": "2026-09-26",
+      "latest_release_url": "https://github.com/kujolang/scout/releases/tag/v1.1.0",
       "launch_story": "Shorten codebase orientation without turning discovery into an opaque hosted index.",
-      "release_status": "Version identifies the latest published GitHub Release. Unpinned clone commands select default-branch source; see scope_note for release boundaries.",
+      "release_status": "Version and pinned clone command identify the latest published GitHub Release; see scope_note for the product boundary.",
       "scope_note": "Scout accelerates onboarding; project-specific architecture and security judgment still matter.",
       "slug": "scout",
       "source_path": "content/ecosystem/29-scout.md",
@@ -544,7 +544,7 @@
         "Intelligence"
       ],
       "title": "Scout",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "website_url": "https://kujolang.ai/ecosystem/scout/"
     },
     {
@@ -1059,14 +1059,14 @@
       "category": "Tooling",
       "description": "A local-first measurement ledger for privacy-bounded audience snapshots, feedback, comparisons, and evidence-linked learning.",
       "github_url": "https://github.com/kujolang/readersignal",
-      "install_command": "git clone https://github.com/kujolang/readersignal.git",
+      "install_command": "git clone --branch v0.3.0 https://github.com/kujolang/readersignal.git",
       "keywords": "ReaderSignal, Kujo ecosystem, audience measurement, reader feedback, privacy-bounded analytics, publishing intelligence",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/readersignal/releases/tag/v0.2.0",
+      "last_updated": "2026-09-26",
+      "latest_release_url": "https://github.com/kujolang/readersignal/releases/tag/v0.3.0",
       "launch_story": "Capture bounded audience evidence and compare compatible measurements without turning metrics into editorial authority.",
       "release_status": "Version identifies the latest published GitHub Release. Unpinned clone commands select default-branch source; see scope_note for release boundaries.",
-      "scope_note": "ReaderSignal stores privacy-bounded evidence; provider access, identity, consent, interpretation, and consequential decisions remain external responsibilities.",
+      "scope_note": "ReaderSignal 0.3.0 requires POSIX Kujo 1.5.0 at d501c2c46c51718ee10c4434f6cf9750bbd81453 or a compatible newer build; 1.5.0 alone does not identify the preview filesystem APIs. Provider access, identity, consent, interpretation, and consequential decisions remain external responsibilities.",
       "slug": "readersignal",
       "source_path": "content/ecosystem/52-readersignal.md",
       "tags": [
@@ -1074,7 +1074,7 @@
         "Publishing"
       ],
       "title": "ReaderSignal",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "website_url": "https://kujolang.ai/ecosystem/readersignal/"
     },
     {
@@ -1169,14 +1169,14 @@
       "category": "Tooling",
       "description": "An opt-in Pi integration for Kujo repository intelligence, checks, workflows, retrieval, approvals and receipts.",
       "github_url": "https://github.com/kujolang/kujo-pi",
-      "install_command": "pi install npm:@kujolang/kujo-pi@1.0.0",
+      "install_command": "pi install npm:@kujolang/kujo-pi@1.1.0",
       "keywords": "Kujo Pi, Kujo ecosystem, An opt-in Pi integration for Kujo repository intelligence, checks, workflows, retrieval, approvals and receipts.",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/kujo-pi/releases/tag/v1.0.0",
+      "last_updated": "2026-09-26",
+      "latest_release_url": "https://github.com/kujolang/kujo-pi/releases/tag/v1.1.0",
       "launch_story": "An opt-in Pi integration for Kujo repository intelligence, checks, workflows, retrieval, approvals and receipts.",
       "release_status": "Version identifies the latest published GitHub Release. Unpinned clone commands select default-branch source; see scope_note for release boundaries.",
-      "scope_note": "Latest published GitHub Release: 1.0.0. The default branch prepares 1.1.0 with Ability gateway tools and Watchdog v2 telemetry. Requires the Pi host and a separate Kujo runtime; private services and execution remain explicitly configured and permission-gated.",
+      "scope_note": "Version 1.1.0 includes approval-gated Ability tools, opt-in Watchdog v2 metadata, bounded telemetry queues, and hardened operation receipts. Requires the Pi host and a separate Kujo runtime; private services and execution remain explicitly configured and permission-gated.",
       "slug": "kujo-pi",
       "source_path": "content/ecosystem/57-kujo-pi.md",
       "tags": [
@@ -1184,7 +1184,7 @@
         "kujo-pi"
       ],
       "title": "Kujo Pi",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "website_url": "https://kujolang.ai/ecosystem/kujo-pi/"
     },
     {
@@ -4610,10 +4610,10 @@
   ],
   "schema_version": "kujolang-mcp/catalog-v1",
   "source": {
-    "content_sha256": "1ada9f4af7847d5f6be40f752930499865a2a52bac12e9c4f01cf1c646a2da3a",
+    "content_sha256": "d0020fe99ad66419aff4ba5e7f3560754ff0d42ca3c5a623a08ea8188b11f524",
     "name": "Kujolang.ai",
     "repository": "https://github.com/kujolang/kujolang.ai",
-    "snapshot_sha256": "49adf21a49bfa9e158ad39cabb16231417ba583f8bb620d28774fdf24406242c",
+    "snapshot_sha256": "af7aa0d7105bd57c112dfb29701a56912f03d52bba931103b3d18c5dde006534",
     "url": "https://kujolang.ai",
     "version": "1.2.10"
   }
