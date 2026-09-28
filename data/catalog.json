@@ -92,11 +92,11 @@
       "install_command": "curl -fsSL https://kujolang.ai/install.sh | bash",
       "keywords": "Kujo, Kujo ecosystem, Core, Language",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/kujo/releases/tag/v1.4.0",
+      "last_updated": "2026-09-28",
+      "latest_release_url": "https://github.com/kujolang/kujo/releases/tag/v1.6.0",
       "launch_story": "The ecosystem core: readable source, explicit capabilities, deterministic tooling contracts, and strong native APIs.",
       "release_status": "Version identifies the latest published GitHub Release. Unpinned clone commands select default-branch source; see scope_note for release boundaries.",
-      "scope_note": "Kujo 1.4.0 is published with native installer primitives and isolated tool imports. The standalone runtime needs no Python, Node.js, or Rust; individual tools can have their own requirements.",
+      "scope_note": "Kujo 1.6.0 is released for Linux x64/arm64, macOS x64/arm64 and Windows x64 through native archives and npm. It hardens closures, generators, tasks and VM loop/early-return correctness. Wave C beta and Wave D alpha remain experimental; participant SDK packages remain private/unpublished.",
       "slug": "kujo",
       "source_path": "content/ecosystem/01-kujo.md",
       "tags": [
@@ -104,7 +104,7 @@
         "Language"
       ],
       "title": "Kujo",
-      "version": "1.4.0",
+      "version": "1.6.0",
       "website_url": "https://kujolang.ai/ecosystem/kujo/"
     },
     {
@@ -4610,10 +4610,10 @@
   ],
   "schema_version": "kujolang-mcp/catalog-v1",
   "source": {
-    "content_sha256": "d0020fe99ad66419aff4ba5e7f3560754ff0d42ca3c5a623a08ea8188b11f524",
+    "content_sha256": "92fe202ba4c0ff4230121b278232c6a18293146f74759e03e8c46bf6e4f152f1",
     "name": "Kujolang.ai",
     "repository": "https://github.com/kujolang/kujolang.ai",
-    "snapshot_sha256": "af7aa0d7105bd57c112dfb29701a56912f03d52bba931103b3d18c5dde006534",
+    "snapshot_sha256": "7f7e3472c0e12e4fa3447932a63c892a8f66c3956a380f72994f2fc5d510f3cd",
     "url": "https://kujolang.ai",
     "version": "1.2.10"
   }
