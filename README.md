@@ -167,3 +167,5 @@ installs or executes commands returned in catalog content.
 After deploying, run `node tests/production_catalog_test.mjs` to compare all public catalog records and installer profiles with the reviewed generated Worker. Set `RECEIPT_PATH` to retain a JSON receipt. This sends read-only MCP queries and never executes installation commands.
 
 The Kujo runtime entry now identifies the published 1.6.0 release across Linux x64/arm64, macOS x64/arm64 and Windows x64, including runtime npm packages. Wave C beta and Wave D alpha remain experimental; participant SDK packages remain private/unpublished. The catalog remains read-only and grants no replay authority.
+
+The September 29 companion refresh identifies Workcell, Ability and MCP 1.2.0. Preservation, controlled application/STDIO execution and Git correlation retain their documented experimental boundaries. Dispatch publication is separate.
