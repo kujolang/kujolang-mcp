@@ -272,7 +272,7 @@
       "latest_release_url": "https://github.com/kujolang/ability/releases/tag/v1.2.0",
       "launch_story": "Define an operation once, then project the same meaning into applications, agents, and MCP hosts without moving authority into the contract.",
       "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
-      "scope_note": "Ability 1.2.0 adds application-owned assurance and controlled HTTP evidence for Kujo 1.6. Wave C beta is opt-in, required/deny and single-effect; HTTP handoffs remain alpha. Applications own identity and authorization; Dispatch owns replay. Ability is not a hosted gateway or workflow engine.",
+      "scope_note": "Ability adds application-owned assurance and controlled HTTP evidence. Wave C beta is opt-in, required/deny and single-effect; HTTP handoffs remain alpha. Applications own identity and authorization; Dispatch owns replay. Ability is not a hosted gateway or workflow engine.",
       "slug": "ability",
       "source_path": "content/ecosystem/16-ability.md",
       "tags": [
@@ -4610,10 +4610,10 @@
   ],
   "schema_version": "kujolang-mcp/catalog-v1",
   "source": {
-    "content_sha256": "648dc963181436a897aae8d4e3da720ccf4f84efec40568677968a3cafe78e05",
+    "content_sha256": "d5ce63b8845aaeec4e9172734bde1a2668c8d5647ee83a3b8732096c76452447",
     "name": "Kujolang.ai",
     "repository": "https://github.com/kujolang/kujolang.ai",
-    "snapshot_sha256": "100bda7b5183e852a173aec66e098940e10d0851ac4ce76842f0d34acebc51d6",
+    "snapshot_sha256": "da8340c6f040b1f4f145ab65e59b6129b67ac344defe57ef5415adf0319bc889",
     "url": "https://kujolang.ai",
     "version": "1.2.10"
   }
