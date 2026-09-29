@@ -167,3 +167,5 @@ installs or executes commands returned in catalog content.
 After deploying, run `node tests/production_catalog_test.mjs` to compare all public catalog records and installer profiles with the reviewed generated Worker. Set `RECEIPT_PATH` to retain a JSON receipt. This sends read-only MCP queries and never executes installation commands.
 
 The Kujo runtime entry now identifies the published 1.6.0 release across Linux x64/arm64, macOS x64/arm64 and Windows x64, including runtime npm packages. Wave C beta and Wave D alpha remain experimental; participant SDK packages remain private/unpublished. The catalog remains read-only and grants no replay authority.
+
+The September 29 SSG refresh records [SSG 1.1.0](https://github.com/kujolang/ssg/releases/tag/v1.1.0), default-on experimental public WebMCP, and the independently versioned local Ability pack 1.0.0. It also synchronizes the website's reviewed Kennel install guidance. The catalog remains read-only; it does not execute SSG builds or deploy sites.
