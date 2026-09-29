@@ -48,6 +48,37 @@ For a local Streamable HTTP client:
 
 The server advertises MCP `2026-07-28` and handshake-era `2025-06-18`. Production configuration enables strict `Mcp-Method` and `Mcp-Name` binding for 2026 requests.
 
+## MCP Registry publication
+
+[`server.json`](server.json) describes the hosted service for the official MCP
+Registry as `io.github.kujolang/kujolang-mcp`. It is separate from the native
+runtime configuration in `mcp-server.json` and the Kujo manifest in
+`mcp.manifest.json`.
+
+The [published registry entry](https://registry.modelcontextprotocol.io/v0.1/servers/io.github.kujolang%2Fkujolang-mcp/versions/latest)
+points to the public Streamable HTTP endpoint at `https://mcp.kujolang.ai/mcp`.
+
+From this directory, install the official publisher and validate the metadata:
+
+```bash
+brew install mcp-publisher
+mcp-publisher validate
+```
+
+To publish, authenticate with a GitHub account that owns the `kujolang`
+organization, then publish the reviewed metadata:
+
+```bash
+mcp-publisher login github
+mcp-publisher publish
+```
+
+The hosted service requires no client credentials or local package installation.
+For subsequent releases, update the metadata version to match the server release
+and validate before publishing. Publisher credentials must stay out of Git.
+Publication in this registry does not guarantee inclusion at `github.com/mcp`;
+GitHub's listing request is a separate step.
+
 ## MCP surface
 
 | Tool | Purpose |

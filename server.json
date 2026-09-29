@@ -1,0 +1,18 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.kujolang/kujolang-mcp",
+  "title": "Kujolang.ai MCP",
+  "description": "Discover Kujo projects, tools, skills, workflows, and installation guidance with read-only tools.",
+  "version": "0.1.0",
+  "repository": {
+    "url": "https://github.com/kujolang/kujolang-mcp",
+    "source": "github"
+  },
+  "websiteUrl": "https://kujolang.ai",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.kujolang.ai/mcp"
+    }
+  ]
+}

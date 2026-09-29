@@ -12,3 +12,6 @@ kennel_packages/
 
 # Local Cloudflare deployment cache and temporary bundles.
 .wrangler/
+
+# MCP Registry publisher credentials are local only.
+.mcp_publisher_token
