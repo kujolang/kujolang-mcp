@@ -114,11 +114,11 @@
       "install_command": "curl -fsSL https://kennel.kujolang.ai/install.sh -o /tmp/kennel-install.sh && sh /tmp/kennel-install.sh",
       "keywords": "Kennel, Kujo ecosystem, Core, Packages",
       "kind": "project",
-      "last_updated": "2026-09-13",
-      "latest_release_url": "https://github.com/kujolang/kennel/releases/tag/v1.1.0",
+      "last_updated": "2026-09-29",
+      "latest_release_url": "https://github.com/kujolang/kennel/releases/tag/v1.1.1",
       "launch_story": "The package foundation for reproducible local and static dependency workflows.",
       "release_status": "Version identifies the published Kennel release. Install Kujo 1.4.0 or newer first; the public installer selects the latest compatible stable Kennel package.",
-      "scope_note": "The official first-party static registry is live at https://kennel.kujolang.ai. Kennel 1.1.0 provides native bootstrap and global tool commands on macOS/Linux with Kujo 1.4.0 or newer. Official package installation requires no Git or Python. Accounts and third-party publishing are future work.",
+      "scope_note": "The official first-party static registry is live at https://kennel.kujolang.ai. Kennel 1.1.1 provides native bootstrap and global tool commands on macOS/Linux with Kujo 1.4.0 or newer. The patch fixes binary-safe bootstrap downloads and preserves installer modules, reviewed Git dependency identities and package source files. Verified with Kujo 1.6.0; existing releases stay immutable. Official package installation requires no Git or Python. Accounts and third-party publishing are future work.",
       "slug": "kennel",
       "source_path": "content/ecosystem/02-kennel.md",
       "tags": [
@@ -126,7 +126,7 @@
         "Packages"
       ],
       "title": "Kennel",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "website_url": "https://kujolang.ai/ecosystem/kennel/"
     },
     {
@@ -246,11 +246,11 @@
       "install_command": "kennel add watchdog",
       "keywords": "Watchdog, Kujo ecosystem, Primitive, Observability",
       "kind": "project",
-      "last_updated": "2026-09-26",
-      "latest_release_url": "https://github.com/kujolang/watchdog/releases/tag/v1.1.0",
+      "last_updated": "2026-09-29",
+      "latest_release_url": "https://github.com/kujolang/watchdog/releases/tag/v1.2.0",
       "launch_story": "Make AI application behavior observable without hiding the request path from the operator.",
       "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
-      "scope_note": "Watchdog 1.1.0 adds canonical v2 telemetry, lossless JSONL/OTLP projections, and the evidence-backed Connected Sources panel. Direct-provider cost estimates are not invoices; auth, retention, exporter credentials, and deployment remain operator-owned.",
+      "scope_note": "Watchdog 1.2.0 adds verified Kujo 1.6 runtime measurement references and RunLedger correlation to its existing telemetry and Connected Sources panel. Direct-provider cost estimates are not invoices; auth, retention, exporter credentials, and deployment remain operator-owned.",
       "slug": "watchdog",
       "source_path": "content/ecosystem/15-watchdog.md",
       "tags": [
@@ -258,7 +258,7 @@
         "Observability"
       ],
       "title": "Watchdog",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "website_url": "https://kujolang.ai/ecosystem/watchdog/"
     },
     {
@@ -4610,10 +4610,10 @@
   ],
   "schema_version": "kujolang-mcp/catalog-v1",
   "source": {
-    "content_sha256": "8d28180a771ba784b05998aaca2181a09a50fd41bbcccfe029b444427cb99607",
+    "content_sha256": "dab798f0463ee1064d67ad52afc259d1450041b4f611c83c419eaa1db8587886",
     "name": "Kujolang.ai",
     "repository": "https://github.com/kujolang/kujolang.ai",
-    "snapshot_sha256": "816c046c40b4231d3859e85878aa83c1fea68c67c3508058b9cf3b82cee82ccb",
+    "snapshot_sha256": "1d9fbdcc0765cee651dd7baeb90f6fa28474433c8ab22072ed2406c66a27bf61",
     "url": "https://kujolang.ai",
     "version": "1.2.10"
   }
