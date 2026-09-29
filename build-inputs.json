@@ -2,7 +2,7 @@
   "schema_version": 1,
   "kujo_version": "v1.6.0",
   "website_repository": "kujolang/kujolang.ai",
-  "website_commit": "00a86b2d721cfe9ce6c74169fccf4f37c0c0fbb0",
+  "website_commit": "27db2803da4470517c8bb2cd24269ac7b723a299",
   "framework_repository": "kujolang/mcp",
   "framework_commit": "427a8b9ecfaee97cd66c6b35137bd1dc5fb16b54"
 }
