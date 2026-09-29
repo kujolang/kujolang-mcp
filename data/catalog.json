@@ -268,11 +268,11 @@
       "install_command": "kennel add ability",
       "keywords": "Kujo Ability, operation contracts, MCP tools, agent tools, typed schemas, policy gates, execution receipts",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/ability/releases/tag/v1.1.0",
+      "last_updated": "2026-09-29",
+      "latest_release_url": "https://github.com/kujolang/ability/releases/tag/v1.2.0",
       "launch_story": "Define an operation once, then project the same meaning into applications, agents, and MCP hosts without moving authority into the contract.",
       "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
-      "scope_note": "Ability is a contract and runtime package, not a hosted gateway, global catalog, identity provider, permission system, or workflow engine.",
+      "scope_note": "Ability adds application-owned assurance and controlled HTTP evidence. Wave C beta is opt-in, required/deny and single-effect; HTTP handoffs remain alpha. Applications own identity and authorization; Dispatch owns replay. Ability is not a hosted gateway or workflow engine.",
       "slug": "ability",
       "source_path": "content/ecosystem/16-ability.md",
       "tags": [
@@ -280,7 +280,7 @@
         "Contracts"
       ],
       "title": "Ability",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "website_url": "https://kujolang.ai/ecosystem/ability/"
     },
     {
@@ -290,11 +290,11 @@
       "install_command": "kennel add mcp",
       "keywords": "MCP, Kujo ecosystem, Primitive, Gateway",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/mcp/releases/tag/v1.1.1",
+      "last_updated": "2026-09-29",
+      "latest_release_url": "https://github.com/kujolang/mcp/releases/tag/v1.2.0",
       "launch_story": "A guarded gateway for exposing useful capabilities to agents through explicit contracts.",
       "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
-      "scope_note": "Generated servers still require review of tool authority, data access, authentication, and deployment boundaries.",
+      "scope_note": "MCP 1.2.0 pins Ability 1.2.0 and adds opt-in controlled STDIO handoffs with one-use admission and completion uncertainty. Handoffs remain alpha; Dispatch owns replay. Review server authority, authentication and deployment boundaries. Historical host certificates retain their exact tested scope.",
       "slug": "mcp",
       "source_path": "content/ecosystem/16-mcp.md",
       "tags": [
@@ -302,7 +302,7 @@
         "Gateway"
       ],
       "title": "MCP",
-      "version": "1.1.1",
+      "version": "1.2.0",
       "website_url": "https://kujolang.ai/ecosystem/mcp/"
     },
     {
@@ -664,11 +664,11 @@
       "install_command": "kennel add workcell",
       "keywords": "Workcell, Kujo ecosystem, bounded execution, Docker, Podman",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/workcell/releases/tag/v1.1.0",
+      "last_updated": "2026-09-29",
+      "latest_release_url": "https://github.com/kujolang/workcell/releases/tag/v1.2.0",
       "launch_story": "Run agent work inside an explicit execution contract, then export only declared artifacts and durable evidence.",
       "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
-      "scope_note": "Workcell 1.1.0 keeps Docker/Podman stable. Portable contracts and E2B, Vercel Sandbox, and Daytona adapters remain alpha pending live certification. Honor its exact runtime pin and run doctor on the target host.",
+      "scope_note": "Workcell 1.2.0 adds bounded preservation and execution evidence on Kujo 1.6. Docker/Podman remain stable; portable/remote adapters and process handoffs remain alpha. Git assurance beta is opt-in, required/deny and single-effect. Dispatch owns replay. Run doctor on the target host.",
       "slug": "workcell",
       "source_path": "content/ecosystem/35-workcell.md",
       "tags": [
@@ -676,7 +676,7 @@
         "Execution"
       ],
       "title": "Workcell",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "website_url": "https://kujolang.ai/ecosystem/workcell/"
     },
     {
@@ -4610,10 +4610,10 @@
   ],
   "schema_version": "kujolang-mcp/catalog-v1",
   "source": {
-    "content_sha256": "0c81eb97c20a957c422d508ad9281fa9598e587da74cc2606b521ecc2e48238c",
+    "content_sha256": "806b8ad407ea70d7bef8e87ce94eff8e06a0062ea2c024277126f8e237bc7fbd",
     "name": "Kujolang.ai",
     "repository": "https://github.com/kujolang/kujolang.ai",
-    "snapshot_sha256": "fb9b9994262285f06509e383c758be6c29b0c243113367b3f1ec40fd5f9e58ac",
+    "snapshot_sha256": "9f1433d15047d9f785966e4131b5a4af9cd85223ba267b5769e8098a63acbc33",
     "url": "https://kujolang.ai",
     "version": "1.2.10"
   }

@@ -168,4 +168,6 @@ After deploying, run `node tests/production_catalog_test.mjs` to compare all pub
 
 The Kujo runtime entry now identifies the published 1.6.0 release across Linux x64/arm64, macOS x64/arm64 and Windows x64, including runtime npm packages. Wave C beta and Wave D alpha remain experimental; participant SDK packages remain private/unpublished. The catalog remains read-only and grants no replay authority.
 
+The September 29 companion refresh identifies Workcell, Ability and MCP 1.2.0. Preservation, controlled application/STDIO execution and Git correlation retain their documented experimental boundaries. Dispatch publication is separate.
+
 The September 29 SSG refresh records [SSG 1.1.0](https://github.com/kujolang/ssg/releases/tag/v1.1.0), default-on experimental public WebMCP, and the independently versioned local Ability pack 1.0.0. It also synchronizes the website's reviewed Kennel install guidance. The catalog remains read-only; it does not execute SSG builds or deploy sites.
