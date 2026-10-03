@@ -54,6 +54,7 @@
         "patchbrief",
         "changebucket",
         "muzzle",
+        "mcp",
         "kujo-skills",
         "kujo-agents",
         "kujo-workflows"
@@ -93,10 +94,10 @@
       "keywords": "Kujo, Kujo ecosystem, Core, Language",
       "kind": "project",
       "last_updated": "2026-09-28",
-      "latest_release_url": "https://github.com/kujolang/kujo/releases/tag/v1.6.0",
+      "latest_release_url": "https://github.com/kujolang/kujo/releases/tag/v1.7.0",
       "launch_story": "The ecosystem core: readable source, explicit capabilities, deterministic tooling contracts, and strong native APIs.",
       "release_status": "Version identifies the latest published GitHub Release. Unpinned clone commands select default-branch source; see scope_note for release boundaries.",
-      "scope_note": "Kujo 1.6.0 is released for Linux x64/arm64, macOS x64/arm64 and Windows x64 through native archives and npm. It hardens closures, generators, tasks and VM loop/early-return correctness. Wave C beta and Wave D alpha remain experimental; participant SDK packages remain private/unpublished.",
+      "scope_note": "Kujo 1.7.0 is released for Linux x64/arm64, macOS x64/arm64 and Windows x64 through native archives and npm. It adds native absolute-path validation, opt-in Windows child-process lifetime ownership and first-party MCP generation. Wave C beta and Wave D alpha remain experimental; participant SDK packages remain private/unpublished.",
       "slug": "kujo",
       "source_path": "content/ecosystem/01-kujo.md",
       "tags": [
@@ -104,7 +105,7 @@
         "Language"
       ],
       "title": "Kujo",
-      "version": "1.6.0",
+      "version": "1.7.0",
       "website_url": "https://kujolang.ai/ecosystem/kujo/"
     },
     {
@@ -4610,10 +4611,10 @@
   ],
   "schema_version": "kujolang-mcp/catalog-v1",
   "source": {
-    "content_sha256": "dab798f0463ee1064d67ad52afc259d1450041b4f611c83c419eaa1db8587886",
+    "content_sha256": "c88ed2cb3ab19566f3cfeab4db8672bd86105d356b9d92c8938ae583e27e78be",
     "name": "Kujolang.ai",
     "repository": "https://github.com/kujolang/kujolang.ai",
-    "snapshot_sha256": "1d9fbdcc0765cee651dd7baeb90f6fa28474433c8ab22072ed2406c66a27bf61",
+    "snapshot_sha256": "2d5d7c2252bfbfc6a4a0ca6de3f623c6faa57b04be95274d91361d7e6d619388",
     "url": "https://kujolang.ai",
     "version": "1.2.10"
   }

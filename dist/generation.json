@@ -1,13 +1,13 @@
 {
   "catalog": "data/catalog.json",
-  "catalog_content_digest": "dab798f0463ee1064d67ad52afc259d1450041b4f611c83c419eaa1db8587886",
-  "catalog_revision": "1d9fbdcc0765cee651dd7baeb90f6fa28474433c8ab22072ed2406c66a27bf61",
+  "catalog_content_digest": "c88ed2cb3ab19566f3cfeab4db8672bd86105d356b9d92c8938ae583e27e78be",
+  "catalog_revision": "2d5d7c2252bfbfc6a4a0ca6de3f623c6faa57b04be95274d91361d7e6d619388",
   "framework": "kujolang/mcp",
   "framework_template": "src/cloudflare/worker_template.js",
   "generated_from": "Kujo source and reviewed catalog",
   "generator": "kujolang-mcp/scripts/generate_worker.kujo",
   "generator_version": "1",
-  "parity_fixtures_sha256": "d2633774468128bfffbf1b3cc25c2a14a5c8e5addcc77f5752cc6b55de996a50",
+  "parity_fixtures_sha256": "cdecfb6b6d04916cb6980bc31b56253f9c7331a65fc66e1cfd40f586ad0d6c0c",
   "template_sha256": "6758427a2f9abb2f9dcd9a5cc3580ce14eac798647d901571c84f1e4fea606ce",
-  "worker_sha256": "04de647bd4fffe037782e253cb30538f4e386ba5ffe3bda661bb268262242eb3"
+  "worker_sha256": "fadee9263ebbed4803b47ae844d161966034546eef42522649c539787f876606"
 }
