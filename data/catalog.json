@@ -1,8 +1,8 @@
 {
   "counts": {
-    "projects": 50,
+    "projects": 51,
     "skills": 135,
-    "total": 230,
+    "total": 231,
     "workflows": 45
   },
   "installation": {
@@ -93,11 +93,11 @@
       "install_command": "curl -fsSL https://kujolang.ai/install.sh | bash",
       "keywords": "Kujo, Kujo ecosystem, Core, Language",
       "kind": "project",
-      "last_updated": "2026-09-28",
-      "latest_release_url": "https://github.com/kujolang/kujo/releases/tag/v1.7.0",
+      "last_updated": "2026-10-04",
+      "latest_release_url": "https://github.com/kujolang/kujo/releases/tag/v1.8.0",
       "launch_story": "The ecosystem core: readable source, explicit capabilities, deterministic tooling contracts, and strong native APIs.",
       "release_status": "Version identifies the latest published GitHub Release. Unpinned clone commands select default-branch source; see scope_note for release boundaries.",
-      "scope_note": "Kujo 1.7.0 is released for Linux x64/arm64, macOS x64/arm64 and Windows x64 through native archives and npm. It adds native absolute-path validation, opt-in Windows child-process lifetime ownership and first-party MCP generation. Wave C beta and Wave D alpha remain experimental; participant SDK packages remain private/unpublished.",
+      "scope_note": "Kujo 1.8.0 is released for Linux x64/arm64, macOS x64/arm64 and Windows x64 through native archives and npm. It adds stronger optional inference and shared editor analysis, measured generator performance improvements, and expanded VM/interpreter parity coverage. Wave C beta and Wave D alpha remain experimental; participant SDK packages remain private/unpublished.",
       "slug": "kujo",
       "source_path": "content/ecosystem/01-kujo.md",
       "tags": [
@@ -105,7 +105,7 @@
         "Language"
       ],
       "title": "Kujo",
-      "version": "1.7.0",
+      "version": "1.8.0",
       "website_url": "https://kujolang.ai/ecosystem/kujo/"
     },
     {
@@ -1187,6 +1187,29 @@
       "title": "Kujo Pi",
       "version": "1.1.0",
       "website_url": "https://kujolang.ai/ecosystem/kujo-pi/"
+    },
+    {
+      "category": "Showcase",
+      "description": "Browser-native slide decks with static routes, reading and print editions, presenter tools, and optional motion.",
+      "github_url": "https://github.com/kujolang/presentations",
+      "install_command": "git clone https://github.com/kujolang/presentations.git",
+      "keywords": "Kujo Presentations, browser-native slide decks, static presentation site, presentation generator, presenter console, accessible reading edition",
+      "kind": "project",
+      "last_updated": "2026-10-03",
+      "latest_release_url": "https://github.com/kujolang/presentations/releases/tag/v0.3.0",
+      "launch_story": "Turn structured deck source into static slide URLs, an overview, a reading edition, print output, and presenter tools without locking content inside a presentation app.",
+      "release_status": "Version identifies the published preview source release. The npm package remains private; clone the repository to use the authoring and build tools.",
+      "scope_note": "Presentations 0.3.0 is a source-distributed preview. Native authoring and builds are verified on macOS and Linux, not Windows; hosting, access control, factual review, and human accessibility and language review remain deployment responsibilities.",
+      "slug": "presentations",
+      "source_path": "content/ecosystem/58-presentations.md",
+      "tags": [
+        "Showcase",
+        "Publishing",
+        "Presentations"
+      ],
+      "title": "Presentations",
+      "version": "0.3.0",
+      "website_url": "https://kujolang.ai/ecosystem/presentations/"
     },
     {
       "category": "Agent Skill",
@@ -4611,10 +4634,10 @@
   ],
   "schema_version": "kujolang-mcp/catalog-v1",
   "source": {
-    "content_sha256": "c88ed2cb3ab19566f3cfeab4db8672bd86105d356b9d92c8938ae583e27e78be",
+    "content_sha256": "2e72c6902139691dc3984263bdc373205c374c6f3ebc9b4a4af54a3986228263",
     "name": "Kujolang.ai",
     "repository": "https://github.com/kujolang/kujolang.ai",
-    "snapshot_sha256": "2d5d7c2252bfbfc6a4a0ca6de3f623c6faa57b04be95274d91361d7e6d619388",
+    "snapshot_sha256": "248ca02889f6e994e41c736ab37b29b2686075e6e2e39b1bfa3339dd135ae7b2",
     "url": "https://kujolang.ai",
     "version": "1.2.10"
   }
