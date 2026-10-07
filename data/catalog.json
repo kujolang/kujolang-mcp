@@ -1,8 +1,8 @@
 {
   "counts": {
-    "projects": 51,
+    "projects": 52,
     "skills": 135,
-    "total": 231,
+    "total": 232,
     "workflows": 45
   },
   "installation": {
@@ -349,6 +349,29 @@
       "title": "Leash",
       "version": "",
       "website_url": "https://kujolang.ai/ecosystem/leash/"
+    },
+    {
+      "category": "Tooling",
+      "description": "A local-first bridge that installs Kujo Abilities, Agent Skills, scoped agents, approvals, receipts, and browser QA in Command Code.",
+      "github_url": "https://github.com/kujolang/kujo-cmd",
+      "install_command": "npx github:kujolang/kujo-cmd#v0.2.0 setup",
+      "keywords": "Kujo CMD, Command Code integration, Kujo MCP tools, local agent tools, Command Code agents",
+      "kind": "project",
+      "last_updated": "2026-10-06",
+      "latest_release_url": "https://github.com/kujolang/kujo-cmd/releases/tag/v0.2.0",
+      "launch_story": "Bring Kujo's reviewed tools into Command Code through one local MCP server without replacing either system's permission boundary.",
+      "release_status": "The GitHub release is published. npm publication is temporarily pending restored registry authorization, so the install command runs the same tagged package directly from GitHub.",
+      "scope_note": "Kujo CMD installs and projects local Kujo capabilities; it does not choose models, proxy provider traffic, or turn Command Code identity metadata into verified identity. Mutating and external effects still require Kujo approval and the host's separate permission check.",
+      "slug": "kujo-cmd",
+      "source_path": "content/ecosystem/19-kujo-cmd.md",
+      "tags": [
+        "Tool",
+        "Agents",
+        "MCP"
+      ],
+      "title": "Kujo CMD",
+      "version": "0.2.0",
+      "website_url": "https://kujolang.ai/ecosystem/kujo-cmd/"
     },
     {
       "category": "Tooling",
@@ -770,16 +793,16 @@
     },
     {
       "category": "Showcase",
-      "description": "A local multi-provider chat application with encrypted provider profiles, SQLite history, streaming, comparison, transcription, and fixture smokes.",
+      "description": "A local multi-provider agent workspace with live code review, durable supervision, isolated worktrees, scoped tools, and persistent multi-chat tabs.",
       "github_url": "https://github.com/kujolang/ai-chat",
       "install_command": "git clone https://github.com/kujolang/ai-chat.git",
       "keywords": "AI Chat, Kujo ecosystem, Showcase, AI",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/ai-chat/releases/tag/v1.2.0",
-      "launch_story": "Demonstrate provider-gated AI application boundaries in a complete, inspectable local app.",
+      "last_updated": "2026-10-06",
+      "latest_release_url": "https://github.com/kujolang/ai-chat/releases/tag/v1.3.0",
+      "launch_story": "Run and supervise multiple coding and content agents with reviewable changes, explicit permissions, durable evidence, and provider-neutral controls.",
       "release_status": "Version identifies the latest published GitHub Release. Unpinned clone commands select default-branch source; see scope_note for release boundaries.",
-      "scope_note": "AI Chat 1.2.0 adds durable recovery and documentation-aware chat. Use Node 22.17.0, npm ci, and database/encryption backups. The eight-hour soak remains incomplete; browser execution requires supported OS containment.",
+      "scope_note": "AI Chat 1.3.0 adds live per-pane diffs, checkpoints, plans and steering, managed Git worktrees, attachments, execution artifacts, scoped MCP connections, an attention inbox, a command palette, and persistent chat tabs. Use Node 22.17.0, npm ci, and matching database/encryption backups. The historical eight-hour soak remains incomplete; browser execution requires supported OS containment.",
       "slug": "ai-chat",
       "source_path": "content/ecosystem/40-ai-chat.md",
       "tags": [
@@ -787,7 +810,7 @@
         "AI"
       ],
       "title": "AI Chat",
-      "version": "1.2.0",
+      "version": "1.3.0",
       "website_url": "https://kujolang.ai/ecosystem/ai-chat/"
     },
     {
@@ -4634,10 +4657,10 @@
   ],
   "schema_version": "kujolang-mcp/catalog-v1",
   "source": {
-    "content_sha256": "2e72c6902139691dc3984263bdc373205c374c6f3ebc9b4a4af54a3986228263",
+    "content_sha256": "9e1046917ce393d8a0b66fa576be107448d85e6b621af75a945bdeb28917aeeb",
     "name": "Kujolang.ai",
     "repository": "https://github.com/kujolang/kujolang.ai",
-    "snapshot_sha256": "248ca02889f6e994e41c736ab37b29b2686075e6e2e39b1bfa3339dd135ae7b2",
+    "snapshot_sha256": "2fd3c3d0f583f12ef8d4fbb98c382e3e83d57ef4eb4a083d70b8c8c968502f91",
     "url": "https://kujolang.ai",
     "version": "1.2.10"
   }
