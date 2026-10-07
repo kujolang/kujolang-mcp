@@ -95,7 +95,7 @@ kujo run scripts/sync_catalog.kujo --interpreter -- --site /path/to/kujolang.ai 
 
 The synchronizer rejects duplicate or malformed slugs and unexpected source URL schemes. Installer profile membership is parsed from the website's public installer instead of duplicated by hand. The catalog revision covers both records and installation profiles; it detects accidental snapshot corruption but is not a substitute for signed releases or human review.
 
-The current snapshot contains 50 projects, 135 skills, and 45 workflow records (230 records total; 44 kits plus the Publishing House Operator). There is no authoritative standalone agent catalog in the source; agent-related projects, SDKs, skills, and workflows remain discoverable under their actual source kinds rather than being presented as invented agent records.
+The current snapshot contains 52 projects, 135 skills, and 45 workflow records (232 records total; 44 kits plus the Publishing House Operator). There is no authoritative standalone agent catalog in the source; agent-related projects, SDKs, skills, and workflows remain discoverable under their actual source kinds rather than being presented as invented agent records.
 
 For the autonomous weekly agent prompt that reviews source accuracy, updates GitHub, deploys through the configured hosting workflow, and verifies the live catalog, see [`docs/WEEKLY_REFRESH.md`](docs/WEEKLY_REFRESH.md).
 
@@ -159,7 +159,7 @@ The September 9 review covers all 86 public organization repositories, the 135
 released skill records, and all 44 workflows in the 0.6.0 distribution. Its
 source inventory is in `evidence/ecosystem-refresh-2026-09-09/`.
 
-Use Kujo 1.6.0 for native catalog generation and assertion tests. Node verifies
+Use Kujo 1.8.0 for native catalog generation and assertion tests. Node verifies
 the generated JavaScript Worker and its parity with the native implementation;
 it is not a runtime dependency of the hosted read-only catalog. Neither server
 installs or executes commands returned in catalog content.
@@ -171,3 +171,5 @@ The Kujo runtime entry now identifies the published 1.6.0 release across Linux x
 The September 29 companion refresh identifies Workcell, Ability and MCP 1.2.0. Preservation, controlled application/STDIO execution and Git correlation retain their documented experimental boundaries. Dispatch publication is separate.
 
 The September 29 SSG refresh records [SSG 1.1.0](https://github.com/kujolang/ssg/releases/tag/v1.1.0), default-on experimental public WebMCP, and the independently versioned local Ability pack 1.0.0. It also synchronizes the website's reviewed Kennel install guidance. The catalog remains read-only; it does not execute SSG builds or deploy sites.
+
+The October 7 Tribunal refresh records [Tribunal 1.0.2](https://github.com/kujolang/tribunal/releases/tag/v1.0.2), its local/operator-controlled hardening and exact tagged installation command. It preserves deployment-certification boundaries and the catalog’s read-only behavior.

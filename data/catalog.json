@@ -929,14 +929,14 @@
       "category": "Showcase",
       "description": "A local-first decision review engine that turns consequential proposals into adversarial hearings and durable, execution-ready decision evidence.",
       "github_url": "https://github.com/kujolang/tribunal",
-      "install_command": "kennel add tribunal",
+      "install_command": "git clone --branch v1.0.2 --depth 1 https://github.com/kujolang/tribunal.git",
       "keywords": "Tribunal, Kujo ecosystem, decision review, adversarial hearing, sealed evidence",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/tribunal/releases/tag/v1.0.1",
+      "last_updated": "2026-10-07",
+      "latest_release_url": "https://github.com/kujolang/tribunal/releases/tag/v1.0.2",
       "launch_story": "Replace a disposable model answer with independent testimony, cross-examination, a fatal-flaw pass, an explicit ruling, and a sealed decision packet.",
-      "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
-      "scope_note": "Tribunal 1.0.1 is stable for local or operator-controlled decision evidence; shared, regulated, or hosted deployments require environment-specific identity, custody, storage, network, and independent security certification.",
+      "release_status": "Version and clone command identify the published GitHub release. Kennel registry package versions are independent; see scope_note for release boundaries.",
+      "scope_note": "Tribunal 1.0.2 is stable for local or operator-controlled decision evidence; shared, regulated, or hosted deployments require environment-specific identity, custody, storage, network, and independent security certification.",
       "slug": "tribunal",
       "source_path": "content/ecosystem/45-tribunal.md",
       "tags": [
@@ -944,7 +944,7 @@
         "Decisions"
       ],
       "title": "Tribunal",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "website_url": "https://kujolang.ai/ecosystem/tribunal/"
     },
     {
@@ -4657,10 +4657,10 @@
   ],
   "schema_version": "kujolang-mcp/catalog-v1",
   "source": {
-    "content_sha256": "9e1046917ce393d8a0b66fa576be107448d85e6b621af75a945bdeb28917aeeb",
+    "content_sha256": "8d14eb203eea599a4151e67d8cd752fd45fb7fc1283878f7407280591298d4a1",
     "name": "Kujolang.ai",
     "repository": "https://github.com/kujolang/kujolang.ai",
-    "snapshot_sha256": "2fd3c3d0f583f12ef8d4fbb98c382e3e83d57ef4eb4a083d70b8c8c968502f91",
+    "snapshot_sha256": "ef7a3b61c8cc9fe1125373649ad42a3cb49205709d97824c5ca29aee22db7fe6",
     "url": "https://kujolang.ai",
     "version": "1.2.10"
   }
