@@ -12,3 +12,5 @@ kennel_packages/
 
 # Local Cloudflare deployment cache and temporary bundles.
 .wrangler/
+
+/seo-audit/**/raw/

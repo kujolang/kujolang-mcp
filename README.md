@@ -173,3 +173,5 @@ The September 29 companion refresh identifies Workcell, Ability and MCP 1.2.0. P
 The September 29 SSG refresh records [SSG 1.1.0](https://github.com/kujolang/ssg/releases/tag/v1.1.0), default-on experimental public WebMCP, and the independently versioned local Ability pack 1.0.0. It also synchronizes the website's reviewed Kennel install guidance. The catalog remains read-only; it does not execute SSG builds or deploy sites.
 
 The October 7 Tribunal refresh records [Tribunal 1.0.2](https://github.com/kujolang/tribunal/releases/tag/v1.0.2), its local/operator-controlled hardening and exact tagged installation command. It preserves deployment-certification boundaries and the catalog’s read-only behavior.
+
+The October 8 Agent City addition records [Agent City 0.2.0](https://github.com/kujolang/agent-city/releases/tag/v0.2.0), its standalone installer, local operating scope, and source links. Use `get_catalog_item` with `slug: "agent-city"` to retrieve the record. The catalog does not submit missions or execute its install command. The [Howl showcase bundle](docs/agent-city-showcase/) provides a source-grounded offline preview.

@@ -1,8 +1,8 @@
 {
   "counts": {
-    "projects": 52,
+    "projects": 53,
     "skills": 135,
-    "total": 232,
+    "total": 233,
     "workflows": 45
   },
   "installation": {
@@ -1233,6 +1233,29 @@
       "title": "Presentations",
       "version": "0.3.0",
       "website_url": "https://kujolang.ai/ecosystem/presentations/"
+    },
+    {
+      "category": "Showcase",
+      "description": "Run and review AI-agent tasks in a pixel-art city, with observed tool activity, evidence, and replay.",
+      "github_url": "https://github.com/kujolang/agent-city",
+      "install_command": "curl --proto '=https' --tlsv1.2 -fsSL https://github.com/kujolang/agent-city/releases/download/v0.2.0/install.sh | sh",
+      "keywords": "Kujo Agent City, AI agent workspace, pixel-art agent city, agent task review, observed agent activity, semantic replay",
+      "kind": "project",
+      "last_updated": "2026-10-08",
+      "latest_release_url": "https://github.com/kujolang/agent-city/releases/tag/v0.2.0",
+      "launch_story": "Give an agent a task, follow its work through the city, and ask a separate agent to review the result. Every semantic activity links to observed Kujo evidence.",
+      "release_status": "Published local application for macOS Intel and Apple Silicon, Linux x64 and ARM64. A model connection is required; hosted multi-user operation is outside this release.",
+      "scope_note": "Agent City 0.2.0 runs locally on macOS and Linux. Bring your own model connection. Container execution and media generation require separate setup and explicit permission.",
+      "slug": "agent-city",
+      "source_path": "content/ecosystem/59-agent-city.md",
+      "tags": [
+        "Showcase",
+        "AI",
+        "Agents"
+      ],
+      "title": "Agent City",
+      "version": "0.2.0",
+      "website_url": "https://kujolang.ai/ecosystem/agent-city/"
     },
     {
       "category": "Agent Skill",
@@ -4657,10 +4680,10 @@
   ],
   "schema_version": "kujolang-mcp/catalog-v1",
   "source": {
-    "content_sha256": "8d14eb203eea599a4151e67d8cd752fd45fb7fc1283878f7407280591298d4a1",
+    "content_sha256": "6cf467c8c16dd92f2a65e6e0653838f968305480ec2a3db1eaa569e7c5c24d73",
     "name": "Kujolang.ai",
     "repository": "https://github.com/kujolang/kujolang.ai",
-    "snapshot_sha256": "ef7a3b61c8cc9fe1125373649ad42a3cb49205709d97824c5ca29aee22db7fe6",
+    "snapshot_sha256": "c6c937ea8ffd92031d56932195b8664e2ccc6a574948de0fc0dca40b87a90355",
     "url": "https://kujolang.ai",
     "version": "1.2.10"
   }

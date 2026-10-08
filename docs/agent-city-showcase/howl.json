@@ -1,0 +1,23 @@
+{
+  "project": {
+    "name": "Kujo MCP",
+    "tagline": "Read-only ecosystem discovery",
+    "url": "mcp.kujolang.ai"
+  },
+  "theme": {
+    "name": "minimal",
+    "mode": "light"
+  },
+  "cards": [
+    {
+      "id": "agent-city",
+      "title": "Agent City",
+      "tagline": "Discover Agent City setup, scope, and source.",
+      "file": "example.kujo",
+      "variant": "social",
+      "label": "read-only catalog discovery",
+      "url": "https://kujolang.ai/ecosystem/agent-city/",
+      "notes": "Source example from Agent City v0.2.0 release-notes task; Howl displays source without running it."
+    }
+  ]
+}

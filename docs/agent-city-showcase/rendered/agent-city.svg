@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+<defs><linearGradient id="wash" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".98"/><stop offset=".52" stop-color="#fff" stop-opacity=".88"/><stop offset=".82" stop-color="#fff" stop-opacity=".18"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient><filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".82" numOctaves="2" seed="17"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="table" tableValues="0 .055"/></feComponentTransfer></filter></defs>
+<style>.mono{font-family:'HowlMono','Departure Mono',monospace;font-weight:400}.label{font-size:18px;letter-spacing:4px;fill:#111}.social-title{font-size:82px;fill:#050505;letter-spacing:-2px}.social-tag{font-size:24px;fill:#282828}.social-url{font-size:17px;letter-spacing:1px;fill:#111}</style>
+<rect width="1200" height="630" fill="#f4f4f1"/>
+<rect width="1200" height="630" fill="url(#wash)"/>
+<rect width="1200" height="630" filter="url(#grain)" opacity=".7"/>
+<rect x="42" y="42" width="1116" height="546" fill="none" stroke="#111" stroke-width="1"/>
+<text x="78" y="98" class="mono label">MCP.KUJOLANG.AI  //  READ-ONLY CATALOG DISCOVERY</text>
+<text x="76" y="232" class="mono social-title">Agent City</text>
+<text x="78" y="342" class="mono social-tag">Discover Agent City setup, scope, and source.</text>
+<text x="78" y="548" class="mono social-url">https://kujolang.ai/ecosystem/agent-city/</text>
+<rect x="78" y="570" width="84" height="4" fill="#111"/>
+</svg>
