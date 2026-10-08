@@ -1,0 +1,13 @@
+{
+  "phase": "baseline",
+  "kind": "read-only MCP catalog API",
+  "counts": {
+    "projects": 52,
+    "skills": 135,
+    "total": 232,
+    "workflows": 45
+  },
+  "catalogRevision": "ef7a3b61c8cc9fe1125373649ad42a3cb49205709d97824c5ca29aee22db7fe6",
+  "agentCityPresent": false,
+  "htmlMetrics": "not applicable; no public HTML route"
+}

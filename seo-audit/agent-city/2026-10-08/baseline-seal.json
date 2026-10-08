@@ -1,0 +1,11 @@
+{
+  "sourceCommit": "9e8ecc9772b0b583d80f9feccd45d0beb862770c",
+  "sourceDirectory": "dist",
+  "files": {
+    "worker.js": "1bf30d1043c4382ad2fea76f8b367112cb5a12553f7ef0f7b66b710006f63b05",
+    "parity-fixtures.json": "706d4a22af67da508430581715d2b689d1532dbd7eb97da3f28ddbf31a58e978",
+    "worker.js.sha256": "b15109b3a40c612b04d07fc150904821d63d0256281c21c9874459f91228aa50",
+    "generation.json": "273957dfbc9f8967e192f3f97cda562efa11df1ae0c0c39bf9bd07ddc9c73229"
+  },
+  "archiveSha256": "1b23990dbfb0585c4125ed10a9cc7505265b890384f31b4863f1ec421e538e7e"
+}

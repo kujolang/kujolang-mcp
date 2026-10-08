@@ -1,0 +1,11 @@
+{
+  "date": "2026-10-08",
+  "method": "web search tool site-restricted spot check",
+  "queries": [
+    "site:kujolang.ai \"Agent City\"",
+    "site:docs.kujolang.ai \"Agent City\"",
+    "site:kennel.kujolang.ai \"Agent City\""
+  ],
+  "result": "Tool returned no results for this batch.",
+  "limitations": "Not proof of absence from any index. No engine, locale, device, ranking, traffic, or AI-citation conclusion. New publication requires elapsed time and platform measurements."
+}

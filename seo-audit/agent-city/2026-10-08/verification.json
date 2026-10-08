@@ -1,0 +1,20 @@
+{
+  "sourceCommit": "2b09f190778bc40fb81ba3ea459ac6a24c056b08",
+  "websiteCommit": "7efbcc375eb8ec26324c9cd0964304a1fdb46814",
+  "ciRun": 37837896776,
+  "ci": "success",
+  "checks": {
+    "nativeAssertions": "20 passed across 4 files",
+    "nativeSelfCheck": "pass",
+    "nativeHttp": "pass",
+    "workerParity": "pass",
+    "HowlValidationRenderReview": "pass; second render byte-identical",
+    "liveCatalog": "233 records and 6 installer profiles matched",
+    "agentCityLookup": "HTTP 200; version 0.2.0; isError false"
+  },
+  "deployment": {
+    "cli": "Wrangler 4.148.0 existing authenticated installation",
+    "versionId": "97b2e7d3-6732-480a-be00-d63a5fbc2480"
+  },
+  "interruption": "An output-log redirect hit shared disk exhaustion after native checks. After temporary-file cleanup, Worker checks were rerun and passed."
+}

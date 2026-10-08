@@ -1,0 +1,2 @@
+id,phase,category,severity,affected_urls,affected_count,evidence,expected_benefit,confidence,difficulty,recommended_action,owner,status
+AC-01,after,content/discovery,P1,/mcp: get_catalog_item agent-city,1,baseline and after receipts,Accurate setup and product discovery,high,small,Publish source-grounded content and verify live,Kujo maintainers,resolved

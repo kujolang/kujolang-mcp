@@ -1,0 +1,105 @@
+{
+  "date": "2026-10-08T19:39:45.096938+00:00",
+  "responses": [
+    {
+      "url": "https://mcp.kujolang.ai/",
+      "status": 404,
+      "final": "https://mcp.kujolang.ai/",
+      "headers": {
+        "Date": "Thu, 08 Oct 2026 19:39:44 GMT",
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "21",
+        "Connection": "close",
+        "Server-Timing": "cfEdge;dur=9,cfOrigin;dur=0,cfWorker;dur=1",
+        "Cache-Control": "no-store",
+        "content-security-policy": "default-src 'none'; frame-ancestors 'none'",
+        "cross-origin-resource-policy": "same-origin",
+        "referrer-policy": "no-referrer",
+        "x-content-type-options": "nosniff",
+        "x-frame-options": "DENY",
+        "Report-To": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=rIWf0lW6aBokUwcyBCQRtAevt9ufhzfwICSBnAUgYJIbMvSjs%2BCjcizfLxNszOfDDCLStSomZYweSio%2Bzm3dbOiVsBVvbMK3OaaVVSTP9u4dIL9cJ0KojWfvm2DnmKQJYHkMD9Beu40DdDC%2F%2FDM%3D\"}]}",
+        "Nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "Server": "cloudflare",
+        "CF-RAY": "a4779d02e9d84b33-ATL",
+        "alt-svc": "h3=\":443\"; ma=86400"
+      },
+      "bytes": 21,
+      "sha256": "c8d3eae160a892e32837db3dcae515e843e5383fef52b8141940c8bcf8b6d59f"
+    },
+    {
+      "url": "https://mcp.kujolang.ai/health",
+      "status": 200,
+      "final": "https://mcp.kujolang.ai/health",
+      "headers": {
+        "Date": "Thu, 08 Oct 2026 19:39:44 GMT",
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "216",
+        "Connection": "close",
+        "Server-Timing": "cfEdge;dur=12,cfOrigin;dur=0,cfWorker;dur=0",
+        "Cache-Control": "no-store",
+        "content-security-policy": "default-src 'none'; frame-ancestors 'none'",
+        "cross-origin-resource-policy": "same-origin",
+        "referrer-policy": "no-referrer",
+        "x-content-type-options": "nosniff",
+        "x-frame-options": "DENY",
+        "Report-To": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=Y0YaF32MdT6oHlY4CeV9dHEXJvZgeeje5sStCLQnT7BIYMBKwpXtKtZuXqeHL729K1VMjyHOT%2BM4fk8NnoUgnJKAgpZhbRtgtykiRuIhaGPyudtft6c4LnTaYeIo4uqj6Y3hh4o30oFzk%2BFXVuM%3D\"}]}",
+        "Nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "Server": "cloudflare",
+        "CF-RAY": "a4779d03da6ede46-ATL",
+        "alt-svc": "h3=\":443\"; ma=86400"
+      },
+      "bytes": 216,
+      "sha256": "58bbfbb5023660808d2016f917be4882ae7c97c3a69b4e577c6047939016ba5f"
+    },
+    {
+      "url": "https://mcp.kujolang.ai/robots.txt",
+      "status": 404,
+      "final": "https://mcp.kujolang.ai/robots.txt",
+      "headers": {
+        "Date": "Thu, 08 Oct 2026 19:39:44 GMT",
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "21",
+        "Connection": "close",
+        "Server-Timing": "cfEdge;dur=13,cfOrigin;dur=0,cfWorker;dur=2",
+        "Cache-Control": "no-store",
+        "content-security-policy": "default-src 'none'; frame-ancestors 'none'",
+        "cross-origin-resource-policy": "same-origin",
+        "referrer-policy": "no-referrer",
+        "x-content-type-options": "nosniff",
+        "x-frame-options": "DENY",
+        "Report-To": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=0WBDtN6Heo1uO5iNuFnS89PYH64gU%2F8ggO7ST5t8cannayWL%2Fl%2FTBD3WN7%2BTaUFr75t6ER8e4CWoxphDaEGV5LxC%2FEQ14Hv2GxUpFPUvT4ObFSjYbbtT%2FjNZQZnx%2FLWUuImcJeycviU7Iep32es%3D\"}]}",
+        "Nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "Server": "cloudflare",
+        "CF-RAY": "a4779d0428ed6739-ATL",
+        "alt-svc": "h3=\":443\"; ma=86400"
+      },
+      "bytes": 21,
+      "sha256": "c8d3eae160a892e32837db3dcae515e843e5383fef52b8141940c8bcf8b6d59f"
+    },
+    {
+      "url": "https://mcp.kujolang.ai/sitemap.xml",
+      "status": 404,
+      "final": "https://mcp.kujolang.ai/sitemap.xml",
+      "headers": {
+        "Date": "Thu, 08 Oct 2026 19:39:44 GMT",
+        "Content-Type": "application/json; charset=utf-8",
+        "Content-Length": "21",
+        "Connection": "close",
+        "Server-Timing": "cfEdge;dur=10,cfOrigin;dur=0,cfWorker;dur=1",
+        "Cache-Control": "no-store",
+        "content-security-policy": "default-src 'none'; frame-ancestors 'none'",
+        "cross-origin-resource-policy": "same-origin",
+        "referrer-policy": "no-referrer",
+        "x-content-type-options": "nosniff",
+        "x-frame-options": "DENY",
+        "Report-To": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=1NxdiNv1ZdXGxSzgbwfNFKQOjbJBWd4GiAwLcVjtL2P%2FYlXAhdhCBBRYKh25ibR5f398aMf8czypQRW7XvHQQGW0fxIAuwCKZjVRHvMjZIEKTQ9FDrgssjw1QKgkapLjnp9xeUf030eI4%2BqZt3M%3D\"}]}",
+        "Nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "Server": "cloudflare",
+        "CF-RAY": "a4779d044b62e58e-ATL",
+        "alt-svc": "h3=\":443\"; ma=86400"
+      },
+      "bytes": 21,
+      "sha256": "c8d3eae160a892e32837db3dcae515e843e5383fef52b8141940c8bcf8b6d59f"
+    }
+  ]
+}
