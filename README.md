@@ -95,7 +95,7 @@ kujo run scripts/sync_catalog.kujo --interpreter -- --site /path/to/kujolang.ai 
 
 The synchronizer rejects duplicate or malformed slugs and unexpected source URL schemes. Installer profile membership is parsed from the website's public installer instead of duplicated by hand. The catalog revision covers both records and installation profiles; it detects accidental snapshot corruption but is not a substitute for signed releases or human review.
 
-The current snapshot contains 52 projects, 135 skills, and 45 workflow records (232 records total; 44 kits plus the Publishing House Operator). There is no authoritative standalone agent catalog in the source; agent-related projects, SDKs, skills, and workflows remain discoverable under their actual source kinds rather than being presented as invented agent records.
+The current snapshot contains 53 projects, 135 skills, and 45 workflow records (233 records total; 44 kits plus the Publishing House Operator). There is no authoritative standalone agent catalog in the source; agent-related projects, SDKs, skills, and workflows remain discoverable under their actual source kinds rather than being presented as invented agent records.
 
 For the autonomous weekly agent prompt that reviews source accuracy, updates GitHub, deploys through the configured hosting workflow, and verifies the live catalog, see [`docs/WEEKLY_REFRESH.md`](docs/WEEKLY_REFRESH.md).
 
@@ -175,3 +175,5 @@ The September 29 SSG refresh records [SSG 1.1.0](https://github.com/kujolang/ssg
 The October 7 Tribunal refresh records [Tribunal 1.0.2](https://github.com/kujolang/tribunal/releases/tag/v1.0.2), its local/operator-controlled hardening and exact tagged installation command. It preserves deployment-certification boundaries and the catalog’s read-only behavior.
 
 The October 8 Agent City addition records [Agent City 0.2.0](https://github.com/kujolang/agent-city/releases/tag/v0.2.0), its standalone installer, local operating scope, and source links. Use `get_catalog_item` with `slug: "agent-city"` to retrieve the record. The catalog does not submit missions or execute its install command. The [Howl showcase bundle](docs/agent-city-showcase/) provides a source-grounded offline preview.
+
+The October 10 Commerce refresh records [Commerce 0.5.0](https://github.com/kujolang/commerce/releases/tag/v0.5.0), optional PostgreSQL processing and Square payment/recovery modules, and the exact GitHub tarball install command while npm publication is pending. Advanced features retain their acceptance gates. The MCP catalog provides discovery only; it does not execute payments or install packages.

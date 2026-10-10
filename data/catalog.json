@@ -1169,16 +1169,16 @@
     },
     {
       "category": "Tooling",
-      "description": "Provider-agnostic commerce for static sites: trusted catalogs, hosted purchase links, optional checkout and verified webhooks.",
+      "description": "Commerce for static and dynamic sites: hosted checkout, verified webhooks, optional PostgreSQL processing, and Square payment and recovery tools.",
       "github_url": "https://github.com/kujolang/commerce",
-      "install_command": "npm install @kujolang/commerce@0.4.0",
-      "keywords": "Commerce, Kujo ecosystem, Provider-agnostic commerce for static sites: trusted catalogs, hosted purchase links, optional checkout and verified webhooks.",
+      "install_command": "npm install https://github.com/kujolang/commerce/releases/download/v0.5.0/kujolang-commerce-0.5.0.tgz",
+      "keywords": "Commerce, Kujo, Square, Stripe, checkout, PostgreSQL, webhooks, refunds, reconciliation",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/commerce/releases/tag/v0.4.0",
-      "launch_story": "Provider-agnostic commerce for static sites: trusted catalogs, hosted purchase links, optional checkout and verified webhooks.",
-      "release_status": "Version identifies the latest published GitHub Release. Unpinned clone commands select default-branch source; see scope_note for release boundaries.",
-      "scope_note": "Pre-1.0 package with frozen v1 wire contracts. Static hosted links need no server; dynamic checkout and verified webhooks need an operator-deployed runtime. Providers own payment and inventory truth.",
+      "last_updated": "2026-10-10",
+      "latest_release_url": "https://github.com/kujolang/commerce/releases/tag/v0.5.0",
+      "launch_story": "Commerce for static and dynamic sites: hosted checkout, verified webhooks, optional PostgreSQL processing, and Square payment and recovery tools.",
+      "release_status": "GitHub Release 0.5.0 is published with a package tarball, SBOM and build provenance. The install command uses that tarball while npm still serves 0.4.0.",
+      "scope_note": "Pre-1.0 package with frozen v1 wire contracts. Static hosted links need no server. Durable processing needs operator-managed storage and workers. Advanced Square features require their own acceptance checks; npm registry publication is pending.",
       "slug": "commerce",
       "source_path": "content/ecosystem/56-commerce.md",
       "tags": [
@@ -1186,7 +1186,7 @@
         "commerce"
       ],
       "title": "Commerce",
-      "version": "0.4.0",
+      "version": "0.5.0",
       "website_url": "https://kujolang.ai/ecosystem/commerce/"
     },
     {
@@ -4680,10 +4680,10 @@
   ],
   "schema_version": "kujolang-mcp/catalog-v1",
   "source": {
-    "content_sha256": "6cf467c8c16dd92f2a65e6e0653838f968305480ec2a3db1eaa569e7c5c24d73",
+    "content_sha256": "5a377c93ac6358a8f6d23bded0086ad235fc5379add5c6bccdfcc019524df692",
     "name": "Kujolang.ai",
     "repository": "https://github.com/kujolang/kujolang.ai",
-    "snapshot_sha256": "c6c937ea8ffd92031d56932195b8664e2ccc6a574948de0fc0dca40b87a90355",
+    "snapshot_sha256": "7f9b5828cc9bfcd0f0b1ba532e3e424dfca65c1ee3351795a675aa31b1a5b23c",
     "url": "https://kujolang.ai",
     "version": "1.2.10"
   }
