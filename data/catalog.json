@@ -888,11 +888,11 @@
       "install_command": "kennel add ssg",
       "keywords": "SSG, Kujo ecosystem, Showcase, Publishing",
       "kind": "project",
-      "last_updated": "2026-09-29",
-      "latest_release_url": "https://github.com/kujolang/ssg/releases/tag/v1.1.0",
+      "last_updated": "2026-10-12",
+      "latest_release_url": "https://github.com/kujolang/ssg/releases/tag/v1.2.0",
       "launch_story": "An agent-inspectable publishing pipeline where content and generated output remain visible.",
       "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
-      "scope_note": "SSG 1.1.0 enables experimental, public read-only WebMCP by default and includes ten local Ability workflows. The independently versioned Ability pack is 1.0.0; builds require approval and keyed idempotency. No hosted deployment service or deploy Ability is included.",
+      "scope_note": "SSG 1.2.0 hardens publication boundaries and requires esbuild 0.28.2 for minified builds. Experimental public read-only WebMCP remains enabled by default with ten local Ability workflows. The independently versioned Ability pack is 1.0.0; builds require approval and keyed idempotency. No hosted deployment service or deploy Ability is included.",
       "slug": "ssg",
       "source_path": "content/ecosystem/43-ssg.md",
       "tags": [
@@ -900,7 +900,7 @@
         "Publishing"
       ],
       "title": "SSG",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "website_url": "https://kujolang.ai/ecosystem/ssg/"
     },
     {
@@ -4680,10 +4680,10 @@
   ],
   "schema_version": "kujolang-mcp/catalog-v1",
   "source": {
-    "content_sha256": "66638d6201f383f3699efe98b60d243e3999ddeb99a479722177a9aea1c2aacb",
+    "content_sha256": "ee9ac0adf9fd472a053b6d9bfff86ca783d57ec66ee2e863bdf923cb6ce59679",
     "name": "Kujolang.ai",
     "repository": "https://github.com/kujolang/kujolang.ai",
-    "snapshot_sha256": "0624fb6fcdfd91a6f5d987decc15ee3d065cf504a080cb0ec6242ba794d2f938",
+    "snapshot_sha256": "d14ad6a486440e0baa0a74019eaa76bdabab22234cfc6d552901c50caddd73ec",
     "url": "https://kujolang.ai",
     "version": "1.2.10"
   }
