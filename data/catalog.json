@@ -842,11 +842,11 @@
       "install_command": "kennel add cms",
       "keywords": "Kujo CMS, open source CMS, agent-ready CMS, WebMCP CMS, MCP content management, headless CMS, theme and plugin packages",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/cms/releases/tag/v1.1.0",
+      "last_updated": "2026-10-12",
+      "latest_release_url": "https://github.com/kujolang/cms/releases/tag/v1.2.0",
       "launch_story": "Give people, developers, integrations, and agents one inspectable content contract without prescribing the frontend stack.",
       "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
-      "scope_note": "CMS 1.1.0 is production-oriented backend software, but each deployment still requires environment-specific identity, infrastructure, storage, security, recovery, and governance proof.",
+      "scope_note": "CMS 1.2.0 is production-oriented backend software, but each deployment still requires environment-specific identity, infrastructure, storage, security, recovery, and governance proof.",
       "slug": "cms",
       "source_path": "content/ecosystem/41-cms.md",
       "tags": [
@@ -856,7 +856,7 @@
         "WebMCP"
       ],
       "title": "CMS",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "website_url": "https://kujolang.ai/ecosystem/cms/"
     },
     {
@@ -4680,10 +4680,10 @@
   ],
   "schema_version": "kujolang-mcp/catalog-v1",
   "source": {
-    "content_sha256": "a561b3e6028c305c5463049c0174bcd6906f9d3a603aa83bb343429f590a3b2d",
+    "content_sha256": "0d9e276ed8af2541c3ecb6362f4640e5c1b2ef35fbfae030597f5ebaf1ceba49",
     "name": "Kujolang.ai",
     "repository": "https://github.com/kujolang/kujolang.ai",
-    "snapshot_sha256": "284a5c8da711f1bbf6f9c0d8067050c1c26574fa33823aa91e5f4d6078360643",
+    "snapshot_sha256": "462ff0dbed889c3ba5e3ca3d2129b9b79e449ad1d2687606431868258af53a1e",
     "url": "https://kujolang.ai",
     "version": "1.2.10"
   }
