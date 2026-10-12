@@ -421,11 +421,11 @@
       "category": "Tooling",
       "description": "Quiet workflow execution with full disk logs, compact summaries, manifests, loop state, dry runs, and secret redaction.",
       "github_url": "https://github.com/kujolang/muzzle",
-      "install_command": "kennel add muzzle",
+      "install_command": "kennel tool install muzzle",
       "keywords": "Muzzle, Kujo ecosystem, Tool, Execution",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/muzzle/releases/tag/v1.1.0",
+      "last_updated": "2026-10-12",
+      "latest_release_url": "https://github.com/kujolang/muzzle/releases/tag/v1.1.2",
       "launch_story": "Keep agent context focused while retaining the complete operational record on disk.",
       "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
       "scope_note": "Muzzle controls output shape and workflow contracts; commands retain the authority of the environment running them.",
@@ -436,7 +436,7 @@
         "Execution"
       ],
       "title": "Muzzle",
-      "version": "1.1.0",
+      "version": "1.1.2",
       "website_url": "https://kujolang.ai/ecosystem/muzzle/"
     },
     {
@@ -4680,10 +4680,10 @@
   ],
   "schema_version": "kujolang-mcp/catalog-v1",
   "source": {
-    "content_sha256": "5a377c93ac6358a8f6d23bded0086ad235fc5379add5c6bccdfcc019524df692",
+    "content_sha256": "a561b3e6028c305c5463049c0174bcd6906f9d3a603aa83bb343429f590a3b2d",
     "name": "Kujolang.ai",
     "repository": "https://github.com/kujolang/kujolang.ai",
-    "snapshot_sha256": "7f9b5828cc9bfcd0f0b1ba532e3e424dfca65c1ee3351795a675aa31b1a5b23c",
+    "snapshot_sha256": "284a5c8da711f1bbf6f9c0d8067050c1c26574fa33823aa91e5f4d6078360643",
     "url": "https://kujolang.ai",
     "version": "1.2.10"
   }
