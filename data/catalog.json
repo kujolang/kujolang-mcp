@@ -247,11 +247,11 @@
       "install_command": "kennel add watchdog",
       "keywords": "Watchdog, Kujo ecosystem, Primitive, Observability",
       "kind": "project",
-      "last_updated": "2026-09-29",
-      "latest_release_url": "https://github.com/kujolang/watchdog/releases/tag/v1.2.0",
+      "last_updated": "2026-10-12",
+      "latest_release_url": "https://github.com/kujolang/watchdog/releases/tag/v1.2.1",
       "launch_story": "Make AI application behavior observable without hiding the request path from the operator.",
       "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
-      "scope_note": "Watchdog 1.2.0 adds verified Kujo 1.6 runtime measurement references and RunLedger correlation to its existing telemetry and Connected Sources panel. Direct-provider cost estimates are not invoices; auth, retention, exporter credentials, and deployment remain operator-owned.",
+      "scope_note": "Watchdog 1.2.1 hardens credentials, telemetry validation, OTLP retries and queue limits, reduces intake and client work, and refreshes pricing. Runtime observations do not authorize replay. Cost estimates are not invoices; auth, retention and deployment remain operator-owned.",
       "slug": "watchdog",
       "source_path": "content/ecosystem/15-watchdog.md",
       "tags": [
@@ -259,7 +259,7 @@
         "Observability"
       ],
       "title": "Watchdog",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "website_url": "https://kujolang.ai/ecosystem/watchdog/"
     },
     {
@@ -4680,10 +4680,10 @@
   ],
   "schema_version": "kujolang-mcp/catalog-v1",
   "source": {
-    "content_sha256": "0d9e276ed8af2541c3ecb6362f4640e5c1b2ef35fbfae030597f5ebaf1ceba49",
+    "content_sha256": "66638d6201f383f3699efe98b60d243e3999ddeb99a479722177a9aea1c2aacb",
     "name": "Kujolang.ai",
     "repository": "https://github.com/kujolang/kujolang.ai",
-    "snapshot_sha256": "462ff0dbed889c3ba5e3ca3d2129b9b79e449ad1d2687606431868258af53a1e",
+    "snapshot_sha256": "0624fb6fcdfd91a6f5d987decc15ee3d065cf504a080cb0ec6242ba794d2f938",
     "url": "https://kujolang.ai",
     "version": "1.2.10"
   }
