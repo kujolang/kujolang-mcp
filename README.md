@@ -95,7 +95,7 @@ kujo run scripts/sync_catalog.kujo --interpreter -- --site /path/to/kujolang.ai 
 
 The synchronizer rejects duplicate or malformed slugs and unexpected source URL schemes. Installer profile membership is parsed from the website's public installer instead of duplicated by hand. The catalog revision covers both records and installation profiles; it detects accidental snapshot corruption but is not a substitute for signed releases or human review.
 
-The current snapshot contains 53 projects, 135 skills, and 45 workflow records (233 records total; 44 kits plus the Publishing House Operator). There is no authoritative standalone agent catalog in the source; agent-related projects, SDKs, skills, and workflows remain discoverable under their actual source kinds rather than being presented as invented agent records.
+The current snapshot contains 54 projects, 135 skills, and 45 workflow records (234 records total; 44 kits plus the Publishing House Operator). There is no authoritative standalone agent catalog in the source; agent-related projects, SDKs, skills, and workflows remain discoverable under their actual source kinds rather than being presented as invented agent records.
 
 For the autonomous weekly agent prompt that reviews source accuracy, updates GitHub, deploys through the configured hosting workflow, and verifies the live catalog, see [`docs/WEEKLY_REFRESH.md`](docs/WEEKLY_REFRESH.md).
 

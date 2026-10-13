@@ -1,8 +1,8 @@
 {
   "counts": {
-    "projects": 53,
+    "projects": 54,
     "skills": 135,
-    "total": 233,
+    "total": 234,
     "workflows": 45
   },
   "installation": {
@@ -156,14 +156,14 @@
       "category": "Primitives",
       "description": "Agent runners, tools, approvals, handoffs, tracing, sessions, memory, retrieval, artifact stores, budgets, and offline fixtures.",
       "github_url": "https://github.com/kujolang/agents-sdk",
-      "install_command": "kennel add agents-sdk",
+      "install_command": "kennel add agents-sdk@1.1.3",
       "keywords": "Agents SDK, Kujo ecosystem, Primitive, Agents",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/agents-sdk/releases/tag/v1.0.0",
-      "launch_story": "Composable local-first runtime primitives for building inspectable agents.",
+      "last_updated": "2026-10-13",
+      "latest_release_url": "https://github.com/kujolang/agents-sdk/releases/tag/v1.1.3",
+      "launch_story": "Build local agents with explicit tools, approvals, state, and run evidence.",
       "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
-      "scope_note": "The 1.0.0 release provides library-first agent primitives. Newer default-branch work adds bounded lifecycle observations, retrieval preferences, and real MCP tool examples; these are not retroactively in the release archive.",
+      "scope_note": "Version 1.1.3 hardens approvals, state recovery, storage, retries, and token accounting while preserving public contracts. Use Kujo 1.6.0+ and Kennel 1.1.0+. Controlled Ability handoffs remain experimental; the host owns provider permissions and cost governance.",
       "slug": "agents-sdk",
       "source_path": "content/ecosystem/11-agents-sdk.md",
       "tags": [
@@ -171,7 +171,7 @@
         "Agents"
       ],
       "title": "Agents SDK",
-      "version": "1.0.0",
+      "version": "1.1.3",
       "website_url": "https://kujolang.ai/ecosystem/agents-sdk/"
     },
     {
@@ -666,8 +666,8 @@
       "install_command": "kennel add packwrite",
       "keywords": "PackWrite, Kujo ecosystem, Tool, Execution Packs",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/packwrite/releases/tag/v1.1.0",
+      "last_updated": "2026-10-13",
+      "latest_release_url": "https://github.com/kujolang/packwrite/releases/tag/v1.1.1",
       "launch_story": "Turn one large project brief into a reviewable operating manual that agents can execute phase by phase.",
       "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
       "scope_note": "PackWrite compiles planning artifacts locally; it does not implement the project, host models, deploy code, or replace review.",
@@ -678,7 +678,7 @@
         "Agents"
       ],
       "title": "PackWrite",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "website_url": "https://kujolang.ai/ecosystem/packwrite/"
     },
     {
@@ -1256,6 +1256,29 @@
       "title": "Agent City",
       "version": "0.2.0",
       "website_url": "https://kujolang.ai/ecosystem/agent-city/"
+    },
+    {
+      "category": "Showcase",
+      "description": "Collect email, webhooks, files, and manual input into a local work queue with rules, approvals, and recovery.",
+      "github_url": "https://github.com/kujolang/intake",
+      "install_command": "git clone --branch v0.2.0 https://github.com/kujolang/intake.git",
+      "keywords": "Kujo Intake, local work queue, email intake, webhook intake, action approvals, recovery",
+      "kind": "project",
+      "last_updated": "2026-10-13",
+      "latest_release_url": "https://github.com/kujolang/intake/releases/tag/v0.2.0",
+      "launch_story": "Keep incoming work, original payloads, proposed actions, and operator decisions together in local files.",
+      "release_status": "First tagged GitHub source release. The npm manifest remains private; no Kennel install is advertised.",
+      "scope_note": "Intake 0.2.0 is a Node.js source release for local operators. Requires Node.js 20.19 or newer. Not published to npm or Kennel; live providers and shared deployments need their own validation.",
+      "slug": "intake",
+      "source_path": "content/ecosystem/60-intake.md",
+      "tags": [
+        "Showcase",
+        "Intake",
+        "Approvals"
+      ],
+      "title": "Intake",
+      "version": "0.2.0",
+      "website_url": "https://kujolang.ai/ecosystem/intake/"
     },
     {
       "category": "Agent Skill",
@@ -4680,10 +4703,10 @@
   ],
   "schema_version": "kujolang-mcp/catalog-v1",
   "source": {
-    "content_sha256": "492d83db3d8f0e4256e562f8a236cd6ebcbeee953df474f266031ff6338d80b1",
+    "content_sha256": "8c4e956b9027a4bd227767e67db47580ad3df1c3428cedf3c0e9098336ef2f27",
     "name": "Kujolang.ai",
     "repository": "https://github.com/kujolang/kujolang.ai",
-    "snapshot_sha256": "40aa8b0ed2632beb7f859b5ef9014e6fc849a06f61432992fee781955f54c3da",
+    "snapshot_sha256": "94506e61cb40a51a1149c7817cf3cc358c9556b73965e91bb816addf7653843e",
     "url": "https://kujolang.ai",
     "version": "1.3.1"
   }
