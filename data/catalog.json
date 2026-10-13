@@ -771,16 +771,16 @@
     },
     {
       "category": "Tooling",
-      "description": "A normalized external-data layer for search, analytics, page performance, field data, backlinks, keyword evidence, and explicit index submission.",
+      "description": "Collect search, analytics, page-performance, backlink, and indexing evidence through one CLI and typed SDKs.",
       "github_url": "https://github.com/kujolang/searchbridge",
       "install_command": "kennel add searchbridge",
       "keywords": "SearchBridge, Kujo ecosystem, search data, analytics, PageSpeed, CrUX, backlinks, IndexNow",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/searchbridge/releases/tag/v1.0.0",
+      "last_updated": "2026-10-13",
+      "latest_release_url": "https://github.com/kujolang/searchbridge/releases/tag/v1.0.1",
       "launch_story": "Bring optional provider measurements into Kujo WebOps through scoped capabilities, normalized evidence, and explicit effect boundaries.",
       "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
-      "scope_note": "SearchBridge 1.0.0 is a released local CLI and SDK with live-qualified Google search, analytics, PageSpeed, and CrUX reads; Cloudflare and IndexNow remain fixture-only pending the v1.1 review.",
+      "scope_note": "SearchBridge 1.0.1 fixes replay and budget handling; recollect cached evidence after upgrading. Google search, analytics, PageSpeed, and CrUX remain stable-live. Cloudflare and IndexNow remain fixture-only pending the v1.1 review.",
       "slug": "searchbridge",
       "source_path": "content/ecosystem/39-searchbridge.md",
       "tags": [
@@ -788,7 +788,7 @@
         "WebOps Data"
       ],
       "title": "SearchBridge",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "website_url": "https://kujolang.ai/ecosystem/searchbridge/"
     },
     {
@@ -4703,10 +4703,10 @@
   ],
   "schema_version": "kujolang-mcp/catalog-v1",
   "source": {
-    "content_sha256": "8c4e956b9027a4bd227767e67db47580ad3df1c3428cedf3c0e9098336ef2f27",
+    "content_sha256": "3939d142d76d3291184e1bf2400a6cea1e99146f93a4ac66c5077b130963642d",
     "name": "Kujolang.ai",
     "repository": "https://github.com/kujolang/kujolang.ai",
-    "snapshot_sha256": "94506e61cb40a51a1149c7817cf3cc358c9556b73965e91bb816addf7653843e",
+    "snapshot_sha256": "13611abbcb8fc84230560c8240d9e7d9fc817d1688e2eb30857406903110179d",
     "url": "https://kujolang.ai",
     "version": "1.3.1"
   }
