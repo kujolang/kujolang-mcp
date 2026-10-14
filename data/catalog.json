@@ -1,8 +1,8 @@
 {
   "counts": {
-    "projects": 54,
+    "projects": 55,
     "skills": 135,
-    "total": 234,
+    "total": 235,
     "workflows": 45
   },
   "installation": {
@@ -1279,6 +1279,30 @@
       "title": "Intake",
       "version": "0.2.0",
       "website_url": "https://kujolang.ai/ecosystem/intake/"
+    },
+    {
+      "category": "Primitives",
+      "description": "Connect Git changes to tasks, agent sessions, evidence and authorized review decisions. Run Source locally or promote accepted changes to Cloudflare Artifacts.",
+      "github_url": "https://github.com/kujolang/source",
+      "install_command": "git clone --branch v0.1.0 https://github.com/kujolang/source.git",
+      "keywords": "Source, Kujo, Git review, agent collaboration, evidence, Cloudflare Artifacts",
+      "kind": "project",
+      "last_updated": "2026-10-14",
+      "latest_release_url": "https://github.com/kujolang/source/releases/tag/v0.1.0",
+      "launch_story": "Make the path from an agent's proposal to accepted code explicit and inspectable.",
+      "release_status": "First public MIT release. Experimental 0.x software; publication does not certify production readiness.",
+      "scope_note": "Source 0.1.0 is an experimental self-hosted Node.js application. Use Git and npm, not kennel add. Local demos use scripted contributors. The Cloudflare profile runs review locally and canonical Git on Artifacts. Exposed deployments require the documented storage, TLS and writer controls.",
+      "slug": "source",
+      "source_path": "content/ecosystem/61-source.md",
+      "tags": [
+        "Foundation",
+        "Git",
+        "Collaboration",
+        "Agents"
+      ],
+      "title": "Source",
+      "version": "0.1.0",
+      "website_url": "https://kujolang.ai/ecosystem/source/"
     },
     {
       "category": "Agent Skill",
@@ -4703,10 +4727,10 @@
   ],
   "schema_version": "kujolang-mcp/catalog-v1",
   "source": {
-    "content_sha256": "3939d142d76d3291184e1bf2400a6cea1e99146f93a4ac66c5077b130963642d",
+    "content_sha256": "890e553b495afd6d59fe0436b7e00ea9111a0b5c28b064b5785857496d5c981a",
     "name": "Kujolang.ai",
     "repository": "https://github.com/kujolang/kujolang.ai",
-    "snapshot_sha256": "13611abbcb8fc84230560c8240d9e7d9fc817d1688e2eb30857406903110179d",
+    "snapshot_sha256": "e8bc03189401bf5bf289e7243dfc8bed8e542613af407e759bf0dd734829ff2b",
     "url": "https://kujolang.ai",
     "version": "1.3.1"
   }
