@@ -6,4 +6,4 @@ The catalog adds one Source entry; every existing item remains byte-equivalent a
 
 Validation passed: sync_catalog --check, four native assertion files, server --self-check, node --check, Worker contracts and native HTTP quota contracts. An initial pre-generation test correctly rejected stale Worker receipts; after generation, the full suite passed. Raw logs are local excluded evidence.
 
-Deployment and live parity verification are pending; the final receipt will be appended after checking the published catalog revision.
+Published with Wrangler 4.130.0, Worker version `5f3c42e9-860c-4ead-9e4d-8197566be4c4`. GitHub validation run `38594830027` passed. Immediately after upload the first public request still served the previous revision; after health reflected the new revision, exact production parity passed for all 235 catalog items, six installer profiles, discovery interfaces and explicit Source lookup. See `production-receipt.json` for response hashes and the checked revision. No new bindings, credentials or paid services were added.

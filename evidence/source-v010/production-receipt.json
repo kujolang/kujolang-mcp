@@ -1,0 +1,238 @@
+{
+  "checked_at": "2026-10-14T16:06:40.498Z",
+  "endpoint": "https://mcp.kujolang.ai/mcp",
+  "result": "passed",
+  "catalog_revision": "e8bc03189401bf5bf289e7243dfc8bed8e542613af407e759bf0dd734829ff2b",
+  "catalog_content_digest": "890e553b495afd6d59fe0436b7e00ea9111a0b5c28b064b5785857496d5c981a",
+  "worker_sha256": "47b87a3ca38df1493234da3c9be315aaa1d6b17c53d5b9335e477529c55d129c",
+  "runtime_version": "1.8.0",
+  "items_compared": 235,
+  "installer_profiles_compared": 6,
+  "health": {
+    "status": "ok",
+    "service": "kujolang-mcp",
+    "server": "kujolang-mcp",
+    "version": "0.1.0",
+    "catalog_revision": "e8bc03189401bf5bf289e7243dfc8bed8e542613af407e759bf0dd734829ff2b",
+    "protocol_versions": [
+      "2026-07-28",
+      "2025-06-18"
+    ]
+  },
+  "checks": [
+    {
+      "method": "tools/list",
+      "params": {},
+      "response_sha256": "5c9603e4e3bf008e6194cc7ae1cdc381b03a3a40f1fde08e951675f7b321502f"
+    },
+    {
+      "method": "resources/list",
+      "params": {},
+      "response_sha256": "8e559c5f5b48a3cf5dc94a2d87eeb373486f7da6a207da010af19f990268edb1"
+    },
+    {
+      "method": "prompts/list",
+      "params": {},
+      "response_sha256": "682f1015ce1a79433557003756b09f473126dd4c5a0557a59d752d510673dba7"
+    },
+    {
+      "method": "resources/read",
+      "params": {
+        "uri": "kujolang://catalog/projects"
+      },
+      "response_sha256": "8e7cd640521e7bddf98f246ff780a75d17513b119db1869f0156c89ba7d1e888"
+    },
+    {
+      "method": "resources/read",
+      "params": {
+        "uri": "kujolang://catalog/skills"
+      },
+      "response_sha256": "7c79a453cd6be598fc9defeafcd1b16dc5356e4fb089d1ecc963504f92095578"
+    },
+    {
+      "method": "resources/read",
+      "params": {
+        "uri": "kujolang://catalog/workflows"
+      },
+      "response_sha256": "bc3dbc68dbbd427882e430cd6a8d6ea41ef97c115a39d62dc512ca2b23cf32bc"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_kujo_overview",
+        "arguments": {}
+      },
+      "response_sha256": "e7d74823c1ab3f33c3ae2e7106ccd8f77728c2f4950ac852f70f1f418abc5be2"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_installation",
+        "arguments": {
+          "profile": "agent"
+        }
+      },
+      "response_sha256": "5b3f86e484f0aca2e45eeba54fc93360a5f19a8d20620ce23803023bc8d9a299"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_installation",
+        "arguments": {
+          "profile": "ai"
+        }
+      },
+      "response_sha256": "feffa491120032403fe8bed739ef1ff2dc70219eb5a41f865876f493ba7ddaf7"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_installation",
+        "arguments": {
+          "profile": "core"
+        }
+      },
+      "response_sha256": "3643af84cfd7764bd5afb7774c2274b95202be09a74c992f96e8b3d9bc07ecce"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_installation",
+        "arguments": {
+          "profile": "operating"
+        }
+      },
+      "response_sha256": "fdd6fed8ceb218ac0150deb6c096478b6eac85550a093e747eaf992e541e50d6"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_installation",
+        "arguments": {
+          "profile": "quality"
+        }
+      },
+      "response_sha256": "0de3fd1730144bc97233061968515ee0530748427f7d623ec306e8fa5fa8a892"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_installation",
+        "arguments": {
+          "profile": "showcases"
+        }
+      },
+      "response_sha256": "e0b1bb674d9dbb3f606de96ab3492041021aab3bfeb1bfe6cf3a19399e6e1b14"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_catalog_item",
+        "arguments": {
+          "slug": "source"
+        }
+      },
+      "response_sha256": "75e9b13675878504d5c49a140af998c43963c253d479f2467ea979d718b66187"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_catalog_item",
+        "arguments": {
+          "slug": "intake"
+        }
+      },
+      "response_sha256": "6a92af8d4b5445a15e5849c925afc9548d2668e9a2c0ed7b14696c99e8660740"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_catalog_item",
+        "arguments": {
+          "slug": "cms"
+        }
+      },
+      "response_sha256": "ba175d8c30279559df7a3be1c8f836c880b99bfd1dfed907db34c9bf60050b79"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_catalog_item",
+        "arguments": {
+          "slug": "agent-city"
+        }
+      },
+      "response_sha256": "97275f2fb63c95a4211ccf0fb8e4c6a9a052407035076818268a0e328030a119"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_catalog_item",
+        "arguments": {
+          "slug": "kujo"
+        }
+      },
+      "response_sha256": "132f6b7aac061ed4e0a584e9c21e2886322f72b41503c804ea14ad394c848ac8"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_catalog_item",
+        "arguments": {
+          "slug": "kennel"
+        }
+      },
+      "response_sha256": "caffc701ccf4f9d3a86f2282372fe045784e612963c996155737b87e328b0279"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_catalog_item",
+        "arguments": {
+          "slug": "commerce"
+        }
+      },
+      "response_sha256": "c469c6387849028aaf9c8ad94f93b74e5ddcb2ffd7d2910fdae7c8061db6c98f"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_catalog_item",
+        "arguments": {
+          "slug": "kujo-pi"
+        }
+      },
+      "response_sha256": "aae921bac3dd5dfe46ba94f2e8a2ec9323ce211d66694ca88add829a72fbdbad"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_catalog_item",
+        "arguments": {
+          "slug": "watchdog"
+        }
+      },
+      "response_sha256": "782cff3feb605642877f294ca70323b82c554c6d108c0fba9ee8afde0b22a0e4"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_catalog_item",
+        "arguments": {
+          "slug": "ssg"
+        }
+      },
+      "response_sha256": "a4ec90f38fc5b5945546d870327a7e199ed302d733d0179a8c66f1ee304bba28"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_catalog_item",
+        "arguments": {
+          "slug": "videoops-quality-review"
+        }
+      },
+      "response_sha256": "088ec06e589b0b3fa1a85ab8e5725ad22f78d11bbbfda363909fbff8c5f11ba0"
+    }
+  ]
+}
