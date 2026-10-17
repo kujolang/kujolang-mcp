@@ -1,8 +1,8 @@
 {
   "counts": {
-    "projects": 53,
+    "projects": 55,
     "skills": 135,
-    "total": 233,
+    "total": 235,
     "workflows": 45
   },
   "installation": {
@@ -94,10 +94,10 @@
       "keywords": "Kujo, Kujo ecosystem, Core, Language",
       "kind": "project",
       "last_updated": "2026-10-04",
-      "latest_release_url": "https://github.com/kujolang/kujo/releases/tag/v1.8.0",
+      "latest_release_url": "https://github.com/kujolang/kujo/releases/tag/v1.8.1",
       "launch_story": "The ecosystem core: readable source, explicit capabilities, deterministic tooling contracts, and strong native APIs.",
       "release_status": "Version identifies the latest published GitHub Release. Unpinned clone commands select default-branch source; see scope_note for release boundaries.",
-      "scope_note": "Kujo 1.8.0 is released for Linux x64/arm64, macOS x64/arm64 and Windows x64 through native archives and npm. It adds stronger optional inference and shared editor analysis, measured generator performance improvements, and expanded VM/interpreter parity coverage. Wave C beta and Wave D alpha remain experimental; participant SDK packages remain private/unpublished.",
+      "scope_note": "Kujo 1.8.1 is released for Linux x64/arm64, macOS x64/arm64 and Windows x64 through native archives and npm. The 1.8 series adds stronger optional inference and shared editor analysis, measured generator performance improvements, and expanded VM/interpreter parity coverage. Wave C beta and Wave D alpha remain experimental; participant SDK packages remain private/unpublished.",
       "slug": "kujo",
       "source_path": "content/ecosystem/01-kujo.md",
       "tags": [
@@ -105,7 +105,7 @@
         "Language"
       ],
       "title": "Kujo",
-      "version": "1.8.0",
+      "version": "1.8.1",
       "website_url": "https://kujolang.ai/ecosystem/kujo/"
     },
     {
@@ -115,11 +115,11 @@
       "install_command": "curl -fsSL https://kennel.kujolang.ai/install.sh -o /tmp/kennel-install.sh && sh /tmp/kennel-install.sh",
       "keywords": "Kennel, Kujo ecosystem, Core, Packages",
       "kind": "project",
-      "last_updated": "2026-09-29",
-      "latest_release_url": "https://github.com/kujolang/kennel/releases/tag/v1.1.1",
+      "last_updated": "2026-10-14",
+      "latest_release_url": "https://github.com/kujolang/kennel/releases/tag/v1.2.0",
       "launch_story": "The package foundation for reproducible local and static dependency workflows.",
       "release_status": "Version identifies the published Kennel release. Install Kujo 1.4.0 or newer first; the public installer selects the latest compatible stable Kennel package.",
-      "scope_note": "The official first-party static registry is live at https://kennel.kujolang.ai. Kennel 1.1.1 provides native bootstrap and global tool commands on macOS/Linux with Kujo 1.4.0 or newer. The patch fixes binary-safe bootstrap downloads and preserves installer modules, reviewed Git dependency identities and package source files. Verified with Kujo 1.6.0; existing releases stay immutable. Official package installation requires no Git or Python. Accounts and third-party publishing are future work.",
+      "scope_note": "The official first-party static registry is live at https://kennel.kujolang.ai. Kennel 1.2.0 provides native bootstrap and global tool commands on macOS/Linux with Kujo 1.4.0 or newer. Offline declaration inspection and canonical registry directory URLs are included. Verified with Kujo 1.8.1; existing releases stay immutable. Official package installation requires no Git or Python. Accounts and third-party publishing are future work.",
       "slug": "kennel",
       "source_path": "content/ecosystem/02-kennel.md",
       "tags": [
@@ -127,21 +127,21 @@
         "Packages"
       ],
       "title": "Kennel",
-      "version": "1.1.1",
+      "version": "1.2.0",
       "website_url": "https://kujolang.ai/ecosystem/kennel/"
     },
     {
       "category": "Primitives",
       "description": "Provider-normalized chat and embeddings contracts with presets, fixtures, retries, streaming, redaction, budgets, and telemetry hooks.",
       "github_url": "https://github.com/kujolang/ai-sdk",
-      "install_command": "kennel add ai-sdk",
+      "install_command": "kennel add ai-sdk@1.2.0",
       "keywords": "AI SDK, Kujo ecosystem, Primitive, AI",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/ai-sdk/releases/tag/v1.0.0",
-      "launch_story": "A provider-gated foundation for AI calls without binding application code to one hosted service.",
+      "last_updated": "2026-10-13",
+      "latest_release_url": "https://github.com/kujolang/ai-sdk/releases/tag/v1.2.0",
+      "launch_story": "Call chat and embedding models through one Kujo response contract.",
       "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
-      "scope_note": "Live-provider behavior remains an explicit integration boundary; deterministic fixtures support offline verification.",
+      "scope_note": "Requires Kujo 1.6.0 or newer. Strict accounting is opt-in; memory state is process-local. Incremental chunk callbacks require a runtime with http_stream_collect and are unavailable in published Kujo 1.5/1.6. Provider credentials are needed for live calls.",
       "slug": "ai-sdk",
       "source_path": "content/ecosystem/10-ai-sdk.md",
       "tags": [
@@ -149,21 +149,21 @@
         "AI"
       ],
       "title": "AI SDK",
-      "version": "1.0.0",
+      "version": "1.2.0",
       "website_url": "https://kujolang.ai/ecosystem/ai-sdk/"
     },
     {
       "category": "Primitives",
       "description": "Agent runners, tools, approvals, handoffs, tracing, sessions, memory, retrieval, artifact stores, budgets, and offline fixtures.",
       "github_url": "https://github.com/kujolang/agents-sdk",
-      "install_command": "kennel add agents-sdk",
+      "install_command": "kennel add agents-sdk@1.1.3",
       "keywords": "Agents SDK, Kujo ecosystem, Primitive, Agents",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/agents-sdk/releases/tag/v1.0.0",
-      "launch_story": "Composable local-first runtime primitives for building inspectable agents.",
+      "last_updated": "2026-10-13",
+      "latest_release_url": "https://github.com/kujolang/agents-sdk/releases/tag/v1.1.3",
+      "launch_story": "Build local agents with explicit tools, approvals, state, and run evidence.",
       "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
-      "scope_note": "The 1.0.0 release provides library-first agent primitives. Newer default-branch work adds bounded lifecycle observations, retrieval preferences, and real MCP tool examples; these are not retroactively in the release archive.",
+      "scope_note": "Version 1.1.3 hardens approvals, state recovery, storage, retries, and token accounting while preserving public contracts. Use Kujo 1.6.0+ and Kennel 1.1.0+. Controlled Ability handoffs remain experimental; the host owns provider permissions and cost governance.",
       "slug": "agents-sdk",
       "source_path": "content/ecosystem/11-agents-sdk.md",
       "tags": [
@@ -171,7 +171,7 @@
         "Agents"
       ],
       "title": "Agents SDK",
-      "version": "1.0.0",
+      "version": "1.1.3",
       "website_url": "https://kujolang.ai/ecosystem/agents-sdk/"
     },
     {
@@ -203,8 +203,8 @@
       "install_command": "kennel add eval",
       "keywords": "Eval, Kujo ecosystem, Primitive, Verification",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/eval/releases/tag/v1.0.0",
+      "last_updated": "2026-10-14",
+      "latest_release_url": "https://github.com/kujolang/eval/releases/tag/v1.1.0",
       "launch_story": "An independent acceptance layer that makes success criteria executable.",
       "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
       "scope_note": "Eval verifies declared checks; it is only as complete as the suite and policies a project defines.",
@@ -215,21 +215,21 @@
         "Verification"
       ],
       "title": "Eval",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "website_url": "https://kujolang.ai/ecosystem/eval/"
     },
     {
       "category": "Primitives",
-      "description": "Dispatch 1.3.0 orchestrates resumable, routed, approved, and auditable AI workflows with persisted evidence.",
+      "description": "Dispatch 1.4.0 orchestrates resumable, routed, approved, and auditable AI workflows with persisted evidence.",
       "github_url": "https://github.com/kujolang/dispatch",
       "install_command": "kennel add dispatch",
       "keywords": "Dispatch, Kujo ecosystem, Primitive, Orchestration",
       "kind": "project",
-      "last_updated": "2026-09-29",
-      "latest_release_url": "https://github.com/kujolang/dispatch/releases/tag/v1.3.0",
-      "launch_story": "Dispatch 1.3.0 routes bounded AI work through policy constraints, approvals, resumable state, and inspectable evidence.",
+      "last_updated": "2026-10-14",
+      "latest_release_url": "https://github.com/kujolang/dispatch/releases/tag/v1.4.0",
+      "launch_story": "Dispatch 1.4.0 routes bounded AI work through policy constraints, approvals, resumable state, and inspectable evidence.",
       "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
-      "scope_note": "Dispatch 1.3.0 requires Kujo 1.6.0. Durable review, process-owned locks, policy-preserving resume and evidence inspection are included. Wave C beta assurance and Wave D alpha interoperability remain experimental and opt-in.",
+      "scope_note": "Dispatch 1.4.0 requires Kujo 1.8.1. Durable review, process-owned locks, policy-preserving resume and evidence inspection are included. Wave C beta assurance and Wave D alpha interoperability remain experimental and opt-in.",
       "slug": "dispatch",
       "source_path": "content/ecosystem/14-dispatch.md",
       "tags": [
@@ -237,7 +237,7 @@
         "Orchestration"
       ],
       "title": "Dispatch",
-      "version": "1.3.0",
+      "version": "1.4.0",
       "website_url": "https://kujolang.ai/ecosystem/dispatch/"
     },
     {
@@ -247,11 +247,11 @@
       "install_command": "kennel add watchdog",
       "keywords": "Watchdog, Kujo ecosystem, Primitive, Observability",
       "kind": "project",
-      "last_updated": "2026-09-29",
-      "latest_release_url": "https://github.com/kujolang/watchdog/releases/tag/v1.2.0",
+      "last_updated": "2026-10-12",
+      "latest_release_url": "https://github.com/kujolang/watchdog/releases/tag/v1.2.1",
       "launch_story": "Make AI application behavior observable without hiding the request path from the operator.",
       "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
-      "scope_note": "Watchdog 1.2.0 adds verified Kujo 1.6 runtime measurement references and RunLedger correlation to its existing telemetry and Connected Sources panel. Direct-provider cost estimates are not invoices; auth, retention, exporter credentials, and deployment remain operator-owned.",
+      "scope_note": "Watchdog 1.2.1 hardens credentials, telemetry validation, OTLP retries and queue limits, reduces intake and client work, and refreshes pricing. Runtime observations do not authorize replay. Cost estimates are not invoices; auth, retention and deployment remain operator-owned.",
       "slug": "watchdog",
       "source_path": "content/ecosystem/15-watchdog.md",
       "tags": [
@@ -259,7 +259,7 @@
         "Observability"
       ],
       "title": "Watchdog",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "website_url": "https://kujolang.ai/ecosystem/watchdog/"
     },
     {
@@ -291,11 +291,11 @@
       "install_command": "kennel add mcp",
       "keywords": "MCP, Kujo ecosystem, Primitive, Gateway",
       "kind": "project",
-      "last_updated": "2026-09-29",
-      "latest_release_url": "https://github.com/kujolang/mcp/releases/tag/v1.2.0",
+      "last_updated": "2026-10-14",
+      "latest_release_url": "https://github.com/kujolang/mcp/releases/tag/v1.3.2",
       "launch_story": "A guarded gateway for exposing useful capabilities to agents through explicit contracts.",
       "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
-      "scope_note": "MCP 1.2.0 pins Ability 1.2.0 and adds opt-in controlled STDIO handoffs with one-use admission and completion uncertainty. Handoffs remain alpha; Dispatch owns replay. Review server authority, authentication and deployment boundaries. Historical host certificates retain their exact tested scope.",
+      "scope_note": "MCP 1.3.2 targets Kujo 1.7.0 and retains the first-class generator, standard MCP JSON-RPC methods, hardened generated servers, and the portable Ability host package. Controlled handoffs remain alpha; Dispatch owns replay. Review server authority, authentication and deployment boundaries. Historical host certificates retain their exact tested scope.",
       "slug": "mcp",
       "source_path": "content/ecosystem/16-mcp.md",
       "tags": [
@@ -303,7 +303,7 @@
         "Gateway"
       ],
       "title": "MCP",
-      "version": "1.2.0",
+      "version": "1.3.2",
       "website_url": "https://kujolang.ai/ecosystem/mcp/"
     },
     {
@@ -402,8 +402,8 @@
       "install_command": "kennel add casefile",
       "keywords": "CaseFile, Kujo ecosystem, Tool, Failures",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/casefile/releases/tag/v1.0.0",
+      "last_updated": "2026-10-14",
+      "latest_release_url": "https://github.com/kujolang/casefile/releases/tag/v1.0.1",
       "launch_story": "Package a failure so another person or agent can reproduce and continue the investigation.",
       "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
       "scope_note": "Sensitive inputs still require review; redaction reduces risk but does not replace data-handling policy.",
@@ -414,18 +414,18 @@
         "Failures"
       ],
       "title": "CaseFile",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "website_url": "https://kujolang.ai/ecosystem/casefile/"
     },
     {
       "category": "Tooling",
       "description": "Quiet workflow execution with full disk logs, compact summaries, manifests, loop state, dry runs, and secret redaction.",
       "github_url": "https://github.com/kujolang/muzzle",
-      "install_command": "kennel add muzzle",
+      "install_command": "kennel tool install muzzle",
       "keywords": "Muzzle, Kujo ecosystem, Tool, Execution",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/muzzle/releases/tag/v1.1.0",
+      "last_updated": "2026-10-12",
+      "latest_release_url": "https://github.com/kujolang/muzzle/releases/tag/v1.1.2",
       "launch_story": "Keep agent context focused while retaining the complete operational record on disk.",
       "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
       "scope_note": "Muzzle controls output shape and workflow contracts; commands retain the authority of the environment running them.",
@@ -436,7 +436,7 @@
         "Execution"
       ],
       "title": "Muzzle",
-      "version": "1.1.0",
+      "version": "1.1.2",
       "website_url": "https://kujolang.ai/ecosystem/muzzle/"
     },
     {
@@ -446,8 +446,8 @@
       "install_command": "kennel add shipcheck",
       "keywords": "ShipCheck, Kujo ecosystem, Tool, Release",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/shipcheck/releases/tag/v1.0.0",
+      "last_updated": "2026-10-14",
+      "latest_release_url": "https://github.com/kujolang/shipcheck/releases/tag/v1.0.1",
       "launch_story": "Turn release preparation into a visible, repeatable gate instead of a last-minute memory test.",
       "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
       "scope_note": "ShipCheck is a confidence gate within declared scope, not a universal production certification.",
@@ -458,7 +458,7 @@
         "Release"
       ],
       "title": "ShipCheck",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "website_url": "https://kujolang.ai/ecosystem/shipcheck/"
     },
     {
@@ -468,8 +468,8 @@
       "install_command": "kennel add concord",
       "keywords": "Concord, Kujo ecosystem, Tool, Drift",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/concord/releases/tag/v1.0.0",
+      "last_updated": "2026-10-14",
+      "latest_release_url": "https://github.com/kujolang/concord/releases/tag/v1.1.1",
       "launch_story": "Find when the ecosystem's explanations and contracts stop agreeing with its implementation.",
       "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
       "scope_note": "Concord is an early dogfood tool; findings still require project-aware triage.",
@@ -480,7 +480,7 @@
         "Drift"
       ],
       "title": "Concord",
-      "version": "1.0.0",
+      "version": "1.1.1",
       "website_url": "https://kujolang.ai/ecosystem/concord/"
     },
     {
@@ -490,8 +490,8 @@
       "install_command": "kennel add patchbrief",
       "keywords": "PatchBrief, Kujo ecosystem, Tool, Review",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/patchbrief/releases/tag/v1.0.1",
+      "last_updated": "2026-10-14",
+      "latest_release_url": "https://github.com/kujolang/patchbrief/releases/tag/v1.0.2",
       "launch_story": "Make a code change easier to review and easier to hand off.",
       "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
       "scope_note": "PatchBrief summarizes evidence from a diff; it does not replace reading sensitive or high-risk changes.",
@@ -502,7 +502,7 @@
         "Review"
       ],
       "title": "PatchBrief",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "website_url": "https://kujolang.ai/ecosystem/patchbrief/"
     },
     {
@@ -512,8 +512,8 @@
       "install_command": "kennel add changebucket",
       "keywords": "ChangeBucket, Kujo ecosystem, Tool, Scope",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/changebucket/releases/tag/v1.0.0",
+      "last_updated": "2026-10-14",
+      "latest_release_url": "https://github.com/kujolang/changebucket/releases/tag/v1.1.0",
       "launch_story": "Detect scope expansion before a focused change becomes an unreviewable patch.",
       "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
       "scope_note": "Budgets are policy signals, not proof that a small change is safe or a large change is wrong.",
@@ -524,7 +524,7 @@
         "Scope"
       ],
       "title": "ChangeBucket",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "website_url": "https://kujolang.ai/ecosystem/changebucket/"
     },
     {
@@ -534,8 +534,8 @@
       "install_command": "kennel add scent",
       "keywords": "Scent, Kujo ecosystem, Tool, Context",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/scent/releases/tag/v1.0.0",
+      "last_updated": "2026-10-14",
+      "latest_release_url": "https://github.com/kujolang/scent/releases/tag/v1.1.0",
       "launch_story": "Give an agent the smallest useful, inspectable context for the job.",
       "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
       "scope_note": "Context selection and redaction remain reviewable decisions; a pack should not be treated as complete by default.",
@@ -546,7 +546,7 @@
         "Context"
       ],
       "title": "Scent",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "website_url": "https://kujolang.ai/ecosystem/scent/"
     },
     {
@@ -556,7 +556,7 @@
       "install_command": "kennel add scout@1.1.0",
       "keywords": "Scout, Kujo ecosystem, Tool, Intelligence",
       "kind": "project",
-      "last_updated": "2026-09-26",
+      "last_updated": "2026-10-14",
       "latest_release_url": "https://github.com/kujolang/scout/releases/tag/v1.1.0",
       "launch_story": "Shorten codebase orientation without turning discovery into an opaque hosted index.",
       "release_status": "Version identifies the published release. The Kennel command pins that registry release; see scope_note for release boundaries.",
@@ -600,8 +600,8 @@
       "install_command": "kennel add fence",
       "keywords": "Fence, Kujo ecosystem, Tool, Architecture",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/fence/releases/tag/v1.0.0",
+      "last_updated": "2026-10-14",
+      "latest_release_url": "https://github.com/kujolang/fence/releases/tag/v1.1.0",
       "launch_story": "Make architecture erosion visible as soon as dependency boundaries move.",
       "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
       "scope_note": "Fence is a boundary linter, not an operating-system permissions sandbox.",
@@ -612,7 +612,7 @@
         "Architecture"
       ],
       "title": "Fence",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "website_url": "https://kujolang.ai/ecosystem/fence/"
     },
     {
@@ -641,11 +641,11 @@
       "category": "Tooling",
       "description": "Deterministic Markdown, HTML, SVG, gallery, card, and caption assets generated from trusted Kujo examples and manifests.",
       "github_url": "https://github.com/kujolang/howl",
-      "install_command": "kennel add howl",
+      "install_command": "kennel tool install howl",
       "keywords": "Howl, Kujo ecosystem, Tool, Assets",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/howl/releases/tag/v1.1.0",
+      "last_updated": "2026-10-16",
+      "latest_release_url": "https://github.com/kujolang/howl/releases/tag/v1.2.0",
       "launch_story": "Turn verified examples into reusable launch and proof assets.",
       "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
       "scope_note": "Howl renders source material; claims remain limited by the examples and evidence supplied to it.",
@@ -656,7 +656,7 @@
         "Assets"
       ],
       "title": "Howl",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "website_url": "https://kujolang.ai/ecosystem/howl/"
     },
     {
@@ -666,8 +666,8 @@
       "install_command": "kennel add packwrite",
       "keywords": "PackWrite, Kujo ecosystem, Tool, Execution Packs",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/packwrite/releases/tag/v1.1.0",
+      "last_updated": "2026-10-13",
+      "latest_release_url": "https://github.com/kujolang/packwrite/releases/tag/v1.1.1",
       "launch_story": "Turn one large project brief into a reviewable operating manual that agents can execute phase by phase.",
       "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
       "scope_note": "PackWrite compiles planning artifacts locally; it does not implement the project, host models, deploy code, or replace review.",
@@ -678,7 +678,7 @@
         "Agents"
       ],
       "title": "PackWrite",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "website_url": "https://kujolang.ai/ecosystem/packwrite/"
     },
     {
@@ -771,16 +771,16 @@
     },
     {
       "category": "Tooling",
-      "description": "A normalized external-data layer for search, analytics, page performance, field data, backlinks, keyword evidence, and explicit index submission.",
+      "description": "Collect search, analytics, page-performance, backlink, and indexing evidence through one CLI and typed SDKs.",
       "github_url": "https://github.com/kujolang/searchbridge",
       "install_command": "kennel add searchbridge",
       "keywords": "SearchBridge, Kujo ecosystem, search data, analytics, PageSpeed, CrUX, backlinks, IndexNow",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/searchbridge/releases/tag/v1.0.0",
+      "last_updated": "2026-10-13",
+      "latest_release_url": "https://github.com/kujolang/searchbridge/releases/tag/v1.0.1",
       "launch_story": "Bring optional provider measurements into Kujo WebOps through scoped capabilities, normalized evidence, and explicit effect boundaries.",
       "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
-      "scope_note": "SearchBridge 1.0.0 is a released local CLI and SDK with live-qualified Google search, analytics, PageSpeed, and CrUX reads; Cloudflare and IndexNow remain fixture-only pending the v1.1 review.",
+      "scope_note": "SearchBridge 1.0.1 fixes replay and budget handling; recollect cached evidence after upgrading. Google search, analytics, PageSpeed, and CrUX remain stable-live. Cloudflare and IndexNow remain fixture-only pending the v1.1 review.",
       "slug": "searchbridge",
       "source_path": "content/ecosystem/39-searchbridge.md",
       "tags": [
@@ -788,7 +788,7 @@
         "WebOps Data"
       ],
       "title": "SearchBridge",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "website_url": "https://kujolang.ai/ecosystem/searchbridge/"
     },
     {
@@ -842,11 +842,11 @@
       "install_command": "kennel add cms",
       "keywords": "Kujo CMS, open source CMS, agent-ready CMS, WebMCP CMS, MCP content management, headless CMS, theme and plugin packages",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/cms/releases/tag/v1.1.0",
+      "last_updated": "2026-10-12",
+      "latest_release_url": "https://github.com/kujolang/cms/releases/tag/v1.2.0",
       "launch_story": "Give people, developers, integrations, and agents one inspectable content contract without prescribing the frontend stack.",
       "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
-      "scope_note": "CMS 1.1.0 is production-oriented backend software, but each deployment still requires environment-specific identity, infrastructure, storage, security, recovery, and governance proof.",
+      "scope_note": "CMS 1.2.0 is production-oriented backend software, but each deployment still requires environment-specific identity, infrastructure, storage, security, recovery, and governance proof.",
       "slug": "cms",
       "source_path": "content/ecosystem/41-cms.md",
       "tags": [
@@ -856,7 +856,7 @@
         "WebMCP"
       ],
       "title": "CMS",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "website_url": "https://kujolang.ai/ecosystem/cms/"
     },
     {
@@ -866,8 +866,8 @@
       "install_command": "kennel add crud-api",
       "keywords": "CRUD API Showcase, Kujo ecosystem, Showcase, API",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/crud-api/releases/tag/v1.0.0",
+      "last_updated": "2026-10-14",
+      "latest_release_url": "https://github.com/kujolang/crud-api/releases/tag/v1.0.1",
       "launch_story": "A conventional application API pattern that makes Kujo integration concrete.",
       "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
       "scope_note": "This is a proof application and architecture reference, not a production-certified application platform.",
@@ -878,7 +878,7 @@
         "API"
       ],
       "title": "CRUD API Showcase",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "website_url": "https://kujolang.ai/ecosystem/crud-api/"
     },
     {
@@ -888,11 +888,11 @@
       "install_command": "kennel add ssg",
       "keywords": "SSG, Kujo ecosystem, Showcase, Publishing",
       "kind": "project",
-      "last_updated": "2026-09-29",
-      "latest_release_url": "https://github.com/kujolang/ssg/releases/tag/v1.1.0",
+      "last_updated": "2026-10-12",
+      "latest_release_url": "https://github.com/kujolang/ssg/releases/tag/v1.2.0",
       "launch_story": "An agent-inspectable publishing pipeline where content and generated output remain visible.",
       "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
-      "scope_note": "SSG 1.1.0 enables experimental, public read-only WebMCP by default and includes ten local Ability workflows. The independently versioned Ability pack is 1.0.0; builds require approval and keyed idempotency. No hosted deployment service or deploy Ability is included.",
+      "scope_note": "SSG 1.2.0 hardens publication boundaries and requires esbuild 0.28.2 for minified builds. Experimental public read-only WebMCP remains enabled by default with ten local Ability workflows. The independently versioned Ability pack is 1.0.0; builds require approval and keyed idempotency. No hosted deployment service or deploy Ability is included.",
       "slug": "ssg",
       "source_path": "content/ecosystem/43-ssg.md",
       "tags": [
@@ -900,7 +900,7 @@
         "Publishing"
       ],
       "title": "SSG",
-      "version": "1.1.0",
+      "version": "1.2.0",
       "website_url": "https://kujolang.ai/ecosystem/ssg/"
     },
     {
@@ -1147,16 +1147,16 @@
     },
     {
       "category": "Tooling",
-      "description": "A local Paperclip plugin for focused context, change review, and reproducible failure evidence backed by Kujo tools.",
+      "description": "Project knowledge, repository understanding, native quality checks and human-approved Kujo workflows in Paperclip.",
       "github_url": "https://github.com/kujolang/paperclip",
       "install_command": "npx paperclipai plugin install @kujolang/paperclip",
       "keywords": "Kujo Paperclip plugin, Paperclip agents, context pack, change review, failure evidence",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/paperclip/releases/tag/v0.1.7",
-      "launch_story": "Give Paperclip agents a small, visible workspace for choosing context, reviewing changes, and preserving failure evidence.",
+      "last_updated": "2026-10-14",
+      "latest_release_url": "https://github.com/kujolang/paperclip/releases/tag/v0.2.0",
+      "launch_story": "Understand repositories, ask local project knowledge questions and run explicitly approved Kujo workflows inside Paperclip.",
       "release_status": "Version identifies the latest published GitHub Release. Unpinned clone commands select default-branch source; see scope_note for release boundaries.",
-      "scope_note": "The plugin runs local Kujo components inside Paperclip. It does not execute arbitrary commands, replace repository tests, or claim suggested checks have run.",
+      "scope_note": "Local bundled tools with explicit human approval for execution; offline project knowledge and shipped workflow examples. No custom host fork required.",
       "slug": "paperclip",
       "source_path": "content/ecosystem/55-paperclip.md",
       "tags": [
@@ -1164,21 +1164,21 @@
         "Agents"
       ],
       "title": "Kujo for Paperclip",
-      "version": "0.1.7",
+      "version": "0.2.0",
       "website_url": "https://kujolang.ai/ecosystem/paperclip/"
     },
     {
       "category": "Tooling",
-      "description": "Provider-agnostic commerce for static sites: trusted catalogs, hosted purchase links, optional checkout and verified webhooks.",
+      "description": "Commerce for static and dynamic sites: hosted checkout, verified webhooks, optional PostgreSQL processing, and Square payment and recovery tools.",
       "github_url": "https://github.com/kujolang/commerce",
-      "install_command": "npm install @kujolang/commerce@0.4.0",
-      "keywords": "Commerce, Kujo ecosystem, Provider-agnostic commerce for static sites: trusted catalogs, hosted purchase links, optional checkout and verified webhooks.",
+      "install_command": "npm install https://github.com/kujolang/commerce/releases/download/v0.5.0/kujolang-commerce-0.5.0.tgz",
+      "keywords": "Commerce, Kujo, Square, Stripe, checkout, PostgreSQL, webhooks, refunds, reconciliation",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/commerce/releases/tag/v0.4.0",
-      "launch_story": "Provider-agnostic commerce for static sites: trusted catalogs, hosted purchase links, optional checkout and verified webhooks.",
-      "release_status": "Version identifies the latest published GitHub Release. Unpinned clone commands select default-branch source; see scope_note for release boundaries.",
-      "scope_note": "Pre-1.0 package with frozen v1 wire contracts. Static hosted links need no server; dynamic checkout and verified webhooks need an operator-deployed runtime. Providers own payment and inventory truth.",
+      "last_updated": "2026-10-10",
+      "latest_release_url": "https://github.com/kujolang/commerce/releases/tag/v0.5.0",
+      "launch_story": "Commerce for static and dynamic sites: hosted checkout, verified webhooks, optional PostgreSQL processing, and Square payment and recovery tools.",
+      "release_status": "GitHub Release 0.5.0 is published with a package tarball, SBOM and build provenance. The install command uses that tarball while npm still serves 0.4.0.",
+      "scope_note": "Pre-1.0 package with frozen v1 wire contracts. Static hosted links need no server. Durable processing needs operator-managed storage and workers. Advanced Square features require their own acceptance checks; npm registry publication is pending.",
       "slug": "commerce",
       "source_path": "content/ecosystem/56-commerce.md",
       "tags": [
@@ -1186,7 +1186,7 @@
         "commerce"
       ],
       "title": "Commerce",
-      "version": "0.4.0",
+      "version": "0.5.0",
       "website_url": "https://kujolang.ai/ecosystem/commerce/"
     },
     {
@@ -1256,6 +1256,53 @@
       "title": "Agent City",
       "version": "0.2.0",
       "website_url": "https://kujolang.ai/ecosystem/agent-city/"
+    },
+    {
+      "category": "Showcase",
+      "description": "Collect email, webhooks, files, and manual input into a local work queue with rules, approvals, and recovery.",
+      "github_url": "https://github.com/kujolang/intake",
+      "install_command": "git clone --branch v0.2.0 https://github.com/kujolang/intake.git",
+      "keywords": "Kujo Intake, local work queue, email intake, webhook intake, action approvals, recovery",
+      "kind": "project",
+      "last_updated": "2026-10-13",
+      "latest_release_url": "https://github.com/kujolang/intake/releases/tag/v0.2.0",
+      "launch_story": "Keep incoming work, original payloads, proposed actions, and operator decisions together in local files.",
+      "release_status": "First tagged GitHub source release. The npm manifest remains private; no Kennel install is advertised.",
+      "scope_note": "Intake 0.2.0 is a Node.js source release for local operators. Requires Node.js 20.19 or newer. Not published to npm or Kennel; live providers and shared deployments need their own validation.",
+      "slug": "intake",
+      "source_path": "content/ecosystem/60-intake.md",
+      "tags": [
+        "Showcase",
+        "Intake",
+        "Approvals"
+      ],
+      "title": "Intake",
+      "version": "0.2.0",
+      "website_url": "https://kujolang.ai/ecosystem/intake/"
+    },
+    {
+      "category": "Primitives",
+      "description": "Connect Git changes to tasks, agent sessions, evidence and authorized review decisions. Run Source locally or promote accepted changes to Cloudflare Artifacts.",
+      "github_url": "https://github.com/kujolang/source",
+      "install_command": "git clone --branch v0.1.0 https://github.com/kujolang/source.git",
+      "keywords": "Source, Kujo, Git review, agent collaboration, evidence, Cloudflare Artifacts",
+      "kind": "project",
+      "last_updated": "2026-10-14",
+      "latest_release_url": "https://github.com/kujolang/source/releases/tag/v0.1.0",
+      "launch_story": "Make the path from an agent's proposal to accepted code explicit and inspectable.",
+      "release_status": "First public MIT release. Experimental 0.x software; publication does not certify production readiness.",
+      "scope_note": "Source 0.1.0 is an experimental self-hosted Node.js application. Use Git and npm, not kennel add. Local demos use scripted contributors. The Cloudflare profile runs review locally and canonical Git on Artifacts. Exposed deployments require the documented storage, TLS and writer controls.",
+      "slug": "source",
+      "source_path": "content/ecosystem/61-source.md",
+      "tags": [
+        "Foundation",
+        "Git",
+        "Collaboration",
+        "Agents"
+      ],
+      "title": "Source",
+      "version": "0.1.0",
+      "website_url": "https://kujolang.ai/ecosystem/source/"
     },
     {
       "category": "Agent Skill",
@@ -4680,11 +4727,11 @@
   ],
   "schema_version": "kujolang-mcp/catalog-v1",
   "source": {
-    "content_sha256": "6cf467c8c16dd92f2a65e6e0653838f968305480ec2a3db1eaa569e7c5c24d73",
+    "content_sha256": "629ebf031adfe617d8c98558c0aaea48332eb91871182cac33a93f68d95412bb",
     "name": "Kujolang.ai",
     "repository": "https://github.com/kujolang/kujolang.ai",
-    "snapshot_sha256": "c6c937ea8ffd92031d56932195b8664e2ccc6a574948de0fc0dca40b87a90355",
+    "snapshot_sha256": "14b28a328590ea742918483fcefd61f2b94d67c280407aa6fd90e13cd7bec6b0",
     "url": "https://kujolang.ai",
-    "version": "1.2.10"
+    "version": "1.3.1"
   }
 }
