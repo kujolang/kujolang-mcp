@@ -95,7 +95,7 @@ kujo run scripts/sync_catalog.kujo --interpreter -- --site /path/to/kujolang.ai 
 
 The synchronizer rejects duplicate or malformed slugs and unexpected source URL schemes. Installer profile membership is parsed from the website's public installer instead of duplicated by hand. The catalog revision covers both records and installation profiles; it detects accidental snapshot corruption but is not a substitute for signed releases or human review.
 
-The current snapshot contains 56 projects, 135 skills, and 45 workflow records (236 records total; 44 kits plus the Publishing House Operator). There is no authoritative standalone agent catalog in the source; agent-related projects, SDKs, skills, and workflows remain discoverable under their actual source kinds rather than being presented as invented agent records.
+The current snapshot contains 57 projects, 135 skills, and 45 workflow records (237 records total; 44 kits plus the Publishing House Operator). There is no authoritative standalone agent catalog in the source; agent-related projects, SDKs, skills, and workflows remain discoverable under their actual source kinds rather than being presented as invented agent records.
 
 For the autonomous weekly agent prompt that reviews source accuracy, updates GitHub, deploys through the configured hosting workflow, and verifies the live catalog, see [`docs/WEEKLY_REFRESH.md`](docs/WEEKLY_REFRESH.md).
 
@@ -159,7 +159,7 @@ The September 9 review covers all 86 public organization repositories, the 135
 released skill records, and all 44 workflows in the 0.6.0 distribution. Its
 source inventory is in `evidence/ecosystem-refresh-2026-09-09/`.
 
-Use Kujo 1.8.0 for native catalog generation and assertion tests. Node verifies
+Use Kujo 1.8.2 for native catalog generation and assertion tests. Node verifies
 the generated JavaScript Worker and its parity with the native implementation;
 it is not a runtime dependency of the hosted read-only catalog. Neither server
 installs or executes commands returned in catalog content.

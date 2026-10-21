@@ -1,8 +1,8 @@
 {
   "counts": {
-    "projects": 56,
+    "projects": 57,
     "skills": 135,
-    "total": 236,
+    "total": 237,
     "workflows": 45
   },
   "installation": {
@@ -115,11 +115,11 @@
       "install_command": "curl -fsSL https://kennel.kujolang.ai/install.sh -o /tmp/kennel-install.sh && sh /tmp/kennel-install.sh",
       "keywords": "Kennel, Kujo ecosystem, Core, Packages",
       "kind": "project",
-      "last_updated": "2026-10-14",
-      "latest_release_url": "https://github.com/kujolang/kennel/releases/tag/v1.2.0",
+      "last_updated": "2026-10-21",
+      "latest_release_url": "https://github.com/kujolang/kennel/releases/tag/v1.2.1",
       "launch_story": "The package foundation for reproducible local and static dependency workflows.",
       "release_status": "Version identifies the published Kennel release. Install Kujo 1.4.0 or newer first; the public installer selects the latest compatible stable Kennel package.",
-      "scope_note": "The official first-party static registry is live at https://kennel.kujolang.ai. Kennel 1.2.0 provides native bootstrap and global tool commands on macOS/Linux with Kujo 1.4.0 or newer. Offline declaration inspection and canonical registry directory URLs are included. Verified with Kujo 1.8.1; existing releases stay immutable. Official package installation requires no Git or Python. Accounts and third-party publishing are future work.",
+      "scope_note": "The official first-party static registry is live at https://kennel.kujolang.ai. Kennel 1.2.1 provides native bootstrap and global tool commands on macOS/Linux with Kujo 1.4.0 or newer. Offline declaration inspection and canonical registry directory URLs are included. Verified with Kujo 1.8.2; existing releases stay immutable. Official package installation requires no Git or Python. Accounts and third-party publishing are future work.",
       "slug": "kennel",
       "source_path": "content/ecosystem/02-kennel.md",
       "tags": [
@@ -127,7 +127,7 @@
         "Packages"
       ],
       "title": "Kennel",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "website_url": "https://kujolang.ai/ecosystem/kennel/"
     },
     {
@@ -354,11 +354,11 @@
       "category": "Tooling",
       "description": "A local-first bridge that installs Kujo Abilities, Agent Skills, scoped agents, approvals, receipts, and browser QA in Command Code.",
       "github_url": "https://github.com/kujolang/kujo-cmd",
-      "install_command": "npx github:kujolang/kujo-cmd#v0.2.0 setup",
+      "install_command": "npx github:kujolang/kujo-cmd#v0.3.0 setup",
       "keywords": "Kujo CMD, Command Code integration, Kujo MCP tools, local agent tools, Command Code agents",
       "kind": "project",
-      "last_updated": "2026-10-06",
-      "latest_release_url": "https://github.com/kujolang/kujo-cmd/releases/tag/v0.2.0",
+      "last_updated": "2026-10-21",
+      "latest_release_url": "https://github.com/kujolang/kujo-cmd/releases/tag/v0.3.0",
       "launch_story": "Bring Kujo's reviewed tools into Command Code through one local MCP server without replacing either system's permission boundary.",
       "release_status": "The GitHub release is published. npm publication is temporarily pending restored registry authorization, so the install command runs the same tagged package directly from GitHub.",
       "scope_note": "Kujo CMD installs and projects local Kujo capabilities; it does not choose models, proxy provider traffic, or turn Command Code identity metadata into verified identity. Mutating and external effects still require Kujo approval and the host's separate permission check.",
@@ -370,7 +370,7 @@
         "MCP"
       ],
       "title": "Kujo CMD",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "website_url": "https://kujolang.ai/ecosystem/kujo-cmd/"
     },
     {
@@ -1152,8 +1152,8 @@
       "install_command": "npx paperclipai plugin install @kujolang/paperclip",
       "keywords": "Kujo Paperclip plugin, Paperclip agents, context pack, change review, failure evidence",
       "kind": "project",
-      "last_updated": "2026-10-14",
-      "latest_release_url": "https://github.com/kujolang/paperclip/releases/tag/v0.2.0",
+      "last_updated": "2026-10-21",
+      "latest_release_url": "https://github.com/kujolang/paperclip/releases/tag/v0.2.1",
       "launch_story": "Understand repositories, ask local project knowledge questions and run explicitly approved Kujo workflows inside Paperclip.",
       "release_status": "Version identifies the latest published GitHub Release. Unpinned clone commands select default-branch source; see scope_note for release boundaries.",
       "scope_note": "Local bundled tools with explicit human approval for execution; offline project knowledge and shipped workflow examples. No custom host fork required.",
@@ -1164,7 +1164,7 @@
         "Agents"
       ],
       "title": "Kujo for Paperclip",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "website_url": "https://kujolang.ai/ecosystem/paperclip/"
     },
     {
@@ -1193,14 +1193,14 @@
       "category": "Tooling",
       "description": "An opt-in Pi integration for Kujo repository intelligence, checks, workflows, retrieval, approvals and receipts.",
       "github_url": "https://github.com/kujolang/kujo-pi",
-      "install_command": "pi install npm:@kujolang/kujo-pi@1.1.0",
+      "install_command": "pi install npm:@kujolang/kujo-pi@1.2.1",
       "keywords": "Kujo Pi, Kujo ecosystem, An opt-in Pi integration for Kujo repository intelligence, checks, workflows, retrieval, approvals and receipts.",
       "kind": "project",
-      "last_updated": "2026-09-26",
-      "latest_release_url": "https://github.com/kujolang/kujo-pi/releases/tag/v1.1.0",
+      "last_updated": "2026-10-21",
+      "latest_release_url": "https://github.com/kujolang/kujo-pi/releases/tag/v1.2.1",
       "launch_story": "An opt-in Pi integration for Kujo repository intelligence, checks, workflows, retrieval, approvals and receipts.",
       "release_status": "Version identifies the latest published GitHub Release. Unpinned clone commands select default-branch source; see scope_note for release boundaries.",
-      "scope_note": "Version 1.1.0 includes approval-gated Ability tools, opt-in Watchdog v2 metadata, bounded telemetry queues, and hardened operation receipts. Requires the Pi host and a separate Kujo runtime; private services and execution remain explicitly configured and permission-gated.",
+      "scope_note": "Version 1.2.1 includes approval-gated Ability tools, opt-in Watchdog v2 metadata, bounded telemetry queues, and hardened operation receipts. Requires the Pi host and a separate Kujo runtime; private services and execution remain explicitly configured and permission-gated.",
       "slug": "kujo-pi",
       "source_path": "content/ecosystem/57-kujo-pi.md",
       "tags": [
@@ -1208,7 +1208,7 @@
         "kujo-pi"
       ],
       "title": "Kujo Pi",
-      "version": "1.1.0",
+      "version": "1.2.1",
       "website_url": "https://kujolang.ai/ecosystem/kujo-pi/"
     },
     {
@@ -1308,14 +1308,14 @@
       "category": "Tooling",
       "description": "Run Kujo tools inside OpenCode 2 with six focused specialists, native approvals, and receipts you can inspect.",
       "github_url": "https://github.com/kujolang/kujo-opencode",
-      "install_command": "npm install --global @kujolang/kujo-opencode@0.2.0",
+      "install_command": "npm install --global @kujolang/kujo-opencode@0.2.1",
       "keywords": "Kujo OpenCode, OpenCode 2 plugin, Kujo tools, local agents, approvals, receipts",
       "kind": "project",
-      "last_updated": "2026-10-18",
-      "latest_release_url": "https://github.com/kujolang/kujo-opencode/releases/tag/v0.2.0",
+      "last_updated": "2026-10-21",
+      "latest_release_url": "https://github.com/kujolang/kujo-opencode/releases/tag/v0.2.1",
       "launch_story": "Understand a repository, build and test Kujo programs, review changes, and prepare release evidence without leaving OpenCode.",
       "release_status": "Published on npm and GitHub. Registry installation, upgrades, signatures, provenance, and release asset digests are verified.",
-      "scope_note": "Version 0.2.0 supports OpenCode 2 from 2.0.31. Setup installs pinned Kujo sources and a runtime; optional browsers and services require explicit setup. OpenCode owns the model connection and human approval decisions. Live specialist tests used ChatGPT on macOS; free GLM and DeepSeek specialist access is not verified.",
+      "scope_note": "Version 0.2.1 supports OpenCode 2 from 2.0.31. Setup installs pinned Kujo sources and a runtime; optional browsers and services require explicit setup. OpenCode owns the model connection and human approval decisions. Live specialist tests used an explicitly configured local Hermes connection with free Beam on macOS; other providers need their own working account connection.",
       "slug": "kujo-opencode",
       "source_path": "content/ecosystem/62-kujo-opencode.md",
       "tags": [
@@ -1325,8 +1325,30 @@
         "Ability"
       ],
       "title": "Kujo OpenCode",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "website_url": "https://kujolang.ai/ecosystem/kujo-opencode/"
+    },
+    {
+      "category": "Tooling",
+      "description": "Kujo light and dark themes for the BB workspace, with bundled fonts, icons and code colors.",
+      "github_url": "https://github.com/kujolang/bb-kujo",
+      "install_command": "bb plugin install git:https://github.com/kujolang/bb-kujo.git@v0.2.2 --yes",
+      "keywords": "",
+      "kind": "project",
+      "last_updated": "2026-10-21",
+      "latest_release_url": "https://github.com/kujolang/bb-kujo/releases/tag/v0.2.2",
+      "launch_story": "Bring Kujo's paper-and-ink design language into BB with matching workspace, code, terminal and diff colors.",
+      "release_status": "Published GitHub release with verified frontend and server bundles.",
+      "scope_note": "Requires BB 0.43.x. This is a BB theme plugin, installed through BB rather than Kennel. Fonts and icons are bundled locally, and reduced-motion preferences are respected.",
+      "slug": "bb-kujo",
+      "source_path": "content/ecosystem/63-bb-kujo.md",
+      "tags": [
+        "Tools",
+        "Themes"
+      ],
+      "title": "BB Kujo",
+      "version": "0.2.2",
+      "website_url": "https://kujolang.ai/ecosystem/bb-kujo/"
     },
     {
       "category": "Agent Skill",
@@ -4751,10 +4773,10 @@
   ],
   "schema_version": "kujolang-mcp/catalog-v1",
   "source": {
-    "content_sha256": "f01952d1929437af9511822d7d2a4e3c4be852e3abf99a04765116f9ef02aaeb",
+    "content_sha256": "7f9f91a6b1b1bbbcfa3cb1c81e90f3b9032392e03c5176904955ca708dd104a8",
     "name": "Kujolang.ai",
     "repository": "https://github.com/kujolang/kujolang.ai",
-    "snapshot_sha256": "b057f04f163c42810464a1eada71584a5fe05b15d5c25cb26379dd7499367fa0",
+    "snapshot_sha256": "546276efda0cfc23bddfef8b40651810bf6e128cedef8806d894b9460b1ac573",
     "url": "https://kujolang.ai",
     "version": "1.3.1"
   }
