@@ -578,8 +578,8 @@
       "install_command": "kennel add lens",
       "keywords": "Lens, Kujo ecosystem, Tool, Browser QA",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/lens/releases/tag/v1.1.0",
+      "last_updated": "2026-10-22",
+      "latest_release_url": "https://github.com/kujolang/lens/releases/tag/v1.1.1",
       "launch_story": "Produce browser-backed proof that a UI behaves as intended.",
       "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
       "scope_note": "Lens is beta and stabilizing; automated evidence complements rather than replaces representative human review.",
@@ -590,7 +590,7 @@
         "Browser QA"
       ],
       "title": "Lens",
-      "version": "1.1.0",
+      "version": "1.1.1",
       "website_url": "https://kujolang.ai/ecosystem/lens/"
     },
     {
@@ -622,11 +622,11 @@
       "install_command": "",
       "keywords": "Ward, Kujo ecosystem, Dependabot, dependency security",
       "kind": "project",
-      "last_updated": "",
+      "last_updated": "2026-10-22",
       "latest_release_url": "",
       "launch_story": "Turn dependency alerts across many repositories into a local, reviewable remediation workflow.",
-      "release_status": "",
-      "scope_note": "Ward is read-only by default; code changes require explicit apply mode, and operators remain responsible for credentials and review.",
+      "release_status": "Private technical preview; public installation is unavailable.",
+      "scope_note": "Ward 1.0.0 is a private technical preview. Ward is read-only by default; code changes require explicit apply mode, and operators remain responsible for credentials and review.",
       "slug": "ward",
       "source_path": "content/ecosystem/32-ward.md",
       "tags": [
@@ -634,7 +634,7 @@
         "Security"
       ],
       "title": "Ward",
-      "version": "",
+      "version": "1.0.0",
       "website_url": "https://kujolang.ai/ecosystem/ward/"
     },
     {
@@ -732,8 +732,8 @@
       "install_command": "kennel add sitekit",
       "keywords": "SiteKit, Kujo ecosystem, design system, accessible components, static websites",
       "kind": "project",
-      "last_updated": "2026-09-09",
-      "latest_release_url": "https://github.com/kujolang/site-kit/releases/tag/v1.0.0",
+      "last_updated": "2026-10-22",
+      "latest_release_url": "https://github.com/kujolang/site-kit/releases/tag/v1.1.1",
       "launch_story": "Give people and agents a stable set of tokens, schemas, semantic templates, components, and page recipes to build from.",
       "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
       "scope_note": "SiteKit provides tested source components and distribution assets, not accessibility certification for arbitrary downstream pages or a hosted component service.",
@@ -744,7 +744,7 @@
         "Design System"
       ],
       "title": "SiteKit",
-      "version": "1.0.0",
+      "version": "1.1.1",
       "website_url": "https://kujolang.ai/ecosystem/sitekit/"
     },
     {
@@ -4773,10 +4773,10 @@
   ],
   "schema_version": "kujolang-mcp/catalog-v1",
   "source": {
-    "content_sha256": "78e2c0583a37d21b1d67dc94370a4ed2e83e91fccc389400a73ec664b607c4bd",
+    "content_sha256": "ab9ae678b39a4fb69580239cc3b68adb5bf31379768d13ed79f6ac059b3a2f2b",
     "name": "Kujolang.ai",
     "repository": "https://github.com/kujolang/kujolang.ai",
-    "snapshot_sha256": "f4b883f54d8fd974d8cba269d99882ecbdc9558795d8453c66b3782cd7d29a7c",
+    "snapshot_sha256": "81eacb300148b01c8c12d3eaeb3199ac43c36b1a18d375aa88ce82733740a1aa",
     "url": "https://kujolang.ai",
     "version": "1.3.1"
   }
