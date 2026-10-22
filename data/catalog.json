@@ -1171,14 +1171,14 @@
       "category": "Tooling",
       "description": "Commerce for static and dynamic sites: hosted checkout, verified webhooks, optional PostgreSQL processing, and Square payment and recovery tools.",
       "github_url": "https://github.com/kujolang/commerce",
-      "install_command": "npm install https://github.com/kujolang/commerce/releases/download/v0.5.0/kujolang-commerce-0.5.0.tgz",
+      "install_command": "npm install @kujolang/commerce@0.5.1",
       "keywords": "Commerce, Kujo, Square, Stripe, checkout, PostgreSQL, webhooks, refunds, reconciliation",
       "kind": "project",
-      "last_updated": "2026-10-10",
-      "latest_release_url": "https://github.com/kujolang/commerce/releases/tag/v0.5.0",
+      "last_updated": "2026-10-22",
+      "latest_release_url": "https://github.com/kujolang/commerce/releases/tag/v0.5.1",
       "launch_story": "Commerce for static and dynamic sites: hosted checkout, verified webhooks, optional PostgreSQL processing, and Square payment and recovery tools.",
-      "release_status": "GitHub Release 0.5.0 is published with a package tarball, SBOM and build provenance. The install command uses that tarball while npm still serves 0.4.0.",
-      "scope_note": "Pre-1.0 package with frozen v1 wire contracts. Static hosted links need no server. Durable processing needs operator-managed storage and workers. Advanced Square features require their own acceptance checks; npm registry publication is pending.",
+      "release_status": "GitHub Release 0.5.1 is published with a package tarball, SBOM and build provenance. The same verified package is available from npm.",
+      "scope_note": "Pre-1.0 package with frozen v1 wire contracts. Static hosted links need no server. Durable processing needs operator-managed storage and workers. Advanced Square features require their own acceptance checks.",
       "slug": "commerce",
       "source_path": "content/ecosystem/56-commerce.md",
       "tags": [
@@ -1186,7 +1186,7 @@
         "commerce"
       ],
       "title": "Commerce",
-      "version": "0.5.0",
+      "version": "0.5.1",
       "website_url": "https://kujolang.ai/ecosystem/commerce/"
     },
     {
@@ -4773,10 +4773,10 @@
   ],
   "schema_version": "kujolang-mcp/catalog-v1",
   "source": {
-    "content_sha256": "c0388e94f6599b2e1620c7f5903116cd80dde387b59bbc47e2bfd6030e28863b",
+    "content_sha256": "b15084542842b5b5d339c81c19b90f4cbd7c4904a002f67e40698798be088e47",
     "name": "Kujolang.ai",
     "repository": "https://github.com/kujolang/kujolang.ai",
-    "snapshot_sha256": "99b24f8d041d9b45e527f44460da95807690b14fe8e53c4855d030c925afd9b4",
+    "snapshot_sha256": "a5ce79b4ad1bd68a319c875af370bf89a185414f9325f7a86bf585a2bb950f4a",
     "url": "https://kujolang.ai",
     "version": "1.3.1"
   }
