@@ -866,8 +866,8 @@
       "install_command": "kennel add crud-api",
       "keywords": "CRUD API Showcase, Kujo ecosystem, Showcase, API",
       "kind": "project",
-      "last_updated": "2026-10-14",
-      "latest_release_url": "https://github.com/kujolang/crud-api/releases/tag/v1.0.1",
+      "last_updated": "2026-10-22",
+      "latest_release_url": "https://github.com/kujolang/crud-api/releases/tag/v1.0.2",
       "launch_story": "A conventional application API pattern that makes Kujo integration concrete.",
       "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
       "scope_note": "This is a proof application and architecture reference, not a production-certified application platform.",
@@ -878,7 +878,7 @@
         "API"
       ],
       "title": "CRUD API Showcase",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "website_url": "https://kujolang.ai/ecosystem/crud-api/"
     },
     {
@@ -1218,11 +1218,11 @@
       "install_command": "git clone https://github.com/kujolang/presentations.git",
       "keywords": "Kujo Presentations, browser-native slide decks, static presentation site, presentation generator, presenter console, accessible reading edition",
       "kind": "project",
-      "last_updated": "2026-10-03",
-      "latest_release_url": "https://github.com/kujolang/presentations/releases/tag/v0.3.0",
+      "last_updated": "2026-10-22",
+      "latest_release_url": "https://github.com/kujolang/presentations/releases/tag/v0.3.1",
       "launch_story": "Turn structured deck source into static slide URLs, an overview, a reading edition, print output, and presenter tools without locking content inside a presentation app.",
       "release_status": "Version identifies the published preview source release. The npm package remains private; clone the repository to use the authoring and build tools.",
-      "scope_note": "Presentations 0.3.0 is a source-distributed preview. Native authoring and builds are verified on macOS and Linux, not Windows; hosting, access control, factual review, and human accessibility and language review remain deployment responsibilities.",
+      "scope_note": "Presentations 0.3.1 is a source-distributed preview. Native authoring and builds are verified on macOS and Linux, not Windows; hosting, access control, factual review, and human accessibility and language review remain deployment responsibilities.",
       "slug": "presentations",
       "source_path": "content/ecosystem/58-presentations.md",
       "tags": [
@@ -1231,21 +1231,21 @@
         "Presentations"
       ],
       "title": "Presentations",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "website_url": "https://kujolang.ai/ecosystem/presentations/"
     },
     {
       "category": "Showcase",
       "description": "Run and review AI-agent tasks in a pixel-art city, with observed tool activity, evidence, and replay.",
       "github_url": "https://github.com/kujolang/agent-city",
-      "install_command": "curl --proto '=https' --tlsv1.2 -fsSL https://github.com/kujolang/agent-city/releases/download/v0.2.0/install.sh | sh",
+      "install_command": "curl --proto '=https' --tlsv1.2 -fsSL https://github.com/kujolang/agent-city/releases/download/v0.2.1/install.sh | sh",
       "keywords": "Kujo Agent City, AI agent workspace, pixel-art agent city, agent task review, observed agent activity, semantic replay",
       "kind": "project",
-      "last_updated": "2026-10-08",
-      "latest_release_url": "https://github.com/kujolang/agent-city/releases/tag/v0.2.0",
+      "last_updated": "2026-10-22",
+      "latest_release_url": "https://github.com/kujolang/agent-city/releases/tag/v0.2.1",
       "launch_story": "Give an agent a task, follow its work through the city, and ask a separate agent to review the result. Every semantic activity links to observed Kujo evidence.",
       "release_status": "Published local application for macOS Intel and Apple Silicon, Linux x64 and ARM64. A model connection is required; hosted multi-user operation is outside this release.",
-      "scope_note": "Agent City 0.2.0 runs locally on macOS and Linux. Bring your own model connection. Container execution and media generation require separate setup and explicit permission.",
+      "scope_note": "Agent City 0.2.1 runs locally on macOS and Linux. Bring your own model connection. Container execution and media generation require separate setup and explicit permission.",
       "slug": "agent-city",
       "source_path": "content/ecosystem/59-agent-city.md",
       "tags": [
@@ -1254,21 +1254,21 @@
         "Agents"
       ],
       "title": "Agent City",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "website_url": "https://kujolang.ai/ecosystem/agent-city/"
     },
     {
       "category": "Showcase",
       "description": "Collect email, webhooks, files, and manual input into a local work queue with rules, approvals, and recovery.",
       "github_url": "https://github.com/kujolang/intake",
-      "install_command": "git clone --branch v0.2.0 https://github.com/kujolang/intake.git",
+      "install_command": "git clone --branch v0.3.0 https://github.com/kujolang/intake.git",
       "keywords": "Kujo Intake, local work queue, email intake, webhook intake, action approvals, recovery",
       "kind": "project",
-      "last_updated": "2026-10-13",
-      "latest_release_url": "https://github.com/kujolang/intake/releases/tag/v0.2.0",
+      "last_updated": "2026-10-22",
+      "latest_release_url": "https://github.com/kujolang/intake/releases/tag/v0.3.0",
       "launch_story": "Keep incoming work, original payloads, proposed actions, and operator decisions together in local files.",
-      "release_status": "First tagged GitHub source release. The npm manifest remains private; no Kennel install is advertised.",
-      "scope_note": "Intake 0.2.0 is a Node.js source release for local operators. Requires Node.js 20.19 or newer. Not published to npm or Kennel; live providers and shared deployments need their own validation.",
+      "release_status": "GitHub source release with inbox filtering and dashboard refinements. The npm manifest remains private; no Kennel install is advertised.",
+      "scope_note": "Intake 0.3.0 is a Node.js source release for local operators. Requires patched Node.js 22.23.4+, 24.22.1+, or 26.12.1+. Not published to npm or Kennel; live providers and shared deployments need their own validation.",
       "slug": "intake",
       "source_path": "content/ecosystem/60-intake.md",
       "tags": [
@@ -1277,7 +1277,7 @@
         "Approvals"
       ],
       "title": "Intake",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "website_url": "https://kujolang.ai/ecosystem/intake/"
     },
     {
@@ -4773,10 +4773,10 @@
   ],
   "schema_version": "kujolang-mcp/catalog-v1",
   "source": {
-    "content_sha256": "d15d2d0ef1f54d277b76483b4a115469c96af9e1b82dccd91dfb09ce5e48aabb",
+    "content_sha256": "21d064bcdeb2710f64c65017496560d1de453d28c07e7fe687f0725b9fbf3b07",
     "name": "Kujolang.ai",
     "repository": "https://github.com/kujolang/kujolang.ai",
-    "snapshot_sha256": "6ccc7a8a5fa6463e7529cbd4bf2e4527fbe8eec5c1df45687abf02373de7a467",
+    "snapshot_sha256": "0386e5aa9bf5aaecd78647e0edab23b576a35a81564d39f0b9dede92fcdfdd01",
     "url": "https://kujolang.ai",
     "version": "1.3.1"
   }

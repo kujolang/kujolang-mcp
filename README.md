@@ -1,5 +1,7 @@
 # Kujolang.ai MCP Server
 
+Version **0.1.0** is the first tagged preview of this read-only catalog server. The source release and hosted catalog have independent revisions; inspect `/health` and the generated provenance receipts for the current catalog. Existing operational and interoperability limitations remain in the linked review documents.
+
 `kujolang-mcp` is a read-only Model Context Protocol server for discovering Kujo projects, primitives, tooling, showcases, agent skills, workflows, and reviewed installation guidance. The complete runtime and every custom utility are written in Kujo.
 
 This repository is the Kujolang.ai catalog server, not the reusable [`kujolang/mcp`](https://github.com/kujolang/mcp) framework. It follows that framework's conventions while remaining independently deployable and product-specific.
