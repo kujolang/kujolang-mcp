@@ -29,10 +29,10 @@ excludes = [".git", "kennel_packages", "dist", "build"]
 [dev-dependencies]
 
 [scripts]
-server = "kujo run server.kujo --interpreter"
-self-check = "kujo run server.kujo --interpreter --self-check"
+server = "kujo run server.kujo"
+self-check = "kujo run server.kujo -- --self-check"
 test = "kujo test"
-benchmark = "kujo run benchmarks/search_benchmark.kujo --interpreter"
+benchmark = "kujo run benchmarks/search_benchmark.kujo"
 
 [package.metadata]
 server_config = "mcp-server.json"

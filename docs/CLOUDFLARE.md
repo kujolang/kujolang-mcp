@@ -8,8 +8,8 @@ are generated artifacts and must not be hand-edited.
 ## Local generation
 
 ```text
-kujo run scripts/sync_catalog.kujo --interpreter -- --site /absolute/path/to/kujolang.ai --check --json
-kujo run scripts/generate_worker.kujo --interpreter -- --framework /absolute/path/to/mcp
+kujo run scripts/sync_catalog.kujo -- --site /absolute/path/to/kujolang.ai --check --json
+kujo run scripts/generate_worker.kujo -- --framework /absolute/path/to/mcp
 ```
 
 Generation emits `dist/worker.js`, its SHA-256 receipt, parity fixtures, and

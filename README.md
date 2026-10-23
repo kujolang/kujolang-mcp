@@ -1,5 +1,9 @@
 # Kujolang.ai MCP Server
 
+[![Version](https://img.shields.io/badge/version-0.1.0-black)](https://github.com/kujolang/kujolang-mcp)
+[![License](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
+[![built with Kujo](https://img.shields.io/badge/built%20with-Kujo-white.svg)](https://github.com/kujolang/kujo)
+
 Version **0.1.0** is the first tagged preview of this read-only catalog server. The source release and hosted catalog have independent revisions; inspect `/health` and the generated provenance receipts for the current catalog. Existing operational and interoperability limitations remain in the linked review documents.
 
 `kujolang-mcp` is a read-only Model Context Protocol server for discovering Kujo projects, primitives, tooling, showcases, agent skills, workflows, and reviewed installation guidance. The complete runtime and every custom utility are written in Kujo.
@@ -29,8 +33,8 @@ Use a Kujo runtime with `run`, `test`, and the HTTP standard library:
 
 ```bash
 cd /path/to/kujolang-mcp
-kujo run server.kujo --interpreter --self-check
-kujo run server.kujo --interpreter
+kujo run server.kujo -- --self-check
+kujo run server.kujo
 ```
 
 The local endpoint is `http://127.0.0.1:8941/mcp`; `/mcp/v1` is a compatibility alias and `/health` is the health endpoint.
@@ -91,8 +95,8 @@ The bundled catalog is validated at startup for schema, item shape, unique slugs
 Regenerate or verify it from a reviewed Kujolang.ai checkout:
 
 ```bash
-kujo run scripts/sync_catalog.kujo --interpreter -- --site /path/to/kujolang.ai
-kujo run scripts/sync_catalog.kujo --interpreter -- --site /path/to/kujolang.ai --check
+kujo run scripts/sync_catalog.kujo -- --site /path/to/kujolang.ai
+kujo run scripts/sync_catalog.kujo -- --site /path/to/kujolang.ai --check
 ```
 
 The synchronizer rejects duplicate or malformed slugs and unexpected source URL schemes. Installer profile membership is parsed from the website's public installer instead of duplicated by hand. The catalog revision covers both records and installation profiles; it detects accidental snapshot corruption but is not a substitute for signed releases or human review.
@@ -116,11 +120,11 @@ The application body check happens after the current Kujo HTTP runtime buffers t
 ## Verification
 
 ```bash
-kujo run scripts/sync_catalog.kujo --interpreter -- --site /path/to/kujolang.ai --check
-kujo run server.kujo --interpreter --self-check
-kujo run tests/run_all.kujo --interpreter
-kujo run benchmarks/search_benchmark.kujo --interpreter
-kujo run scripts/generate_worker.kujo --interpreter -- --framework /path/to/mcp
+kujo run scripts/sync_catalog.kujo -- --site /path/to/kujolang.ai --check
+kujo run server.kujo -- --self-check
+kujo run tests/run_all.kujo
+kujo run benchmarks/search_benchmark.kujo
+kujo run scripts/generate_worker.kujo -- --framework /path/to/mcp
 node --check dist/worker.js
 ```
 
@@ -130,7 +134,7 @@ Select the production configuration explicitly:
 
 ```bash
 KUJOLANG_MCP_CONFIG=mcp-server.production.example.json \
-  kujo run server.kujo --interpreter
+  kujo run server.kujo
 ```
 
 The trusted ingress must:

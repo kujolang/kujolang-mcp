@@ -52,12 +52,12 @@ Workflow
 1. Inspect both repositories and their current branches, remotes, status, and latest commits. Update them from their approved remotes using fast-forward-only operations.
 2. Review changes to the Kujolang.ai public ecosystem records, skills, workflows, package version, and public installer profiles since the catalog revision currently stored by kujolang-mcp. Look for malformed metadata, duplicate or removed slugs, unexpected domains, suspicious install guidance, large unexplained count reductions, or other accuracy and safety problems.
 3. From the kujolang-mcp repository root, regenerate the deterministic catalog using:
-   kujo run scripts/sync_catalog.kujo --interpreter -- --site <ABSOLUTE_PATH_TO_KUJOLANG_AI> --json
+   kujo run scripts/sync_catalog.kujo -- --site <ABSOLUTE_PATH_TO_KUJOLANG_AI> --json
 4. Inspect the generated diff. Only data/catalog.json should change during synchronization. Update the reviewed website commit in build-inputs.json, then run the documented Kujo Worker generator and commit its receipts. If anything else changes unexpectedly, stop. If the catalog loses entries, changes trusted URL domains, or changes installation guidance, validate those changes against the website source before proceeding. Do not hand-edit generated catalog data.
 5. Run all required verification:
-   kujo run scripts/sync_catalog.kujo --interpreter -- --site <ABSOLUTE_PATH_TO_KUJOLANG_AI> --check --json
-   kujo run server.kujo --interpreter --self-check
-   kujo run tests/run_all.kujo --interpreter
+   kujo run scripts/sync_catalog.kujo -- --site <ABSOLUTE_PATH_TO_KUJOLANG_AI> --check --json
+   kujo run server.kujo -- --self-check
+   kujo run tests/run_all.kujo
    node tests/worker_contract_test.mjs
    node tests/native_http_test.mjs
    Also exercise server/discover, one representative catalog search, and exact lookup for every changed catalog record using the repository's request mode or a local server.
