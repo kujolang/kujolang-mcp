@@ -14,3 +14,6 @@ kennel_packages/
 .wrangler/
 
 /seo-audit/**/raw/
+
+# MCP Registry publisher credentials are local only.
+.mcp_publisher_token
