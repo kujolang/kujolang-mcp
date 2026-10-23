@@ -1,0 +1,4 @@
+for text in ["9007199254740991", "9007199254740991.0", "-9007199254740991.0", "1.0", "1e0"] {
+    parsed := parse_json(text)
+    print(to_json({"input":text,"type":type(parsed),"parsed":parsed}))
+}

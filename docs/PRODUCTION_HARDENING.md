@@ -117,3 +117,7 @@ provide this lower cap. Proven ingress remains a native deployment gate.
 ## Second-pass compatibility checks
 
 Native configuration now rejects unknown settings, duplicate keys, invalid string types and invalid environment-variable names instead of silently falling back to defaults. Use the checked-in config examples as the schema reference. The config JSON text limit is 64 KiB. Both transports validate Accept quality weights; the Worker also rejects malformed Unicode and metadata consistently with native parsing. See `evidence/hardening-round2.md` for reproduced cases, measurements and retained production gates.
+
+## Third-pass numeric and Unicode contract
+
+Bounded integer tool arguments accept whole-valued decimal/exponent JSON numbers. Request IDs remain restricted to string or safe integer **tokens**: decimal/exponent IDs are rejected on both transports because the pinned Kujo runtime can round boundary decimal values incorrectly. Unicode normalization uses Rust/Kujo White_Space semantics in both transports. Catalog website routes and source collections must match item identity. See `evidence/hardening-round3.md` for compatibility details and the independently reproduced upstream precision defect.
