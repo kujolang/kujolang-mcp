@@ -85,3 +85,21 @@ test "authentication scheme case cannot split quota buckets" {
     assert_true(first["ok"])
     assert_equal(second["status"],429)
 }
+
+test "catalog website routes and provenance collections match item identity" {
+    original := parse_json(read_file("data/catalog.json"))
+    for mutation in [
+        {"field":"website_url", "value":"https://kujolang.ai/ecosystem/../install.sh"},
+        {"field":"website_url", "value":"https://kujolang.ai/ecosystem/kujo/\nhttps://evil.example"},
+        {"field":"website_url", "value":"https://kujolang.ai/ecosystem/mcp/"},
+        {"field":"source_path", "value":"content/skills/01-kujo.md"}
+    ] {
+        mutated := parse_json(to_json(original))
+        mutated["items"][0][mutation["field"]] := mutation["value"]
+        mutated["source"]["content_sha256"] := sha256(to_json(mutated["items"]))
+        mutated["source"]["snapshot_sha256"] := sha256(to_json({"items":mutated["items"],"installation":mutated["installation"]}))
+        rejected := false
+        try { validate_catalog(mutated) } except err { rejected = true }
+        assert_true(rejected)
+    }
+}

@@ -89,6 +89,12 @@ export func validate_catalog(parsed) {
         assert(has_field(seen_slugs, slug) == false, "Duplicate catalog slug: " + slug)
         seen_slugs[slug] := true
         kind := item["kind"]
+        collection := "ecosystem"
+        route := "https://kujolang.ai/ecosystem/"
+        if kind == "skill" { collection = "skills"; route = route + "skills/" }
+        if kind == "workflow" { collection = "workflows"; route = route + "workflows/" }
+        assert(item["website_url"] == route + slug + "/", "Website route does not match catalog identity")
+        assert(starts_with(item["source_path"], "content/" + collection + "/"), "Source collection does not match catalog kind")
         assert(kind == "project" || kind == "skill" || kind == "workflow", "Unsupported catalog kind: " + kind)
         if kind == "project" { projects = projects + 1 }
         if kind == "skill" { skills = skills + 1 }
