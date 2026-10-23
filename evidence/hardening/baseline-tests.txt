@@ -1,0 +1,65 @@
+
+============================================================
+Test Results
+============================================================
+  ✓ catalog exposes released projects skills and workflows (120ms)
+  ✓ catalog installer profiles come from the website installer source (6ms)
+  ✓ catalog filtering and exact lookup preserve public guidance (127ms)
+  ✓ catalog search returns deterministic relevant records (122ms)
+  ✓ webops catalog is available through released skill records (197ms)
+  ✓ search deduplicates attacker-controlled repeated terms (115ms)
+
+Tests: 6 total, 6 passed, 0 failed
+Time:  702ms
+============================================================
+
+All tests passed! ✨
+
+
+============================================================
+Test Results
+============================================================
+  ✓ generated Worker receipts are complete and portable (130ms)
+
+Tests: 1 total, 1 passed, 0 failed
+Time:  132ms
+============================================================
+
+All tests passed! ✨
+
+
+============================================================
+Test Results
+============================================================
+  ✓ request guard requires an allowed Host (7ms)
+  ✓ request guard isolates local rate buckets and exempts health checks (11ms)
+  ✓ configuration allowlists reject malformed entries (5ms)
+
+Tests: 3 total, 3 passed, 0 failed
+Time:  25ms
+============================================================
+
+All tests passed! ✨
+
+
+============================================================
+Test Results
+============================================================
+  ✓ server discovery advertises tools resources and prompts (118ms)
+  ✓ tools list uses MCP schema names and read-only annotations (125ms)
+  ✓ tool calls return text and structured content (119ms)
+  ✓ malformed calls and unknown methods return JSON-RPC errors (128ms)
+  ✓ resources and prompts expose agent-ready content (102ms)
+  ✓ legacy initialize remains available for handshake clients (136ms)
+  ✓ protocol rejects unsupported versions and malformed params (128ms)
+  ✓ tool string inputs are bounded before catalog work (111ms)
+  ✓ all installation profile returns deduplicated membership (111ms)
+  ✓ tool handlers enforce enum values and additionalProperties (103ms)
+
+Tests: 10 total, 10 passed, 0 failed
+Time:  1217ms
+============================================================
+
+All tests passed! ✨
+
+Assertion test files passed: 4
