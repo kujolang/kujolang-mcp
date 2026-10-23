@@ -21,7 +21,7 @@ runtime network subrequests, storage bindings, credentials, or user data.
 `wrangler.jsonc` is intended for a free-plan Worker; it does not prove the actual account plan or a configured CPU ceiling. Connect
 the GitHub repository to Workers Builds or run `wrangler deploy` from a trusted
 environment. Production uses the Custom Domain `mcp.kujolang.ai`; do not add a
-second DNS record when Custom Domains manages it. The adapter accepts only the exact custom hostname. Retire workers.dev exposure during an authorized configuration rollout; it is not an accepted alternate hostname in the new code.
+second DNS record when Custom Domains manages it. The adapter accepts only the exact custom hostname. The 0.2.0 configuration disables workers.dev and explicitly binds the existing custom domain; workers.dev is not an accepted alternate hostname.
 
 Required protected CI values are `CLOUDFLARE_API_TOKEN` and
 `CLOUDFLARE_ACCOUNT_ID`; neither is needed by the Worker at runtime. The token

@@ -3,7 +3,7 @@
   "server": {
     "name": "kujolang-mcp",
     "title": "Kujolang.ai MCP",
-    "version": "0.1.0",
+    "version": "0.2.0",
     "source_framework": "https://github.com/kujolang/mcp",
     "source_catalog": "https://github.com/kujolang/kujolang.ai"
   },

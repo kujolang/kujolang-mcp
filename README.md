@@ -1,10 +1,10 @@
 # Kujolang.ai MCP Server
 
-[![Version](https://img.shields.io/badge/version-0.1.0-black)](https://github.com/kujolang/kujolang-mcp)
+[![Version](https://img.shields.io/badge/version-0.2.0-black)](https://github.com/kujolang/kujolang-mcp)
 [![License](https://img.shields.io/badge/license-MIT-lightgrey)](LICENSE)
 [![built with Kujo](https://img.shields.io/badge/built%20with-Kujo-white.svg)](https://github.com/kujolang/kujo)
 
-Version **0.1.0** is the first tagged preview of this read-only catalog server. The source release and hosted catalog have independent revisions; inspect `/health` and the generated provenance receipts for the current catalog. Existing operational and interoperability limitations remain in the linked review documents.
+Version **0.2.0** is the hardened preview of this read-only catalog server. The source release and hosted catalog have independent revisions; inspect `/health` and the generated provenance receipts for the current catalog. Existing operational and interoperability limitations remain in the linked review documents.
 
 `kujolang-mcp` is a read-only Model Context Protocol server for discovering Kujo projects, primitives, tooling, showcases, agent skills, workflows, and reviewed installation guidance. The complete runtime and every custom utility are written in Kujo.
 

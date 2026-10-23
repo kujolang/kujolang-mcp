@@ -1,8 +1,8 @@
 [project]
 name = "kujolang-mcp"
-version = "0.1.0"
+version = "0.2.0"
 description = "Read-only Kujolang.ai ecosystem discovery MCP server."
 
 [kujo]
-minimum_version = "0.1.0"
+minimum_version = "1.9.0"
 entry = "server.kujo"

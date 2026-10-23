@@ -7,6 +7,7 @@ assert.equal(new URL(endpoint).protocol,'https:');
 const source=await readFile('dist/worker.js','utf8');
 const worker=(await import('data:text/javascript;base64,'+Buffer.from(source).toString('base64'))).default;
 const catalog=JSON.parse(await readFile('data/catalog.json','utf8'));
+const manifest=JSON.parse(await readFile('mcp.manifest.json','utf8'));
 const checks=[];
 async function compare(method,params){
  const init={method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method,params})};
@@ -23,7 +24,8 @@ const overview=await compare('tools/call',{name:'get_kujo_overview',arguments:{}
 assert.equal(overview.result.structuredContent.runtime_version,catalog.items.find(i=>i.slug==='kujo').version);
 for(const profile of Object.keys(catalog.installation.profile_commands))await compare('tools/call',{name:'get_installation',arguments:{profile}});
 for(const slug of ['source','intake','cms','agent-city','kujo','kennel','commerce','kujo-pi','kujo-opencode','bb-kujo','kujo-cmd','paperclip','watchdog','ssg','videoops-quality-review'])await compare('tools/call',{name:'get_catalog_item',arguments:{slug}});
-const healthResponse=await fetch(new URL('/health',endpoint),{redirect:'error',signal:AbortSignal.timeout(20000)});assert.equal(healthResponse.status,200);const health=await healthResponse.json();assert.equal(health.catalog_revision,catalog.source.snapshot_sha256);
+const healthResponse=await fetch(new URL('/health',endpoint),{redirect:'error',signal:AbortSignal.timeout(20000)});assert.equal(healthResponse.status,200);const health=await healthResponse.json();assert.equal(health.catalog_revision,catalog.source.snapshot_sha256);assert.equal(health.version,manifest.server.version);
+const discovery=await compare('server/discover',{});assert.equal(discovery.result.serverInfo.version,manifest.server.version);
 const receipt={checked_at:new Date().toISOString(),endpoint,result:'passed',catalog_revision:catalog.source.snapshot_sha256,catalog_content_digest:catalog.source.content_sha256,worker_sha256:createHash('sha256').update(source).digest('hex'),runtime_version:overview.result.structuredContent.runtime_version,items_compared:itemCount,installer_profiles_compared:Object.keys(catalog.installation.profile_commands).length,health,checks};
 if(process.env.RECEIPT_PATH)await writeFile(process.env.RECEIPT_PATH,JSON.stringify(receipt,null,2)+'\n');
 console.log(JSON.stringify({result:receipt.result,catalog_revision:receipt.catalog_revision,runtime_version:receipt.runtime_version,items_compared:itemCount,profiles:receipt.installer_profiles_compared}));

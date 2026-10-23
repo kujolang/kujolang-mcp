@@ -1,7 +1,7 @@
 # Generate the Cloudflare Worker from the generic framework adapter and the
 # reviewed catalog. This file is intentionally Kujo-authored.
 from src.catalog import load_catalog
-from src.protocol import handle_jsonrpc
+from src.protocol import SERVER_VERSION, handle_jsonrpc
 from src.registry import list_tools, list_resources, list_prompts, read_resource, get_prompt, call_tool
 
 func option_value(argv, name, fallback) {
@@ -24,7 +24,7 @@ output_path := option_value(argv, "--out", "dist/worker.js")
 if starts_with(output_path, "/") == false { output_path = path_join(os_getcwd(), output_path) }
 assert(file_exists(template_path), "Cloudflare Worker template not found: " + template_path)
 catalog := load_catalog(catalog_path)
-catalog["server_version"] := "0.1.0"
+catalog["server_version"] := SERVER_VERSION
 resources := {}
 for resource in list_resources() { resources[resource["uri"]] := read_resource(catalog, resource["uri"])["contents"] }
 installations := {}

@@ -1,6 +1,6 @@
 [package]
 name = "kujolang-mcp"
-version = "0.1.0"
+version = "0.2.0"
 description = "Read-only Kujolang.ai ecosystem discovery MCP server."
 license = "MIT"
 authors = ["Kujolang <contact@kujolang.ai>"]
@@ -18,7 +18,7 @@ public_api = true
 notes = "Read-only public catalog server; hosted production operations require environment-specific review."
 
 [kujo]
-minimum_version = "1.8.2"
+minimum_version = "1.9.0"
 entry = "server.kujo"
 sources = ["."]
 includes = ["README.md", "SECURITY.md", "data", "docs", "benchmarks", "scripts", "mcp.manifest.json", "mcp-server.json", "mcp-server.production.example.json"]
