@@ -6,7 +6,7 @@
 
 Version **0.2.0** is the hardened preview of this read-only catalog server. The source release and hosted catalog have independent revisions; inspect `/health` and the generated provenance receipts for the current catalog. Existing operational and interoperability limitations remain in the linked review documents.
 
-`kujolang-mcp` is a read-only Model Context Protocol server for discovering Kujo projects, primitives, tooling, showcases, agent skills, workflows, and reviewed installation guidance. The native runtime and catalog generator are written in Kujo. The generated Cloudflare adapter includes JavaScript for hosting, aggregate telemetry, and the private dashboard.
+`kujolang-mcp` is a read-only Model Context Protocol server for discovering Kujo projects, primitives, tooling, showcases, agent skills, workflows, and reviewed installation guidance. The native runtime and catalog generator are written in Kujo. The generated Cloudflare adapter includes JavaScript for hosting and aggregate telemetry.
 
 This repository is the Kujolang.ai catalog server, not the reusable [`kujolang/mcp`](https://github.com/kujolang/mcp) framework. It follows that framework's conventions while remaining independently deployable and product-specific.
 
@@ -231,9 +231,6 @@ The October 8 Agent City addition records [Agent City 0.2.0](https://github.com/
 
 The October 22 Commerce refresh records [Commerce 0.5.1](https://github.com/kujolang/commerce/releases/tag/v0.5.1), optional PostgreSQL processing and Square payment/recovery modules, and the exact versioned npm installation command. Advanced features retain their acceptance gates. The MCP catalog provides discovery only; it does not execute payments or install packages.
 
-## Privacy-friendly analytics
+## Telemetry
 
-The hosted service collects daily aggregate counters, never raw queries or visitor identities.
-Read the [telemetry notice](https://mcp.kujolang.ai/telemetry), including opt-out headers and retention.
-The [operator dashboard](https://mcp.kujolang.ai/analytics) requires the owner’s Cloudflare Access login.
-See [analytics operations](docs/ANALYTICS.md) for access, rotation and deployment.
+The hosted service collects daily aggregate usage counters, without raw queries or visitor identities. See the [telemetry notice](https://mcp.kujolang.ai/telemetry) for details, retention, and opt-out instructions.
