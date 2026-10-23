@@ -45,3 +45,14 @@ let response=await worker.fetch(request(false),env,ctx);assert.equal(response.st
 const liveDay=new Date().toISOString().slice(0,10);const recorded=db.prepare('SELECT SUM(count) AS n FROM daily_details WHERE day=?').get(liveDay).n;assert.equal(recorded,1);
 response=await worker.fetch(request(true),env,ctx);assert.equal(response.status,200);await Promise.all(pending);assert.equal(db.prepare('SELECT SUM(count) AS n FROM daily_details WHERE day=?').get(liveDay).n,recorded);
 console.log('Generated Worker records real aggregate transactions; opt-outs remain excluded');
+// Restore both datasets from one day without combining their overlapping counts.
+restored.exec(await readFile('migrations/0002_history.sql','utf8'));
+const detailedSnapshot=JSON.parse(objects.get(await backup(env,'2024-01-01')));
+for(const r of detailedSnapshot.totals)restored.prepare('INSERT INTO daily_metrics VALUES(?,?,?,?)').run(r.day,r.dimension,r.value,r.count);
+for(const r of detailedSnapshot.details)restored.prepare('INSERT INTO daily_details VALUES(?,?,?,?,?,?,?,?,?,?)').run(...['day','tool','topic','outcome','latency','revision','item','profile','results','count'].map(k=>r[k]));
+assert.equal(restored.prepare('SELECT SUM(count) AS n FROM daily_details').get().n,9);
+assert.equal(restored.prepare("SELECT SUM(count) AS n FROM daily_metrics WHERE day='2024-01-01'").get().n,10);
+// Large facet sets report their limit instead of silently omitting suggestions.
+for(let i=0;i<1001;i++)detail.run('2024-01-02','search_kujo_catalog','agents','success','under_10ms',i.toString(16).padStart(64,'0'),'','','1_5',1);
+const bounded=await health(env);assert.equal(bounded.facets.revision.length,1000);assert(bounded.facets_truncated.includes('revision'));
+console.log('Both backup datasets restore independently; facet limits are explicit');
