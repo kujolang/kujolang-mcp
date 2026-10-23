@@ -6,13 +6,13 @@
 
 Version **0.2.0** is the hardened preview of this read-only catalog server. The source release and hosted catalog have independent revisions; inspect `/health` and the generated provenance receipts for the current catalog. Existing operational and interoperability limitations remain in the linked review documents.
 
-`kujolang-mcp` is a read-only Model Context Protocol server for discovering Kujo projects, primitives, tooling, showcases, agent skills, workflows, and reviewed installation guidance. The complete runtime and every custom utility are written in Kujo.
+`kujolang-mcp` is a read-only Model Context Protocol server for discovering Kujo projects, primitives, tooling, showcases, agent skills, workflows, and reviewed installation guidance. The native runtime and catalog generator are written in Kujo. The generated Cloudflare adapter includes JavaScript for hosting, aggregate telemetry, and the private dashboard.
 
 This repository is the Kujolang.ai catalog server, not the reusable [`kujolang/mcp`](https://github.com/kujolang/mcp) framework. It follows that framework's conventions while remaining independently deployable and product-specific.
 
 ## Readiness
 
-The repository contains the native reference server and a generated Cloudflare Worker target. The public service is bounded, stateless, deterministic, and read-only. The Worker is generated from Kujo definitions and the reviewed catalog; Cloudflare executes the generated JavaScript artifact, not Kujo source directly. This is not a claim of formal enterprise certification.
+The repository contains the native reference server and a generated Cloudflare Worker target. The public MCP catalog interface is bounded, stateless, deterministic, and read-only. The hosted adapter separately maintains daily aggregate analytics counters. The Worker is generated from Kujo definitions and the reviewed catalog; Cloudflare executes the generated JavaScript artifact, not Kujo source directly. This is not a claim of formal enterprise certification.
 
 The public URL is `https://mcp.kujolang.ai/mcp` and health is `https://mcp.kujolang.ai/health` once deployment verification passes. Local use is always available.
 
@@ -81,7 +81,7 @@ mcp-publisher login github
 mcp-publisher publish
 ```
 
-The hosted service requires no client credentials or local package installation.
+The hosted MCP catalog requires no client credentials or local package installation.
 For subsequent releases, update the metadata version to match the server release
 and validate before publishing. Publisher credentials must stay out of Git.
 Publication in this registry does not guarantee inclusion at `github.com/mcp`;
@@ -216,3 +216,10 @@ The October 7 Tribunal refresh records [Tribunal 1.0.2](https://github.com/kujol
 The October 8 Agent City addition records [Agent City 0.2.0](https://github.com/kujolang/agent-city/releases/tag/v0.2.0), its standalone installer, local operating scope, and source links. Use `get_catalog_item` with `slug: "agent-city"` to retrieve the record. The catalog does not submit missions or execute its install command. The [Howl showcase bundle](docs/agent-city-showcase/) provides a source-grounded offline preview.
 
 The October 22 Commerce refresh records [Commerce 0.5.1](https://github.com/kujolang/commerce/releases/tag/v0.5.1), optional PostgreSQL processing and Square payment/recovery modules, and the exact versioned npm installation command. Advanced features retain their acceptance gates. The MCP catalog provides discovery only; it does not execute payments or install packages.
+
+## Privacy-friendly analytics
+
+The hosted service collects daily aggregate counters, never raw queries or visitor identities.
+Read the [telemetry notice](https://mcp.kujolang.ai/telemetry), including opt-out headers and retention.
+The [operator dashboard](https://mcp.kujolang.ai/analytics) requires a private access key.
+See [analytics operations](docs/ANALYTICS.md) for access, rotation and deployment.

@@ -13,8 +13,8 @@ kujo run scripts/generate_worker.kujo -- --framework /absolute/path/to/mcp
 ```
 
 Generation emits `dist/worker.js`, its SHA-256 receipt, parity fixtures, and
-`generation.json`. Identical inputs produce identical output. The Worker has no
-runtime network subrequests, storage bindings, credentials, or user data.
+`generation.json`. Identical inputs produce identical output. The MCP catalog remains bundled and read-only. The hosted analytics adapter has a D1
+binding for daily aggregate counters and a private dashboard credential; see ANALYTICS.md.
 
 ## Deployment
 

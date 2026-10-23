@@ -39,7 +39,17 @@ for prompt in list_prompts() {
 catalog["registry"] := {"tools": list_tools(), "resources": list_resources(), "prompts": list_prompts(), "resource_contents": resources, "prompt_templates": prompt_templates, "installations": installations, "overview": call_tool(catalog, "get_kujo_overview", {})["result"]["structuredContent"], "discovery": handle_jsonrpc(catalog, {"jsonrpc": "2.0", "id": 1, "method": "server/discover"})["result"]}
 template := read_file(template_path)
 assert(index_of(template, "__KUJO_MCP_DATA__") >= 0, "Worker template is missing the catalog marker")
+telemetry := read_file("src/cloudflare/telemetry.js")
+telemetry = replace(telemetry, "__ANALYTICS_HTML__", to_json(read_file("src/cloudflare/dashboard.html")))
+telemetry = replace(telemetry, "__ANALYTICS_JS__", to_json(read_file("src/cloudflare/dashboard.js")))
+telemetry = replace(telemetry, "__ANALYTICS_NOTICE__", to_json(read_file("docs/TELEMETRY.md")))
+# Fail closed on template drift rather than silently drop instrumentation.
+assert(index_of(template, "export default {async fetch(request){") >= 0, "Worker entry point changed")
+assert(index_of(template, "  const result=handle(p);") >= 0, "Worker dispatch changed")
 worker := replace(template, "__KUJO_MCP_DATA__", to_json(catalog))
+worker = replace(worker, "export default {async fetch(request){", telemetry + "\nexport default {scheduled(_event,env,ctx){ctx.waitUntil(analyticsCleanup(env));},async fetch(request,env,ctx){")
+worker = replace(worker, "  if(request.headers.has('origin'))", "  const analyticsPage=await analyticsRoute(request,env);if(analyticsPage)return analyticsPage;\n  if(request.headers.has('origin'))")
+worker = replace(worker, "  const result=handle(p);", "  const analyticsStart=performance.now();const result=handle(p);analyticsRecord(request,env,ctx,p,result,performance.now()-analyticsStart);")
 create_dir(dirname(output_path))
 write_file(output_path, worker, true)
 write_file(output_path + ".sha256", sha256(worker) + "\n", true)
@@ -60,7 +70,8 @@ fixtures_json := to_json_pretty({"catalog_revision":catalog["source"]["snapshot_
 write_file(path_join(dirname(output_path), "parity-fixtures.json"), fixtures_json, true)
 write_file(path_join(dirname(output_path), "generation.json"), to_json_pretty({
     "generator": "kujolang-mcp/scripts/generate_worker.kujo",
-    "generator_version": "2",
+    "generator_version": "3",
+    "telemetry_bundle_sha256": sha256(telemetry),
     "generator_sha256": sha256(read_file("scripts/generate_worker.kujo")),
     "registry_source_sha256": sha256(read_file("src/registry.kujo")),
     "catalog_source_sha256": sha256(read_file("src/catalog.kujo")),

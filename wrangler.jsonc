@@ -5,13 +5,25 @@
   "workers_dev": false,
   "preview_urls": false,
   "observability": {
-    "enabled": true,
-    "head_sampling_rate": 0.1
+    "enabled": false
   },
   "routes": [
     {
       "pattern": "mcp.kujolang.ai",
       "custom_domain": true
+    }
+  ],
+  "triggers": {
+    "crons": [
+      "17 3 * * *"
+    ]
+  },
+  "d1_databases": [
+    {
+      "binding": "ANALYTICS_DB",
+      "database_name": "kujolang-mcp-analytics",
+      "database_id": "5adc4c4d-11a5-4733-9548-354231584e73",
+      "migrations_dir": "migrations"
     }
   ]
 }

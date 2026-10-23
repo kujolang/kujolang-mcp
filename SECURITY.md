@@ -4,7 +4,7 @@
 
 Kujolang MCP is intentionally read-only. It serves a bundled snapshot of public Kujolang.ai catalog metadata and deterministic recommendations derived from that snapshot.
 
-The server does not accept filesystem paths, remote URLs, shell commands, source code, credentials, or executable content as tool input. It does not install packages, modify files, launch processes, deploy services, fetch network content, or read secrets. Installation commands are inert text returned for human review.
+The MCP tool interface does not accept filesystem paths, remote URLs, shell commands, source code, credentials, or executable content as tool input. Its tool handlers do not install packages, modify files, launch processes, deploy services, fetch network content, or read secrets. Installation commands are inert text returned for human review.
 
 ## Trust boundaries
 
@@ -52,3 +52,13 @@ The repository does not provide TLS termination, native pre-buffer enforcement a
 Report suspected vulnerabilities through the private security-reporting channel configured on the GitHub repository. Do not include live credentials or private user data in a public issue.
 
 Current evidence and remaining gates are in `docs/PRODUCTION_HARDENING.md` and `evidence/hardening-findings.md`. The optional native bearer comparison is not constant-time; authenticated ingress or a reviewed runtime primitive is required before privileged deployment.
+
+## Hosted analytics boundary
+
+MCP tools remain read-only with respect to catalog data and external systems. The hosted
+adapter writes only aggregate daily counters to its D1 binding; no raw request data or
+identifiers are persisted. `/analytics` serves a public login shell, while `/analytics/data`
+requires a high-entropy operator bearer key. No cookie authentication or cross-origin
+access is enabled. `/telemetry` publishes the notice. Worker logs and traces are disabled.
+See [telemetry](docs/TELEMETRY.md) for exclusions, opt-out headers, retention and limitations.
+The native ingress path restrictions above apply to the native server, not these Worker routes.

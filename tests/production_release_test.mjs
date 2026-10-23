@@ -6,7 +6,7 @@ const manifest=JSON.parse(await readFile('mcp.manifest.json','utf8'));
 const expected=manifest.server.version;
 const checks=[];
 async function post(body,headers={},status=200,path='/mcp'){
- const response=await fetch(origin+path,{method:'POST',headers:{'content-type':'application/json',...headers},body:typeof body==='string'?body:JSON.stringify(body),redirect:'error',signal:AbortSignal.timeout(20000)});
+ const response=await fetch(origin+path,{method:'POST',headers:{'content-type':'application/json','x-kujo-telemetry':'off',...headers},body:typeof body==='string'?body:JSON.stringify(body),redirect:'error',signal:AbortSignal.timeout(20000)});
  assert.equal(response.status,status);
  assert.equal(response.headers.get('cache-control'),'no-store');
  const result=await response.json();checks.push({path,status,code:result.error?.code??null});return result;

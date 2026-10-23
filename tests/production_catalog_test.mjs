@@ -10,7 +10,7 @@ const catalog=JSON.parse(await readFile('data/catalog.json','utf8'));
 const manifest=JSON.parse(await readFile('mcp.manifest.json','utf8'));
 const checks=[];
 async function compare(method,params){
- const init={method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({jsonrpc:'2.0',id:1,method,params})};
+ const init={method:'POST',headers:{'content-type':'application/json','x-kujo-telemetry':'off'},body:JSON.stringify({jsonrpc:'2.0',id:1,method,params})};
  const expected=await (await worker.fetch(new Request(endpoint,init))).json();
  const response=await fetch(endpoint,{...init,redirect:'error',signal:AbortSignal.timeout(20000)});
  assert.equal(response.status,200,method);const actual=await response.json();assert.deepEqual(actual,expected,method+': '+JSON.stringify(params));

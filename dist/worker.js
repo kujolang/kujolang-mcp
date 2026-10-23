@@ -183,9 +183,109 @@ function protocolGuard(request,p){
   }
   return null;
 }
-export default {async fetch(request){
+// Product-specific adapter, embedded by the Kujo generator. Never log inputs.
+const analyticsTools = new Set(DATA.registry.tools.map(t => t.name));
+const analyticsSlugs = new Set(DATA.items.map(i => i.slug));
+const analyticsProfiles = new Set(Object.keys(DATA.registry.installations));
+const analyticsSearchTools = new Set(['search_kujo_catalog','recommend_kujo_stack','list_webops_capabilities']);
+const analyticsTopics = [
+  ['installation', /\b(install|installation|setup|package|kennel)\b/i],
+  ['agents', /\b(agent|agents|approval|approvals|orchestration)\b/i],
+  ['deployment', /\b(deploy|deployment|hosting|cloudflare|server)\b/i],
+  ['testing', /\b(test|tests|testing|eval|quality|debug|debugging)\b/i],
+  ['webops', /\b(webops|seo|accessibility|website|content)\b/i],
+  ['retrieval', /\b(rag|retrieval|embeddings|knowledge)\b/i],
+  ['mcp', /\bmcp\b/i]
+];
+function analyticsCutoff(now = new Date()) {
+  return new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate() - 29)).toISOString().slice(0,10);
+}
+function analyticsRows(p, result, elapsed) {
+  if (!object(p) || !own(p,'id') || !['initialize','tools/call'].includes(p.method) || !result) return [];
+  const candidate = typeof p.params?.name === 'string' ? trimText(p.params.name) : '';
+  const tool = analyticsTools.has(candidate) ? candidate : 'unknown';
+  const data = result.result?.structuredContent;
+  const isError = Boolean(result.error || result.result?.isError);
+  const n = Array.isArray(data?.recommendations) ? data.recommendations.length : Number.isInteger(data?.returned) ? data.returned : null;
+  const outcome = result.error ? 'protocol_error' : isError ? 'tool_error' : n === 0 ? 'empty' : 'success';
+  const rows = [['calls',p.method === 'initialize' ? 'initialize' : 'tool'], ['outcome',outcome],
+    ['latency', elapsed < 10 ? 'under_10ms' : elapsed < 50 ? '10_49ms' : elapsed < 200 ? '50_199ms' : '200ms_plus'],
+    ['revision', DATA.source.snapshot_sha256]];
+  if (p.method === 'initialize') return rows;
+  rows.push(['tool',tool]);
+  if (!isError) {
+    if (n !== null) rows.push(['results',n === 0 ? 'zero' : n <= 5 ? '1_5' : n <= 20 ? '6_20' : '21_plus']);
+    if (tool === 'get_catalog_item' && analyticsSlugs.has(data?.slug)) rows.push(['item',data.slug]);
+    if (tool === 'get_installation') {
+      const value = typeof p.params?.arguments?.profile === 'string' ? trimText(p.params.arguments.profile).toLowerCase() || 'default' : 'default';
+      if (analyticsProfiles.has(value)) rows.push(['profile',value]);
+    }
+    if (analyticsSearchTools.has(tool)) {
+      // Classification is local and transient; only a fixed category survives.
+      const raw = p.params?.arguments?.query ?? p.params?.arguments?.task ?? '';
+      const text = typeof raw === 'string' ? raw.slice(0,1000) : '';
+      rows.push(['topic',analyticsTopics.find(([,regex])=>regex.test(text))?.[0] || 'unclassified']);
+      rows.push(['search_outcome',n === 0 ? 'empty' : 'nonempty']);
+    }
+  } else if (tool === 'get_catalog_item') rows.push(['item','unknown']);
+  return rows;
+}
+function analyticsRecord(request, env, ctx, p, result, elapsed) {
+  // Caller preferences and synthetic tests are excluded, not tracked as opt-outs.
+  if (!env?.ANALYTICS_DB || !ctx?.waitUntil || request.headers.get('dnt') === '1' ||
+      request.headers.get('sec-gpc') === '1' || request.headers.get('x-kujo-telemetry') === 'off') return;
+  try {
+    const rows = analyticsRows(p,result,elapsed);
+    if (!rows.length) return;
+    const day = new Date().toISOString().slice(0,10);
+    // No Request, payload, identity, or timestamp is passed into persistence.
+    const writes = rows.map(([dimension,value]) => env.ANALYTICS_DB.prepare(
+      'INSERT INTO daily_metrics(day,dimension,value,count) VALUES(?,?,?,1) ON CONFLICT(day,dimension,value) DO UPDATE SET count=count+1'
+    ).bind(day,dimension,value));
+    writes.push(env.ANALYTICS_DB.prepare('DELETE FROM daily_metrics WHERE day < ?').bind(analyticsCutoff()));
+    ctx.waitUntil(Promise.resolve(env.ANALYTICS_DB.batch(writes)).catch(()=>{}));
+  } catch { /* Analytics must never change an MCP response. */ }
+}
+async function analyticsAuthorized(request, env) {
+  if (typeof env?.ANALYTICS_DASHBOARD_TOKEN !== 'string' || env.ANALYTICS_DASHBOARD_TOKEN.length < 32) return false;
+  const header = request.headers.get('authorization') || '';
+  if (!header.startsWith('Bearer ') || header.length > 256) return false;
+  const digest = async text => new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(text)));
+  const [a,b] = await Promise.all([digest(header.slice(7)),digest(env.ANALYTICS_DASHBOARD_TOKEN)]);
+  let diff = 0; for(let i=0;i<a.length;i++) diff |= a[i]^b[i]; return diff === 0;
+}
+const analyticsHtml = "<!doctype html><html lang=\"en\"><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width,initial-scale=1\"><title>Kujo · Catalog analytics</title>\n<style>\n:root{color-scheme:dark;font-family:system-ui,sans-serif;background:#111;color:#eee}body{max-width:1120px;margin:0 auto;padding:48px 24px}header{border-bottom:1px solid #444;padding-bottom:24px}h1{font-size:clamp(28px,5vw,48px);letter-spacing:-.04em;margin:8px 0}p{line-height:1.6;color:#bbb}a{color:#fff}.eyebrow{font-size:12px;letter-spacing:.15em}button,input{font:inherit;padding:12px;border:1px solid #777;border-radius:4px}button{cursor:pointer;background:#eee;color:#111}input{background:#222;color:white;width:min(420px,80%)}#login{margin:32px 0}#status{min-height:24px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}article{border:1px solid #444;border-radius:8px;padding:20px;margin:12px 0}h2{font-size:17px}.number{font-size:36px;font-weight:650}table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:14px}td,th{text-align:left;padding:9px 0;border-bottom:1px solid #333}td:first-child,th:first-child{width:75%;overflow-wrap:anywhere}td:last-child,th:last-child{text-align:right}.bar{height:5px;background:#ddd;border-radius:3px;margin-top:6px}small{color:#aaa}#logout{margin-left:8px}footer{margin-top:36px;border-top:1px solid #444;padding-top:20px}[hidden]{display:none!important}\n</style>\n<header><div class=\"eyebrow\">KUJO / PRIVATE OPERATIONS</div><h1>Is the catalog helping?</h1><p>Aggregate activity and search coverage. No visitor identities. No saved queries.</p></header>\n<section id=\"login\"><label for=\"token\">Dashboard access key</label><p><input id=\"token\" type=\"password\" autocomplete=\"off\" spellcheck=\"false\" placeholder=\"Paste your private access key\"> <button id=\"unlock\">Unlock</button></p><small>The key stays in this tab’s memory only. Reloading signs you out.</small></section>\n<p id=\"status\" role=\"status\" aria-live=\"polite\">Private dashboard. Enter your access key to load counters.</p>\n<main id=\"dashboard\" hidden><button id=\"refresh\">Refresh</button><button id=\"logout\">Lock dashboard</button><p>Last 30 UTC calendar days · unsampled, best-effort counters · health checks, notifications, discovery calls and opted-out requests excluded.</p><div class=\"grid\" id=\"summary\"></div><article><h2>Daily tool activity</h2><div id=\"daily\"></div></article><div class=\"grid\" id=\"breakdowns\"></div><article><h2>How to interpret this</h2><p>Calls and initializations are not unique people. Empty search results identify coverage gaps; nonempty results do not prove relevance or task completion. Topics use simple rules and can be wrong. Errors cover dispatched initialization/tool calls, not rejected HTTP traffic. Latency measures dispatch, excluding network and database time. Opt-outs, quota limits and analytics outages can cause undercounting. Compare revisions alongside traffic changes before attributing an improvement.</p></article></main>\n<footer><a href=\"/telemetry\">Telemetry notice</a><p>Only daily counters are stored. No cookies, browser storage, tracking scripts, external fonts or third-party assets.</p></footer><script src=\"/analytics/app.js\" defer></script></html>\n";
+const analyticsJs = "let accessKey = '';\nlet requestGeneration = 0;\nconst el = id => document.getElementById(id);\nconst number = n => new Intl.NumberFormat().format(n);\nconst node = (tag,text) => {const n=document.createElement(tag);n.textContent=text;return n;};\nfunction table(entries,bars=false) {\n  const t=document.createElement('table');const max=Math.max(1,...entries.map(([,v])=>v));\n  const head=document.createElement('tr');head.append(node('th','Category'),node('th','Calls'));t.append(head);\n  for(const [key,value] of entries){const tr=document.createElement('tr');const label=node('td',key);if(bars){const bar=document.createElement('div');bar.className='bar';bar.style.width=(value/max*100)+'%';label.append(bar);}tr.append(label,node('td',number(value)));t.append(tr);}\n  return t;\n}\nasync function load() {\n  const generation=++requestGeneration;\n  el('status').textContent='Loading aggregate counters…';\n  try {\n    const response=await fetch('/analytics/data',{headers:{authorization:'Bearer '+accessKey},cache:'no-store',credentials:'omit',redirect:'error',signal:AbortSignal.timeout(15000)});\n    if(!response.ok)throw Error(response.status===401?'Access key was not accepted.':'Analytics is unavailable. Try again later.');\n    const data=await response.json();if(generation!==requestGeneration)return;\n    const totals={};for(const row of data.rows){totals[row.dimension]??={};totals[row.dimension][row.value]=(totals[row.dimension][row.value]||0)+row.count;}\n    const count=(d,v)=>totals[d]?.[v]||0;const searches=count('search_outcome','empty')+count('search_outcome','nonempty');\n    el('summary').replaceChildren();\n    for(const [label,value] of [['Tool calls',number(count('calls','tool'))],['Initializations (not people)',number(count('calls','initialize'))],['Empty searches',searches?(100*count('search_outcome','empty')/searches).toFixed(1)+'%':'No searches yet'],['Protocol / tool errors',number(count('outcome','protocol_error')+count('outcome','tool_error'))]]){const a=document.createElement('article');a.append(node('h2',label));const n=node('div',value);n.className='number';a.append(n);el('summary').append(a);}\n    const days=[];for(let i=29;i>=0;i--){const date=new Date();date.setUTCDate(date.getUTCDate()-i);const day=date.toISOString().slice(0,10);days.push([day,data.rows.filter(r=>r.day===day&&r.dimension==='calls'&&r.value==='tool').reduce((sum,r)=>sum+r.count,0)]);}\n    el('daily').replaceChildren(table(days,true));el('breakdowns').replaceChildren();\n    for(const [dimension,title] of [['tool','Tools'],['topic','Search topics'],['item','Requested public items'],['profile','Installation profiles'],['outcome','Outcomes'],['results','Result counts'],['latency','Dispatch latency'],['revision','Catalog revisions']]){const a=document.createElement('article');a.append(node('h2',title));const entries=Object.entries(totals[dimension]||{}).sort((a,b)=>b[1]-a[1]);a.append(entries.length?table(entries):node('p','No recorded activity yet.'));el('breakdowns').append(a);}\n    el('dashboard').hidden=false;el('login').hidden=true;el('token').value='';el('status').textContent='Updated '+new Date().toLocaleTimeString()+'. Counts are activity, not people or satisfaction.';\n  } catch(error){if(generation===requestGeneration)el('status').textContent=error.message;}\n}\nel('unlock').addEventListener('click',()=>{accessKey=el('token').value.trim();el('token').value='';load();});\nel('token').addEventListener('keydown',event=>{if(event.key==='Enter')el('unlock').click();});\nel('refresh').addEventListener('click',load);\nel('logout').addEventListener('click',()=>{++requestGeneration;accessKey='';el('dashboard').hidden=true;el('login').hidden=false;for(const id of ['summary','daily','breakdowns'])el(id).replaceChildren();el('status').textContent='Dashboard locked.';});\n";
+const analyticsNotice = "# Privacy-friendly catalog analytics\n\nThe public MCP endpoint uses aggregate activity to improve catalog coverage and reliability.\nWe do not count unique people or track sessions, repeat visitors, or individual journeys.\n\n## What is stored\n\nDaily UTC counters for initialization and tool calls, fixed tool names, coarse outcomes,\nfixed topic categories, validated public catalog slugs, installation profiles, result-count\nbuckets, dispatch-time buckets and catalog revision. These are separate aggregate totals,\nnot per-request records. Topics are classified with local rules; query text is discarded.\nUnknown item names are recorded only as \"unknown\". Errors never include messages or inputs.\n\nNo raw queries, prompts, request/response bodies, IP addresses (including hashes), user-agent\nstrings, client names, request IDs, credentials, cookies or persistent identifiers are\nwritten to the analytics database. The dashboard has no external assets or browser storage.\n\n## Choice and scope\n\nSend `X-Kujo-Telemetry: off`, `DNT: 1`, or `Sec-GPC: 1` to exclude a request.\nOur production verification requests use the opt-out header. Health checks, notifications,\npings, discovery, dashboard visits and requests rejected before RPC dispatch are not counted.\nUnmarked automated clients cannot be distinguished from other usage without tracking them.\nThe native server does not collect these counters.\n\n## Retention and access\n\nOnly the current and preceding 29 UTC calendar days are visible. Older counters are deleted\non writes and by a daily scheduled cleanup; a cleanup outage can delay physical deletion.\nCloudflare D1 recovery backups may retain deleted aggregate counters under the account's\nTime Travel policy. No raw event data is ever written for recovery to retain.\nDashboard data is restricted to the operator using a high-entropy bearer key, sent only in\nan Authorization header. It is never placed in URLs or persisted in browser storage.\n\nWorker observability logs and traces are disabled to avoid automatically persisting request\nURLs and request context. Cloudflare still processes connection data to deliver and protect\nthe service and supplies infrastructure-level metrics; this notice describes our application\nanalytics, not a promise that the network provider processes no connection information.\n\n## Interpretation\n\nCounters are unsampled and best effort, not billing records. Opt-outs, outages and quotas can\ncause undercounting. Nonempty results are a coverage signal, not proof of relevance or task\nsuccess. No inferred agent rating is presented as human feedback. Topic classification is\napproximate. No automatic feedback collection or cross-request funnel is implemented.\n\nAnalytics runs after dispatch without delaying responses. Database failures do not affect\nMCP results. Operators should check D1 health and cleanup execution separately when counters\nappear stale. No paid-plan upgrade is required or performed by this implementation.\n";
+function analyticsResponse(body, type, status=200) {
+  return new Response(body,{status,headers:{'content-type':type,'cache-control':'no-store',
+    'content-security-policy':"default-src 'none'; script-src 'self'; style-src 'unsafe-inline'; connect-src 'self'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'",
+    'x-content-type-options':'nosniff','referrer-policy':'no-referrer','x-frame-options':'DENY',
+    'x-robots-tag':'noindex, nofollow'}});
+}
+async function analyticsRoute(request, env) {
+  const path = new URL(request.url).pathname;
+  if (!['/analytics','/analytics/app.js','/analytics/data','/telemetry'].includes(path)) return null;
+  if (request.method !== 'GET') return analyticsResponse('Method not allowed','text/plain',405);
+  if (request.headers.has('origin') && request.headers.get('origin') !== 'https://mcp.kujolang.ai') return analyticsResponse('Forbidden','text/plain',403);
+  if (path === '/telemetry') return analyticsResponse(analyticsNotice,'text/plain; charset=utf-8');
+  if (path === '/analytics') return analyticsResponse(analyticsHtml,'text/html; charset=utf-8');
+  if (path === '/analytics/app.js') return analyticsResponse(analyticsJs,'text/javascript; charset=utf-8');
+  if (!await analyticsAuthorized(request,env)) return analyticsResponse('{"error":"Unauthorized"}','application/json',401);
+  if (!env?.ANALYTICS_DB) return analyticsResponse('{"error":"Analytics unavailable"}','application/json',503);
+  try {
+    const result = await env.ANALYTICS_DB.prepare('SELECT day,dimension,value,count FROM daily_metrics WHERE day >= ? ORDER BY day,dimension,value LIMIT 20000').bind(analyticsCutoff()).all();
+    return analyticsResponse(JSON.stringify({rows:result.results,window_days:30,catalog_revision:DATA.source.snapshot_sha256}),'application/json');
+  } catch { return analyticsResponse('{"error":"Analytics unavailable"}','application/json',503); }
+}
+async function analyticsCleanup(env) {
+  if (env?.ANALYTICS_DB) await env.ANALYTICS_DB.prepare('DELETE FROM daily_metrics WHERE day < ?').bind(analyticsCutoff()).run();
+}
+
+export default {scheduled(_event,env,ctx){ctx.waitUntil(analyticsCleanup(env));},async fetch(request,env,ctx){
   const url=new URL(request.url);
   if(url.hostname.toLowerCase()!=='mcp.kujolang.ai')return json(403,{error:'Host is not allowed'});
+  const analyticsPage=await analyticsRoute(request,env);if(analyticsPage)return analyticsPage;
   if(request.headers.has('origin'))return json(403,{error:'Origin header is not allowed'});
   if(url.pathname==='/health'&&request.method==='GET')return json(200,{status:'ok',server:'kujolang-mcp',version:DATA.server_version||'0.1.0',catalog:DATA.counts,catalog_source_version:DATA.source.version,catalog_revision:DATA.source.snapshot_sha256});
   if(!['/mcp','/mcp/v1'].includes(url.pathname))return json(404,{error:'Not found'});
@@ -198,7 +298,7 @@ export default {async fetch(request){
   // Reject those tokens consistently rather than echo a rounded correlation ID.
   if(lexical.nonIntegerId&&object(p))p.id=null;
   const guard=protocolGuard(request,p);if(guard)return json(400,guard);
-  const result=handle(p);if(result===null)return json(202,null);
+  const analyticsStart=performance.now();const result=handle(p);analyticsRecord(request,env,ctx,p,result,performance.now()-analyticsStart);if(result===null)return json(202,null);
   if(object(p)&&!own(p,'id'))return json(400,result);
   let status=200;
   if(request.headers.get('mcp-protocol-version')==='2026-07-28'){

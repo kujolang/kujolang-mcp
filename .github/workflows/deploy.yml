@@ -62,6 +62,8 @@ jobs:
           git diff --exit-code -- dist/worker.js dist/worker.js.sha256 dist/parity-fixtures.json dist/generation.json
           node --check dist/worker.js
           node tests/worker_contract_test.mjs
+          node tests/analytics_test.mjs
+          python3 tests/analytics_storage_test.py
           node tests/hardening_http_test.mjs
           node tests/native_auth_test.mjs
           node benchmarks/worker_benchmark.mjs > worker-benchmark.json
