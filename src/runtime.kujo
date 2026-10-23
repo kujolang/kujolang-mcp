@@ -17,6 +17,7 @@ func protocol_guard(req, payload, strict_headers) {
     version := header_value(req, "MCP-Protocol-Version")
     id := dict_value(payload, "id", null)
     if type(id) != "string" && type(id) != "int" { id = null }
+    if type(id) == "int" && (id > 9007199254740991 || id < -9007199254740991) { id = null }
     if version != "" && index_of(SUPPORTED_PROTOCOL_VERSIONS, version) < 0 { return {"ok": false, "error": {"jsonrpc": "2.0", "id": id, "error": {"code": -32022, "message": "Unsupported MCP protocol version", "data": {"requested": version, "supported": SUPPORTED_PROTOCOL_VERSIONS}}}} }
     params := dict_value(payload, "params", {})
     meta := dict_value(params, "_meta", {})

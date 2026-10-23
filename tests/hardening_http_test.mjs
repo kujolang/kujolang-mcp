@@ -63,6 +63,7 @@ try{
  for(const query of ['é'.repeat(512),'é'.repeat(513),'😀'.repeat(512)])await pair(tool('search_kujo_catalog',{query}));
  await pair(rpc('ping'),{path:'/mcp/v1'});
  await pair(rpc('ping'),{headers:{'mcp-protocol-version':'bad'},status:400});
+ await pair(rpc('ping',{},9007199254740992),{headers:{'mcp-protocol-version':'bad'},status:400});
  for(const method of ['tools/list','tools/call','resources/read','prompts/get']){
   const params={_meta:{'io.modelcontextprotocol/protocolVersion':'2026-07-28','io.modelcontextprotocol/clientInfo':{name:'test',version:'1'},'io.modelcontextprotocol/clientCapabilities':{}}};
   if(method==='tools/call'){params.name='get_kujo_overview';params.arguments={};}if(method==='resources/read')params.uri='kujolang://overview';if(method==='prompts/get'){params.name='choose_kujo_stack';params.arguments={task:'test'};}
