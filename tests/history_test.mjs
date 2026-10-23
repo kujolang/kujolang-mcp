@@ -3,7 +3,7 @@ import {DatabaseSync} from 'node:sqlite';
 import {readFile} from 'node:fs/promises';
 import vm from 'node:vm';
 const db=new DatabaseSync(':memory:');
-for(const file of ['0001_analytics.sql','0002_history.sql'])db.exec(await readFile('migrations/'+file,'utf8'));
+for(const file of ['0001_analytics.sql','0002_history.sql','0003_clients.sql'])db.exec(await readFile('migrations/'+file,'utf8'));
 const D1={prepare(sql){return {bind(...values){return {async all(){return {success:true,results:db.prepare(sql).all(...values)};},async run(){db.prepare(sql).run(...values);return {success:true};},sql,values};}};},async batch(stmts){db.exec('BEGIN');try{for(const s of stmts)db.prepare(s.sql).run(...s.values);db.exec('COMMIT');return [];}catch(e){db.exec('ROLLBACK');throw e;}}};
 const objects=new Map();let corrupt=false;
 const bucket={async put(k,v){objects.set(k,v);},async get(k){return objects.has(k)?{async text(){return corrupt?'corrupt':objects.get(k);}}:null;}};
@@ -28,7 +28,7 @@ p=await page(env,q('dataset=details&from=2024-01-01&to=2024-02-01&topic=agents&t
 let exported=await exportData(env,q('from=2024-01-01&to=2024-12-31'),'json').json();assert.equal(exported.rows.length,1103);
 const csv=await exportData(env,q('from=2024-01-01&to=2024-12-31'),'csv').text();assert.equal(csv.trim().split('\r\n').length,1104);
 put.run('2024-03-02','item','=FORMULA',1);const escaped=await exportData(env,q('from=2024-03-02&to=2024-03-02'),'csv').text();assert(escaped.includes("'=FORMULA"));
-const key=await backup(env,'2024-03-01');const saved=JSON.parse(objects.get(key));assert.equal(saved.totals.length,1100);assert.equal(saved.schema_version,2);
+const key=await backup(env,'2024-03-01');const saved=JSON.parse(objects.get(key));assert.equal(saved.totals.length,1100);assert.equal(saved.schema_version,3);
 // Restore data from a real backup body into a fresh database; verify all values.
 const restored=new DatabaseSync(':memory:');restored.exec(await readFile('migrations/0001_analytics.sql','utf8'));for(const r of saved.totals)restored.prepare('INSERT INTO daily_metrics VALUES(?,?,?,?)').run(r.day,r.dimension,r.value,r.count);assert.equal(restored.prepare('SELECT SUM(count) AS n FROM daily_metrics').get().n,1100*1099/2);
 corrupt=true;await assert.rejects(()=>backup(env,'2024-03-01'));corrupt=false;
@@ -56,3 +56,12 @@ assert.equal(restored.prepare("SELECT SUM(count) AS n FROM daily_metrics WHERE d
 for(let i=0;i<1001;i++)detail.run('2024-01-02','search_kujo_catalog','agents','success','under_10ms',i.toString(16).padStart(64,'0'),'','','1_5',1);
 const bounded=await health(env);assert.equal(bounded.facets.revision.length,1000);assert(bounded.facets_truncated.includes('revision'));
 console.log('Both backup datasets restore independently; facet limits are explicit');
+
+const cp=await page(env,q('dataset=clients&from='+liveDay+'&to='+liveDay+'&tool=search_kujo_catalog'));
+assert.equal(cp.rows.length,1);assert.equal(cp.rows[0].client,'unknown');assert.equal(cp.rows[0].count,1);
+const clientExport=await exportData(env,q('dataset=clients'),'json').json();assert.equal(clientExport.rows.length,1);
+const clientSnapshot=JSON.parse(objects.get(await backup(env,liveDay)));assert.equal(clientSnapshot.clients.length,1);
+restored.exec(await readFile('migrations/0003_clients.sql','utf8'));
+for(const r of clientSnapshot.clients)restored.prepare('INSERT INTO daily_clients VALUES(?,?,?,?,?,?,?,?,?)').run(...['day','client','method','tool','outcome','source','topic','revision','count'].map(k=>r[k]));
+assert.equal(restored.prepare('SELECT SUM(count) AS n FROM daily_clients').get().n,1);
+console.log('Client filtering, complete export and backup restore passed');

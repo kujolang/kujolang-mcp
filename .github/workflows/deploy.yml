@@ -71,6 +71,7 @@ jobs:
           node tests/analytics_test.mjs
           node tests/dashboard_test.mjs
           node tests/history_test.mjs
+          node tests/clients_test.mjs
           python3 tests/analytics_storage_test.py
           node tests/hardening_http_test.mjs
           node tests/native_auth_test.mjs

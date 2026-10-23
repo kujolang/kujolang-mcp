@@ -43,6 +43,24 @@ function analyticsRows(p, result, elapsed) {
   } else if (tool === 'get_catalog_item') rows.push(['item','unknown']);
   return rows;
 }
+// Conservative aliases, not fingerprints. Only fixed labels leave this function.
+const analyticsClientNames = new Map([
+ ['codex','codex'],['openai codex','codex'],['codex-cli','codex'],
+ ['claude code','claude_code'],['claude-code','claude_code'],['claude-code-cli','claude_code'],
+ ['claude duet','claude_duet'],['claude-duet','claude_duet'],
+ ['grok bot','grok_bot'],['grok-bot','grok_bot'],['grokbot','grok_bot'],
+ ['muse','muse'],['pi','pi'],['pi-coding-agent','pi'],['commandcode','commandcode'],['command-code','commandcode']
+]);
+function analyticsClient(request,p) {
+ const name=p.method==='initialize'?p.params?.clientInfo?.name:null;
+ if(typeof name==='string'&&name.trim()&&name.length<=128)
+  return [analyticsClientNames.get(name.trim().toLowerCase())||'other','client_info'];
+ // Generic SDK/browser headers and ambiguous substrings do not identify an app.
+ const ua=request.headers.get('user-agent')||'';
+ if(ua.length<=256){const match=/^([a-z][a-z0-9 -]*?)(?:\/[0-9][a-z0-9.+_-]*)?$/i.exec(ua.trim());
+  const known=match&&analyticsClientNames.get(match[1].toLowerCase());if(known)return [known,'user_agent'];}
+ return ['unknown','none'];
+}
 function analyticsRecord(request, env, ctx, p, result, elapsed) {
   // Caller preferences and synthetic tests are excluded, not tracked as opt-outs.
   if (!env?.ANALYTICS_DB || !ctx?.waitUntil || request.headers.get('dnt') === '1' ||
@@ -60,6 +78,9 @@ function analyticsRecord(request, env, ctx, p, result, elapsed) {
       const detail = [day,pick('tool'),pick('topic') || (analyticsSearchTools.has(pick('tool'))?'unclassified':'not_applicable'),pick('outcome'),pick('latency'),DATA.source.snapshot_sha256,pick('item')||'',pick('profile')||'',pick('results')||'not_applicable'];
       writes.push(env.ANALYTICS_DB.prepare('INSERT INTO daily_details(day,tool,topic,outcome,latency,revision,item,profile,results,count) VALUES(?,?,?,?,?,?,?,?,?,1) ON CONFLICT(day,tool,topic,outcome,latency,revision,item,profile,results) DO UPDATE SET count=count+1').bind(...detail));
     }
+    const [client,source]=analyticsClient(request,p);
+    const values=new Map(rows);
+    writes.push(env.ANALYTICS_DB.prepare('INSERT INTO daily_clients(day,client,method,tool,outcome,source,topic,revision,count) VALUES(?,?,?,?,?,?,?,?,1) ON CONFLICT(day,client,method,tool,outcome,source,topic,revision) DO UPDATE SET count=count+1').bind(day,client,p.method,p.method==='initialize'?'not_applicable':values.get('tool'),values.get('outcome'),source,values.get('topic')||'not_applicable',DATA.source.snapshot_sha256));
     ctx.waitUntil(Promise.resolve(env.ANALYTICS_DB.batch(writes)).catch(()=>{}));
   } catch { /* Analytics must never change an MCP response. */ }
 }

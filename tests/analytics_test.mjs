@@ -26,7 +26,7 @@ const metric=(d,v)=>writes.some(s=>s.values[1]===d&&s.values[2]===v);
 await rpc('search_kujo_catalog',{query:'PRIVATE-QUERY@example.com installation'});
 assert(metric('topic','installation'));assert(metric('tool','search_kujo_catalog'));
 assert(!JSON.stringify(writes).includes('PRIVATE'));
-assert(writes.every(x=>x.values.length===3||x.values.length===9));
+assert(writes.every(x=>x.values.length===3||x.values.length===9||x.values.length===8));
 for(const [header,value] of [['x-kujo-telemetry','off'],['dnt','1'],['sec-gpc','1']]){writes.length=0;await rpc('get_kujo_overview',{}, {[header]:value});assert.equal(writes.length,0);}
 writes.length=0;await rpc('get_catalog_item',{slug:'PRIVATE-ITEM'});assert(metric('item','unknown'));assert(!JSON.stringify(writes).includes('PRIVATE'));
 writes.length=0;await rpc('get_catalog_item',{slug:'kujo'});assert(metric('item','kujo'));

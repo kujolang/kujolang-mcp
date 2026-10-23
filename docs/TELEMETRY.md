@@ -14,7 +14,7 @@ These are incremented counts, not individual event records. Topics are classifie
 rules; query text is discarded. Unknown item names are recorded only as "unknown".
 
 No raw queries, prompts, request/response bodies, IP addresses (including hashes), user-agent
-strings, client names, request IDs, credentials, cookies or persistent identifiers are
+strings, raw client names or versions, request IDs, credentials, cookies or persistent identifiers are
 written to analytics storage or its backups. Errors never include messages or inputs.
 Operational health records contain scheduled-check and backup timestamps/status, not
 individual request timestamps. The dashboard has no external assets or browser storage.
@@ -60,3 +60,16 @@ and installation-profile requests show interest, not downstream installations or
 Topics are approximate. Dispatch latency excludes network and database time. There is no
 automatic satisfaction rating, raw-query collection or cross-request funnel.
 Analytics runs asynchronously; storage failures do not affect MCP responses.
+
+## Calling application categories
+
+We also count fixed client categories (Codex, Claude Code, Claude Duet, Grok Bot,
+Muse, Pi, CommandCode, Other and Unknown). Initialization uses the declared
+`clientInfo.name`; individual tool calls use only a recognizable User-Agent on that
+same request. These are unverified, spoofable application labels, not model or person
+identities. Other means an unrecognized initialization name; missing names and generic
+or unrecognized request headers are Unknown. We discard the original name, version and
+header. No persistent identifier, fingerprint or session linkage is created, and a
+client's initialization never labels its later requests. The same opt-outs, private
+access, long-term aggregate retention and backups apply. Older traffic is not attributed
+retroactively. Client counters overlap existing totals and must not be added to them.

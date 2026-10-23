@@ -17,13 +17,14 @@ const health={state:{details_since:'2020-01-01',heartbeat:new Date().toISOString
 const context=vm.createContext({document,window,Intl,Date,Math,AbortSignal,URLSearchParams,fetch:async(url,options)=>{
  requests.push({url,options});if(pending)return pending;if(fail)return {ok:false,status:401};
  const q=new URL(url,'https://example.com').searchParams;
- let data=url.includes('/health')?health:{rows:q.get('dataset')==='details'?[{day:date,tool:'search_kujo_catalog',topic:'agents',outcome:'empty',latency:'under_10ms',revision:rev,item:'',profile:'',results:'zero',count:2}]:[{day:date,dimension:'calls',value:'tool',count:7}],next_cursor:null};
+ let data=url.includes('/health')?health:{rows:q.get('dataset')==='clients'?[{day:date,client:'codex',method:'tools/call',tool:'search_kujo_catalog',outcome:'empty',source:'user_agent',count:3}]:q.get('dataset')==='details'?[{day:date,tool:'search_kujo_catalog',topic:'agents',outcome:'empty',latency:'under_10ms',revision:rev,item:'',profile:'',results:'zero',count:2}]:[{day:date,dimension:'calls',value:'tool',count:7}],next_cursor:null};
  return {ok:true,async json(){return data;}};
 }});
 vm.runInContext(await readFile('src/cloudflare/vendor/dashboard-bundle.js','utf8'),context);
 await new Promise(resolve=>setImmediate(resolve));
-assert.equal(el('dashboard').hidden,false);assert.equal(el('summary').children[0].children[1].textContent,'7');assert.equal(el('downloads').children.length,6);
+assert.equal(el('dashboard').hidden,false);assert.equal(el('summary').children[0].children[1].textContent,'7');assert.equal(el('downloads').children.length,10);
 assert.equal(requests[0].options.credentials,'same-origin');assert.equal(requests[0].options.redirect,'error');assert.equal(requests[0].options.headers,undefined);
+assert(JSON.stringify(el('clients')).includes('Codex'));assert(JSON.stringify(el('clients')).includes('Unknown'));assert(JSON.stringify(el('clients')).includes('Other'));assert(el('downloads').children.some(n=>n.href?.includes('dataset=clients')));
 el('tool').value='search_kujo_catalog';await el('refresh').listeners.click();assert.equal(el('summary').children[0].children[1].textContent,'2');assert.equal(el('summary').children[2].children[1].textContent,'100.0%');assert(el('downloads').children[0].href.includes('dataset=details'));assert(el('downloads').children[0].href.includes('tool=search_kujo_catalog'));
 el('range').value='all';el('range').listeners.change();assert.equal(el('from').value,'2020-01-01');
 el('range').value='custom';el('from').value='2026-01-10';el('to').value='2026-01-01';await el('refresh').listeners.click();assert(el('status').textContent.includes('valid UTC date'));assert.equal(el('dashboard').hidden,true);

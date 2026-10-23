@@ -1,4 +1,4 @@
-const analyticsKeysFor = dataset => dataset==='totals'?['day','dimension','value']:['day','tool','topic','outcome','latency','revision','item','profile','results'];
+const analyticsKeysFor = dataset => dataset==='totals'?['day','dimension','value']:dataset==='clients'?['day','client','method','tool','outcome','source','topic','revision']:['day','tool','topic','outcome','latency','revision','item','profile','results'];
 const analyticsToday = () => new Date().toISOString().slice(0,10);
 function analyticsDate(value) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(value)||value<'2000-01-01'||value>'9999-12-31'||new Date(value+'T00:00:00Z').toISOString().slice(0,10)!==value) throw new RangeError();
@@ -6,7 +6,7 @@ function analyticsDate(value) {
 }
 function analyticsQuery(params) {
   const q={dataset:params.get('dataset')||'totals',from:analyticsDate(params.get('from')||'2000-01-01'),to:analyticsDate(params.get('to')||analyticsToday()),group:params.get('group')||'day',tool:params.get('tool')||'',topic:params.get('topic')||'',revision:params.get('revision')||'',cursor:params.get('cursor')||''};
-  if (!['totals','details'].includes(q.dataset)||!['day','week','month'].includes(q.group)||q.from>q.to||q.to>analyticsToday()||q.cursor.length>4096) throw new RangeError();
+  if (!['totals','details','clients'].includes(q.dataset)||!['day','week','month'].includes(q.group)||q.from>q.to||q.to>analyticsToday()||q.cursor.length>4096) throw new RangeError();
   if (q.tool&&!/^[a-zA-Z0-9_]{1,128}$/.test(q.tool)||q.topic&&!['not_applicable','unclassified',...analyticsTopics.map(([t])=>t)].includes(q.topic)||q.revision&&!/^[a-f0-9]{64}$/.test(q.revision)) throw new RangeError();
   if(q.dataset==='totals'&&(q.tool||q.topic||q.revision))throw new RangeError();
   return q;
@@ -23,11 +23,11 @@ async function analyticsPage(env,q) {
     if(c.query!==analyticsQueryIdentity(q)||!Array.isArray(c.keys)||c.keys.length!==keys.length||c.keys.some(k=>typeof k!=='string'||k.length>128))throw new RangeError();
     after=' WHERE ('+keys.join(',')+') > ('+keys.map(()=>'?').join(',')+')';bindings.push(...c.keys);
   }
-  const sql=`SELECT * FROM (SELECT ${period} AS day,${rest.join(',')},SUM(count) AS count FROM ${q.dataset==='totals'?'daily_metrics':'daily_details'} WHERE ${where.join(' AND ')} GROUP BY ${period},${rest.join(',')})${after} ORDER BY ${keys.join(',')} LIMIT 501`;
+  const sql=`SELECT * FROM (SELECT ${period} AS day,${rest.join(',')},SUM(count) AS count FROM ${q.dataset==='totals'?'daily_metrics':q.dataset==='clients'?'daily_clients':'daily_details'} WHERE ${where.join(' AND ')} GROUP BY ${period},${rest.join(',')})${after} ORDER BY ${keys.join(',')} LIMIT 501`;
   const result=await env.ANALYTICS_DB.prepare(sql).bind(...bindings).all();
   if(result.success===false)throw Error('database unavailable');
   const rows=result.results.slice(0,500),last=rows.at(-1);
-  return {schema_version:2,dataset:q.dataset,from:q.from,to:q.to,group:q.group,rows,next_cursor:result.results.length>500?btoa(JSON.stringify({query:analyticsQueryIdentity(q),keys:keys.map(k=>last[k])})):null};
+  return {schema_version:3,dataset:q.dataset,from:q.from,to:q.to,group:q.group,rows,next_cursor:result.results.length>500?btoa(JSON.stringify({query:analyticsQueryIdentity(q),keys:keys.map(k=>last[k])})):null};
 }
 function analyticsExport(env,q,format) {
   if(!['csv','json'].includes(format)||q.cursor)throw new RangeError();
@@ -37,7 +37,7 @@ function analyticsExport(env,q,format) {
     if(done)return;
     try{
       const page=await analyticsPage(env,{...q,cursor});let text='';
-      if(!started)text=format==='csv'?keys.join(',')+'\r\n':JSON.stringify({schema_version:2,dataset:q.dataset,from:q.from,to:q.to,group:q.group,exported_at:new Date().toISOString(),live_day_provisional:true}).slice(0,-1)+',"rows":[';
+      if(!started)text=format==='csv'?keys.join(',')+'\r\n':JSON.stringify({schema_version:3,dataset:q.dataset,from:q.from,to:q.to,group:q.group,exported_at:new Date().toISOString(),live_day_provisional:true}).slice(0,-1)+',"rows":[';
       if(format==='csv')text+=page.rows.map(r=>keys.map(k=>quote(r[k])).join(',')+'\r\n').join('');
       else text+=(started&&page.rows.length?',':'')+page.rows.map(r=>JSON.stringify(r)).join(',');
       cursor=page.next_cursor;started=true;
@@ -62,8 +62,8 @@ async function analyticsHealth(env) {
   return {state,...bounds,facets,facets_truncated,database_read:'ok',heartbeat:!state.heartbeat?'not_yet_verified':Date.now()-Date.parse(state.heartbeat)>150*60000?'stale':'recent',backups_configured:Boolean(env.ANALYTICS_BACKUPS),collection_note:'Heartbeat verifies database write/read, not delivery of every request. Quiet traffic and lost writes cannot always be distinguished. Today is provisional; opt-outs are excluded.'};
 }
 async function analyticsBackupDay(env,day) {
-  const payload={schema_version:2,day,totals:[],details:[]};
-  for(const dataset of ['totals','details']){
+  const payload={schema_version:3,day,totals:[],details:[],clients:[]};
+  for(const dataset of ['totals','details','clients']){
     let cursor='';do{const page=await analyticsPage(env,{dataset,from:day,to:day,group:'day',tool:'',topic:'',revision:'',cursor});payload[dataset].push(...page.rows);cursor=page.next_cursor;if(payload[dataset].length>50000)throw Error('backup day too large');}while(cursor);
   }
   const body=JSON.stringify(payload),sha=Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(body))),b=>b.toString(16).padStart(2,'0')).join('');
@@ -91,7 +91,7 @@ async function analyticsMaintenance(env) {
     if(first&&first<=yesterday)await analyticsBackupDay(env,yesterday);
     const key=await analyticsBackupDay(env,today);
     const after=await analyticsState(env);
-    await env.ANALYTICS_BACKUPS.put('v2/index.json',JSON.stringify({schema_version:2,first_day:first||today,archive_through:after.archive_through||null,latest_day:today,latest_key:key,verified_at:now,manifest_pattern:'v2/days/YYYY-MM-DD.json'}));
+    await env.ANALYTICS_BACKUPS.put('v2/index.json',JSON.stringify({schema_version:3,first_day:first||today,archive_through:after.archive_through||null,latest_day:today,latest_key:key,verified_at:now,manifest_pattern:'v2/days/YYYY-MM-DD.json'}));
     await analyticsSetState(env,{backup_success:now,backup_attempt:now,backup_error:'',backup_latest:key});
   }catch{
     await analyticsSetState(env,{backup_attempt:now,backup_error:'Backup failed; previous verified snapshots are retained.'});
