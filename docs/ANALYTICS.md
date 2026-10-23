@@ -2,9 +2,12 @@
 
 - Dashboard: https://mcp.kujolang.ai/analytics
 - Notice: https://mcp.kujolang.ai/telemetry
-- Data: authenticated GET /analytics/data, current plus preceding 29 UTC days.
+- Data: authenticated GET /analytics/data, retained daily history with keyset pagination.
+- Exports: authenticated GET /analytics/export (CSV/JSON, streaming all matching pages).
+- Health: authenticated GET /analytics/health.
 - Storage: `ANALYTICS_DB`, D1 database `kujolang-mcp-analytics`.
-- Cleanup: daily at 03:17 UTC and on each recorded request.
+- Maintenance: hourly at minute17 UTC. No automatic counter deletion.
+- Backups: private R2 bucket kujolang-mcp-analytics-backups, binding ANALYTICS_BACKUPS.
 
 Cloudflare Access protects `/analytics` and all child paths. The self-hosted application
 `Kujolang MCP Analytics` permits only the existing account owner through the configured
@@ -55,16 +58,15 @@ Provision migrations before deploying code that uses new columns. Existing CI de
 only when Cloudflare deployment secrets exist; the authorized local Wrangler login is
 currently the operational deployment path. Never commit credentials to enable CI.
 
-D1 writes increment separate dimension counters atomically in a batch. There is no event
-or session table. Each recorded request causes at most eleven statements including cleanup;
+D1 writes increment historical dimension totals and a bounded detailed aggregate atomically in a batch. There is no event
+or session table. Each recorded request causes at most eleven statements, including its detailed counter;
 monitor D1 limits and costs before changing traffic or plan. This deployment does not upgrade
 the account. Analytics quota exhaustion is an undercount, not an MCP outage. An empty
 successful dashboard query does not prove the write path is healthy: check D1 metrics and
-scheduled execution health in Cloudflare. Retention excludes old rows from reads even if
-physical cleanup is delayed. D1 recovery backups follow the account's Time Travel policy.
+scheduled execution and backup health in Cloudflare. History is retained until explicitly removed. D1 recovery backups follow the account's Time Travel policy.
 
 To disable collection, remove the `ANALYTICS_DB` binding and deploy. MCP remains functional;
-the dashboard returns unavailable. Disable the cron and manage database deletion separately
+the dashboard returns unavailable. Disable the cron and manage database and private backup deletion separately
 if retiring analytics. Never roll back to a configuration that re-enables request logs.
 
 Browser verification: open `/analytics`, complete the owner Access login, check the
@@ -79,3 +81,59 @@ paint engine. Its MIT license and source hashes live in src/cloudflare/vendor/di
 Exact counts remain accessible in tables, zero values have zero-height bars, and no chart
 requests external scripts, fonts or tracking endpoints. Category plots show the top eight
 entries in the same order as their tables; all category rows remain visible in those tables.
+
+## Long-term queries and exports
+
+`from` and `to` are inclusive YYYY-MM-DD UTC dates. `dataset=totals|details`,
+`group=day|week|month` (Monday weeks), optional `tool`, `topic`, `revision` filters for
+`details` only. Invalid dates, filters or cursor/query combinations return400.
+`/analytics/data` returns at most500 grouped rows plus `next_cursor`; continue until null.
+There is no silent row truncation. API keyset order includes every aggregation key.
+`/analytics/export` accepts the same filters plus `format=csv|json`, and streams all pages.
+CSV fields are quoted and spreadsheet-formula prefixes escaped. Downloads are owner-only,
+no-store, with no credential in URLs. Today's data is provisional and can change between
+pages; historical days are normally stable. Stop/retry interrupted downloads.
+
+The dashboard compares the preceding equal-length UTC range, shows partial coverage,
+and offers day/week/month grouping. Tool/topic/revision filters switch to the detailed
+counter dataset. Initializations are not in that dataset and display as unavailable.
+Older totals remain usable without filters; historical details cannot be inferred from
+separate totals. All-history exports include separate totals and details files; preserve
+both without adding their counts together. A dashboard view has a100,000-row memory guard;
+narrow or group a large view, or use streamed downloads which have no such row cap.
+
+## Backups and recovery
+
+The hourly Worker cron writes/reads a health heartbeat, then backs up at most seven pending
+historical days, rechecks yesterday for delayed writes, and snapshots today. Each day contains
+all pages of totals/details (up to50,000 rows per dataset per day; exceeding that fails visibly,
+never truncates). The content SHA256 identifies `v2/objects/YYYY-MM-DD/<sha>.json`;
+read-back must match before publishing `v2/days/YYYY-MM-DD.json`. Earlier content-addressed
+objects survive later snapshots. `v2/index.json` records first day, archive progress and the
+latest provisional object. No lifecycle expiry or public access is configured.
+
+A backup failure records a fixed status message without raw exceptions or request data.
+The last success is preserved. A missing/stale heartbeat (>150 minutes) is a warning;
+"recent" verifies only this scheduled path. Last traffic day can also be old on a quiet
+server. Always check historical archive progress as well as latest snapshot success.
+Do not claim complete collection or an independently audited restore from these indicators.
+Monitor Cloudflare storage/operation quotas and cost; long-term storage is not unbounded free
+capacity. This change does not enable Workers request logs or introduce visitor identifiers.
+
+To recover, download `v2/index.json`, the day manifests you need, and the immutable objects
+they reference using the authenticated Cloudflare account/R2 tooling. Example:
+
+```sh
+npx wrangler@4.151.3 r2 object get kujolang-mcp-analytics-backups/v2/index.json --remote --file index.json
+```
+
+Verify each object's SHA256 against its manifest before using it. The JSON schema is
+`{schema_version:2,day,totals:[{day,dimension,value,count}],details:[{day,tool,topic,outcome,latency,revision,item,profile,results,count}]}`.
+Restore into a fresh database created with migrations0001 and0002, not over the live database.
+Import one selected snapshot per day (never sum snapshots or both totals and details), validate
+row counts/sums, then deliberately switch the binding after review. Recreate operational
+health state rather than presenting old heartbeats as fresh. Local automated tests restore
+backed-up aggregates into fresh SQLite; live deployment verification also checks real R2 content.
+
+Do not roll back to the pre-history Worker: it deletes older totals. Roll forward on a defect,
+or stop collection before any rollback that would restore the old retention behavior.
