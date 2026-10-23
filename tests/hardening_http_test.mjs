@@ -31,6 +31,9 @@ async function pair(body,{headers={},status=200,path='/mcp',compare=true}={}){
 const rpc=(method,params={},id=1)=>({jsonrpc:'2.0',id,method,params});
 try{
  let ready=false;for(let i=0;i<150;i++){try{ready=(await fetch(base+'/health')).status===200}catch{}if(ready)break;if(server.exitCode!==null)throw Error(log);await new Promise(r=>setTimeout(r,100));}assert.ok(ready,log);
+ for(const path of ['/mcp','/mcp/v1'])for(const method of ['GET','PUT','PATCH','DELETE','OPTIONS']){
+  const a=await fetch(base+path,{method}),b=await worker.fetch(new Request('https://mcp.kujolang.ai'+path,{method}));assert.equal(a.status,405);assert.equal(b.status,405);cases++;
+ }
  for(const method of ['initialize','ping','server/discover','tools/list','resources/list','prompts/list','unknown'])await pair(rpc(method));
  for(const version of ['2025-06-18','2026-07-28','unknown'])await pair(rpc('initialize',{protocolVersion:version}));
  const tool=(name,args)=>rpc('tools/call',{name,arguments:args});

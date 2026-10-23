@@ -126,12 +126,15 @@ export func run_server(argv) {
         if !guard["ok"] { return secure_json_response(guard["status"], {"error": guard["message"]}) }
         return secure_json_response(200, {"status": "ok", "server": SERVER_NAME, "version": SERVER_VERSION, "catalog": catalog["counts"], "catalog_source_version": catalog["source"]["version"], "catalog_revision": catalog["source"]["snapshot_sha256"]})
     })
-    server = server.route("GET", "/mcp", func(req) {
+    reject_method := func(req) {
         guard := guard_request(req, policy, auth_token, rate_state, true)
         if has_field(guard, "rate_state") { rate_state = guard["rate_state"] }
         if !guard["ok"] { return secure_json_response(guard["status"], {"error": guard["message"]}) }
         return secure_json_response(405, {"error": "This stateless MCP endpoint accepts JSON-RPC messages with POST"})
-    })
+    }
+    for path in ["/mcp", "/mcp/v1"] {
+        for method in ["GET", "HEAD", "PUT", "PATCH", "DELETE", "OPTIONS"] { server = server.route(method, path, reject_method) }
+    }
     server = server.route("POST", "/mcp", func(req) { return handle_http(req) })
     server = server.route("POST", "/mcp/v1", func(req) { return handle_http(req) })
     print("Kujolang.ai MCP listening on http://" + host + ":" + to_string(port) + "/mcp")
