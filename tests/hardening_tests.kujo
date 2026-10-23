@@ -103,3 +103,17 @@ test "catalog website routes and provenance collections match item identity" {
         assert_true(rejected)
     }
 }
+
+test "tool integer schemas accept whole decimal and exponent values" {
+    from src.registry import call_tool
+    catalog := load_catalog("data/catalog.json")
+    for literal in ["1", "1.0", "1e0", "10e-1"] {
+        result := call_tool(catalog, "list_ecosystem", {"limit":parse_json(literal)})
+        assert_equal(result["result"]["isError"], false)
+        assert_equal(result["result"]["structuredContent"]["returned"], 1)
+    }
+    for literal in ["1.5", "0.0", "201.0", "1e30", "true", "\"1\""] {
+        result := call_tool(catalog, "list_ecosystem", {"limit":parse_json(literal)})
+        assert_true(result["result"]["isError"])
+    }
+}

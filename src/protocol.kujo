@@ -7,7 +7,7 @@ export SUPPORTED_PROTOCOL_VERSIONS := [PROTOCOL_LATEST, PROTOCOL_LEGACY]
 export SERVER_NAME := "kujolang-mcp"
 export SERVER_VERSION := "0.1.0"
 
-func response_id(payload) {
+export func response_id(payload) {
     if has_field(payload, "id") && (type(payload["id"]) == "string" || (type(payload["id"]) == "int" && payload["id"] <= 9007199254740991 && payload["id"] >= -9007199254740991)) { return payload["id"] }
     return null
 }

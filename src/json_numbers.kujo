@@ -1,0 +1,6 @@
+# JSON Schema integers are numeric values, not a particular JSON spelling.
+export func json_integer(value) {
+    if type(value) == "int" { return true }
+    if type(value) != "float" { return false }
+    return value == floor(value)
+}

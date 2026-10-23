@@ -1,3 +1,4 @@
+from src.json_numbers import json_integer
 from src.catalog import has_field, catalog_summary, list_catalog_items, find_catalog_item, search_catalog, search_catalog_prefix
 
 func string_schema(description, values, maximum) {
@@ -99,9 +100,9 @@ func bounded_string_arg(arguments, name, fallback, maximum) {
 
 func int_arg(arguments, name, fallback, minimum, maximum) {
     if has_field(arguments, name) == false { return {"ok": true, "value": fallback, "error": ""} }
-    if type(arguments[name]) != "int" { return {"ok": false, "value": fallback, "error": name + " must be an integer"} }
+    if json_integer(arguments[name]) == false { return {"ok": false, "value": fallback, "error": name + " must be an integer"} }
     if arguments[name] < minimum || arguments[name] > maximum { return {"ok": false, "value": fallback, "error": name + " must be between " + to_string(minimum) + " and " + to_string(maximum) } }
-    return {"ok": true, "value": arguments[name], "error": ""}
+    return {"ok": true, "value": to_int(arguments[name]), "error": ""}
 }
 
 func unknown_argument(arguments, allowed) {
