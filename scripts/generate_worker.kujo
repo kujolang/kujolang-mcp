@@ -39,7 +39,7 @@ for prompt in list_prompts() {
 catalog["registry"] := {"tools": list_tools(), "resources": list_resources(), "prompts": list_prompts(), "resource_contents": resources, "prompt_templates": prompt_templates, "installations": installations, "overview": call_tool(catalog, "get_kujo_overview", {})["result"]["structuredContent"], "discovery": handle_jsonrpc(catalog, {"jsonrpc": "2.0", "id": 1, "method": "server/discover"})["result"]}
 template := read_file(template_path)
 assert(index_of(template, "__KUJO_MCP_DATA__") >= 0, "Worker template is missing the catalog marker")
-telemetry := read_file("src/cloudflare/telemetry.js")
+telemetry := read_file("src/cloudflare/vendor/access-jose.js") + "\n" + read_file("src/cloudflare/telemetry.js")
 telemetry = replace(telemetry, "__ANALYTICS_HTML__", to_json(read_file("src/cloudflare/dashboard.html")))
 telemetry = replace(telemetry, "__ANALYTICS_JS__", to_json(read_file("src/cloudflare/dashboard.js")))
 telemetry = replace(telemetry, "__ANALYTICS_NOTICE__", to_json(read_file("docs/TELEMETRY.md")))

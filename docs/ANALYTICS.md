@@ -12,13 +12,16 @@ One-time PIN identity provider. Sessions last 30 minutes. Cookies are HttpOnly,
 SameSite=Lax, path-scoped, and use the binding cookie. The application is hidden from
 the launcher. Public `/mcp`, `/health`, and `/telemetry` remain unauthenticated.
 
-The Worker independently requires Cloudflare's trusted `ctx.access` with the exact
-`ANALYTICS_ACCESS_AUD` plus the owner email stored in the `ANALYTICS_OWNER_EMAIL` Worker
-secret. It never trusts identity headers or a caller-provided JWT, and fails closed if
-Access context, configuration or identity retrieval is unavailable. The old shared key
-is retired; no bearer fallback exists. The dashboard uses same-origin Access cookies
-and provides Cloudflare sign-out. Email OTP is not phishing-resistant MFA; an owner-managed
-SSO provider with enforced MFA can replace it later without changing application code.
+The Worker independently validates Cloudflare's signed `Cf-Access-Jwt-Assertion` using
+pinned jose: RS256 signature against the fixed team-domain JWKS, exact issuer and
+`ANALYTICS_ACCESS_AUD`, expiry, issued-at, 30-minute maximum age, application token type,
+and owner email stored in the `ANALYTICS_OWNER_EMAIL` Worker secret. It never trusts an
+email header or an unverified JWT. Missing configuration, invalid tokens and key-fetch
+failures fail closed. JWKS requests have a five-second timeout and bounded caching.
+`ctx.access` was absent on this deployed path-based Access route, so it is not required.
+The old shared key is retired; no bearer fallback exists. The dashboard uses same-origin
+Access cookies and provides Cloudflare sign-out. Email OTP is not phishing-resistant MFA;
+an owner-managed SSO provider with enforced MFA can replace it later.
 
 Application ID: `ac8e5a76-1c41-4a2b-b078-94a157c84d90`.
 Owner-only policy ID: `73ce2d96-1426-4271-bbe4-444220442230`.
@@ -30,7 +33,9 @@ logs separately from the aggregate D1 counters. No operator identity is written 
 
 ## Deployment and tests
 
-The Kujo generator embeds the reviewed generic framework template plus
+Run `npm ci --ignore-scripts` and `npm run build:access` to reproduce the pinned jose
+verifier bundle; CI checks its exact contents. Its license is retained beside the bundle.
+The Kujo generator embeds this verifier, the reviewed generic framework template plus
 `src/cloudflare/telemetry.js`, `dashboard.html`, `dashboard.js`, and `docs/TELEMETRY.md`.
 It records the rendered adapter hash in `dist/generation.json`. Never hand-edit dist.
 The framework remains unmodified; its exact upstream commit is in build-inputs.json.

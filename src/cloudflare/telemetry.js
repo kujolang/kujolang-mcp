@@ -61,14 +61,20 @@ function analyticsRecord(request, env, ctx, p, result, elapsed) {
     ctx.waitUntil(Promise.resolve(env.ANALYTICS_DB.batch(writes)).catch(()=>{}));
   } catch { /* Analytics must never change an MCP response. */ }
 }
-async function analyticsAuthorized(env, ctx) {
-  // Only Cloudflare's trusted execution context authenticates this route.
-  // Request headers, JWT strings and the retired bearer key cannot grant access.
-  if (!/^[a-f0-9]{64}$/.test(env?.ANALYTICS_ACCESS_AUD || '') ||
-      !env?.ANALYTICS_OWNER_EMAIL || ctx?.access?.aud !== env.ANALYTICS_ACCESS_AUD) return false;
+// Fixed issuer: no URL or signing key is ever selected from caller input.
+const analyticsIssuer = 'https://dark-lab-27db.cloudflareaccess.com';
+const analyticsKeys = KujoAccessJose.createRemoteJWKSet(new URL(analyticsIssuer+'/cdn-cgi/access/certs'),
+  {timeoutDuration:5000,cooldownDuration:30000,cacheMaxAge:300000});
+async function analyticsAuthorized(request, env) {
+  if (!/^[a-f0-9]{64}$/.test(env?.ANALYTICS_ACCESS_AUD || '') || !env?.ANALYTICS_OWNER_EMAIL) return false;
+  const token = request.headers.get('cf-access-jwt-assertion');
+  if (!token || token.length > 16384) return false;
   try {
-    const identity = await ctx.access.getIdentity();
-    return typeof identity?.email === 'string' && identity.email === env.ANALYTICS_OWNER_EMAIL;
+    const {payload} = await KujoAccessJose.jwtVerify(token,analyticsKeys,{
+      issuer:analyticsIssuer,audience:env.ANALYTICS_ACCESS_AUD,algorithms:['RS256'],
+      requiredClaims:['exp','iat','sub','email'],maxTokenAge:'30 minutes',clockTolerance:5
+    });
+    return payload.type === 'app' && payload.email === env.ANALYTICS_OWNER_EMAIL;
   } catch { return false; }
 }
 const analyticsHtml = __ANALYTICS_HTML__;
@@ -86,7 +92,7 @@ async function analyticsRoute(request, env, ctx) {
   if (request.method !== 'GET') return analyticsResponse('Method not allowed','text/plain',405);
   if (request.headers.has('origin') && request.headers.get('origin') !== 'https://mcp.kujolang.ai') return analyticsResponse('Forbidden','text/plain',403);
   if (path === '/telemetry') return analyticsResponse(analyticsNotice,'text/plain; charset=utf-8');
-  if (!await analyticsAuthorized(env,ctx)) return analyticsResponse('{"error":"Unauthorized"}','application/json',401);
+  if (!await analyticsAuthorized(request,env)) return analyticsResponse('{"error":"Unauthorized"}','application/json',401);
   if (path === '/analytics') return analyticsResponse(analyticsHtml,'text/html; charset=utf-8');
   if (path === '/analytics/app.js') return analyticsResponse(analyticsJs,'text/javascript; charset=utf-8');
   if (!env?.ANALYTICS_DB) return analyticsResponse('{"error":"Analytics unavailable"}','application/json',503);

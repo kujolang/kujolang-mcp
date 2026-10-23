@@ -17,3 +17,5 @@ kennel_packages/
 
 # MCP Registry publisher credentials are local only.
 .mcp_publisher_token
+
+node_modules/

@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
+import {generateKeyPair,exportJWK,SignJWT} from 'jose';
 const source=await readFile('dist/worker.js','utf8');
 const worker=(await import('data:text/javascript;base64,'+Buffer.from(source).toString('base64'))).default;
 const catalog=JSON.parse(await readFile('data/catalog.json','utf8'));
@@ -37,24 +38,45 @@ const failed={...env,ANALYTICS_DB:{...db,batch(){return Promise.reject(Error('PR
 assert.equal((await rpc('get_catalog_item',{slug:'kujo'},{},failed)).result.structuredContent.slug,'kujo');
 const throws={...env,ANALYTICS_DB:{prepare(){throw Error('PRIVATE-FAILURE');}}};
 assert.equal((await rpc('get_catalog_item',{slug:'kujo'},{},throws)).result.structuredContent.slug,'kujo');
-const accessCtx={...ctx,access:{aud:token,async getIdentity(){return {email:'owner@example.com'};}}};
+const {privateKey,publicKey}=await generateKeyPair('RS256');
+const jwk={...await exportJWK(publicKey),kid:'test-key',alg:'RS256',use:'sig'};
+const issuer='https://dark-lab-27db.cloudflareaccess.com';
+const now=Math.floor(Date.now()/1000);
+const sign=(claims={},header={})=>new SignJWT({type:'app',email:'owner@example.com',sub:'owner-id',iss:issuer,aud:[token],iat:now,exp:now+1800,...claims}).setProtectedHeader({alg:'RS256',kid:'test-key',...header}).sign(privateKey);
+let keyFetches=0;const originalFetch=globalThis.fetch;
+globalThis.fetch=async(url)=>{assert.equal(String(url),issuer+'/cdn-cgi/access/certs');keyFetches++;return Response.json({keys:[jwk]});};
+const valid={'cf-access-jwt-assertion':await sign()};
 const get=(path,headers={},e=env,c=ctx)=>worker.fetch(new Request('https://mcp.kujolang.ai'+path,{headers}),e,c);
 for(const path of ['/analytics','/analytics/app.js','/analytics/data']){
  for(const headers of [{},{authorization:'Bearer '+token},{'cf-access-authenticated-user-email':'owner@example.com','cf-access-jwt-assertion':'forged',cookie:'CF_Authorization=forged'}])assert.equal((await get(path,headers)).status,401);
- for(const access of [undefined,{aud:'wrong'},{aud:token,async getIdentity(){return {email:'attacker@example.com'};}},{aud:token,async getIdentity(){throw Error('unavailable');}},{aud:token,async getIdentity(){return {};}}])assert.equal((await get(path,{},env,{...ctx,access})).status,401);
- for(const e of [{}, {...env,ANALYTICS_ACCESS_AUD:''},{...env,ANALYTICS_OWNER_EMAIL:''}])assert.equal((await get(path,{},e,accessCtx)).status,401);
+ for(const e of [{}, {...env,ANALYTICS_ACCESS_AUD:''},{...env,ANALYTICS_OWNER_EMAIL:''}])assert.equal((await get(path,valid,e)).status,401);
 }
+for(const claims of [{email:'attacker@example.com'},{aud:['wrong']},{iss:'https://evil.example'},{exp:now-60},{iat:now-3600},{nbf:now+120},{type:'org'},{exp:undefined},{iat:undefined},{sub:undefined}])assert.equal((await get('/analytics/data',{'cf-access-jwt-assertion':await sign(claims)})).status,401);
+const parts=valid['cf-access-jwt-assertion'].split('.');parts[1]=Buffer.from(JSON.stringify({email:'owner@example.com'})).toString('base64url');
+assert.equal((await get('/analytics/data',{'cf-access-jwt-assertion':parts.join('.')})).status,401);
+assert.equal((await get('/analytics/data',{'cf-access-jwt-assertion':await sign({}, {kid:'unknown'})})).status,401);
+const attackerKeys=await generateKeyPair('RS256');
+const forgedClaims={type:'app',email:'owner@example.com',sub:'owner-id',iss:issuer,aud:[token],iat:now,exp:now+1800};
+const wrongSignature=await new SignJWT(forgedClaims).setProtectedHeader({alg:'RS256',kid:'test-key'}).sign(attackerKeys.privateKey);
+const wrongAlgorithm=await new SignJWT(forgedClaims).setProtectedHeader({alg:'HS256',kid:'test-key'}).sign(new TextEncoder().encode('x'.repeat(32)));
+for(const jwt of [wrongSignature,wrongAlgorithm])assert.equal((await get('/analytics/data',{'cf-access-jwt-assertion':jwt})).status,401);
 assert.equal(reads.length,0);
-const authorized=await get('/analytics/data',{},env,accessCtx);assert.equal(authorized.status,200);assert.equal(authorized.headers.get('cache-control'),'no-store');assert.deepEqual((await authorized.json()).rows,[]);assert.equal(reads.length,1);assert(reads[0].sql.includes('day >= ?'));
-assert.equal((await get('/analytics/data',{}, {...env,ANALYTICS_DB:undefined},accessCtx)).status,503);
-assert.equal((await get('/analytics/data',{origin:'https://evil.example'},env,accessCtx)).status,403);
-assert.equal((await get('/analytics/data',{origin:'https://mcp.kujolang.ai'},env,accessCtx)).status,200);
-const dashboard=await get('/analytics',{},env,accessCtx);assert.equal(dashboard.status,200);assert((await dashboard.text()).includes('not unique people'));assert(dashboard.headers.get('content-security-policy').includes("frame-ancestors 'none'"));
-assert.equal((await get('/analytics/app.js',{},env,accessCtx)).status,200);
+const authorized=await get('/analytics/data',valid);assert.equal(authorized.status,200);assert.equal(authorized.headers.get('cache-control'),'no-store');assert.deepEqual((await authorized.json()).rows,[]);assert.equal(reads.length,1);assert(reads[0].sql.includes('day >= ?'));
+assert.equal((await get('/analytics/data',valid, {...env,ANALYTICS_DB:undefined})).status,503);
+assert.equal((await get('/analytics/data',{...valid,origin:'https://evil.example'})).status,403);
+assert.equal((await get('/analytics/data',{...valid,origin:'https://mcp.kujolang.ai'})).status,200);
+const dashboard=await get('/analytics',valid);assert.equal(dashboard.status,200);assert((await dashboard.text()).includes('not unique people'));assert(dashboard.headers.get('content-security-policy').includes("frame-ancestors 'none'"));
+assert.equal((await get('/analytics/app.js',valid)).status,200);
 assert.equal((await get('/telemetry')).status,200);
+assert.equal(keyFetches,1);
 assert(!JSON.stringify(writes).includes('owner@example.com'));
-assert.equal((await worker.fetch(new Request('https://evil.example/analytics'),env,accessCtx)).status,403);
-assert.equal((await worker.fetch(new Request('https://mcp.kujolang.ai/analytics/data',{method:'POST'}),env,accessCtx)).status,405);
+assert.equal((await worker.fetch(new Request('https://evil.example/analytics'),env,ctx)).status,403);
+assert.equal((await worker.fetch(new Request('https://mcp.kujolang.ai/analytics/data',{method:'POST'}),env,ctx)).status,405);
+// Fresh isolate with no cached JWKS must fail closed during an issuer outage.
+const isolated=(await import('data:text/javascript;base64,'+Buffer.from(source+'\n// new isolate').toString('base64'))).default;
+globalThis.fetch=async()=>{throw Error('issuer unavailable');};
+assert.equal((await isolated.fetch(new Request('https://mcp.kujolang.ai/analytics/data',{headers:valid}),env,ctx)).status,401);
+globalThis.fetch=originalFetch;
 writes.length=0;await worker.scheduled({},env,ctx);await Promise.all(pending.splice(0));assert.equal(writes.length,1);assert(writes[0].sql.startsWith('DELETE'));assert.match(writes[0].values[0],/^\d{4}-\d{2}-\d{2}$/);
 // Deterministic retrieval quality checks, independent of telemetry counters.
 for(const [query,slug] of [['mcp','mcp'],['kennel','kennel'],['rag','rag']]){
