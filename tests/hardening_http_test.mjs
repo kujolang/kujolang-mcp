@@ -37,6 +37,16 @@ try{
  for(const method of ['initialize','ping','server/discover','tools/list','resources/list','prompts/list','unknown'])await pair(rpc(method));
  for(const version of ['2025-06-18','2026-07-28','unknown'])await pair(rpc('initialize',{protocolVersion:version}));
  const tool=(name,args)=>rpc('tools/call',{name,arguments:args});
+ // IDs retain integer-token policy; tool integer schemas accept whole numeric values.
+ for(const literal of ['1.0','1e0','10e-1','-0.0','9007199254740991.0','-9007199254740991.0','9007199254740992.0','1.5'])assert.equal((await pair('{"jsonrpc":"2.0","id":'+literal+',"method":"ping"}')).error.code,-32600);
+ for(const literal of ['1.0','1e0','10e-1','1.5','201.0','1e30'])await pair('{"jsonrpc":"2.0","id":1,"method":"tools/call","params":{"name":"list_ecosystem","arguments":{"limit":'+literal+'}}}');
+ for(const literal of ['1e400','-1e400'])await pair('{"jsonrpc":"2.0","id":1,"method":"ping","params":{"value":'+literal+'}}');
+ for(const query of ['\u0085mcp\u0085','mcp\u0085agent','\ufeffmcp\ufeff','mcp\ufeffagent','😀 mcp'])await pair(tool('search_kujo_catalog',{query}));
+ for(const padding of ['\u0085','\ufeff']){
+  await pair(tool(padding+'get_kujo_overview'+padding,{}));
+  await pair(rpc('resources/read',{uri:padding+'kujolang://overview'+padding}));
+  await pair(rpc('prompts/get',{name:padding+'choose_kujo_stack'+padding,arguments:{task:padding+'test'+padding}}));
+ }
  for(const [name,args] of [
   ['get_kujo_overview',{}],['list_ecosystem',{}],['list_ecosystem',{limit:200}],['search_kujo_catalog',{query:'MCP agent gateway'}],['search_kujo_catalog',{query:'technical:seo  mcp mcp'}],['recommend_kujo_stack',{task:'website technical seo'}],['list_webops_capabilities',{}],['list_webops_capabilities',{query:'technical seo'}],['get_catalog_item',{slug:' Kujo '}],['get_installation',{profile:'ALL'}],['get_installation',{profile:'constructor'}],['get_installation',{profile:null}],['get_kujo_overview',{x:1}],
  ])await pair(tool(name,args));

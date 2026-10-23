@@ -18,8 +18,10 @@ const ok = (p,result) => ({jsonrpc:'2.0',id:idOf(p),result});
 const err = (p,code,message,data) => ({jsonrpc:'2.0',id:idOf(p),error:{code,message,...(data?{data}:{})}});
 const good = d => ({resultType:'complete',content:[{type:'text',text:JSON.stringify(d)}],structuredContent:d,isError:false});
 const bad = message => ({resultType:'complete',content:[{type:'text',text:message}],structuredContent:{error:message},isError:true});
-const norm = value => String(value??'').trim().toLowerCase().replace(/[-_\/.,:;()[\]`]/g,' ').replace(/\s+/g,' ');
-const terms = query => [...new Set(norm(query).split(' ').filter(t=>t.length>=2&&!['a','an','and','for','from','in','of','on','or','the','to','with'].includes(t)))].slice(0,24);
+// Rust/Kujo uses Unicode White_Space (includes NEL, excludes BOM).
+const trimText = value => value.replace(/^\p{White_Space}+|\p{White_Space}+$/gu,'');
+const norm = value => trimText(String(value??'')).toLowerCase().replace(/[-_\/.,:;()[\]`]/g,' ').replace(/\p{White_Space}+/gu,' ');
+const terms = query => [...new Set(norm(query).split(' ').filter(t=>[...t].length>=2&&!['a','an','and','for','from','in','of','on','or','the','to','with'].includes(t)))].slice(0,24);
 const publicItem = item => ({kind:item.kind,slug:item.slug,title:item.title,description:item.description,category:item.category,tags:item.tags,install_command:item.install_command,github_url:item.github_url,website_url:item.website_url,scope_note:item.scope_note,version:item.version,last_updated:item.last_updated,latest_release_url:item.latest_release_url||'',release_status:item.release_status||'',source_path:item.source_path,provenance:'Reviewed committed Kujolang.ai content'});
 // The generator exports the exact native normalization; build no per-request index.
 const index = DATA._search_index;
@@ -40,7 +42,7 @@ const tools = () => DATA.registry.tools;
 const stringArg = (a,k,f,max) => {
   if(!own(a,k))return {value:f};
   if(typeof a[k]!=='string')return {error:k+' must be a string'};
-  const value=a[k].trim();
+  const value=trimText(a[k]);
   // Schema string limits count Unicode code points, as does Kujo.
   if([...value].length>max)return {error:k+' must be at most '+max+' characters'};
   return {value};
@@ -83,7 +85,7 @@ const prompt = (name,a) => {
 const handle = p => {
   if(!object(p))return err({},-32600,'Request must be a JSON object');
   if(p.jsonrpc!=='2.0')return err(p,-32600,'jsonrpc must equal 2.0');
-  if(typeof p.method!=='string'||!p.method.trim())return err(p,-32600,'method must be a non-empty string');
+  if(typeof p.method!=='string'||!trimText(p.method))return err(p,-32600,'method must be a non-empty string');
   if(own(p,'id')&&typeof p.id!=='string'&&!Number.isSafeInteger(p.id))return err({},-32600,'id must be a string or safe integer');
   if(own(p,'params')&&!object(p.params))return err(p,-32602,'params must be an object');
   if(!own(p,'id'))return ['notifications/initialized','notifications/cancelled'].includes(p.method)?null:err({},-32600,'Method requires a request id');
@@ -97,11 +99,11 @@ const handle = p => {
   if(p.method==='prompts/list')return ok(p,{prompts:DATA.registry.prompts});
   if(['tools/call','prompts/get','resources/read'].includes(p.method)){
     const field=p.method==='resources/read'?'uri':'name';
-    if(typeof a[field]!=='string'||!a[field].trim())return err(p,-32602,'params.'+field+' must be a non-empty string');
-    if(p.method==='resources/read'){const u=a.uri.trim();return own(DATA.registry.resource_contents,u)?ok(p,{contents:DATA.registry.resource_contents[u]}):err(p,-32002,'Resource not found: '+u);}
+    if(typeof a[field]!=='string'||!trimText(a[field]))return err(p,-32602,'params.'+field+' must be a non-empty string');
+    if(p.method==='resources/read'){const u=trimText(a.uri);return own(DATA.registry.resource_contents,u)?ok(p,{contents:DATA.registry.resource_contents[u]}):err(p,-32002,'Resource not found: '+u);}
     if(own(a,'arguments')&&!object(a.arguments))return err(p,-32602,'params.arguments must be an object');
-    if(p.method==='tools/call'){const result=tool(a.name.trim(),a.arguments||{});return result?ok(p,result):err(p,-32601,'Tool not found: '+a.name.trim());}
-    const result=prompt(a.name.trim(),a.arguments||{});return result.error?err(p,-32602,result.error):ok(p,result);
+    if(p.method==='tools/call'){const result=tool(trimText(a.name),a.arguments||{});return result?ok(p,result):err(p,-32601,'Tool not found: '+trimText(a.name));}
+    const result=prompt(trimText(a.name),a.arguments||{});return result.error?err(p,-32602,result.error):ok(p,result);
   }
   return err(p,-32601,'Method not found: '+p.method);
 };
@@ -113,7 +115,7 @@ function unicodeScalarString(value){
   }
   return true;
 }
-function jsonTextSafe(text){
+function jsonTextSafe(text, lexical){
   let depth=0,start=0,quoted=false,escaped=false;const seen=[];
   for(let i=0;i<text.length;i++){
     const ch=text[i];
@@ -121,7 +123,12 @@ function jsonTextSafe(text){
       if(escaped)escaped=false;else if(ch==='\\')escaped=true;else if(ch==='"'){
         quoted=false;let j=i+1;while(j<text.length&&/\s/.test(text[j]))j++;
         let key;try{key=JSON.parse(text.slice(start,i+1));if(!unicodeScalarString(key))throw Error('Invalid Unicode scalar');}catch(error){if(text[j]===':')return false;throw error;}
-        if(text[j]===':'){if(!seen[depth]||seen[depth].size>=1024||seen[depth].has(key))return false;seen[depth].add(key);}
+        if(text[j]===':'){
+          if(depth===1&&key==='id'&&lexical){
+            const number=/^[ \t\r\n]*(-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?)/.exec(text.slice(j+1));
+            if(number&&/[.eE]/.test(number[1]))lexical.nonIntegerId=true;
+          }
+          if(!seen[depth]||seen[depth].size>=1024||seen[depth].has(key))return false;seen[depth].add(key);}
       }
     }else if(ch==='"'){quoted=true;start=i;}else if(ch==='{'||ch==='['){if(++depth>MAX_DEPTH)return false;seen[depth]=new Set();}else if(ch==='}'||ch===']'){if(--depth<0)return false;}
   }
@@ -185,8 +192,11 @@ export default {async fetch(request){
   if(request.method!=='POST')return json(405,{error:'This stateless MCP endpoint accepts JSON-RPC messages with POST'});
   if(!acceptsJson(request.headers.get('accept')))return json(406,{error:'Accept must permit application/json'});
   if(!mediaType(request.headers.get('content-type')))return json(415,{error:'Content-Type must be application/json'});
-  let p;
-  try{const body=await readBody(request);if(body.status)return json(body.status,{error:body.error});if(!jsonTextSafe(body.text))return json(400,err({},-32700,'Invalid, duplicate-key, or over-depth JSON'));p=JSON.parse(body.text);}catch{return json(200,err({},-32700,'Parse error'));}
+  let p;const lexical={};
+  try{const body=await readBody(request);if(body.status)return json(body.status,{error:body.error});if(!jsonTextSafe(body.text,lexical))return json(400,err({},-32700,'Invalid, duplicate-key, or over-depth JSON'));p=JSON.parse(body.text,(_key,value)=>{if(typeof value==='number'&&!Number.isFinite(value))throw Error('Non-finite JSON number');return value;});}catch{return json(200,err({},-32700,'Parse error'));}
+  // Kujo's pinned parser distinguishes integer tokens; float IDs can lose precision.
+  // Reject those tokens consistently rather than echo a rounded correlation ID.
+  if(lexical.nonIntegerId&&object(p))p.id=null;
   const guard=protocolGuard(request,p);if(guard)return json(400,guard);
   const result=handle(p);if(result===null)return json(202,null);
   if(object(p)&&!own(p,'id'))return json(400,result);

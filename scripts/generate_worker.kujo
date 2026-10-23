@@ -64,6 +64,7 @@ write_file(path_join(dirname(output_path), "generation.json"), to_json_pretty({
     "generator_sha256": sha256(read_file("scripts/generate_worker.kujo")),
     "registry_source_sha256": sha256(read_file("src/registry.kujo")),
     "catalog_source_sha256": sha256(read_file("src/catalog.kujo")),
+    "json_numbers_source_sha256": sha256(read_file("src/json_numbers.kujo")),
     "protocol_source_sha256": sha256(read_file("src/protocol.kujo")),
     "build_inputs": parse_json(read_file("build-inputs.json")),
     "framework": "kujolang/mcp",

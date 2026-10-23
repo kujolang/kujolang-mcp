@@ -1,6 +1,6 @@
 {
   "build_inputs": {
-    "framework_commit": "91f9abce8e14d75d232c2b719adb39dee008804a",
+    "framework_commit": "8ae321844dece12d5e5f5c33614e7806555ad021",
     "framework_repository": "kujolang/mcp",
     "kujo_version": "v1.9.0",
     "schema_version": 1,
@@ -10,16 +10,17 @@
   "catalog": "data/catalog.json",
   "catalog_content_digest": "103715717d43a694e0dd977bc85863785f5da2df65c2dba25162854cfd87dcb1",
   "catalog_revision": "73bfcb690a45974b706144ca3d528dd39e8718fa356fcecf51df683ea17394ce",
-  "catalog_source_sha256": "00e746450a6f1d0fd7c9f24974d40b5272da6d19be4471e227b9b99dd1f57a90",
+  "catalog_source_sha256": "bfc283133e7f088033dccb410ed12525df944d1b8473e67b2c70c8d235e54405",
   "framework": "kujolang/mcp",
   "framework_template": "src/cloudflare/worker_template.js",
   "generated_from": "Kujo source and reviewed catalog",
   "generator": "kujolang-mcp/scripts/generate_worker.kujo",
-  "generator_sha256": "ed1c75171a0763e2b41aade13bd1762162af408aea8cb8011670b8914fc5351e",
+  "generator_sha256": "57f7e8f274492c5a582538fd2b5c67f1b025de1af5a9df89bf1037423d807610",
   "generator_version": "2",
+  "json_numbers_source_sha256": "3eceb7f0d935b69899501a61e2780d4565e81d29c4600e31632e9b111f21d862",
   "parity_fixtures_sha256": "746512f8750b584eae43d88a4b56c9063309973a5e6a39dc783ad3cb7a34dc2e",
-  "protocol_source_sha256": "ec3103ed9c3a5e0c20c5d9cde9ef461427297ec54077e693d281e40c157b373d",
-  "registry_source_sha256": "8f087bb598e4df5e3acefef4f596da4dda16f383b2f4b664cdce49f340b213bd",
-  "template_sha256": "d6cc2a3f8ab076852ba527e8b42961c702c4c32c5ed84e84fff00f2980b1d7b7",
-  "worker_sha256": "6ce24982a46eb99cf27603f8a63ddf2f824e534fce676b3c43ba489dc466a526"
+  "protocol_source_sha256": "5c952f3d3dca4cabbadbfd11a8f5a30c04860b1d909f27921ec2acd5cb09f83f",
+  "registry_source_sha256": "88081052bc95e1af1d049ecc0c0ec803f6662e9786ffafd8ca23d3ed5996d5f6",
+  "template_sha256": "119698b68d98d2c311dd336321852a9fbd04cad1d326f5cec939c3094bc4ced3",
+  "worker_sha256": "8c7ceb324ecb2c9e49f3b74a77ecac868e0ecfb2bcfc0770bc78f5a4b597060a"
 }
