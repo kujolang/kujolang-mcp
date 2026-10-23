@@ -2,7 +2,8 @@
   "name": "kujolang-mcp-worker-build",
   "private": true,
   "scripts": {
-    "build:access": "esbuild src/cloudflare/access-jose-entry.js --bundle --format=iife --global-name=KujoAccessJose --platform=browser --target=es2022 --minify --legal-comments=inline --outfile=src/cloudflare/vendor/access-jose.js"
+    "build:access": "esbuild src/cloudflare/access-jose-entry.js --bundle --format=iife --global-name=KujoAccessJose --platform=browser --target=es2022 --minify --legal-comments=inline --outfile=src/cloudflare/vendor/access-jose.js",
+    "build:dashboard": "esbuild src/cloudflare/dashboard.js --bundle --format=iife --platform=browser --target=es2022 --minify --legal-comments=inline --outfile=src/cloudflare/vendor/dashboard-bundle.js"
   },
   "devDependencies": {
     "esbuild": "0.28.2",

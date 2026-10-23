@@ -5,6 +5,7 @@ class Element {
  constructor(){this.children=[];this.style={};this.listeners={};this.hidden=true;this.textContent='';}
  append(...nodes){this.children.push(...nodes);}
  replaceChildren(...nodes){this.children=nodes;}
+ getContext(){return {fillRect(){},fillStyle:""};}
  setAttribute(){}
  addEventListener(name,fn){this.listeners[name]=fn;}
 }
@@ -13,7 +14,7 @@ const document={getElementById(id){if(!elements.has(id))elements.set(id,new Elem
 const window=new Element();let reply;const requests=[];
 const context=vm.createContext({document,window,Intl,Date,Math,AbortSignal,fetch:async(url,options)=>{requests.push({url,options});return reply;}});
 reply={ok:true,async json(){return {rows:[{day:new Date().toISOString().slice(0,10),dimension:'calls',value:'tool',count:7}]};}};
-vm.runInContext(await readFile('src/cloudflare/dashboard.js','utf8'),context);
+vm.runInContext(await readFile('src/cloudflare/vendor/dashboard-bundle.js','utf8'),context);
 await new Promise(resolve=>setImmediate(resolve));
 const el=id=>document.getElementById(id);
 assert.equal(el('dashboard').hidden,false);assert.equal(el('summary').children[0].children[1].textContent,'7');

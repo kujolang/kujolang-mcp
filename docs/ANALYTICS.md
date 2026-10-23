@@ -33,8 +33,8 @@ logs separately from the aggregate D1 counters. No operator identity is written 
 
 ## Deployment and tests
 
-Run `npm ci --ignore-scripts` and `npm run build:access` to reproduce the pinned jose
-verifier bundle; CI checks its exact contents. Its license is retained beside the bundle.
+Run `npm ci --ignore-scripts`, `npm run build:access`, and `npm run build:dashboard`
+to reproduce the pinned verifier and dashboard bundles; CI checks its exact contents. Its license is retained beside the bundle.
 The Kujo generator embeds this verifier, the reviewed generic framework template plus
 `src/cloudflare/telemetry.js`, `dashboard.html`, `dashboard.js`, and `docs/TELEMETRY.md`.
 It records the rendered adapter hash in `dist/generation.json`. Never hand-edit dist.
@@ -73,3 +73,9 @@ Access; an authenticated different identity must be denied. Check a narrow viewp
 horizontal overflow. Do not save session cookies or login codes in test artifacts.
 `node tests/dashboard_test.mjs` covers rendering, expiration and stale-response clearing
 with an isolated DOM fixture, without production credentials.
+
+Daily activity, tool, topic and outcome charts use the source-vendored Dither Kit 0.1.1
+paint engine. Its MIT license and source hashes live in src/cloudflare/vendor/dither-kit.
+Exact counts remain accessible in tables, zero values have zero-height bars, and no chart
+requests external scripts, fonts or tracking endpoints. Category plots show the top eight
+entries in the same order as their tables; all category rows remain visible in those tables.

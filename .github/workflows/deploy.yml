@@ -25,7 +25,8 @@ jobs:
         run: |
           npm ci --ignore-scripts
           npm run build:access
-          git diff --exit-code -- src/cloudflare/vendor/access-jose.js
+          npm run build:dashboard
+          git diff --exit-code -- src/cloudflare/vendor/access-jose.js src/cloudflare/vendor/dashboard-bundle.js
       - name: Read reviewed build inputs
         id: inputs
         run: |

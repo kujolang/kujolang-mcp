@@ -41,7 +41,7 @@ template := read_file(template_path)
 assert(index_of(template, "__KUJO_MCP_DATA__") >= 0, "Worker template is missing the catalog marker")
 telemetry := read_file("src/cloudflare/vendor/access-jose.js") + "\n" + read_file("src/cloudflare/telemetry.js")
 telemetry = replace(telemetry, "__ANALYTICS_HTML__", to_json(read_file("src/cloudflare/dashboard.html")))
-telemetry = replace(telemetry, "__ANALYTICS_JS__", to_json(read_file("src/cloudflare/dashboard.js")))
+telemetry = replace(telemetry, "__ANALYTICS_JS__", to_json(read_file("src/cloudflare/vendor/dashboard-bundle.js")))
 telemetry = replace(telemetry, "__ANALYTICS_NOTICE__", to_json(read_file("docs/TELEMETRY.md")))
 # Fail closed on template drift rather than silently drop instrumentation.
 assert(index_of(template, "export default {async fetch(request){") >= 0, "Worker entry point changed")
