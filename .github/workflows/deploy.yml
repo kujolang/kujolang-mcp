@@ -18,7 +18,7 @@ jobs:
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: "24.22.1"
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
       - name: Read reviewed build inputs
@@ -28,13 +28,13 @@ jobs:
           echo "website=$(jq -r '.website_commit' build-inputs.json)" >> "$GITHUB_OUTPUT"
           echo "framework=$(jq -r '.framework_commit' build-inputs.json)" >> "$GITHUB_OUTPUT"
           echo "kujo=$(jq -r '.kujo_version' build-inputs.json)" >> "$GITHUB_OUTPUT"
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
           repository: kujolang/mcp
           ref: ${{ steps.inputs.outputs.framework }}
           path: framework-mcp
-      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
           repository: kujolang/kujolang.ai
@@ -85,7 +85,7 @@ jobs:
           fi
       - name: Deploy production Worker
         if: github.ref == 'refs/heads/main' && steps.deployment.outputs.configured == 'true'
-        uses: cloudflare/wrangler-action@9acf94ace14e7dc412b076f2c5c20b8ce93c79cd # v3
+        uses: cloudflare/wrangler-action@953926a2e2182532811c01a25e53647d93bf07c0 # v4.1.3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
