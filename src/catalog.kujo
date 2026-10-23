@@ -5,9 +5,22 @@ export func has_field(value, name) {
     return false
 }
 
+func safe_text(value) {
+    return regex_match(value, "[\\x00-\\x08\\x0b\\x0c\\x0e-\\x1f\\x7f\\x{200b}-\\x{200f}\\x{202a}-\\x{202e}\\x{2066}-\\x{2069}\\x{feff}]") == false
+}
+
+func validate_text(parent, field, maximum) {
+    assert(has_field(parent, field) && type(parent[field]) == "string", "Catalog field " + field + " must be a string")
+    assert(len(parent[field]) <= maximum && safe_text(parent[field]), "Catalog field exceeds length or contains invisible controls: " + field)
+}
+
 export func load_catalog(path) {
     assert(file_exists(path), "Catalog file not found: " + path)
     parsed := parse_json(read_file(path))
+    return validate_catalog(parsed)
+}
+
+export func validate_catalog(parsed) {
     assert(type(parsed) == "dict", "Catalog must be a JSON object")
     assert(has_field(parsed, "schema_version"), "Catalog schema_version is required")
     assert(parsed["schema_version"] == "kujolang-mcp/catalog-v1", "Unsupported catalog schema")
@@ -18,6 +31,35 @@ export func load_catalog(path) {
     assert(has_field(parsed, "counts") && type(parsed["counts"]) == "dict", "Catalog counts must be an object")
     assert(has_field(parsed, "items") && type(parsed["items"]) == "array", "Catalog items must be an array")
 
+    assert(len(parsed["items"]) <= 50000, "Catalog exceeds maximum item count")
+    for key in keys(parsed) { assert(index_of(["schema_version", "source", "counts", "installation", "items"], key) >= 0, "Unexpected catalog property") }
+    for key in keys(parsed["source"]) { assert(index_of(["name", "url", "repository", "version", "content_sha256", "snapshot_sha256"], key) >= 0, "Unexpected catalog source property") }
+    for key in keys(parsed["counts"]) { assert(index_of(["projects", "skills", "workflows", "total"], key) >= 0, "Unexpected catalog count property") }
+    for key in keys(parsed["installation"]) { assert(index_of(["default_command", "source_command", "all_command", "profile_commands", "profiles"], key) >= 0, "Unexpected installation property") }
+    for field in ["name", "url", "repository", "version", "content_sha256", "snapshot_sha256"] { validate_text(parsed["source"], field, 256) }
+    assert(parsed["source"]["url"] == "https://kujolang.ai", "Unexpected catalog source")
+    assert(parsed["source"]["repository"] == "https://github.com/kujolang/kujolang.ai", "Unexpected catalog repository")
+    for field in ["projects", "skills", "workflows", "total"] { assert(has_field(parsed["counts"], field) && type(parsed["counts"][field]) == "int", "Catalog count must be an integer") }
+    install := parsed["installation"]
+    for field in ["default_command", "all_command", "source_command"] { validate_text(install, field, 4096) }
+    for field in ["profiles", "profile_commands"] { assert(has_field(install, field) && type(install[field]) == "dict", "Installation profiles must be objects") }
+    assert(len(keys(install["profiles"])) <= 32, "Too many installation profiles")
+    for profile in ["core", "agent", "ai", "quality", "showcases", "operating"] {
+        assert(has_field(install["profiles"], profile) && has_field(install["profile_commands"], profile), "Missing installation profile")
+    }
+    for profile in keys(install["profiles"]) {
+        assert(regex_match(profile, "^[a-z][a-z0-9-]{0,31}$"), "Invalid installation profile")
+        validate_text(install["profile_commands"], profile, 4096)
+        members := install["profiles"][profile]
+        assert(type(members) == "array" && len(members) > 0 && len(members) <= 256, "Invalid installation membership")
+        seen_members := {}
+        for member in members {
+            assert(type(member) == "string" && regex_match(member, "^[a-z0-9][a-z0-9-]{0,127}$"), "Invalid installation member")
+            assert(has_field(seen_members, member) == false, "Duplicate installation member")
+            seen_members[member] := true
+        }
+    }
+    for profile in keys(install["profile_commands"]) { assert(has_field(install["profiles"], profile), "Unmatched installation command") }
     search_index := []
     seen_slugs := {}
     projects := 0
@@ -26,11 +68,23 @@ export func load_catalog(path) {
     item_index := 0
     for item in parsed["items"] {
         assert(type(item) == "dict", "Catalog item " + to_string(item_index) + " must be an object")
-        for field in ["kind", "slug", "title", "description", "category", "keywords", "launch_story"] {
-            assert(has_field(item, field) && type(item[field]) == "string", "Catalog item " + to_string(item_index) + " field " + field + " must be a string")
+        for field in ["kind", "slug", "title", "description", "category", "keywords", "launch_story", "install_command", "github_url", "website_url", "scope_note", "version", "last_updated", "source_path"] {
+            validate_text(item, field, 8192)
         }
         assert(has_field(item, "tags") && type(item["tags"]) == "array", "Catalog item " + to_string(item_index) + " tags must be an array")
+        assert(len(item["tags"]) <= 64, "Too many catalog tags")
+        for tag in item["tags"] { assert(type(tag) == "string" && len(tag) <= 128 && safe_text(tag), "Invalid catalog tag") }
+        for field in keys(item) {
+            assert(index_of(["kind", "slug", "title", "description", "category", "keywords", "launch_story", "install_command", "github_url", "website_url", "scope_note", "version", "last_updated", "source_path", "tags", "latest_release_url", "release_status"], field) >= 0, "Unexpected catalog item property")
+        }
+        for field in ["latest_release_url", "release_status"] { if has_field(item, field) { validate_text(item, field, 8192) } }
+        for field in ["github_url", "latest_release_url"] {
+            if has_field(item, field) && item[field] != "" { assert(regex_match(item[field], "^https://github\\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_./%-]+$"), "Unexpected catalog URL") }
+        }
+        assert(starts_with(item["website_url"], "https://kujolang.ai/ecosystem/"), "Unexpected website URL")
+        assert(regex_match(item["source_path"], "^content/(ecosystem|skills|workflows)/[a-z0-9-]+\\.md$"), "Invalid source provenance")
         slug := trim(item["slug"])
+        assert(regex_match(slug, "^[a-z0-9][a-z0-9-]{0,127}$") && slug == item["slug"], "Invalid catalog slug")
         assert(slug != "", "Catalog item " + to_string(item_index) + " slug must not be empty")
         assert(has_field(seen_slugs, slug) == false, "Duplicate catalog slug: " + slug)
         seen_slugs[slug] := true
@@ -154,26 +208,22 @@ func search_catalog_internal(catalog, query, kind, category, slug_prefix, limit)
             }
         }
         if score > 0 {
-            scored = push(scored, {"score": score, "matched_terms": matched_terms, "item": public_item(item)})
+            # Keep only the best K candidates. Strict comparison retains source-order ties.
+            if len(scored) == limit && score <= scored[len(scored) - 1]["score"] { continue }
+            candidate := {"score": score, "matched_terms": matched_terms, "index": idx - 1}
+            remaining := []
+            inserted := false
+            for existing in scored {
+                if inserted == false && score > existing["score"] { remaining = push(remaining, candidate); inserted = true }
+                if len(remaining) < limit { remaining = push(remaining, existing) }
+            }
+            if inserted == false && len(remaining) < limit { remaining = push(remaining, candidate) }
+            scored = remaining
         }
     }
-    # Catalogs are small; deterministic selection avoids external sort helpers.
     output := []
-    while len(output) < limit && len(scored) > 0 {
-        best_index := 0
-        idx := 1
-        while idx < len(scored) {
-            if scored[idx]["score"] > scored[best_index]["score"] { best_index = idx }
-            idx = idx + 1
-        }
-        output = push(output, scored[best_index])
-        remaining := []
-        idx = 0
-        while idx < len(scored) {
-            if idx != best_index { remaining = push(remaining, scored[idx]) }
-            idx = idx + 1
-        }
-        scored = remaining
+    for candidate in scored {
+        output = push(output, {"score": candidate["score"], "matched_terms": candidate["matched_terms"], "item": public_item(catalog["items"][candidate["index"]])})
     }
     return output
 }

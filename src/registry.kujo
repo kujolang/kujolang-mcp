@@ -114,7 +114,7 @@ func unknown_argument(arguments, allowed) {
 func valid_kind(value) { return value == "" || value == "project" || value == "skill" || value == "workflow" }
 
 func tool_success(data) {
-    return {"ok": true, "result": {"resultType": "complete", "content": [{"type": "text", "text": to_json_pretty(data)}], "structuredContent": data, "isError": false}}
+    return {"ok": true, "result": {"resultType": "complete", "content": [{"type": "text", "text": to_json(data)}], "structuredContent": data, "isError": false}}
 }
 
 func tool_error(message) {
@@ -259,7 +259,7 @@ export func read_resource(catalog, uri) {
         data = "# Kujolang MCP safety model\n\nThis server exposes public, bundled catalog data only. Every tool is read-only, deterministic, and idempotent. It accepts no filesystem paths, URLs, shell commands, credentials, or executable content. Installer commands are returned as text and are never executed. Remote operators must terminate TLS at a trusted ingress, validate Origin and Host headers, enable bounded request limits, keep secrets outside source control, and use shared gateway throttling for multi-instance deployments.\n"
     }
     if data == null { return {"ok": false, "error": "Resource not found: " + uri} }
-    text := to_json_pretty(data)
+    text := to_json(data)
     if mime == "text/markdown" { text = data }
     return {"ok": true, "contents": [{"uri": uri, "mimeType": mime, "text": text}]}
 }
@@ -282,6 +282,7 @@ export func get_prompt(name, arguments) {
     task := bounded_string_arg(arguments, "task", "", 1000)
     constraints := bounded_string_arg(arguments, "constraints", "", 2000)
     if !task["ok"] || task["value"] == "" { return {"ok": false, "error": "task is required and must be a non-empty string"} }
+    if !constraints["ok"] { return {"ok": false, "error": constraints["error"]} }
     text := ""
     description := ""
     if name == "choose_kujo_stack" {

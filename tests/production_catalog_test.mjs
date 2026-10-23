@@ -17,7 +17,7 @@ async function compare(method,params){
 }
 for(const method of ['tools/list','resources/list','prompts/list'])await compare(method,{});
 let itemCount=0;
-for(const collection of ['projects','skills','workflows']){const result=await compare('resources/read',{uri:'kujolang://catalog/'+collection});itemCount+=JSON.parse(result.result.contents[0].text).length;}
+for(const collection of ['projects','skills','workflows']){const result=await compare('resources/read',{uri:'kujolang://catalog/'+collection});const payload=JSON.parse(result.result.contents[0].text);itemCount+=(Array.isArray(payload)?payload:payload.items).length;}
 assert.equal(itemCount,catalog.counts.total);
 const overview=await compare('tools/call',{name:'get_kujo_overview',arguments:{}});
 assert.equal(overview.result.structuredContent.runtime_version,catalog.items.find(i=>i.slug==='kujo').version);

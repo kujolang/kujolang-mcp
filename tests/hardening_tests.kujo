@@ -1,0 +1,87 @@
+test_setup {
+    from src.http_security import json_media_type, json_text_safe, guard_request
+    from src.catalog import load_catalog, validate_catalog
+    from src.protocol import handle_jsonrpc
+}
+
+test "JSON media type is exact and case insensitive" {
+    for value in ["application/json", "APPLICATION/JSON", "application/json; charset=utf-8", "application/json; charset=\"utf-8\""] { assert_true(json_media_type(value)) }
+    for value in ["application/json-unexpected", "application/jsonp", "application/json, text/html", "application/json;", "text/json"] { assert_equal(json_media_type(value), false) }
+}
+
+test "JSON lexical bounds reject duplicate decoded keys and excessive depth" {
+    assert_true(json_text_safe("{\"a\":{\"x\":1},\"b\":{\"x\":2}}"))
+    assert_true(json_text_safe("{\"text\":\"[ { \\\" :\",\"a\":1}"))
+    assert_equal(json_text_safe("{\"id\":1,\"id\":2}"), false)
+    assert_equal(json_text_safe("{\"id\":1,\"\\u0069d\":2}"), false)
+    assert_true(json_text_safe(repeat("[", 64) + "0" + repeat("]", 64)))
+    assert_equal(json_text_safe(repeat("[", 65) + "0" + repeat("]", 65)), false)
+}
+
+test "notifications never invoke tool handlers and malformed envelopes are errors" {
+    for payload in [{"jsonrpc":"2.0","method":"tools/call","params":{"name":"get_kujo_overview"}}, {}, {"method":"notifications/initialized"}] {
+        response := handle_jsonrpc({}, payload)
+        assert_true(has_key(response, "error") > 0)
+    }
+    accepted := handle_jsonrpc({}, {"jsonrpc":"2.0","method":"notifications/initialized"})
+    assert_true(accepted["notification"])
+    for id in [null, true, [], {}, 9007199254740992] {
+        response := handle_jsonrpc({}, {"jsonrpc":"2.0","id":id,"method":"ping"})
+        assert_equal(response["error"]["code"], -32600)
+        assert_equal(response["id"], null)
+    }
+}
+
+test "Host grammar and duplicate singleton headers fail closed" {
+    policy := {"max_body": 1024, "allowed_hosts": ["localhost", "::1"], "allowed_origins": [], "auth_enabled": false, "rate_limit_enabled": false, "rate_limit": 10}
+    state := {"window":"", "buckets":{}}
+    for host in ["localhost:evil", "localhost:0", "localhost:65536", "localhost,evil", "[::1]evil", "localhost:80:90"] {
+        assert_equal(guard_request({"headers":{"Host":host}},policy,"",state,true)["status"],403)
+    }
+    assert_true(guard_request({"headers":{"Host":"[::1]:8941"}},policy,"",state,true)["ok"])
+    assert_equal(guard_request({"headers":{"Host":"localhost"},"header_values":{"host":["localhost","evil"]}},policy,"",state,true)["status"],400)
+}
+
+test "catalog mutation matrix rejects malformed registry fields even with fresh digests" {
+    original := parse_json(read_file("data/catalog.json"))
+    for field in ["install_command", "source_path", "scope_note", "github_url", "version", "last_updated"] {
+        mutated := parse_json(to_json(original))
+        mutated["items"][0][field] := []
+        mutated["source"]["content_sha256"] := sha256(to_json(mutated["items"]))
+        mutated["source"]["snapshot_sha256"] := sha256(to_json({"items":mutated["items"],"installation":mutated["installation"]}))
+        rejected := false
+        try { validate_catalog(mutated) } except err { rejected = true }
+        assert_true(rejected)
+    }
+    for value in ["javascript:alert(1)", "https://github.com.evil/x", "https://github.com/a/b\nX"] {
+        mutated := parse_json(to_json(original))
+        mutated["items"][0]["github_url"] := value
+        mutated["source"]["content_sha256"] := sha256(to_json(mutated["items"]))
+        mutated["source"]["snapshot_sha256"] := sha256(to_json({"items":mutated["items"],"installation":mutated["installation"]}))
+        rejected := false
+        try { validate_catalog(mutated) } except err { rejected = true }
+        assert_true(rejected)
+    }
+}
+
+test "rate bucket cardinality and window rollover are bounded" {
+    policy := {"max_body":1024,"allowed_hosts":["localhost"],"allowed_origins":[],"auth_enabled":false,"rate_limit_enabled":true,"rate_limit":1}
+    buckets := {}
+    idx := 0
+    while idx < 1024 { buckets[to_string(idx)] := 1; idx = idx + 1 }
+    state := {"window":format_date(now(), "YYYY-MM-DD HH:mm"),"buckets":buckets}
+    assert_equal(guard_request({"headers":{"Host":"localhost"},"remote_addr":"new"},policy,"",state,true)["status"],429)
+    state["window"] := "expired"
+    fresh := guard_request({"headers":{"Host":"localhost"},"remote_addr":"new"},policy,"",state,true)
+    assert_true(fresh["ok"])
+    assert_equal(len(keys(fresh["rate_state"]["buckets"])),1)
+}
+
+
+test "authentication scheme case cannot split quota buckets" {
+    policy := {"max_body":1024,"allowed_hosts":["localhost"],"allowed_origins":[],"auth_enabled":true,"rate_limit_enabled":true,"rate_limit":1}
+    first := guard_request({"headers":{"Host":"localhost","Authorization":"Bearer local-test"}},policy,"local-test",{"window":"","buckets":{}},true)
+    second := guard_request({"headers":{"Host":"localhost","Authorization":"bearer local-test"}},policy,"local-test",first["rate_state"],true)
+    assert_true(first["ok"])
+    assert_equal(second["status"],429)
+}
