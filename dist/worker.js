@@ -105,6 +105,14 @@ const handle = p => {
   }
   return err(p,-32601,'Method not found: '+p.method);
 };
+function unicodeScalarString(value){
+  for(let i=0;i<value.length;i++){
+    const unit=value.charCodeAt(i);
+    if(unit>=0xd800&&unit<=0xdbff){const next=value.charCodeAt(++i);if(!(next>=0xdc00&&next<=0xdfff))return false;}
+    else if(unit>=0xdc00&&unit<=0xdfff)return false;
+  }
+  return true;
+}
 function jsonTextSafe(text){
   let depth=0,start=0,quoted=false,escaped=false;const seen=[];
   for(let i=0;i<text.length;i++){
@@ -112,7 +120,8 @@ function jsonTextSafe(text){
     if(quoted){
       if(escaped)escaped=false;else if(ch==='\\')escaped=true;else if(ch==='"'){
         quoted=false;let j=i+1;while(j<text.length&&/\s/.test(text[j]))j++;
-        if(text[j]===':'){const key=JSON.parse(text.slice(start,i+1));if(!seen[depth]||seen[depth].size>=1024||seen[depth].has(key))return false;seen[depth].add(key);}
+        let key;try{key=JSON.parse(text.slice(start,i+1));if(!unicodeScalarString(key))throw Error('Invalid Unicode scalar');}catch(error){if(text[j]===':')return false;throw error;}
+        if(text[j]===':'){if(!seen[depth]||seen[depth].size>=1024||seen[depth].has(key))return false;seen[depth].add(key);}
       }
     }else if(ch==='"'){quoted=true;start=i;}else if(ch==='{'||ch==='['){if(++depth>MAX_DEPTH)return false;seen[depth]=new Set();}else if(ch==='}'||ch===']'){if(--depth<0)return false;}
   }
@@ -122,13 +131,14 @@ async function readBody(request){
   const declared=request.headers.get('content-length');
   if(declared!==null&&!/^\d+$/.test(declared))return {status:400,error:'Invalid Content-Length'};
   if(declared!==null&&Number(declared)>MAX_BODY)return {status:413,error:'Request body exceeds configured maximum'};
-  if(!request.body)return {text:''};
+  if(!request.body)return declared!==null&&Number(declared)!==0?{status:400,error:'Content-Length mismatch'}:{text:''};
   const reader=request.body.getReader(),chunks=[];let bytes=0;
   try{
-    while(true){const {done,value}=await reader.read();if(done)break;bytes+=value.byteLength;if(bytes>MAX_BODY){await reader.cancel();return {status:413,error:'Request body exceeds configured maximum'};}chunks.push(value);}
+    while(true){const {done,value}=await reader.read();if(done)break;bytes+=value.byteLength;if(bytes>MAX_BODY){// Cancellation is best-effort; an untrusted stream must not delay rejection.
+      void reader.cancel().catch(()=>{});return {status:413,error:'Request body exceeds configured maximum'};}chunks.push(value);}
     if(declared!==null&&Number(declared)!==bytes)return {status:400,error:'Content-Length mismatch'};
     const buffer=new Uint8Array(bytes);let offset=0;for(const chunk of chunks){buffer.set(chunk,offset);offset+=chunk.length;}
-    return {text:new TextDecoder('utf-8',{fatal:true}).decode(buffer)};
+    return {text:new TextDecoder('utf-8',{fatal:true,ignoreBOM:true}).decode(buffer)};
   }finally{reader.releaseLock();}
 }
 const mediaType = value => /^application\/json([ \t]*;[ \t]*[a-z0-9!#$%&'*+.^_`|~-]+[ \t]*=[ \t]*([a-z0-9!#$%&'*+.^_`|~-]+|"[^"\r\n]*"))*[ \t]*$/i.test(value||'');
@@ -137,15 +147,25 @@ function acceptsJson(value){
   let specificity=-1,accepted=false;
   for(const part of value.toLowerCase().split(',')){
     const [media,...parameters]=part.split(';'),score=['*/*','application/*','application/json'].indexOf(media.trim());
-    if(score>=0&&score>=specificity){specificity=score;accepted=!parameters.some(p=>/^q[ \t]*=[ \t]*0(\.0*)?$/.test(p.trim()));}
+    if(score<0)continue;
+    let permitted=true,seenQuality=false;
+    for(const parameter of parameters){
+      const field=parameter.trim();
+      if(field.split('=')[0].trim()==='q'){
+        if(seenQuality||!/^q[ \t]*=[ \t]*(0(\.[0-9]{0,3})?|1(\.0{0,3})?)$/.test(field))return false;
+        seenQuality=true;if(/^0(\.0*)?$/.test(field.split('=')[1].trim()))permitted=false;
+      }
+    }
+    if(score>specificity){specificity=score;accepted=permitted;}else if(score===specificity)accepted ||= permitted;
   }
   return accepted;
 }
 function protocolGuard(request,p){
   const version=request.headers.get('mcp-protocol-version')||'';
   if(version&&!VERSIONS.includes(version))return err(p,-32022,'Unsupported MCP protocol version',{requested:version,supported:VERSIONS});
-  const bodyVersion=p?.params?._meta?.['io.modelcontextprotocol/protocolVersion']||'';
-  if((bodyVersion&&bodyVersion!==version)||(version==='2026-07-28'&&bodyVersion!==version))return err(p,-32020,'MCP-Protocol-Version header must match request metadata');
+  const meta=own(p,'params')&&own(p.params,'_meta')?p.params._meta:null;
+  const bodyVersion=own(meta,'io.modelcontextprotocol/protocolVersion')?meta['io.modelcontextprotocol/protocolVersion']:'';
+  if((bodyVersion!==''&&bodyVersion!==version)||(version==='2026-07-28'&&bodyVersion!==version))return err(p,-32020,'MCP-Protocol-Version header must match request metadata');
   if(version==='2026-07-28'){
     if(request.headers.get('mcp-method')!==p?.method)return err(p,-32020,'Mcp-Method header must match the JSON-RPC method');
     if(['tools/call','prompts/get','resources/read'].includes(p.method)){

@@ -1,6 +1,6 @@
 {
   "build_inputs": {
-    "framework_commit": "1654f84888ae01bfee58c105b15d19bee7fefc9a",
+    "framework_commit": "91f9abce8e14d75d232c2b719adb39dee008804a",
     "framework_repository": "kujolang/mcp",
     "kujo_version": "v1.9.0",
     "schema_version": 1,
@@ -20,6 +20,6 @@
   "parity_fixtures_sha256": "746512f8750b584eae43d88a4b56c9063309973a5e6a39dc783ad3cb7a34dc2e",
   "protocol_source_sha256": "ec3103ed9c3a5e0c20c5d9cde9ef461427297ec54077e693d281e40c157b373d",
   "registry_source_sha256": "8f087bb598e4df5e3acefef4f596da4dda16f383b2f4b664cdce49f340b213bd",
-  "template_sha256": "12255a8b2b3f4687fc7c7c59899dbae5c9b18ba4f3ffd4ccc0a5075785076c61",
-  "worker_sha256": "0f6f6b3c513ccf97eed6c445a594b9bd8203f706fba2e4ae49caef66ab32cc7f"
+  "template_sha256": "d6cc2a3f8ab076852ba527e8b42961c702c4c32c5ed84e84fff00f2980b1d7b7",
+  "worker_sha256": "6ce24982a46eb99cf27603f8a63ddf2f824e534fce676b3c43ba489dc466a526"
 }

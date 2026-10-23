@@ -147,16 +147,23 @@ export func accepts_json(value) {
     for part in split(to_lower(value), ",") {
         fields := split(part, ";")
         media := trim(fields[0])
-        score := -1
-        if media == "*/*" { score = 0 }
-        if media == "application/*" { score = 1 }
-        if media == "application/json" { score = 2 }
-        if score >= 0 && score >= specificity {
-            specificity = score
-            accepted = true
-            for parameter in fields {
-                if regex_match(trim(parameter), "^q[ \\t]*=[ \\t]*0(\\.0*)?$") { accepted = false }
+        score := index_of(["*/*", "application/*", "application/json"], media)
+        if score >= 0 {
+            permitted := true
+            seen_quality := false
+            idx := 1
+            while idx < len(fields) {
+                parameter := trim(fields[idx])
+                pair := split(parameter, "=")
+                if trim(pair[0]) == "q" {
+                    if seen_quality || regex_match(parameter, "^q[ \t]*=[ \t]*(0(\\.[0-9]{0,3})?|1(\\.0{0,3})?)$") == false { return false }
+                    seen_quality = true
+                    if regex_match(trim(pair[1]), "^0(\\.0*)?$") { permitted = false }
+                }
+                idx = idx + 1
             }
+            if score > specificity { specificity = score; accepted = permitted }
+            else if score == specificity { accepted = accepted || permitted }
         }
     }
     return accepted

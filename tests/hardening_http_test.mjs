@@ -48,7 +48,9 @@ try{
   await pair(tool('list_ecosystem',{limit:value}));await pair(tool('search_kujo_catalog',{query:'mcp',category:value}));await pair(tool('recommend_kujo_stack',{task:'mcp',limit:value}));await pair(tool('list_webops_capabilities',{limit:value}));
  }
  for(const payload of [null,[],[rpc('ping')],rpc('ping',[]),rpc('ping',null),rpc('ping',{},null),rpc('ping',{},true),rpc('ping',{},[]),rpc('ping',{},{}),rpc('ping',{},9007199254740992)])await pair(payload,{compare:false});
+ for(const accept of ['application/json;q=garbage','application/json;q=-1','application/json;q=2','application/json;q=0.0000','application/json;q=0;q=1'])await pair(rpc('ping'),{headers:{accept},status:406});
  for(const accept of ['text/html','application/json;q=0','application/json;q=0, */*'])await pair(rpc('ping'),{headers:{accept},status:406});
+ for(const accept of ['application/json;q=0.001','application/json;q=1.000','*/*;q=0, application/json;q=0.5','application/json;q=0, application/json;q=1','application/json;q=1, application/json;q=0'])await pair(rpc('ping'),{headers:{accept}});
  for(const id of ['',0,-1,9007199254740991])await pair(rpc('ping',{},id));
  for(const payload of [{},{method:'ping'},{jsonrpc:'2.0',method:'tools/call',params:{name:'get_kujo_overview'}},{jsonrpc:'2.0',method:'notifications/initialized',params:[]}])await pair(payload,{status:400});
  await pair({jsonrpc:'2.0',method:'notifications/initialized'},{status:202});
@@ -58,6 +60,7 @@ try{
  for(const type of ['application/json-unexpected','application/json;','application/json, text/html'])await pair(rpc('ping'),{headers:{'content-type':type},status:415});
  for(const type of ['APPLICATION/JSON','application/json; charset=utf-8','application/json; charset="utf-8"'])await pair(rpc('ping'),{headers:{'content-type':type}});
  await pair(rpc('ping'),{headers:{origin:'https://evil.example'},status:403});
+ for(const text of ['\ufeff'+JSON.stringify(rpc('ping')), '{"jsonrpc":"2.0","id":"\\ud800","method":"ping"}', '{"jsonrpc":"2.0","id":"\\udc00","method":"ping"}', '{"jsonrpc":"2.0","id":"\\ud800\\udc00","method":"ping"}'])await pair(text);
  await pair(Buffer.from([123,34,120,34,58,34,255,34,125]));
  await pair(rpc('ping',Object.fromEntries(Array.from({length:1024},(_,i)=>['k'+i,i]))));
  await pair(rpc('ping',Object.fromEntries(Array.from({length:1025},(_,i)=>['k'+i,i]))),{status:400});
@@ -65,6 +68,7 @@ try{
  await pair(JSON.stringify(rpc('ping',{text:'é'.repeat(66000)})),{status:413});
  for(const query of ['é'.repeat(512),'é'.repeat(513),'😀'.repeat(512)])await pair(tool('search_kujo_catalog',{query}));
  await pair(rpc('ping'),{path:'/mcp/v1'});
+ for(const version of [false,0,null,[],{}])await pair(rpc('ping',{_meta:{'io.modelcontextprotocol/protocolVersion':version}}),{status:400});
  await pair(rpc('ping'),{headers:{'mcp-protocol-version':'bad'},status:400});
  await pair(rpc('ping',{},9007199254740992),{headers:{'mcp-protocol-version':'bad'},status:400});
  for(const method of ['tools/list','tools/call','resources/read','prompts/get']){
