@@ -1,50 +1,54 @@
 import {paintColumn} from './vendor/dither-kit/dither-paint.ts';
-let requestGeneration = 0;
-const el = id => document.getElementById(id);
-const number = n => new Intl.NumberFormat().format(n);
-const node = (tag,text) => {const n=document.createElement(tag);n.textContent=text;return n;};
-function table(entries,bars=false) {
-  const t=document.createElement('table');const max=Math.max(1,...entries.map(([,v])=>v));
-  const head=document.createElement('tr');head.append(node('th','Category'),node('th','Calls'));t.append(head);
-  for(const [key,value] of entries){const tr=document.createElement('tr');const label=node('td',key);if(bars){const bar=document.createElement('div');bar.className='bar';bar.style.width=(value/max*100)+'%';label.append(bar);}tr.append(label,node('td',number(value)));t.append(tr);}
-  return t;
+let requestGeneration=0,healthInfo=null;
+const el=id=>document.getElementById(id);
+const number=n=>new Intl.NumberFormat().format(n);
+const node=(tag,text)=>{const n=document.createElement(tag);n.textContent=text;return n;};
+const day=value=>new Date(value).toISOString().slice(0,10);
+const today=()=>day(Date.now());
+const shift=(value,n)=>day(Date.parse(value+'T00:00:00Z')+n*86400000);
+function table(entries){const t=document.createElement('table');const head=document.createElement('tr');head.append(node('th','Category'),node('th','Calls'));t.append(head);for(const [k,v] of entries){const r=document.createElement('tr');r.append(node('td',k),node('td',number(v)));t.append(r);}return t;}
+function chart(entries,label){
+ const plot=document.createElement('div');plot.className='daily-chart';plot.setAttribute('role','img');plot.setAttribute('aria-label',label+' Exact counts follow.');
+ const peak=Math.max(1,...entries.map(([,v])=>v));
+ for(const [name,value] of entries){const bar=document.createElement('canvas');bar.className='day-bar';bar.width=12;bar.height=80;bar.style.height=(value/peak*100)+'%';bar.title=name+': '+number(value)+' calls';const ctx=bar.getContext('2d');if(ctx&&value>0)for(let x=0;x<12;x++)paintColumn(ctx,x,0,80,{fill:[220,230,224],line:[220,230,224],star:[255,255,255]},{variant:'gradient',intensity:0,dim:1,stacked:false});plot.append(bar);}return plot;
 }
-function chart(entries,label) {
-  const plot=document.createElement('div');plot.className='daily-chart';plot.setAttribute('role','img');plot.setAttribute('aria-label',label+' Exact counts are available in the table.');
-  const peak=Math.max(1,...entries.map(([,value])=>value));
-  for(const [name,value] of entries){
-    const bar=document.createElement('canvas');bar.className='day-bar';bar.width=12;bar.height=80;
-    bar.style.height=(value/peak*100)+'%';bar.title=name+': '+number(value)+' calls';
-    const painter=bar.getContext('2d');
-    if(painter&&value>0)for(let x=0;x<12;x++)paintColumn(painter,x,0,80,{fill:[220,230,224],line:[220,230,224],star:[255,255,255]},{variant:'gradient',intensity:0,dim:1,stacked:false});
-    plot.append(bar);
-  }
-  return plot;
+async function getJson(url){const r=await fetch(url,{cache:'no-store',credentials:'same-origin',redirect:'error',signal:AbortSignal.timeout(30000)});if(!r.ok)throw Error(r.status===401?'Login expired.':'Request failed.');return r.json();}
+async function pages(q,generation){const rows=[];let cursor='';do{const data=await getJson('/analytics/data?'+new URLSearchParams({...q,...(cursor?{cursor}:{})}));if(generation!==requestGeneration)throw Error('Cancelled');rows.push(...data.rows);cursor=data.next_cursor;if(rows.length>100000)throw Error('Too much detail for one view. Narrow the date range; full downloads remain available.');}while(cursor);return rows;}
+function totals(rows,detailed){const result={};const add=(d,v,n)=>{result[d]??={};result[d][v]=(result[d][v]||0)+n;};for(const r of rows){if(!detailed){add(r.dimension,r.value,r.count);continue;}add('calls','tool',r.count);for(const d of ['tool','topic','outcome','latency','revision','item','profile','results'])if(r[d]&&r[d]!=='not_applicable')add(d,r[d],r.count);if(r.topic!=='not_applicable'&&['success','empty'].includes(r.outcome))add('search_outcome',r.outcome==='empty'?'empty':'nonempty',r.count);}return result;}
+function presets(){const range=el('range').value;if(range==='custom')return;el('to').value=today();el('from').value=range==='all'?(healthInfo?.first_day||today()):shift(today(),1-Number(range));}
+function options(field,values){const selected=el(field).value;values=[...values];if(selected&&!values.includes(selected))values.push(selected);el(field).replaceChildren();const all=node('option','All '+(field==='revision'?'revisions':field+'s'));all.value='';el(field).append(all);for(const v of values){const option=node('option',v);option.value=v;el(field).append(option);}el(field).value=values.includes(selected)?selected:'';}
+function clear(){el('dashboard').hidden=true;for(const id of ['summary','daily','breakdowns','details','health','downloads'])el(id).replaceChildren();}
+function period(value,group){if(group==='month')return value.slice(0,7)+'-01';if(group==='week'){const weekday=new Date(value+'T00:00:00Z').getUTCDay();return shift(value,-((weekday+6)%7));}return value;}
+function timeSeries(rows,q,detailed){const counts=new Map();for(const r of rows)if(detailed||r.dimension==='calls'&&r.value==='tool')counts.set(r.day,(counts.get(r.day)||0)+r.count);const entries=[];let current=period(q.from,q.group);while(current<=q.to){entries.push([current,counts.get(current)||0]);current=q.group==='month'?day(Date.UTC(Number(current.slice(0,4)),Number(current.slice(5,7)),1)):shift(current,q.group==='week'?7:1);if(entries.length>20000)break;}return entries;}
+function downloads(q,detailed){const box=el('downloads');box.replaceChildren();const add=(label,query,format)=>{const a=node('a',label);a.className='download';a.href='/analytics/export?'+new URLSearchParams({...query,format});a.setAttribute('download','');box.append(a);};for(const f of ['csv','json'])add('Applied view '+f.toUpperCase(),{...q,dataset:detailed?'details':'totals'},f);for(const dataset of ['totals','details'])for(const f of ['csv','json'])add('All '+dataset+' '+f.toUpperCase(),{dataset,from:'2000-01-01',to:today(),group:'day'},f);}
+function detailTables(rows){const tools={},topics={};for(const r of rows){const t=tools[r.tool]??={calls:0,errors:0,empty:0,slow:0};t.calls+=r.count;if(['tool_error','protocol_error'].includes(r.outcome))t.errors+=r.count;if(r.outcome==='empty')t.empty+=r.count;if(r.latency==='200ms_plus')t.slow+=r.count;if(r.topic!=='not_applicable'){const v=topics[r.topic]??={calls:0,empty:0};if(['success','empty'].includes(r.outcome)){v.calls+=r.count;if(r.outcome==='empty')v.empty+=r.count;}}}
+ const box=el('details');box.replaceChildren();if(!rows.length){box.append(node('p','No detailed activity in this selection. Older totals may still exist.'));return;}
+ for(const [title,data] of [['Tools',tools],['Topics',topics]]){box.append(node('h3',title));for(const [name,v] of Object.entries(data).sort((a,b)=>b[1].calls-a[1].calls)){box.append(node('p',name+' · '+number(v.calls)+' calls · '+(v.calls?(100*v.empty/v.calls).toFixed(1):'0')+'% empty'+('errors'in v?' · '+number(v.errors)+' errors · '+number(v.slow)+' at 200ms+':'')));}}
 }
-async function load() {
-  const generation=++requestGeneration;
-  el('status').textContent='Loading aggregate counters…';
-  try {
-    const response=await fetch('/analytics/data',{cache:'no-store',credentials:'same-origin',redirect:'error',signal:AbortSignal.timeout(15000)});
-    if(!response.ok)throw Error(response.status===401?'Your login expired. Sign in again.':'Analytics is unavailable. Try again later.');
-    const data=await response.json();if(generation!==requestGeneration)return;
-    const totals={};for(const row of data.rows){totals[row.dimension]??={};totals[row.dimension][row.value]=(totals[row.dimension][row.value]||0)+row.count;}
-    const count=(d,v)=>totals[d]?.[v]||0;const searches=count('search_outcome','empty')+count('search_outcome','nonempty');
-    el('summary').replaceChildren();
-    for(const [label,value] of [['Tool calls',number(count('calls','tool'))],['Initializations (not people)',number(count('calls','initialize'))],['Empty searches',searches?(100*count('search_outcome','empty')/searches).toFixed(1)+'%':'No searches yet'],['Protocol / tool errors',number(count('outcome','protocol_error')+count('outcome','tool_error'))]]){const a=document.createElement('article');a.append(node('h2',label));const n=node('div',value);n.className='number';a.append(n);el('summary').append(a);}
-    const days=[];for(let i=29;i>=0;i--){const date=new Date();date.setUTCDate(date.getUTCDate()-i);const day=date.toISOString().slice(0,10);days.push([day,data.rows.filter(r=>r.day===day&&r.dimension==='calls'&&r.value==='tool').reduce((sum,r)=>sum+r.count,0)]);}
-    const dailyChart=chart(days,'Daily tool calls across the last 30 UTC days.');
-    const peak=Math.max(1,...days.map(([,value])=>value));
-    const caption=node('p',days[0][0]+' — '+days.at(-1)[0]+' · peak '+number(peak===1&&days.every(([,v])=>v===0)?0:peak)+' calls/day');
-    const details=document.createElement('details');details.append(node('summary','Daily counts'),table(days));
-    el('daily').replaceChildren(dailyChart,caption,details);el('breakdowns').replaceChildren();
-    for(const [dimension,title] of [['tool','Tools'],['topic','Search topics'],['item','Requested public items'],['profile','Installation profiles'],['outcome','Outcomes'],['results','Result counts'],['latency','Dispatch latency'],['revision','Catalog revisions']]){const a=document.createElement('article');a.append(node('h2',title));const entries=Object.entries(totals[dimension]||{}).sort((a,b)=>b[1]-a[1]);if(entries.length){if(['tool','topic','outcome'].includes(dimension))a.append(chart(entries.slice(0,8),title+' — top eight categories, ordered as in the table.'));a.append(table(entries));}else a.append(node('p','No recorded activity yet.'));el('breakdowns').append(a);}
-    el('dashboard').hidden=false;el('reauth').hidden=true;el('status').textContent='Updated '+new Date().toLocaleTimeString()+'. Counts are activity, not people or satisfaction.';
-  } catch(error){if(generation===requestGeneration){clear();el('reauth').hidden=false;el('status').textContent='Unable to load counters. Sign in again or retry shortly.';}}
+async function load(){const generation=++requestGeneration;clear();el('status').textContent='Loading retained aggregates…';
+ try{
+  const info=await getJson('/analytics/health');if(generation!==requestGeneration)return;healthInfo=info;for(const field of ['tool','topic','revision'])options(field,info.facets[field]);if(el('range').value==='all')presets();
+  const q={from:el('from').value,to:el('to').value,group:el('group').value,tool:el('tool').value,topic:el('topic').value,revision:el('revision').value};
+  if(!q.from||!q.to||q.from>q.to||q.to>today())throw Error('Choose a valid UTC date range ending no later than today.');
+  const detailed=Boolean(q.tool||q.topic||q.revision),dataset=detailed?'details':'totals';
+  const length=Math.round((Date.parse(q.to)-Date.parse(q.from))/86400000)+1;
+  const previous={...q,to:shift(q.from,-1),from:shift(q.from,-length)};
+  const compare=el('compare').checked&&previous.from>='2000-01-01';
+  const [rows,prior,detailRows]=await Promise.all([pages({...q,dataset},generation),compare?pages({...previous,dataset},generation):[],detailed?null:pages({...q,dataset:'details'},generation)]);if(generation!==requestGeneration)return;
+  const nowTotals=totals(rows,detailed),oldTotals=totals(prior,detailed);const count=(t,d,v)=>t[d]?.[v]||0;
+  const search=t=>count(t,'search_outcome','empty')+count(t,'search_outcome','nonempty');
+  const coveredFrom=detailed?info.state.details_since?.slice(0,10):info.first_day;
+  const partial=!coveredFrom||previous.from<=coveredFrom;
+  const metrics=[['Tool calls',t=>count(t,'calls','tool')],['Initializations (not people)',t=>detailed?null:count(t,'calls','initialize')],['Empty search rate',t=>search(t)?100*count(t,'search_outcome','empty')/search(t):null],['Protocol / tool errors',t=>count(t,'outcome','protocol_error')+count(t,'outcome','tool_error')]];
+  el('summary').replaceChildren();for(const [label,fn] of metrics){const a=document.createElement('article'),v=fn(nowTotals),p=fn(oldTotals),rate=label==='Empty search rate';a.append(node('h2',label));const n=node('div',v===null?'—':rate?v.toFixed(1)+'%':number(v));n.className='number';a.append(n);if(compare){const c=node('p',partial?'Previous period lacks full coverage':p===null||v===null?'No comparable observations':rate?(v-p).toFixed(1)+' percentage points vs previous':p===0?(v?'New activity; previous count 0':'No activity in either period'):((v-p)/p*100).toFixed(1)+'% vs previous');c.className='comparison';a.append(c);}el('summary').append(a);}
+  el('coverage').textContent=q.from+' through '+q.to+' UTC · '+(detailed?'Filtered detailed counters':'All retained totals')+' · earliest recorded totals '+(info.first_day||'none')+' · detailed collection started '+(info.state.details_since||'unknown')+(compare?' · previous '+previous.from+' through '+previous.to:'')+'. Missing days may reflect no traffic or collection gaps; today and the first collection day are partial.';
+  const entries=timeSeries(rows,q,detailed);const exact=document.createElement('details');exact.append(node('summary','Exact period counts'),table(entries));el('daily').replaceChildren();if(entries.length<=400)el('daily').append(chart(entries,'Tool calls by '+q.group));else el('daily').append(node('p','Choose week or month grouping to chart this long range.'));el('daily').append(exact);
+  el('breakdowns').replaceChildren();for(const [dimension,title] of [['tool','MCP tools'],['topic','Search topics'],['item','Requested catalog items'],['profile','Installation profiles'],['outcome','Outcomes'],['results','Result counts'],['latency','Dispatch latency'],['revision','Catalog revisions']]){const a=document.createElement('article');a.append(node('h2',title));const entries=Object.entries(nowTotals[dimension]||{}).sort((a,b)=>b[1]-a[1]);if(entries.length){if(['tool','topic','outcome'].includes(dimension))a.append(chart(entries.slice(0,8),title+' top eight in table order.'));a.append(table(entries));}else a.append(node('p','No recorded activity.'));el('breakdowns').append(a);}
+  detailTables(detailed?rows:detailRows);
+  const state=info.state;el('health').replaceChildren();for(const message of ['Database read: '+info.database_read,'Hourly write/read heartbeat: '+info.heartbeat+' · '+(state.heartbeat||'not recorded'),'Last recorded traffic day: '+(info.last_day||'none'),'Private backup storage: '+(info.backups_configured?'configured':'MISSING'),'Last verified backup: '+(state.backup_success||'none'),'Backup attempt: '+(state.backup_attempt||'none')+' · '+(state.backup_error||'no recorded error'),'Historical archive through: '+(state.archive_through||'no completed historical day yet'),'History retention: daily aggregates retained until explicitly removed.',info.collection_note,...(info.facets_truncated?.length?['Filter suggestions limited to 1,000 values for '+info.facets_truncated.join(', ')+'. Exports still include all values.']:[])])el('health').append(node('p',message));
+  downloads(q,detailed);el('dashboard').hidden=false;el('reauth').hidden=true;el('status').textContent='Updated '+new Date().toLocaleTimeString()+'. Counts measure activity, not people or satisfaction.';
+ }catch(error){if(generation===requestGeneration){clear();el('reauth').hidden=false;el('status').textContent=error.message==='Cancelled'?'Request cancelled.':error.message+' Refresh or sign in again if needed.';}}
 }
-function clear(){el('dashboard').hidden=true;for(const id of ['summary','daily','breakdowns'])el(id).replaceChildren();}
-el('refresh').addEventListener('click',load);
-el('logout').addEventListener('click',()=>{++requestGeneration;clear();});
-window.addEventListener('pagehide',()=>{++requestGeneration;clear();});
-window.addEventListener('pageshow',event=>{if(event.persisted)load();});
-load();
+el('range').addEventListener('change',presets);for(const id of ['from','to'])el(id).addEventListener('change',()=>{el('range').value='custom';});
+el('refresh').addEventListener('click',load);el('logout').addEventListener('click',()=>{++requestGeneration;clear();});
+window.addEventListener('pagehide',()=>{++requestGeneration;clear();});window.addEventListener('pageshow',e=>{if(e.persisted)load();});presets();load();

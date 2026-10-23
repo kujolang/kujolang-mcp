@@ -15,7 +15,7 @@
   ],
   "triggers": {
     "crons": [
-      "17 3 * * *"
+      "17 * * * *"
     ]
   },
   "d1_databases": [
@@ -28,5 +28,11 @@
   ],
   "vars": {
     "ANALYTICS_ACCESS_AUD": "654934b8909ff4feaf514efd11475990e97e413eb73740ff34de4a4d0e196206"
-  }
+  },
+  "r2_buckets": [
+    {
+      "binding": "ANALYTICS_BACKUPS",
+      "bucket_name": "kujolang-mcp-analytics-backups"
+    }
+  ]
 }

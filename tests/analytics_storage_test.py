@@ -9,12 +9,11 @@ today=datetime.now(timezone.utc).date()
 for _ in range(100): c.execute(query,(str(today),'tool','get_kujo_overview'))
 assert c.execute('SELECT count FROM daily_metrics').fetchone()[0]==100
 for age in (29,30,31): c.execute(query,(str(today-timedelta(days=age)),'calls','tool'))
-cutoff=str(today-timedelta(days=29))
-assert len(c.execute('SELECT day FROM daily_metrics WHERE day >= ?', (cutoff,)).fetchall())==2
-c.execute('DELETE FROM daily_metrics WHERE day < ?', (cutoff,))
-assert c.execute('SELECT COUNT(*) FROM daily_metrics').fetchone()[0]==2
+c.executescript(Path('migrations/0002_history.sql').read_text())
+assert c.execute('SELECT COUNT(*) FROM daily_metrics').fetchone()[0]==4
+assert c.execute("SELECT value FROM analytics_state WHERE key='details_since'").fetchone()
 for dimension,value in [('request','raw'),('tool','x'*129)]:
  try: c.execute(query,(str(today),dimension,value))
  except sqlite3.IntegrityError: pass
  else: raise AssertionError('schema accepted invalid dimensions')
-print('SQLite aggregation, atomic upsert, schema bounds and 30-day retention passed')
+print('SQLite aggregation, atomic upsert, schema bounds and long-term retention and additive migration passed')

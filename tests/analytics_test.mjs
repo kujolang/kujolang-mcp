@@ -26,7 +26,7 @@ const metric=(d,v)=>writes.some(s=>s.values[1]===d&&s.values[2]===v);
 await rpc('search_kujo_catalog',{query:'PRIVATE-QUERY@example.com installation'});
 assert(metric('topic','installation'));assert(metric('tool','search_kujo_catalog'));
 assert(!JSON.stringify(writes).includes('PRIVATE'));
-assert(writes.every(x=>x.values.length===1||x.values.length===3));
+assert(writes.every(x=>x.values.length===3||x.values.length===9));
 for(const [header,value] of [['x-kujo-telemetry','off'],['dnt','1'],['sec-gpc','1']]){writes.length=0;await rpc('get_kujo_overview',{}, {[header]:value});assert.equal(writes.length,0);}
 writes.length=0;await rpc('get_catalog_item',{slug:'PRIVATE-ITEM'});assert(metric('item','unknown'));assert(!JSON.stringify(writes).includes('PRIVATE'));
 writes.length=0;await rpc('get_catalog_item',{slug:'kujo'});assert(metric('item','kujo'));
@@ -47,7 +47,7 @@ let keyFetches=0;const originalFetch=globalThis.fetch;
 globalThis.fetch=async(url)=>{assert.equal(String(url),issuer+'/cdn-cgi/access/certs');keyFetches++;return Response.json({keys:[jwk]});};
 const valid={'cf-access-jwt-assertion':await sign()};
 const get=(path,headers={},e=env,c=ctx)=>worker.fetch(new Request('https://mcp.kujolang.ai'+path,{headers}),e,c);
-for(const path of ['/analytics','/analytics/app.js','/analytics/data']){
+for(const path of ['/analytics','/analytics/app.js','/analytics/data','/analytics/health','/analytics/export']){
  for(const headers of [{},{authorization:'Bearer '+token},{'cf-access-authenticated-user-email':'owner@example.com','cf-access-jwt-assertion':'forged',cookie:'CF_Authorization=forged'}])assert.equal((await get(path,headers)).status,401);
  for(const e of [{}, {...env,ANALYTICS_ACCESS_AUD:''},{...env,ANALYTICS_OWNER_EMAIL:''}])assert.equal((await get(path,valid,e)).status,401);
 }
@@ -68,6 +68,8 @@ assert.equal((await get('/analytics/data',{...valid,origin:'https://mcp.kujolang
 const dashboard=await get('/analytics',valid);assert.equal(dashboard.status,200);assert((await dashboard.text()).includes('not unique people'));assert(dashboard.headers.get('content-security-policy').includes("frame-ancestors 'none'"));
 assert.equal((await get('/analytics/app.js',valid)).status,200);
 assert.equal((await get('/telemetry')).status,200);
+assert.equal((await get('/analytics/data?from=2026-02-30',valid)).status,400);
+assert.equal((await get('/analytics/data?dataset=bad',valid)).status,400);
 assert.equal(keyFetches,1);
 assert(!JSON.stringify(writes).includes('owner@example.com'));
 assert.equal((await worker.fetch(new Request('https://evil.example/analytics'),env,ctx)).status,403);
@@ -77,7 +79,6 @@ const isolated=(await import('data:text/javascript;base64,'+Buffer.from(source+'
 globalThis.fetch=async()=>{throw Error('issuer unavailable');};
 assert.equal((await isolated.fetch(new Request('https://mcp.kujolang.ai/analytics/data',{headers:valid}),env,ctx)).status,401);
 globalThis.fetch=originalFetch;
-writes.length=0;await worker.scheduled({},env,ctx);await Promise.all(pending.splice(0));assert.equal(writes.length,1);assert(writes[0].sql.startsWith('DELETE'));assert.match(writes[0].values[0],/^\d{4}-\d{2}-\d{2}$/);
 // Deterministic retrieval quality checks, independent of telemetry counters.
 for(const [query,slug] of [['mcp','mcp'],['kennel','kennel'],['rag','rag']]){
  const response=await rpc('search_kujo_catalog',{query},{'x-kujo-telemetry':'off'});
