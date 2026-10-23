@@ -1,0 +1,7 @@
+npm warn Unknown user config "python". This will stop working in the next major version of npm. See `npm help npmrc` for supported config options.
+
+ ⛅️ wrangler 4.151.3 (update available 4.152.0)
+───────────────────────────────────────────────
+Total Upload: 688.03 KiB / gzip: 99.89 KiB
+No bindings found.
+--dry-run: exiting now.

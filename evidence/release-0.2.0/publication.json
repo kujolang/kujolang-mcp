@@ -1,0 +1,37 @@
+{
+  "version": "0.2.0",
+  "release": "https://github.com/kujolang/kujolang-mcp/releases/tag/v0.2.0",
+  "source_commit": "d66bc6e4b18c0d6ede004ba531644c06b80ad328",
+  "worker_sha256": "0b468d6d151ae945fb0b028b691c1cca20c2d465221e2ade107698ea7a792e68",
+  "deployment": {
+    "id": "3633dff0-f868-4c20-88f4-ee07348d1370",
+    "source": "wrangler",
+    "strategy": "percentage",
+    "annotations": {
+      "workers/triggered_by": "deployment"
+    },
+    "versions": [
+      {
+        "version_id": "b3689a58-5f32-40ed-adbc-e4f3a819b6ba",
+        "percentage": 100
+      }
+    ],
+    "created_on": "2026-10-23T19:55:59.732328Z"
+  },
+  "runtime_fix_pr": "https://github.com/kujolang/kujo/pull/28",
+  "runtime_fix_merge": "b49a4145052c8b5d7a2b4cf86b41784dceaa0f16",
+  "runtime_fix_tested_commit": "b25b4edd7f882810ab29a58028ad4d8de9fcaca9",
+  "runtime_binary_release": "1.9.0 unchanged; precision fix is merged source, not a new published runtime binary",
+  "framework_commit": "8ae321844dece12d5e5f5c33614e7806555ad021",
+  "website_commit": "090ee242b758f4897c92a6495a07ada0a4817bd0",
+  "ci": {
+    "run": "https://github.com/kujolang/kujolang-mcp/actions/runs/40014625941",
+    "status": "queued at live verification; local release checks passed"
+  },
+  "live_verification": {
+    "catalog_items": 237,
+    "installer_profiles": 6,
+    "release_smoke_cases": 9,
+    "status": "passed"
+  }
+}

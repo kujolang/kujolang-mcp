@@ -1,0 +1,5 @@
+{"input":"9007199254740991","parsed":9007199254740991,"type":"int"}
+{"input":"9007199254740991.0","parsed":9007199254740991.0,"type":"float"}
+{"input":"-9007199254740991.0","parsed":-9007199254740991.0,"type":"float"}
+{"input":"1.0","parsed":1.0,"type":"float"}
+{"input":"1e0","parsed":1.0,"type":"float"}

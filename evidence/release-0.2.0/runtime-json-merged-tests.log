@@ -1,0 +1,50 @@
+warning: hiding a lifetime that's elided elsewhere is confusing
+  --> vendor/hyphenation-0.8.4/src/case_folding.rs:80:26
+   |
+80 | pub fn refold(original : &str) -> (Cow<str>, Vec<Shift>) {
+   |                          ^^^^      ^^^^^^^^ the same lifetime is hidden here
+   |                          |
+   |                          the lifetime is elided here
+   |
+   = help: the same lifetime is referred to in inconsistent ways, making the signature confusing
+   = note: `#[warn(mismatched_lifetime_syntaxes)]` on by default
+help: use `'_` for type paths
+   |
+80 | pub fn refold(original : &str) -> (Cow<'_, str>, Vec<Shift>) {
+   |                                        +++
+
+warning: `hyphenation` (lib) generated 1 warning (run `cargo fix --lib -p hyphenation` to apply 1 suggestion)
+warning: unused import: `SequentialWriter`
+ --> vendor/tiny_http-0.12.0/src/util/mod.rs:7:28
+  |
+7 | pub use self::sequential::{SequentialWriter, SequentialWriterBuilder};
+  |                            ^^^^^^^^^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: trait `MustBeShareDummy` is never used
+   --> vendor/tiny_http-0.12.0/src/lib.rs:164:7
+    |
+164 | trait MustBeShareDummy: Sync + Send {}
+    |       ^^^^^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` (part of `#[warn(unused)]`) on by default
+
+warning: `tiny_http` (lib) generated 2 warnings (run `cargo fix --lib -p tiny_http` to apply 1 suggestion)
+   Compiling kujolang v1.9.0 (/Users/robertdevore/2026/Kujolang/kujo-repos/hardening/kujo-json)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 1m 11s
+     Running tests/native_json.rs (/Users/robertdevore/2026/Kujolang/kujo-repos/kujo/target/debug/deps/native_json-5355bbcc09d40a04)
+
+running 9 tests
+test to_json_rejects_non_finite_numbers ... ok
+test to_json_rejects_unsupported_value_types ... ok
+test parse_json_invalid_input_reports_location ... ok
+test parse_json_rejects_excessive_nesting_depth ... ok
+test parse_json_rounds_decimal_values_correctly ... ok
+test parse_json_supports_all_json_root_value_kinds ... ok
+test to_json_stringifies_primitive_and_nested_values ... ok
+test parse_json_rejects_excessive_input_size ... ok
+test json_precision_has_vm_interpreter_parity ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.34s
+

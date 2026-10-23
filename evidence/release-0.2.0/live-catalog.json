@@ -1,0 +1,285 @@
+{
+  "checked_at": "2026-10-23T19:56:19.661Z",
+  "endpoint": "https://mcp.kujolang.ai/mcp",
+  "result": "passed",
+  "catalog_revision": "73bfcb690a45974b706144ca3d528dd39e8718fa356fcecf51df683ea17394ce",
+  "catalog_content_digest": "103715717d43a694e0dd977bc85863785f5da2df65c2dba25162854cfd87dcb1",
+  "worker_sha256": "0b468d6d151ae945fb0b028b691c1cca20c2d465221e2ade107698ea7a792e68",
+  "runtime_version": "1.9.0",
+  "items_compared": 237,
+  "installer_profiles_compared": 6,
+  "health": {
+    "status": "ok",
+    "server": "kujolang-mcp",
+    "version": "0.2.0",
+    "catalog": {
+      "projects": 57,
+      "skills": 135,
+      "total": 237,
+      "workflows": 45
+    },
+    "catalog_source_version": "1.3.1",
+    "catalog_revision": "73bfcb690a45974b706144ca3d528dd39e8718fa356fcecf51df683ea17394ce"
+  },
+  "checks": [
+    {
+      "method": "tools/list",
+      "params": {},
+      "response_sha256": "6543fc458838b974b52eb4812289ad63f46eb8f6730c9048e7533cc2c83ad492"
+    },
+    {
+      "method": "resources/list",
+      "params": {},
+      "response_sha256": "fd66c2fcbf7a2cbc2739a97ae9c9176776645da1c9d29ffb8473f8fb0920ea29"
+    },
+    {
+      "method": "prompts/list",
+      "params": {},
+      "response_sha256": "064dabeb7e18bc99b0e3ce331ef6a5f098099e5feb4afd0656aed6913a3f54b2"
+    },
+    {
+      "method": "resources/read",
+      "params": {
+        "uri": "kujolang://catalog/projects"
+      },
+      "response_sha256": "5d771e41fb01df9cc9091c3f3b7fc6c9edb09d00e3506187fde90c09d9bee898"
+    },
+    {
+      "method": "resources/read",
+      "params": {
+        "uri": "kujolang://catalog/skills"
+      },
+      "response_sha256": "f5aedb8daa471d8dc11f54f786f0f0d17479a0a2df2c48b275aef7fe3ba3123e"
+    },
+    {
+      "method": "resources/read",
+      "params": {
+        "uri": "kujolang://catalog/workflows"
+      },
+      "response_sha256": "9f974392eab819b2d02fba130344b71ef6467c080f93b3546406c2a9617d5fc0"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_kujo_overview",
+        "arguments": {}
+      },
+      "response_sha256": "812bc3d185e6aa5593ac217ef6e6a73e441ec82d8df48740a690eff0e1e141b1"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_installation",
+        "arguments": {
+          "profile": "agent"
+        }
+      },
+      "response_sha256": "b82034f82d6011140011dcc911c30c297d02a3830b51dd2c3d8a28c671c483e9"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_installation",
+        "arguments": {
+          "profile": "ai"
+        }
+      },
+      "response_sha256": "147bfc45bff91757dff1752f3fa40a8663a3771ef6807573c415bd1142d658e4"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_installation",
+        "arguments": {
+          "profile": "core"
+        }
+      },
+      "response_sha256": "a1758227d15daeec8f5bc4e78ff806a497a93c4d20e2d78a890b02b4ec4335ff"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_installation",
+        "arguments": {
+          "profile": "operating"
+        }
+      },
+      "response_sha256": "5261506e7ef84db38470b3097ef962e2209ba9c74c8c7e4f1c035858a2a17775"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_installation",
+        "arguments": {
+          "profile": "quality"
+        }
+      },
+      "response_sha256": "3958cefdd767a3ac1c04a891c9691fa770888aa9bf9958bd91ab539c3582efd6"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_installation",
+        "arguments": {
+          "profile": "showcases"
+        }
+      },
+      "response_sha256": "b558ee9af2385efbbc2a15ba0c5990fbf8c484b576286e842418d20eaf212c2f"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_catalog_item",
+        "arguments": {
+          "slug": "source"
+        }
+      },
+      "response_sha256": "b3a15821bfc593baaa9b50ba90b68aee637e3bc5d6980ddc1af9ddf9a4b8c641"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_catalog_item",
+        "arguments": {
+          "slug": "intake"
+        }
+      },
+      "response_sha256": "ccfa440d1ca71945990de4a5a6a1d5b148edc3d7175c217e403de6040e282bce"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_catalog_item",
+        "arguments": {
+          "slug": "cms"
+        }
+      },
+      "response_sha256": "ceac8ddafd25ad61e1559e76299b57f64bb1a24d9fd038f54c3584be4929c41b"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_catalog_item",
+        "arguments": {
+          "slug": "agent-city"
+        }
+      },
+      "response_sha256": "cec68f9d47f8edd31ee0e4b4ef77634623dfc37994e85fa97d24da2287cf237f"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_catalog_item",
+        "arguments": {
+          "slug": "kujo"
+        }
+      },
+      "response_sha256": "fbd7fe1097137f670bb657715c855d51cd2402a729d33423a5b21d75cd74c15b"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_catalog_item",
+        "arguments": {
+          "slug": "kennel"
+        }
+      },
+      "response_sha256": "33b43cf76e4f57bb298137ec34c49fc7e70ac11236edc9f2f65d8b442dbf11a2"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_catalog_item",
+        "arguments": {
+          "slug": "commerce"
+        }
+      },
+      "response_sha256": "8dd6beec6f245f49f6f5507498141d2f7e0b0e166cbcc4d7cabbe82f6b704f2e"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_catalog_item",
+        "arguments": {
+          "slug": "kujo-pi"
+        }
+      },
+      "response_sha256": "4e5a9cbabed2e8d8728fdcbfbe7d1d4273aac4b04f7699dc038cfacf167d2467"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_catalog_item",
+        "arguments": {
+          "slug": "kujo-opencode"
+        }
+      },
+      "response_sha256": "30ea03d0491ac2d94a3660b13f29319a9cb0acb1a5d515ede2e2d6cae1afb424"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_catalog_item",
+        "arguments": {
+          "slug": "bb-kujo"
+        }
+      },
+      "response_sha256": "c4947fa4cdcbf349a832925c424f4c73eae127cbf6fb4d6479644bc2f7c29d79"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_catalog_item",
+        "arguments": {
+          "slug": "kujo-cmd"
+        }
+      },
+      "response_sha256": "d3c98eff079ce92b985e3c7b0e55e2c4393a49ca6257abf2e5779e754ad200b2"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_catalog_item",
+        "arguments": {
+          "slug": "paperclip"
+        }
+      },
+      "response_sha256": "65d4cbfd19f17df44c819a167b5755a8364fbc03527b501bb6104071c300183c"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_catalog_item",
+        "arguments": {
+          "slug": "watchdog"
+        }
+      },
+      "response_sha256": "d3a023e5d041326312b3ffad3e4481513f38d49f7095bedb19bdfb8739d0061e"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_catalog_item",
+        "arguments": {
+          "slug": "ssg"
+        }
+      },
+      "response_sha256": "c4e32c9ac96d318a4ca9ff71e54182139138ff4b1999fac85a36a657462b12cc"
+    },
+    {
+      "method": "tools/call",
+      "params": {
+        "name": "get_catalog_item",
+        "arguments": {
+          "slug": "videoops-quality-review"
+        }
+      },
+      "response_sha256": "0472a4660d60953a868582dacf0731594c5e70dc617aad90f8a18832cd32a1a8"
+    },
+    {
+      "method": "server/discover",
+      "params": {},
+      "response_sha256": "daf013cf94e73d986c7735c2720666389e6d435d0b80a5862579edaba18487d8"
+    }
+  ]
+}
