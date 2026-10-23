@@ -143,7 +143,8 @@ or stop collection before any rollback that would restore the old retention beha
 Migration0003 adds daily_clients and clients_since, preserving earlier datasets.
 Client categories use a conservative exact alias allowlist. Only initialization may use
 clientInfo.name; other calls inspect a bounded User-Agent for an exact known product
-name, optionally followed by a slash version. Generic SDK headers remain Unknown.
+name, optionally followed by a slash version and a discarded parenthesized comment.
+Common Codex/Claude CLI aliases are allowlisted; generic SDK headers remain Unknown.
 The sources client_info/user_agent/none are aggregate labels. No model inference or
 session correlation is performed. Names are self-reported, not authenticated. The dashboard
 shows initialization and tool-call counts separately, explicitly includes Other/Unknown,

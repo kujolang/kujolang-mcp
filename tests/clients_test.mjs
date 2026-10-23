@@ -25,3 +25,5 @@ await call('initialize','Codex',null);assert.equal((await call('tools/call',null
 for(const headers of [{'dnt':'1'},{'sec-gpc':'1'},{'x-kujo-telemetry':'off'}])assert.equal((await call('tools/call',null,'Codex/1',headers)).length,0);
 assert.throws(()=>db.prepare("INSERT INTO daily_clients VALUES('2026-10-23','PRIVATE-NAME','initialize','not_applicable','success','none','not_applicable',?,1)").run('a'.repeat(64)));
 console.log('Client allowlist, sources, unknowns, spoofable labels, no session linkage, privacy canaries and opt-outs passed');
+
+for(const [ua,client] of [['codex_cli_rs/1.0 (Mac OS; PRIVATE-OS)','codex'],['claude-code/2.0 (cli)','claude_code'],['claude-cli/2.0 (external, cli)','claude_code']])assert.equal((await call('tools/call',null,ua))[0].client,client);

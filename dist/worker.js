@@ -232,8 +232,8 @@ function analyticsRows(p, result, elapsed) {
 }
 // Conservative aliases, not fingerprints. Only fixed labels leave this function.
 const analyticsClientNames = new Map([
- ['codex','codex'],['openai codex','codex'],['codex-cli','codex'],
- ['claude code','claude_code'],['claude-code','claude_code'],['claude-code-cli','claude_code'],
+ ['codex','codex'],['openai codex','codex'],['codex-cli','codex'],['codex_cli_rs','codex'],['codex-mcp-client','codex'],
+ ['claude code','claude_code'],['claude-code','claude_code'],['claude-code-cli','claude_code'],['claude-cli','claude_code'],
  ['claude duet','claude_duet'],['claude-duet','claude_duet'],
  ['grok bot','grok_bot'],['grok-bot','grok_bot'],['grokbot','grok_bot'],
  ['muse','muse'],['pi','pi'],['pi-coding-agent','pi'],['commandcode','commandcode'],['command-code','commandcode']
@@ -244,7 +244,7 @@ function analyticsClient(request,p) {
   return [analyticsClientNames.get(name.trim().toLowerCase())||'other','client_info'];
  // Generic SDK/browser headers and ambiguous substrings do not identify an app.
  const ua=request.headers.get('user-agent')||'';
- if(ua.length<=256){const match=/^([a-z][a-z0-9 -]*?)(?:\/[0-9][a-z0-9.+_-]*)?$/i.exec(ua.trim());
+ if(ua.length<=256){const match=/^([a-z][a-z0-9 _-]*?)(?:\/[0-9][a-z0-9.+_-]*(?: \([^()\r\n]*\))?)?$/i.exec(ua.trim());
   const known=match&&analyticsClientNames.get(match[1].toLowerCase());if(known)return [known,'user_agent'];}
  return ['unknown','none'];
 }
