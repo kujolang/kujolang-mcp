@@ -56,7 +56,7 @@ test "legacy initialize remains available for handshake clients" {
 test "protocol rejects unsupported versions and malformed params" {
     catalog := load_catalog("data/catalog.json")
     unsupported := handle_jsonrpc(catalog, {"jsonrpc": "2.0", "id": 8, "method": "initialize", "params": {"protocolVersion": "2025-11-25"}})
-    assert_equal(unsupported["error"]["code"], -32022)
+    assert_equal(unsupported["result"]["protocolVersion"], "2026-07-28")
     malformed := handle_jsonrpc(catalog, {"jsonrpc": "2.0", "id": 9, "method": "tools/list", "params": []})
     assert_equal(malformed["error"]["code"], -32602)
 }

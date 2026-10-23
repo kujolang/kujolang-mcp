@@ -1,6 +1,6 @@
 from src.catalog import has_field, load_catalog
 from src.protocol import handle_jsonrpc, SERVER_NAME, SERVER_VERSION, PROTOCOL_LATEST, SUPPORTED_PROTOCOL_VERSIONS
-from src.http_security import dict_value, header_value, validate_string_array, guard_request, secure_json_response
+from src.http_security import dict_value, header_value, validate_string_array, guard_request, secure_json_response, json_media_type, json_text_safe, accepts_json
 
 func config_fail(message) { assert(false, "Invalid mcp-server.json: " + message) }
 
@@ -15,15 +15,29 @@ func load_config() {
 
 func protocol_guard(req, payload, strict_headers) {
     version := header_value(req, "MCP-Protocol-Version")
-    if version != "" && index_of(SUPPORTED_PROTOCOL_VERSIONS, version) < 0 { return {"ok": false, "error": {"jsonrpc": "2.0", "id": dict_value(payload, "id", null), "error": {"code": -32022, "message": "Unsupported MCP protocol version", "data": {"requested": version, "supported": SUPPORTED_PROTOCOL_VERSIONS}}}} }
+    id := dict_value(payload, "id", null)
+    if type(id) != "string" && type(id) != "int" { id = null }
+    if version != "" && index_of(SUPPORTED_PROTOCOL_VERSIONS, version) < 0 { return {"ok": false, "error": {"jsonrpc": "2.0", "id": id, "error": {"code": -32022, "message": "Unsupported MCP protocol version", "data": {"requested": version, "supported": SUPPORTED_PROTOCOL_VERSIONS}}}} }
+    params := dict_value(payload, "params", {})
+    meta := dict_value(params, "_meta", {})
+    body_version := dict_value(meta, "io.modelcontextprotocol/protocolVersion", "")
+    message := ""
+    if body_version != "" && body_version != version { message = "MCP-Protocol-Version header must match request metadata" }
     if version == PROTOCOL_LATEST && strict_headers {
-        body_method := to_string(dict_value(payload, "method", ""))
-        if header_value(req, "Mcp-Method") != body_method { return {"ok": false, "error": {"jsonrpc": "2.0", "id": dict_value(payload, "id", null), "error": {"code": -32600, "message": "Mcp-Method header must match the JSON-RPC method"}}} }
-        if body_method == "tools/call" {
-            params := dict_value(payload, "params", {})
-            if type(params) != "dict" || header_value(req, "Mcp-Name") != to_string(dict_value(params, "name", "")) { return {"ok": false, "error": {"jsonrpc": "2.0", "id": dict_value(payload, "id", null), "error": {"code": -32600, "message": "Mcp-Name header must match params.name"}}} }
+        body_method := dict_value(payload, "method", "")
+        if body_version != version { message = "MCP-Protocol-Version header must match request metadata" }
+        if header_value(req, "Mcp-Method") != body_method { message = "Mcp-Method header must match the JSON-RPC method" }
+        if index_of(["tools/call", "prompts/get", "resources/read"], body_method) >= 0 {
+            field := "name"
+            if body_method == "resources/read" { field = "uri" }
+            name := header_value(req, "Mcp-Name")
+            if starts_with(name, "=?base64?") && ends_with(name, "?=") {
+                try { name = decode_base64_utf8(substring(name, 9, len(name) - 2)) } except err { name = null }
+            }
+            if type(name) != "string" || name != dict_value(params, field, "") { message = "Mcp-Name header must match request parameters" }
         }
     }
+    if message != "" { return {"ok": false, "error": {"jsonrpc": "2.0", "id": id, "error": {"code": -32020, "message": message}}} }
     return {"ok": true, "error": {}}
 }
 
@@ -40,7 +54,7 @@ export func run_server(argv) {
     rate_limit := dict_value(http_cfg, "rate_limit_per_minute", 120)
     allowed_hosts := dict_value(security_cfg, "allowed_hosts", ["127.0.0.1", "localhost"])
     allowed_origins := dict_value(security_cfg, "allowed_origins", [])
-    strict_headers := dict_value(security_cfg, "strict_2026_headers", false)
+    strict_headers := dict_value(security_cfg, "strict_2026_headers", true)
     auth_enabled := dict_value(security_cfg, "auth_enabled", false)
     auth_token_env := trim(to_string(dict_value(security_cfg, "auth_token_env", "KUJOLANG_MCP_TOKEN")))
     trusted_ingress_limits := dict_value(security_cfg, "trusted_ingress_limits", false)
@@ -76,19 +90,35 @@ export func run_server(argv) {
         guard := guard_request(req, policy, auth_token, rate_state, true)
         if has_field(guard, "rate_state") { rate_state = guard["rate_state"] }
         if !guard["ok"] { return secure_json_response(guard["status"], {"error": guard["message"]}) }
+        if accepts_json(header_value(req, "Accept")) == false { return secure_json_response(406, {"error": "Accept must permit application/json"}) }
         content_type := to_lower(header_value(req, "Content-Type"))
-        if starts_with(content_type, "application/json") == false { return secure_json_response(415, {"error": "Content-Type must be application/json"}) }
+        if json_media_type(content_type) == false { return secure_json_response(415, {"error": "Content-Type must be application/json"}) }
+        body := dict_value(req, "body", "")
+        if has_field(req, "body_bytes") {
+            try { body = utf8_decode(req["body_bytes"]) } except err { return secure_json_response(200, {"jsonrpc":"2.0","id":null,"error":{"code":-32700,"message":"Parse error"}}) }
+        }
+        if json_text_safe(body) == false { return secure_json_response(400, {"jsonrpc": "2.0", "id": null, "error": {"code": -32700, "message": "Invalid, duplicate-key, or over-depth JSON"}}) }
         payload := {}
-        try { payload = parse_json(dict_value(req, "body", "")) } except err { return secure_json_response(200, {"jsonrpc": "2.0", "id": null, "error": {"code": -32700, "message": "Parse error"}}) }
+        try { payload = parse_json(body) } except err { return secure_json_response(200, {"jsonrpc": "2.0", "id": null, "error": {"code": -32700, "message": "Parse error"}}) }
         protocol := protocol_guard(req, payload, strict_headers)
         if !protocol["ok"] {
-            if type(payload) == "dict" && has_field(payload, "id") == false { return secure_json_response(202, {}) }
-            return secure_json_response(200, protocol["error"])
+            return secure_json_response(400, protocol["error"])
         }
         result := handle_jsonrpc(catalog, payload)
-        if type(payload) == "dict" && has_field(payload, "id") == false { return secure_json_response(202, {}) }
-        return secure_json_response(200, result)
+        if has_field(result, "notification") { return secure_json_response(202, {}) }
+        if type(payload) == "dict" && has_field(payload, "id") == false { return secure_json_response(400, result) }
+        status := 200
+        if header_value(req, "MCP-Protocol-Version") == PROTOCOL_LATEST {
+            if has_field(result, "result") { result["result"]["resultType"] := "complete" }
+            if has_field(result, "error") && result["error"]["code"] == -32601 { status = 404 }
+            if has_field(result, "error") && result["error"]["code"] == -32002 { result["error"]["code"] := -32602 }
+        }
+        return secure_json_response(status, result)
     }
+    # The local limiter updates closure state. Serialize handlers with the runtime's
+    # bounded admission gate; concurrent excess receives 503 before dispatch.
+    # Public deployments already require ingress throttling and disable this limiter.
+    if rate_limit_enabled { env_set("KUJO_HTTP_SERVER_MAX_IN_FLIGHT", "1") }
     server := http_listen(host, port)
     server = server.route("GET", "/health", func(req) {
         guard := guard_request(req, policy, auth_token, rate_state, false)

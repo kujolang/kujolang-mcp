@@ -20,23 +20,58 @@ func includes_text(values, wanted) {
 
 func normalized_host(value) {
     host := to_lower(trim(to_string(value)))
+    if regex_match(host, "^[a-z0-9.-]+(:[0-9]{1,5})?$") == false && regex_match(host, "^\\[[0-9a-f:]+\\](:[0-9]{1,5})?$") == false { return "" }
     if starts_with(host, "[") {
         closing := index_of(host, "]")
-        if closing > 1 { return substring(host, 1, closing) }
-        return ""
+        suffix := substring(host, closing + 1, len(host))
+        if suffix != "" && (to_int(substring(suffix, 1, len(suffix))) < 1 || to_int(substring(suffix, 1, len(suffix))) > 65535) { return "" }
+        return substring(host, 1, closing)
     }
     parts := split(host, ":")
-    if len(parts) > 2 { return "" }
+    if len(parts) == 2 && (to_int(parts[1]) < 1 || to_int(parts[1]) > 65535) { return "" }
     name := parts[0]
     if ends_with(name, ".") { name = substring(name, 0, len(name) - 1) }
     return name
 }
 
-func client_key(req, auth_enabled) {
-    if auth_enabled {
-        auth := header_value(req, "Authorization")
-        if auth != "" { return "auth:" + substring(sha256(auth), 0, 24) }
+export func json_media_type(value) {
+    # Exact media type; optional token/quoted parameters, never prefix matching.
+    return regex_match(value, "(?i)^application/json([ \\t]*;[ \\t]*[a-z0-9!#$%&'*+.^_`|~-]+[ \\t]*=[ \\t]*([a-z0-9!#$%&'*+.^_`|~-]+|\"[^\"\\r\\n]*\"))*[ \\t]*$")
+}
+
+export func json_text_safe(text) {
+    # Rust's linear-time regex scanner consumes whole strings before punctuation.
+    # Only decoded keys are parsed; the full JSON parser still checks grammar.
+    tokens := regex_find_all(text, "\"([^\"\\\\]|\\\\.)*\"[ \\t\\r\\n]*:|\"([^\"\\\\]|\\\\.)*\"|[{}\\[\\]]")
+    depth := 0
+    seen := {}
+    for token in tokens {
+        if token == "{" || token == "[" {
+            depth = depth + 1
+            if depth > 64 { return false }
+            seen[to_string(depth)] := {}
+        } else if token == "}" || token == "]" {
+            depth = depth - 1
+            if depth < 0 { return false }
+        } else if ends_with(token, ":") {
+            key := ""
+            try { key = parse_json(trim(substring(token, 0, len(token) - 1))) } except err { return false }
+            slot := to_string(depth)
+            if has_field(seen, slot) == false { return false }
+            level := seen[slot]
+            if len(keys(level)) >= 1024 { return false }
+            if has_field(level, key) { return false }
+            level[key] := true
+            seen[slot] := level
+        }
     }
+    return depth == 0
+}
+
+func client_key(req, auth_enabled) {
+    # One configured principal; scheme capitalization must not create new buckets.
+    if auth_enabled { return "auth:configured" }
+    if has_field(req, "peer_ip") && trim(to_string(req["peer_ip"])) != "" { return "peer:" + to_string(req["peer_ip"]) }
     if has_field(req, "remote_addr") {
         address := trim(to_string(req["remote_addr"]))
         if address != "" && address != "unknown" { return "peer:" + address }
@@ -54,13 +89,29 @@ export func validate_string_array(values, field_name, allow_empty) {
 }
 
 export func guard_request(req, policy, auth_token, rate_state, apply_rate_limit) {
+    for name in ["host", "origin", "authorization", "content-type", "content-length", "mcp-protocol-version", "mcp-method", "mcp-name"] {
+        values := dict_value(dict_value(req, "header_values", {}), name, [])
+        count := 0
+        for key in keys(dict_value(req, "headers", {})) {
+            if to_lower(key) == name {
+                count = count + 1
+                if regex_match(to_string(req["headers"][key]), "[\\x00-\\x08\\x0a-\\x1f\\x7f]") { return {"ok": false, "status": 400, "message": "Invalid header value"} }
+            }
+        }
+        if len(values) > 1 || count > 1 { return {"ok": false, "status": 400, "message": "Duplicate singleton header"} }
+        if regex_match(header_value(req, name), "[\\x00-\\x08\\x0a-\\x1f\\x7f]") { return {"ok": false, "status": 400, "message": "Invalid header value"} }
+    }
     body := to_string(dict_value(req, "body", ""))
-    if len(body) > policy["max_body"] { return {"ok": false, "status": 413, "message": "Request body exceeds configured maximum"} }
+    if len(dict_value(req, "body_bytes", utf8_encode(body))) > policy["max_body"] { return {"ok": false, "status": 413, "message": "Request body exceeds configured maximum"} }
     host := normalized_host(header_value(req, "Host"))
     if host == "" || includes_text(policy["allowed_hosts"], host) == false { return {"ok": false, "status": 403, "message": "Host header is missing or not allowed"} }
     origin := header_value(req, "Origin")
-    if origin != "" && includes_text(policy["allowed_origins"], origin) == false { return {"ok": false, "status": 403, "message": "Origin header is not allowed"} }
-    if policy["auth_enabled"] && header_value(req, "Authorization") != "Bearer " + auth_token { return {"ok": false, "status": 401, "message": "Unauthorized request"} }
+    origin_present := false
+    for key in keys(dict_value(req, "headers", {})) { if to_lower(key) == "origin" { origin_present = true } }
+    if origin_present && (origin == "" || index_of(policy["allowed_origins"], origin) < 0) { return {"ok": false, "status": 403, "message": "Origin header is not allowed"} }
+    authorization := header_value(req, "Authorization")
+    auth_parts := split(authorization, " ")
+    if policy["auth_enabled"] && (len(auth_parts) != 2 || to_lower(auth_parts[0]) != "bearer" || auth_parts[1] != auth_token) { return {"ok": false, "status": 401, "message": "Unauthorized request"} }
     if apply_rate_limit && policy["rate_limit_enabled"] {
         window := format_date(now(), "YYYY-MM-DD HH:mm")
         if rate_state["window"] != window { rate_state["window"] := window; rate_state["buckets"] := {} }
@@ -68,7 +119,7 @@ export func guard_request(req, policy, auth_token, rate_state, apply_rate_limit)
         buckets := rate_state["buckets"]
         count := 0
         if has_field(buckets, key) { count = buckets[key] }
-        if count >= policy["rate_limit"] { return {"ok": false, "status": 429, "message": "Rate limit exceeded", "rate_state": rate_state} }
+        if (has_field(buckets, key) == false && len(keys(buckets)) >= 1024) || count >= policy["rate_limit"] { return {"ok": false, "status": 429, "message": "Rate limit exceeded", "rate_state": rate_state} }
         buckets[key] := count + 1
         rate_state["buckets"] := buckets
     }
@@ -77,6 +128,7 @@ export func guard_request(req, policy, auth_token, rate_state, apply_rate_limit)
 
 export func secure_json_response(status, payload) {
     response := json_response(status, payload)
+    if status == 202 { response = http_response(202, "") }
     if status == 401 { response = set_header(response, "WWW-Authenticate", "Bearer") }
     if status == 429 { response = set_header(response, "Retry-After", "60") }
     response = set_header(response, "Cache-Control", "no-store")
@@ -86,4 +138,26 @@ export func secure_json_response(status, payload) {
     response = set_header(response, "X-Content-Type-Options", "nosniff")
     response = set_header(response, "X-Frame-Options", "DENY")
     return response
+}
+
+export func accepts_json(value) {
+    if trim(value) == "" { return true }
+    specificity := -1
+    accepted := false
+    for part in split(to_lower(value), ",") {
+        fields := split(part, ";")
+        media := trim(fields[0])
+        score := -1
+        if media == "*/*" { score = 0 }
+        if media == "application/*" { score = 1 }
+        if media == "application/json" { score = 2 }
+        if score >= 0 && score >= specificity {
+            specificity = score
+            accepted = true
+            for parameter in fields {
+                if regex_match(trim(parameter), "^q[ \\t]*=[ \\t]*0(\\.0*)?$") { accepted = false }
+            }
+        }
+    }
+    return accepted
 }

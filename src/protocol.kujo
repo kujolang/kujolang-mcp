@@ -8,7 +8,7 @@ export SERVER_NAME := "kujolang-mcp"
 export SERVER_VERSION := "0.1.0"
 
 func response_id(payload) {
-    if has_field(payload, "id") { return payload["id"] }
+    if has_field(payload, "id") && (type(payload["id"]) == "string" || (type(payload["id"]) == "int" && payload["id"] <= 9007199254740991 && payload["id"] >= -9007199254740991)) { return payload["id"] }
     return null
 }
 
@@ -49,14 +49,19 @@ export func handle_jsonrpc(catalog, payload) {
     if type(payload) != "dict" { return failure({}, -32600, "Request must be a JSON object", null) }
     if has_field(payload, "jsonrpc") == false || payload["jsonrpc"] != "2.0" { return failure(payload, -32600, "jsonrpc must equal 2.0", null) }
     if has_field(payload, "method") == false || type(payload["method"]) != "string" || trim(payload["method"]) == "" { return failure(payload, -32600, "method must be a non-empty string", null) }
-    if has_field(payload, "id") && type(payload["id"]) != "string" && type(payload["id"]) != "int" && payload["id"] != null { return failure({}, -32600, "id must be a string, integer, or null", null) }
+    if has_field(payload, "id") && type(payload["id"]) != "string" && type(payload["id"]) != "int" && payload["id"] != null { return failure({}, -32600, "id must be a string or safe integer", null) }
     if has_field(payload, "params") && type(payload["params"]) != "dict" { return failure(payload, -32602, "params must be an object", null) }
-    method := trim(payload["method"])
+    if has_field(payload, "id") && (payload["id"] == null || (type(payload["id"]) == "int" && (payload["id"] > 9007199254740991 || payload["id"] < -9007199254740991))) { return failure({}, -32600, "id must be a string or safe integer", null) }
+    if has_field(payload, "id") == false {
+        if payload["method"] == "notifications/initialized" || payload["method"] == "notifications/cancelled" { return {"notification": true} }
+        return failure({}, -32600, "Method requires a request id", null)
+    }
+    method := payload["method"]
     params := params_or_empty(payload)
 
     if method == "notifications/initialized" {
         if has_field(payload, "id") == false { return {"notification": true} }
-        return success(payload, {})
+        return failure(payload, -32600, "Notification must not contain an id", null)
     }
     if method == "ping" { return success(payload, {}) }
     if method == "server/discover" { return success(payload, discovery_result()) }
@@ -66,7 +71,7 @@ export func handle_jsonrpc(catalog, payload) {
         negotiated := PROTOCOL_LEGACY
         if requested == PROTOCOL_LATEST { negotiated = PROTOCOL_LATEST }
         if index_of(SUPPORTED_PROTOCOL_VERSIONS, requested) < 0 {
-            return failure(payload, -32022, "Unsupported MCP protocol version", {"requested": requested, "supported": SUPPORTED_PROTOCOL_VERSIONS})
+            negotiated = PROTOCOL_LATEST
         }
         result := discovery_result()
         result["protocolVersion"] := negotiated
