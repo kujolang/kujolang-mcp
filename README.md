@@ -29,6 +29,8 @@ All seven tools are read-only, deterministic, and idempotent. There is no write 
 
 ## Quick start
 
+### Run locally
+
 Use a Kujo runtime with `run`, `test`, and the HTTP standard library:
 
 ```bash
@@ -53,6 +55,18 @@ For a local Streamable HTTP client:
 ```
 
 The server advertises MCP `2026-07-28` and handshake-era `2025-06-18`. Production configuration enables strict `Mcp-Method` and `Mcp-Name` binding for 2026 requests.
+
+### Quick install via GitHub MCP Registry
+
+Kujolang.ai MCP is [listed in the GitHub MCP Registry](https://github.com/mcp/kujolang/kujolang-mcp). For a quick connection to the hosted service, open the listing, select **Install MCP server**, and follow the instructions for your supported client.
+
+For manual setup, add a remote MCP server in your client with:
+
+- **Name:** `kujolang`
+- **Transport:** Streamable HTTP
+- **URL:** `https://mcp.kujolang.ai/mcp`
+
+The hosted catalog requires no client credentials or local package installation. Use the local instructions above to run the server on your own machine.
 
 ## MCP Registry publication
 
