@@ -39,3 +39,8 @@ type fuzzing, adversarial boundary cases and catalog mutations are the actual te
 No native slow-client/staging ingress proof or Cloudflare CPU limit enforcement test
 was performed. Native transport-generated 404/503 responses differ in headers from
 application responses. No production or major-client certification is implied.
+
+The same five suites, 225 HTTP cases, bearer/quota checks and twelve startup failures
+also pass with the separately downloaded official v1.9.0 macOS x64 release binary.
+Its artifact digest and source tag are in `release-provenance.md`; regeneration is
+identical. This removes local-build provenance as a compatibility-test assumption.

@@ -1,0 +1,31 @@
+{
+  "saved": [
+    {
+      "id": "69162ebf-c8c4-4327-928f-0a95d3ed7159",
+      "title": "Memory · LESSON · Kujolang MCP quota state requires serialized native admission",
+      "exact": true,
+      "concept": true,
+      "query": "kujolang-mcp serialized admission"
+    },
+    {
+      "id": "c0e4ea76-49b0-484f-9b30-84251f65ba66",
+      "title": "Session Memory · Kujolang MCP hardening review state · 2026-10-23",
+      "exact": true,
+      "concept": true,
+      "query": "kujolang-mcp hardening review state"
+    }
+  ],
+  "superseded": "f0bf9928-7e15-4184-9d9c-62863727dede",
+  "project": "Agent Notes",
+  "mode": "CONSOLIDATE",
+  "rejected": "transient progress, resolved implementation recaps as separate memories, unsupported production claims",
+  "signalbox": {
+    "capture": "cap_d08914ab-b783-4c7b-a010-126980fe2a6c",
+    "signal": "sig_b9a6fbad-e881-4b11-8cf0-8dd89855f823",
+    "exact_retrieval": true,
+    "concept_retrieval": true,
+    "duplicates_skipped": "existing deployment-credential and generic Cloudflare-account verification captures",
+    "related_historical": "cap_0a02b4c4-bd6c-4fb2-9794-7e339a12e97e describes the older unbounded-runtime issue; the new capture concerns the smaller app-specific cap",
+    "rejected": "completed fixes, benchmark/test recaps, routine activity"
+  }
+}

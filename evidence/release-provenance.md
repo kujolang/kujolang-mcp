@@ -23,3 +23,23 @@ returned baseline catalog revision 73bfcb690a45974b706144ca3d528dd39e8718fa356fc
 that cannot distinguish old and new code serving the same snapshot. No production
 load test, authenticated dashboard inspection, deployment or access-policy mutation
 occurred. Required branch protection and token scope are unverified.
+
+## Official released runtime verification
+
+The official GitHub v1.9.0 macOS x64 release archive was downloaded separately and
+verified against its published SHA-256. Annotated tag resolves to source commit
+`2cfaf185ad03059c89ef4f72fb061074255d00fc`.
+
+- Archive SHA-256: `107605ce0d6734408243a29730b84ce67d05643ae215fc78411e6a31484ec2f6`.
+- Extracted binary SHA-256: `657879720c5f51e9598715ec4b5455f51d18774cc89b919b8863b41db4cfc007`.
+- Version: `kujo 1.9.0`.
+- Five assertion suites, all 225 differential HTTP cases, concurrent bearer/quota
+  tests and twelve startup failures pass on this official binary.
+- Regeneration with this binary produces no committed artifact differences.
+- Source tag inspection confirms body_bytes, header_values, peer_ip, UTF-8 helpers,
+  Base64 UTF-8 decoding and the atomic admission limit are present in the release.
+
+See `hardening/released-runtime-*.txt`. Performance receipts intentionally retain
+the initial locally built binary identity; they are not relabeled as release-binary
+benchmarks. Matching a release-hosted checksum does not constitute an independent
+publisher signature or deployment attestation.
