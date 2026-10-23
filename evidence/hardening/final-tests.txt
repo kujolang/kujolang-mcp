@@ -1,0 +1,83 @@
+
+============================================================
+Test Results
+============================================================
+  ✓ catalog exposes released projects skills and workflows (910ms)
+  ✓ catalog installer profiles come from the website installer source (21ms)
+  ✓ catalog filtering and exact lookup preserve public guidance (733ms)
+  ✓ catalog search returns deterministic relevant records (480ms)
+  ✓ webops catalog is available through released skill records (607ms)
+  ✓ search deduplicates attacker-controlled repeated terms (493ms)
+
+Tests: 6 total, 6 passed, 0 failed
+Time:  3274ms
+============================================================
+
+All tests passed! ✨
+
+
+============================================================
+Test Results
+============================================================
+  ✓ generated Worker receipts are complete and portable (446ms)
+
+Tests: 1 total, 1 passed, 0 failed
+Time:  449ms
+============================================================
+
+All tests passed! ✨
+
+
+============================================================
+Test Results
+============================================================
+  ✓ JSON media type is exact and case insensitive (22ms)
+  ✓ JSON lexical bounds reject duplicate decoded keys and excessive depth (30ms)
+  ✓ notifications never invoke tool handlers and malformed envelopes are errors (39ms)
+  ✓ Host grammar and duplicate singleton headers fail closed (124ms)
+  ✓ catalog mutation matrix rejects malformed registry fields even with fresh digests (192ms)
+  ✓ rate bucket cardinality and window rollover are bounded (52ms)
+  ✓ authentication scheme case cannot split quota buckets (48ms)
+
+Tests: 7 total, 7 passed, 0 failed
+Time:  526ms
+============================================================
+
+All tests passed! ✨
+
+
+============================================================
+Test Results
+============================================================
+  ✓ request guard requires an allowed Host (37ms)
+  ✓ request guard isolates local rate buckets and exempts health checks (83ms)
+  ✓ configuration allowlists reject malformed entries (15ms)
+
+Tests: 3 total, 3 passed, 0 failed
+Time:  141ms
+============================================================
+
+All tests passed! ✨
+
+
+============================================================
+Test Results
+============================================================
+  ✓ server discovery advertises tools resources and prompts (804ms)
+  ✓ tools list uses MCP schema names and read-only annotations (554ms)
+  ✓ tool calls return text and structured content (543ms)
+  ✓ malformed calls and unknown methods return JSON-RPC errors (566ms)
+  ✓ resources and prompts expose agent-ready content (409ms)
+  ✓ legacy initialize remains available for handshake clients (404ms)
+  ✓ protocol rejects unsupported versions and malformed params (406ms)
+  ✓ tool string inputs are bounded before catalog work (451ms)
+  ✓ all installation profile returns deduplicated membership (484ms)
+  ✓ tool handlers enforce enum values and additionalProperties (459ms)
+
+Tests: 10 total, 10 passed, 0 failed
+Time:  5134ms
+============================================================
+
+All tests passed! ✨
+
+Assertion test files passed: 5

@@ -112,10 +112,10 @@ For the autonomous weekly agent prompt that reviews source accuracy, updates Git
 - Host is mandatory and allowlisted; browser Origin is exact-allowlisted when present.
 - JSON requests require `application/json`, bounded body configuration, validated envelopes, object parameters, and deterministic errors.
 - Responses include defensive no-store, no-sniff, frame, referrer, resource, and content security headers.
-- Local rate limiting uses isolated request buckets when the runtime supplies a peer address; health checks do not consume the quota.
-- Non-loopback startup fails unless trusted ingress limits are explicitly acknowledged, and public listeners refuse the application-local limiter because the current runtime cannot reliably identify anonymous socket peers.
+- Local rate limiting uses bounded peer-IP buckets and serial handler admission to avoid counter races; health checks do not consume the quota but share overload admission.
+- Non-loopback startup fails unless trusted ingress limits are explicitly acknowledged, and public listeners refuse the application-local limiter because public quotas and overall overload must be enforced at ingress.
 
-The application body check happens after the current Kujo HTTP runtime buffers the request. Production ingress must reject oversized bodies and enforce connection/read timeouts before forwarding.
+Kujo 1.9.0 bounds transport buffering at 8 MiB; the catalog enforces its smaller 128 KiB UTF-8 byte limit afterward. Public native ingress must enforce the smaller cap before forwarding. The Worker bounds streamed bytes before parsing. See [production hardening](docs/PRODUCTION_HARDENING.md) for current limits, compatibility changes, and unverified deployment gates.
 
 ## Verification
 

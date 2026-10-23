@@ -18,7 +18,7 @@ The server does not accept filesystem paths, remote URLs, shell commands, source
 
 - Localhost-only default binding.
 - Mandatory explicit Host allowlist and browser Origin allowlist.
-- Bounded application-visible request bodies and local per-client buckets when the runtime provides peer identity.
+- Bounded UTF-8 request bytes, depth-64 and duplicate-key JSON guards, and capped local peer-IP buckets with serial handler admission. Worker streams are cancelled above the byte cap.
 - Fail-closed non-loopback startup unless trusted ingress limits are acknowledged; public listeners cannot enable the unreliable application-local limiter.
 - Optional bearer token loaded from an environment variable, never committed configuration.
 - JSON Content-Type, JSON-RPC shape, identifier, parameter-container, field-length, and numeric-range validation with deterministic errors.
@@ -45,8 +45,10 @@ The server does not accept filesystem paths, remote URLs, shell commands, source
 
 ## Out of scope
 
-The repository does not provide TLS termination, pre-buffer request enforcement, distributed rate limiting, managed secret rotation, DDoS protection, centralized audit retention, SSO, formal certification, or host-level sandboxing.
+The repository does not provide TLS termination, native pre-buffer enforcement at the application-specific 128 KiB cap, distributed rate limiting, managed secret rotation, DDoS protection, centralized audit retention, SSO, formal certification, or host-level sandboxing.
 
 ## Reporting
 
 Report suspected vulnerabilities through the private security-reporting channel configured on the GitHub repository. Do not include live credentials or private user data in a public issue.
+
+Current evidence and remaining gates are in `docs/PRODUCTION_HARDENING.md` and `evidence/hardening-findings.md`. The optional native bearer comparison is not constant-time; authenticated ingress or a reviewed runtime primitive is required before privileged deployment.

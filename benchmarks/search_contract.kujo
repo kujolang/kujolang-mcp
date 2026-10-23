@@ -1,0 +1,11 @@
+from src.catalog import load_catalog, search_catalog, search_catalog_prefix
+catalog := load_catalog("data/catalog.json")
+results := []
+for query in ["mcp agent gateway", "mcp mcp", "technical:seo", "workflow", "Kujo", "webops", "a and the", "zzzz", "local rag retrieval", "release readiness"] {
+    for limit in [1, 10, 50] {
+        results = push(results, search_catalog(catalog, query, "", "", limit))
+        results = push(results, search_catalog(catalog, query, "skill", "", limit))
+        results = push(results, search_catalog_prefix(catalog, query, "", "", "webops-", limit))
+    }
+}
+print(to_json({"cases": len(results), "sha256": sha256(to_json(results))}))

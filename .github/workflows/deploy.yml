@@ -3,6 +3,7 @@ name: Validate and deploy Kujo MCP
 on:
   push:
     branches: [main]
+  pull_request:
   workflow_dispatch:
 
 permissions:
@@ -11,25 +12,31 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - name: Set up patched Node.js
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: "24.22.1"
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
       - name: Read reviewed build inputs
         id: inputs
         run: |
+          node -e 'const x=require("./build-inputs.json"); for(const k of ["website_commit","framework_commit"]) if(!/^[a-f0-9]{40}$/.test(x[k])) throw Error(k); if(!/^v[0-9]+\.[0-9]+\.[0-9]+$/.test(x.kujo_version)) throw Error("runtime version");'
           echo "website=$(jq -r '.website_commit' build-inputs.json)" >> "$GITHUB_OUTPUT"
           echo "framework=$(jq -r '.framework_commit' build-inputs.json)" >> "$GITHUB_OUTPUT"
           echo "kujo=$(jq -r '.kujo_version' build-inputs.json)" >> "$GITHUB_OUTPUT"
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
+          persist-credentials: false
           repository: kujolang/mcp
           ref: ${{ steps.inputs.outputs.framework }}
           path: framework-mcp
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
+          persist-credentials: false
           repository: kujolang/kujolang.ai
           ref: ${{ steps.inputs.outputs.website }}
           path: kujolang.ai
@@ -46,6 +53,7 @@ jobs:
           kujo run tests/run_all.kujo --interpreter
           kujo run server.kujo --interpreter --self-check
           node tests/native_http_test.mjs
+          node tests/config_failures_test.mjs
       - name: Generate and verify Worker
         env:
           KUJO_BIN: ${{ steps.kujo.outputs.kujo-path }}
@@ -54,12 +62,17 @@ jobs:
           git diff --exit-code -- dist/worker.js dist/worker.js.sha256 dist/parity-fixtures.json dist/generation.json
           node --check dist/worker.js
           node tests/worker_contract_test.mjs
+          node tests/hardening_http_test.mjs
+          node tests/native_auth_test.mjs
+          node benchmarks/worker_benchmark.mjs > worker-benchmark.json
+          node benchmarks/selection_benchmark.mjs > selection-benchmark.json
           test "$(jq -r '.catalog_revision' dist/generation.json)" = "$(jq -r '.source.snapshot_sha256' data/catalog.json)"
           test "$(jq -r '.catalog_content_digest' dist/generation.json)" = "$(jq -r '.source.content_sha256' data/catalog.json)"
           ! grep -Eq '(/Users/|/home/|[A-Za-z]:\\\\)' dist/generation.json dist/parity-fixtures.json dist/worker.js
           test "$(wc -c < dist/worker.js)" -lt 2621440
       - name: Check optional CI deployment credentials
         id: deployment
+        if: github.ref == 'refs/heads/main'
         env:
           DEPLOY_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           DEPLOY_ACCOUNT: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -72,9 +85,13 @@ jobs:
           fi
       - name: Deploy production Worker
         if: github.ref == 'refs/heads/main' && steps.deployment.outputs.configured == 'true'
-        uses: cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@9acf94ace14e7dc412b076f2c5c20b8ce93c79cd # v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           wranglerVersion: 4.151.3
           command: deploy
+
+      - name: Verify deployed catalog
+        if: github.ref == 'refs/heads/main' && steps.deployment.outputs.configured == 'true'
+        run: node tests/production_catalog_test.mjs

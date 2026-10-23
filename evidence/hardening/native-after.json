@@ -1,0 +1,147 @@
+{
+  "measurement": "native loopback latency; CPU/RSS below belong to Node client, not server",
+  "environment": {
+    "node": "v26.12.1",
+    "platform": "darwin",
+    "arch": "x64",
+    "cpu": "Intel(R) Core(TM) i7-9750H CPU @ 2.60GHz"
+  },
+  "warm_samples": 100,
+  "warmup": 10,
+  "cold_import_ms": 0.01769200000001092,
+  "peak_rss_bytes": 108912640,
+  "results": {
+    "health": {
+      "p50_ms": 10.544370000000072,
+      "p95_ms": 11.873115000000098,
+      "p99_ms": 13.664828000000057,
+      "min_ms": 9.506116999999904,
+      "max_ms": 14.084594000000038,
+      "throughput_per_second": 89.82390177574081,
+      "response_bytes": 242,
+      "status": 200,
+      "cpu_user_ms": 141.745,
+      "cpu_system_ms": 19.968
+    },
+    "initialize": {
+      "p50_ms": 25.94133500000021,
+      "p95_ms": 51.060537000000295,
+      "p99_ms": 59.56700799999999,
+      "min_ms": 20.623587000000043,
+      "max_ms": 131.82524400000057,
+      "throughput_per_second": 30.940530780659508,
+      "response_bytes": 525,
+      "status": 200,
+      "cpu_user_ms": 139.507,
+      "cpu_system_ms": 23.811
+    },
+    "tools": {
+      "p50_ms": 20.858541999999943,
+      "p95_ms": 56.401122000000214,
+      "p99_ms": 74.34748299999956,
+      "min_ms": 19.18254799999886,
+      "max_ms": 108.47842799999944,
+      "throughput_per_second": 33.38463293928259,
+      "response_bytes": 5060,
+      "status": 200,
+      "cpu_user_ms": 133.726,
+      "cpu_system_ms": 30.64
+    },
+    "item": {
+      "p50_ms": 21.618866999999227,
+      "p95_ms": 22.85421200000019,
+      "p99_ms": 25.296768000000156,
+      "min_ms": 20.746127000000342,
+      "max_ms": 26.61497000000054,
+      "throughput_per_second": 45.91370128825097,
+      "response_bytes": 2662,
+      "status": 200,
+      "cpu_user_ms": 90.201,
+      "cpu_system_ms": 16.189
+    },
+    "search": {
+      "p50_ms": 29.573922999999922,
+      "p95_ms": 32.284231000001455,
+      "p99_ms": 37.359684999999445,
+      "min_ms": 28.330712999999378,
+      "max_ms": 37.8068600000006,
+      "throughput_per_second": 33.155872593804396,
+      "response_bytes": 24238,
+      "status": 200,
+      "cpu_user_ms": 128.921,
+      "cpu_system_ms": 20.929
+    },
+    "stack": {
+      "p50_ms": 28.356298000000606,
+      "p95_ms": 43.21020300000055,
+      "p99_ms": 62.08668100000068,
+      "min_ms": 26.0735339999992,
+      "max_ms": 66.37074600000051,
+      "throughput_per_second": 32.43225302071492,
+      "response_bytes": 14618,
+      "status": 200,
+      "cpu_user_ms": 91.981,
+      "cpu_system_ms": 15.468
+    },
+    "listing": {
+      "p50_ms": 33.28059800000119,
+      "p95_ms": 35.970962999999756,
+      "p99_ms": 37.73378900000171,
+      "min_ms": 31.727076999999554,
+      "max_ms": 43.54435100000046,
+      "throughput_per_second": 29.68152139575834,
+      "response_bytes": 429564,
+      "status": 200,
+      "cpu_user_ms": 377.825,
+      "cpu_system_ms": 77.454
+    },
+    "installation": {
+      "p50_ms": 20.917987999997422,
+      "p95_ms": 23.12970800000039,
+      "p99_ms": 25.268851000000723,
+      "min_ms": 20.048844000000827,
+      "max_ms": 25.92922399999952,
+      "throughput_per_second": 47.070705242686664,
+      "response_bytes": 1566,
+      "status": 200,
+      "cpu_user_ms": 72.07,
+      "cpu_system_ms": 12.952
+    },
+    "resource": {
+      "p50_ms": 27.961699000003136,
+      "p95_ms": 29.711546999998973,
+      "p99_ms": 32.32563500000106,
+      "min_ms": 26.823498999998264,
+      "max_ms": 35.95835799999986,
+      "throughput_per_second": 35.407066450328124,
+      "response_bytes": 152298,
+      "status": 200,
+      "cpu_user_ms": 153.677,
+      "cpu_system_ms": 38.216
+    },
+    "malformed": {
+      "p50_ms": 12.239574999999604,
+      "p95_ms": 13.961928000000626,
+      "p99_ms": 15.266952999998466,
+      "min_ms": 11.619706999998016,
+      "max_ms": 17.537710999997216,
+      "throughput_per_second": 79.88121280226487,
+      "response_bytes": 106,
+      "status": 400,
+      "cpu_user_ms": 65.94,
+      "cpu_system_ms": 10.526
+    },
+    "overlimit": {
+      "p50_ms": 9.713378000000375,
+      "p95_ms": 12.086531000000832,
+      "p99_ms": 12.806744999998045,
+      "min_ms": 9.18241499999931,
+      "max_ms": 13.310599000000366,
+      "throughput_per_second": 97.47511857433902,
+      "response_bytes": 51,
+      "status": 413,
+      "cpu_user_ms": 78.609,
+      "cpu_system_ms": 26.049
+    }
+  }
+}

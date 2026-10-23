@@ -18,11 +18,10 @@ runtime network subrequests, storage bindings, credentials, or user data.
 
 ## Deployment
 
-`wrangler.jsonc` targets the free Workers plan with a 10 ms CPU ceiling. Connect
+`wrangler.jsonc` is intended for a free-plan Worker; it does not prove the actual account plan or a configured CPU ceiling. Connect
 the GitHub repository to Workers Builds or run `wrangler deploy` from a trusted
 environment. Production uses the Custom Domain `mcp.kujolang.ai`; do not add a
-second DNS record when Custom Domains manages it. Keep the `workers.dev` preview
-for verification until the custom domain passes its live checks.
+second DNS record when Custom Domains manages it. The adapter accepts only the exact custom hostname. Retire workers.dev exposure during an authorized configuration rollout; it is not an accepted alternate hostname in the new code.
 
 Required protected CI values are `CLOUDFLARE_API_TOKEN` and
 `CLOUDFLARE_ACCOUNT_ID`; neither is needed by the Worker at runtime. The token
@@ -54,7 +53,9 @@ website pin and committing the regenerated Worker receipts together.
 GitHub deployment runs only when both protected Cloudflare secrets exist.
 A successful validation job alone is not proof of deployment. Without those
 secrets, use the existing authorized Wrangler login from a trusted maintainer
-machine: run `npx wrangler@4.130.0 deploy --dry-run`, then
-`npx wrangler@4.130.0 deploy`, and compare live health and exact item responses
+machine: run `npx wrangler@4.151.3 deploy --dry-run`, then
+`npx wrangler@4.151.3 deploy`, and compare live health and exact item responses
 with the committed catalog. No new credential is needed for that existing
 maintainer path. The weekly refresh must complete those live checks.
+
+See `PRODUCTION_HARDENING.md` for staged rollout, body streaming, modern metadata, compatibility corrections and unverified account controls. Local Node timing is not Cloudflare CPU measurement.
