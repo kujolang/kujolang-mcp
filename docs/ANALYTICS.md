@@ -6,22 +6,27 @@
 - Storage: `ANALYTICS_DB`, D1 database `kujolang-mcp-analytics`.
 - Cleanup: daily at 03:17 UTC and on each recorded request.
 
-The login shell is public; counters are private. Use the `ANALYTICS_DASHBOARD_TOKEN`
-Worker secret. The initial key is saved only on the deploying maintainer's machine at
-`~/.config/kujolang-mcp/analytics-dashboard-token` (directory 0700, file 0600).
-Copy it locally into the dashboard password field. Never put it in URLs, screenshots,
-issues, chat, source files, or shell command arguments. Lock the dashboard when finished.
-A page reload forgets the key; there is no persistent login or cookie.
+Cloudflare Access protects `/analytics` and all child paths. The self-hosted application
+`Kujolang MCP Analytics` permits only the existing account owner through the configured
+One-time PIN identity provider. Sessions last 30 minutes. Cookies are HttpOnly,
+SameSite=Lax, path-scoped, and use the binding cookie. The application is hidden from
+the launcher. Public `/mcp`, `/health`, and `/telemetry` remain unauthenticated.
 
-To rotate, generate a cryptographically random key of at least 32 bytes, save it with
-restricted permissions, and pipe its contents to:
+The Worker independently requires Cloudflare's trusted `ctx.access` with the exact
+`ANALYTICS_ACCESS_AUD` plus the owner email stored in the `ANALYTICS_OWNER_EMAIL` Worker
+secret. It never trusts identity headers or a caller-provided JWT, and fails closed if
+Access context, configuration or identity retrieval is unavailable. The old shared key
+is retired; no bearer fallback exists. The dashboard uses same-origin Access cookies
+and provides Cloudflare sign-out. Email OTP is not phishing-resistant MFA; an owner-managed
+SSO provider with enforced MFA can replace it later without changing application code.
 
-```sh
-npx wrangler@4.151.3 secret put ANALYTICS_DASHBOARD_TOKEN
-```
-
-Pipe from the restricted file rather than passing the key as a command argument.
-The key is read-only authority over counters; never reuse a Cloudflare API token.
+Application ID: `ac8e5a76-1c41-4a2b-b078-94a157c84d90`.
+Owner-only policy ID: `73ce2d96-1426-4271-bbe4-444220442230`.
+Keep the Access audience in wrangler.jsonc aligned with this application. When changing
+owner access, update both the exact-email Access policy and the Worker owner secret.
+Do not add bypass policies or public Worker/preview routes. Never disable Access to
+work around a login problem. Cloudflare handles operator login cookies and authentication
+logs separately from the aggregate D1 counters. No operator identity is written to D1.
 
 ## Deployment and tests
 
@@ -57,7 +62,9 @@ To disable collection, remove the `ANALYTICS_DB` binding and deploy. MCP remains
 the dashboard returns unavailable. Disable the cron and manage database deletion separately
 if retiring analytics. Never roll back to a configuration that re-enables request logs.
 
-Optional real-browser verification: install Playwright outside the repository, then run
-`tests/analytics_browser_test.mjs` with `PLAYWRIGHT_MODULE` pointing to its module entry.
-It uses local Chrome and the restricted key file, verifies login/lock and mobile layout,
-and saves credential-free screenshots under `/tmp/kujolang-analytics-dashboard-*.png`.
+Browser verification: open `/analytics`, complete the owner Access login, check the
+counters, refresh, and sign out. Signed-out HTML, JS and data requests must redirect to
+Access; an authenticated different identity must be denied. Check a narrow viewport for
+horizontal overflow. Do not save session cookies or login codes in test artifacts.
+`node tests/dashboard_test.mjs` covers rendering, expiration and stale-response clearing
+with an isolated DOM fixture, without production credentials.

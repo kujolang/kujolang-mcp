@@ -221,5 +221,5 @@ The October 22 Commerce refresh records [Commerce 0.5.1](https://github.com/kujo
 
 The hosted service collects daily aggregate counters, never raw queries or visitor identities.
 Read the [telemetry notice](https://mcp.kujolang.ai/telemetry), including opt-out headers and retention.
-The [operator dashboard](https://mcp.kujolang.ai/analytics) requires a private access key.
+The [operator dashboard](https://mcp.kujolang.ai/analytics) requires the owner’s Cloudflare Access login.
 See [analytics operations](docs/ANALYTICS.md) for access, rotation and deployment.

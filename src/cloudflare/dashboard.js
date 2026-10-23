@@ -1,4 +1,3 @@
-let accessKey = '';
 let requestGeneration = 0;
 const el = id => document.getElementById(id);
 const number = n => new Intl.NumberFormat().format(n);
@@ -13,8 +12,8 @@ async function load() {
   const generation=++requestGeneration;
   el('status').textContent='Loading aggregate counters…';
   try {
-    const response=await fetch('/analytics/data',{headers:{authorization:'Bearer '+accessKey},cache:'no-store',credentials:'omit',redirect:'error',signal:AbortSignal.timeout(15000)});
-    if(!response.ok)throw Error(response.status===401?'Access key was not accepted.':'Analytics is unavailable. Try again later.');
+    const response=await fetch('/analytics/data',{cache:'no-store',credentials:'same-origin',redirect:'error',signal:AbortSignal.timeout(15000)});
+    if(!response.ok)throw Error(response.status===401?'Your login expired. Sign in again.':'Analytics is unavailable. Try again later.');
     const data=await response.json();if(generation!==requestGeneration)return;
     const totals={};for(const row of data.rows){totals[row.dimension]??={};totals[row.dimension][row.value]=(totals[row.dimension][row.value]||0)+row.count;}
     const count=(d,v)=>totals[d]?.[v]||0;const searches=count('search_outcome','empty')+count('search_outcome','nonempty');
@@ -28,10 +27,12 @@ async function load() {
     const details=document.createElement('details');details.append(node('summary','Daily counts'),table(days));
     el('daily').replaceChildren(chart,caption,details);el('breakdowns').replaceChildren();
     for(const [dimension,title] of [['tool','Tools'],['topic','Search topics'],['item','Requested public items'],['profile','Installation profiles'],['outcome','Outcomes'],['results','Result counts'],['latency','Dispatch latency'],['revision','Catalog revisions']]){const a=document.createElement('article');a.append(node('h2',title));const entries=Object.entries(totals[dimension]||{}).sort((a,b)=>b[1]-a[1]);a.append(entries.length?table(entries):node('p','No recorded activity yet.'));el('breakdowns').append(a);}
-    el('dashboard').hidden=false;el('login').hidden=true;el('token').value='';el('status').textContent='Updated '+new Date().toLocaleTimeString()+'. Counts are activity, not people or satisfaction.';
-  } catch(error){if(generation===requestGeneration)el('status').textContent=error.message;}
+    el('dashboard').hidden=false;el('reauth').hidden=true;el('status').textContent='Updated '+new Date().toLocaleTimeString()+'. Counts are activity, not people or satisfaction.';
+  } catch(error){if(generation===requestGeneration){clear();el('reauth').hidden=false;el('status').textContent='Unable to load counters. Sign in again or retry shortly.';}}
 }
-el('unlock').addEventListener('click',()=>{accessKey=el('token').value.trim();el('token').value='';load();});
-el('token').addEventListener('keydown',event=>{if(event.key==='Enter')el('unlock').click();});
+function clear(){el('dashboard').hidden=true;for(const id of ['summary','daily','breakdowns'])el(id).replaceChildren();}
 el('refresh').addEventListener('click',load);
-el('logout').addEventListener('click',()=>{++requestGeneration;accessKey='';el('dashboard').hidden=true;el('login').hidden=false;for(const id of ['summary','daily','breakdowns'])el(id).replaceChildren();el('status').textContent='Dashboard locked.';});
+el('logout').addEventListener('click',()=>{++requestGeneration;clear();});
+window.addEventListener('pagehide',()=>{++requestGeneration;clear();});
+window.addEventListener('pageshow',event=>{if(event.persisted)load();});
+load();

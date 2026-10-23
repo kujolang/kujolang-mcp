@@ -29,8 +29,10 @@ Only the current and preceding 29 UTC calendar days are visible. Older counters 
 on writes and by a daily scheduled cleanup; a cleanup outage can delay physical deletion.
 Cloudflare D1 recovery backups may retain deleted aggregate counters under the account's
 Time Travel policy. No raw event data is ever written for recovery to retain.
-Dashboard data is restricted to the operator using a high-entropy bearer key, sent only in
-an Authorization header. It is never placed in URLs or persisted in browser storage.
+Dashboard pages and data are restricted to the operator through Cloudflare Access login.
+Cloudflare uses operator authentication cookies and processes login identity and access
+logs separately; none are stored in our aggregate analytics database. Public MCP users
+do not need this login and receive no application tracking cookies.
 
 Worker observability logs and traces are disabled to avoid automatically persisting request
 URLs and request context. Cloudflare still processes connection data to deliver and protect

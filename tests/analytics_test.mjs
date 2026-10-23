@@ -16,7 +16,7 @@ const db = {
  },
  async batch(statements){writes.push(...statements);return [];}
 };
-const env={ANALYTICS_DB:db,ANALYTICS_DASHBOARD_TOKEN:token};const ctx={waitUntil(p){pending.push(p);}};
+const env={ANALYTICS_DB:db,ANALYTICS_ACCESS_AUD:token,ANALYTICS_OWNER_EMAIL:'owner@example.com'};const ctx={waitUntil(p){pending.push(p);}};
 async function rpc(name,args={},headers={},otherEnv=env,method='tools/call'){
  const request=new Request('https://mcp.kujolang.ai/mcp',{method:'POST',headers:{'content-type':'application/json',...headers},body:JSON.stringify({jsonrpc:'2.0',id:'PRIVATE-ID',method,params:method==='tools/call'?{name,arguments:args}:{clientInfo:{name:'PRIVATE-CLIENT'}}})});
  const response=await worker.fetch(request,otherEnv,ctx);await Promise.all(pending.splice(0));return response.json();
@@ -37,19 +37,24 @@ const failed={...env,ANALYTICS_DB:{...db,batch(){return Promise.reject(Error('PR
 assert.equal((await rpc('get_catalog_item',{slug:'kujo'},{},failed)).result.structuredContent.slug,'kujo');
 const throws={...env,ANALYTICS_DB:{prepare(){throw Error('PRIVATE-FAILURE');}}};
 assert.equal((await rpc('get_catalog_item',{slug:'kujo'},{},throws)).result.structuredContent.slug,'kujo');
-const get=(path,headers={},e=env)=>worker.fetch(new Request('https://mcp.kujolang.ai'+path,{headers}),e,ctx);
-for(const e of [{},env,{ANALYTICS_DASHBOARD_TOKEN:'short'}])assert.equal((await get('/analytics/data',{},e)).status,401);
-assert.equal((await get('/analytics/data',{authorization:'Bearer '+token+'x'})).status,401);
-assert.equal((await get('/analytics/data?token='+token)).status,401);
+const accessCtx={...ctx,access:{aud:token,async getIdentity(){return {email:'owner@example.com'};}}};
+const get=(path,headers={},e=env,c=ctx)=>worker.fetch(new Request('https://mcp.kujolang.ai'+path,{headers}),e,c);
+for(const path of ['/analytics','/analytics/app.js','/analytics/data']){
+ for(const headers of [{},{authorization:'Bearer '+token},{'cf-access-authenticated-user-email':'owner@example.com','cf-access-jwt-assertion':'forged',cookie:'CF_Authorization=forged'}])assert.equal((await get(path,headers)).status,401);
+ for(const access of [undefined,{aud:'wrong'},{aud:token,async getIdentity(){return {email:'attacker@example.com'};}},{aud:token,async getIdentity(){throw Error('unavailable');}},{aud:token,async getIdentity(){return {};}}])assert.equal((await get(path,{},env,{...ctx,access})).status,401);
+ for(const e of [{}, {...env,ANALYTICS_ACCESS_AUD:''},{...env,ANALYTICS_OWNER_EMAIL:''}])assert.equal((await get(path,{},e,accessCtx)).status,401);
+}
 assert.equal(reads.length,0);
-const authorized=await get('/analytics/data',{authorization:'Bearer '+token});assert.equal(authorized.status,200);assert.equal(authorized.headers.get('cache-control'),'no-store');assert.deepEqual((await authorized.json()).rows,[]);assert.equal(reads.length,1);assert(reads[0].sql.includes('day >= ?'));
-assert.equal((await get('/analytics/data',{authorization:'Bearer '+token},{ANALYTICS_DASHBOARD_TOKEN:token})).status,503);
-assert.equal((await get('/analytics/data',{authorization:'Bearer '+token,origin:'https://evil.example'})).status,403);
-assert.equal((await get('/analytics/data',{authorization:'Bearer '+token,origin:'https://mcp.kujolang.ai'})).status,200);
-const dashboard=await get('/analytics');assert.equal(dashboard.status,200);assert((await dashboard.text()).includes('not unique people'));assert(dashboard.headers.get('content-security-policy').includes("frame-ancestors 'none'"));
+const authorized=await get('/analytics/data',{},env,accessCtx);assert.equal(authorized.status,200);assert.equal(authorized.headers.get('cache-control'),'no-store');assert.deepEqual((await authorized.json()).rows,[]);assert.equal(reads.length,1);assert(reads[0].sql.includes('day >= ?'));
+assert.equal((await get('/analytics/data',{}, {...env,ANALYTICS_DB:undefined},accessCtx)).status,503);
+assert.equal((await get('/analytics/data',{origin:'https://evil.example'},env,accessCtx)).status,403);
+assert.equal((await get('/analytics/data',{origin:'https://mcp.kujolang.ai'},env,accessCtx)).status,200);
+const dashboard=await get('/analytics',{},env,accessCtx);assert.equal(dashboard.status,200);assert((await dashboard.text()).includes('not unique people'));assert(dashboard.headers.get('content-security-policy').includes("frame-ancestors 'none'"));
+assert.equal((await get('/analytics/app.js',{},env,accessCtx)).status,200);
 assert.equal((await get('/telemetry')).status,200);
-assert.equal((await worker.fetch(new Request('https://evil.example/analytics'),env,ctx)).status,403);
-assert.equal((await worker.fetch(new Request('https://mcp.kujolang.ai/analytics/data',{method:'POST'}),env,ctx)).status,405);
+assert(!JSON.stringify(writes).includes('owner@example.com'));
+assert.equal((await worker.fetch(new Request('https://evil.example/analytics'),env,accessCtx)).status,403);
+assert.equal((await worker.fetch(new Request('https://mcp.kujolang.ai/analytics/data',{method:'POST'}),env,accessCtx)).status,405);
 writes.length=0;await worker.scheduled({},env,ctx);await Promise.all(pending.splice(0));assert.equal(writes.length,1);assert(writes[0].sql.startsWith('DELETE'));assert.match(writes[0].values[0],/^\d{4}-\d{2}-\d{2}$/);
 // Deterministic retrieval quality checks, independent of telemetry counters.
 for(const [query,slug] of [['mcp','mcp'],['kennel','kennel'],['rag','rag']]){

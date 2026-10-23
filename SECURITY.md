@@ -57,8 +57,8 @@ Current evidence and remaining gates are in `docs/PRODUCTION_HARDENING.md` and `
 
 MCP tools remain read-only with respect to catalog data and external systems. The hosted
 adapter writes only aggregate daily counters to its D1 binding; no raw request data or
-identifiers are persisted. `/analytics` serves a public login shell, while `/analytics/data`
-requires a high-entropy operator bearer key. No cookie authentication or cross-origin
+identifiers are persisted. `/analytics` and its script and data routes require trusted Cloudflare Access context with a pinned audience and owner identity.
+Forged identity headers and legacy keys cannot authorize requests. No cross-origin
 access is enabled. `/telemetry` publishes the notice. Worker logs and traces are disabled.
 See [telemetry](docs/TELEMETRY.md) for exclusions, opt-out headers, retention and limitations.
 The native ingress path restrictions above apply to the native server, not these Worker routes.

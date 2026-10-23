@@ -48,7 +48,7 @@ assert(index_of(template, "export default {async fetch(request){") >= 0, "Worker
 assert(index_of(template, "  const result=handle(p);") >= 0, "Worker dispatch changed")
 worker := replace(template, "__KUJO_MCP_DATA__", to_json(catalog))
 worker = replace(worker, "export default {async fetch(request){", telemetry + "\nexport default {scheduled(_event,env,ctx){ctx.waitUntil(analyticsCleanup(env));},async fetch(request,env,ctx){")
-worker = replace(worker, "  if(request.headers.has('origin'))", "  const analyticsPage=await analyticsRoute(request,env);if(analyticsPage)return analyticsPage;\n  if(request.headers.has('origin'))")
+worker = replace(worker, "  if(request.headers.has('origin'))", "  const analyticsPage=await analyticsRoute(request,env,ctx);if(analyticsPage)return analyticsPage;\n  if(request.headers.has('origin'))")
 worker = replace(worker, "  const result=handle(p);", "  const analyticsStart=performance.now();const result=handle(p);analyticsRecord(request,env,ctx,p,result,performance.now()-analyticsStart);")
 create_dir(dirname(output_path))
 write_file(output_path, worker, true)

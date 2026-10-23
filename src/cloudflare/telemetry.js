@@ -61,13 +61,15 @@ function analyticsRecord(request, env, ctx, p, result, elapsed) {
     ctx.waitUntil(Promise.resolve(env.ANALYTICS_DB.batch(writes)).catch(()=>{}));
   } catch { /* Analytics must never change an MCP response. */ }
 }
-async function analyticsAuthorized(request, env) {
-  if (typeof env?.ANALYTICS_DASHBOARD_TOKEN !== 'string' || env.ANALYTICS_DASHBOARD_TOKEN.length < 32) return false;
-  const header = request.headers.get('authorization') || '';
-  if (!header.startsWith('Bearer ') || header.length > 256) return false;
-  const digest = async text => new Uint8Array(await crypto.subtle.digest('SHA-256',new TextEncoder().encode(text)));
-  const [a,b] = await Promise.all([digest(header.slice(7)),digest(env.ANALYTICS_DASHBOARD_TOKEN)]);
-  let diff = 0; for(let i=0;i<a.length;i++) diff |= a[i]^b[i]; return diff === 0;
+async function analyticsAuthorized(env, ctx) {
+  // Only Cloudflare's trusted execution context authenticates this route.
+  // Request headers, JWT strings and the retired bearer key cannot grant access.
+  if (!/^[a-f0-9]{64}$/.test(env?.ANALYTICS_ACCESS_AUD || '') ||
+      !env?.ANALYTICS_OWNER_EMAIL || ctx?.access?.aud !== env.ANALYTICS_ACCESS_AUD) return false;
+  try {
+    const identity = await ctx.access.getIdentity();
+    return typeof identity?.email === 'string' && identity.email === env.ANALYTICS_OWNER_EMAIL;
+  } catch { return false; }
 }
 const analyticsHtml = __ANALYTICS_HTML__;
 const analyticsJs = __ANALYTICS_JS__;
@@ -78,15 +80,15 @@ function analyticsResponse(body, type, status=200) {
     'x-content-type-options':'nosniff','referrer-policy':'no-referrer','x-frame-options':'DENY',
     'x-robots-tag':'noindex, nofollow'}});
 }
-async function analyticsRoute(request, env) {
+async function analyticsRoute(request, env, ctx) {
   const path = new URL(request.url).pathname;
   if (!['/analytics','/analytics/app.js','/analytics/data','/telemetry'].includes(path)) return null;
   if (request.method !== 'GET') return analyticsResponse('Method not allowed','text/plain',405);
   if (request.headers.has('origin') && request.headers.get('origin') !== 'https://mcp.kujolang.ai') return analyticsResponse('Forbidden','text/plain',403);
   if (path === '/telemetry') return analyticsResponse(analyticsNotice,'text/plain; charset=utf-8');
+  if (!await analyticsAuthorized(env,ctx)) return analyticsResponse('{"error":"Unauthorized"}','application/json',401);
   if (path === '/analytics') return analyticsResponse(analyticsHtml,'text/html; charset=utf-8');
   if (path === '/analytics/app.js') return analyticsResponse(analyticsJs,'text/javascript; charset=utf-8');
-  if (!await analyticsAuthorized(request,env)) return analyticsResponse('{"error":"Unauthorized"}','application/json',401);
   if (!env?.ANALYTICS_DB) return analyticsResponse('{"error":"Analytics unavailable"}','application/json',503);
   try {
     const result = await env.ANALYTICS_DB.prepare('SELECT day,dimension,value,count FROM daily_metrics WHERE day >= ? ORDER BY day,dimension,value LIMIT 20000').bind(analyticsCutoff()).all();

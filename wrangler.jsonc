@@ -25,5 +25,8 @@
       "database_id": "5adc4c4d-11a5-4733-9548-354231584e73",
       "migrations_dir": "migrations"
     }
-  ]
+  ],
+  "vars": {
+    "ANALYTICS_ACCESS_AUD": "654934b8909ff4feaf514efd11475990e97e413eb73740ff34de4a4d0e196206"
+  }
 }
