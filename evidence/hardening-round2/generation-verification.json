@@ -1,0 +1,9 @@
+{
+  "byte_identical": true,
+  "sha256": {
+    "dist/worker.js": "6ce24982a46eb99cf27603f8a63ddf2f824e534fce676b3c43ba489dc466a526",
+    "dist/worker.js.sha256": "3f47a1ec2289c3409958574a81c306577fa61969c5741551950b16337e0ae16d",
+    "dist/generation.json": "bbc7f30f9b681089141be9615805c526e8445c750d31eaebd2607c0336ed8b78",
+    "dist/parity-fixtures.json": "746512f8750b584eae43d88a4b56c9063309973a5e6a39dc783ad3cb7a34dc2e"
+  }
+}

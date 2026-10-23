@@ -113,3 +113,7 @@ bodies; socket-test both execution modes before publishing a new runtime. Then s
 This proposal is **not implemented or tested** in this session; the runtime checkout
 contains unrelated active work and the currently pinned released binary cannot
 provide this lower cap. Proven ingress remains a native deployment gate.
+
+## Second-pass compatibility checks
+
+Native configuration now rejects unknown settings, duplicate keys, invalid string types and invalid environment-variable names instead of silently falling back to defaults. Use the checked-in config examples as the schema reference. The config JSON text limit is 64 KiB. Both transports validate Accept quality weights; the Worker also rejects malformed Unicode and metadata consistently with native parsing. See `evidence/hardening-round2.md` for reproduced cases, measurements and retained production gates.
