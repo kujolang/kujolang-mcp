@@ -4,12 +4,26 @@ from src.http_security import dict_value, header_value, validate_string_array, g
 
 func config_fail(message) { assert(false, "Invalid mcp-server.json: " + message) }
 
+func config_keys(value, allowed, label) {
+    for key in keys(value) {
+        if index_of(allowed, key) < 0 { config_fail("unknown " + label + " setting: " + key) }
+    }
+}
+
+func config_string(value, label) {
+    if type(value) != "string" || trim(value) == "" { config_fail(label + " must be a non-empty string") }
+    return trim(value)
+}
+
 func load_config() {
     path := env("KUJOLANG_MCP_CONFIG")
     if trim(path) == "" { path = "mcp-server.json" }
     assert(file_exists(path), "MCP config not found: " + path)
-    parsed := parse_json(read_file(path))
+    text := read_file(path)
+    if len(utf8_encode(text)) > 65536 || json_text_safe(text) == false { config_fail("configuration must be bounded JSON without duplicate keys") }
+    parsed := parse_json(text)
     if type(parsed) != "dict" { config_fail("top-level object is required") }
+    config_keys(parsed, ["catalog_path", "http", "security"], "top-level")
     return parsed
 }
 
@@ -48,7 +62,9 @@ export func run_server(argv) {
     security_cfg := dict_value(config, "security", {})
     if type(http_cfg) != "dict" { config_fail("http must be an object") }
     if type(security_cfg) != "dict" { config_fail("security must be an object") }
-    host := trim(to_string(dict_value(http_cfg, "host", "127.0.0.1")))
+    config_keys(http_cfg, ["host", "port", "max_request_body_bytes", "rate_limit_enabled", "rate_limit_per_minute"], "http")
+    config_keys(security_cfg, ["allowed_hosts", "allowed_origins", "strict_2026_headers", "auth_enabled", "auth_token_env", "trusted_ingress_limits"], "security")
+    host := config_string(dict_value(http_cfg, "host", "127.0.0.1"), "http.host")
     port := dict_value(http_cfg, "port", 8941)
     max_body := dict_value(http_cfg, "max_request_body_bytes", 131072)
     rate_limit_enabled := dict_value(http_cfg, "rate_limit_enabled", true)
@@ -57,9 +73,9 @@ export func run_server(argv) {
     allowed_origins := dict_value(security_cfg, "allowed_origins", [])
     strict_headers := dict_value(security_cfg, "strict_2026_headers", true)
     auth_enabled := dict_value(security_cfg, "auth_enabled", false)
-    auth_token_env := trim(to_string(dict_value(security_cfg, "auth_token_env", "KUJOLANG_MCP_TOKEN")))
+    auth_token_env := config_string(dict_value(security_cfg, "auth_token_env", "KUJOLANG_MCP_TOKEN"), "security.auth_token_env")
     trusted_ingress_limits := dict_value(security_cfg, "trusted_ingress_limits", false)
-    catalog_path := trim(to_string(dict_value(config, "catalog_path", "data/catalog.json")))
+    catalog_path := config_string(dict_value(config, "catalog_path", "data/catalog.json"), "catalog_path")
     if host == "" { config_fail("http.host must be a non-empty string") }
     if type(port) != "int" || port < 1 || port > 65535 { config_fail("http.port must be between 1 and 65535") }
     if type(max_body) != "int" || max_body < 1024 || max_body > 1048576 { config_fail("http.max_request_body_bytes must be between 1024 and 1048576") }
@@ -70,7 +86,7 @@ export func run_server(argv) {
     origin_error := validate_string_array(allowed_origins, "security.allowed_origins", true)
     if origin_error != "" { config_fail(origin_error) }
     if type(auth_enabled) != "bool" || type(strict_headers) != "bool" || type(trusted_ingress_limits) != "bool" { config_fail("security boolean settings must be booleans") }
-    if auth_token_env == "" { config_fail("security.auth_token_env must be non-empty") }
+    if regex_match(auth_token_env, "^[A-Za-z_][A-Za-z0-9_]*$") == false { config_fail("security.auth_token_env must be an environment variable name") }
     if catalog_path == "" { config_fail("catalog_path must be non-empty") }
     is_loopback := host == "127.0.0.1" || host == "localhost" || host == "::1"
     if is_loopback == false && trusted_ingress_limits == false { config_fail("non-loopback listeners require security.trusted_ingress_limits=true") }
