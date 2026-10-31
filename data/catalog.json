@@ -242,16 +242,16 @@
     },
     {
       "category": "Primitives",
-      "description": "An OpenAI-compatible proxy and dashboard for request, tool, step, audit, cost, latency, error, and redaction telemetry.",
+      "description": "See what your AI apps use, what they cost, and where they fail.",
       "github_url": "https://github.com/kujolang/watchdog",
       "install_command": "kennel add watchdog",
-      "keywords": "Watchdog, Kujo ecosystem, Primitive, Observability",
+      "keywords": "Watchdog, AI observability, token usage, API costs, local telemetry",
       "kind": "project",
-      "last_updated": "2026-10-21",
-      "latest_release_url": "https://github.com/kujolang/watchdog/releases/tag/v1.2.2",
-      "launch_story": "Make AI application behavior observable without hiding the request path from the operator.",
-      "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
-      "scope_note": "Watchdog 1.2.2 hardens credentials, telemetry validation, OTLP retries and queue limits, reduces intake and client work, and refreshes pricing. Runtime observations do not authorize replay. Cost estimates are not invoices; auth, retention and deployment remain operator-owned.",
+      "last_updated": "2026-10-27",
+      "latest_release_url": "https://github.com/kujolang/watchdog/releases/latest",
+      "launch_story": "Track model requests, tool calls, and agent steps in one local dashboard.",
+      "release_status": "",
+      "scope_note": "Your telemetry stays in a local SQLite database. Costs are estimates of direct API usage, not invoices.",
       "slug": "watchdog",
       "source_path": "content/ecosystem/15-watchdog.md",
       "tags": [
@@ -259,7 +259,7 @@
         "Observability"
       ],
       "title": "Watchdog",
-      "version": "1.2.2",
+      "version": "",
       "website_url": "https://kujolang.ai/ecosystem/watchdog/"
     },
     {
@@ -4773,10 +4773,10 @@
   ],
   "schema_version": "kujolang-mcp/catalog-v1",
   "source": {
-    "content_sha256": "103715717d43a694e0dd977bc85863785f5da2df65c2dba25162854cfd87dcb1",
+    "content_sha256": "5c46a5012edd470c04765cf98f5aa3439d6b3a1e91601bec2d4fbcda7709b205",
     "name": "Kujolang.ai",
     "repository": "https://github.com/kujolang/kujolang.ai",
-    "snapshot_sha256": "73bfcb690a45974b706144ca3d528dd39e8718fa356fcecf51df683ea17394ce",
+    "snapshot_sha256": "a1736d9deed4bdc0f2ab27a8323efc02d256cb1cc951210da83e94eb9bf8746c",
     "url": "https://kujolang.ai",
     "version": "1.3.1"
   }
