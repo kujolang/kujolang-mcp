@@ -4,12 +4,12 @@
     "framework_repository": "kujolang/mcp",
     "kujo_version": "v1.9.0",
     "schema_version": 1,
-    "website_commit": "090ee242b758f4897c92a6495a07ada0a4817bd0",
+    "website_commit": "7aa8a42229cb08907e34e1e167c48af8a8d246ab",
     "website_repository": "kujolang/kujolang.ai"
   },
   "catalog": "data/catalog.json",
-  "catalog_content_digest": "103715717d43a694e0dd977bc85863785f5da2df65c2dba25162854cfd87dcb1",
-  "catalog_revision": "73bfcb690a45974b706144ca3d528dd39e8718fa356fcecf51df683ea17394ce",
+  "catalog_content_digest": "5c46a5012edd470c04765cf98f5aa3439d6b3a1e91601bec2d4fbcda7709b205",
+  "catalog_revision": "a1736d9deed4bdc0f2ab27a8323efc02d256cb1cc951210da83e94eb9bf8746c",
   "catalog_source_sha256": "bfc283133e7f088033dccb410ed12525df944d1b8473e67b2c70c8d235e54405",
   "framework": "kujolang/mcp",
   "framework_template": "src/cloudflare/worker_template.js",
@@ -18,10 +18,10 @@
   "generator_sha256": "758d9473bf83bfd799be189bc20f20e8ec6f144ebabafd35d6d354f1dc89276c",
   "generator_version": "3",
   "json_numbers_source_sha256": "3eceb7f0d935b69899501a61e2780d4565e81d29c4600e31632e9b111f21d862",
-  "parity_fixtures_sha256": "746512f8750b584eae43d88a4b56c9063309973a5e6a39dc783ad3cb7a34dc2e",
+  "parity_fixtures_sha256": "88abb58711d0e84e09f9a3f825b8c61614dd1d0bff7b3450be7881c0beade021",
   "protocol_source_sha256": "ac43db4ed5e46eb3050ef0770d0216f0402b29f7bd5a3ff969e3c363117712a4",
   "registry_source_sha256": "88081052bc95e1af1d049ecc0c0ec803f6662e9786ffafd8ca23d3ed5996d5f6",
   "telemetry_bundle_sha256": "ae6fc4e453e1109a8a92a73eda849c4fc164df1b81656ef6000a8642afa121fb",
   "template_sha256": "119698b68d98d2c311dd336321852a9fbd04cad1d326f5cec939c3094bc4ced3",
-  "worker_sha256": "005440296d3155cc1985cbb692096d996de19b8b92d759c47258093ff894153d"
+  "worker_sha256": "defd440927c32099e9ca4206aaf1e0864983b2500cc62bda77f90b260c84aadc"
 }
