@@ -53,7 +53,7 @@ jobs:
           path: kujolang.ai
       - name: Install exact Kujo runtime
         id: kujo
-        uses: kujolang/kujo/.github/actions/setup-kujo@a91702682e2969a66938b561b8059034ab2bc717
+        uses: kujolang/kujo/.github/actions/setup-kujo@7a13207019a51e61d3db448bc13f59d5b0e332e5
         with:
           version: ${{ steps.inputs.outputs.kujo }}
       - name: Check catalog and native assertions
