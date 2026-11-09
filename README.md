@@ -234,3 +234,7 @@ The October 22 Commerce refresh records [Commerce 0.5.1](https://github.com/kujo
 ## Telemetry
 
 The hosted service collects daily aggregate usage counters, without raw queries or visitor identities. See the [telemetry notice](https://mcp.kujolang.ai/telemetry) for details, retention, and opt-out instructions.
+
+## Website Cloner discovery
+
+The Website Cloner 0.1.1 record links to its local application installer and public preview release. It exports editable Kujo SSG projects from public WordPress sites, with no AI required by default. The catalog only returns guidance; it does not crawl sites, install the application, call models or publish clones. Website Cloner is not a native Kennel package.
