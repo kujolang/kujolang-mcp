@@ -4,7 +4,7 @@
     "framework_repository": "kujolang/mcp",
     "kujo_version": "v1.9.0",
     "schema_version": 1,
-    "website_commit": "ee0ee9d82267f0a5aa1afa9d4465468e882e5d7b",
+    "website_commit": "590b6b1ea9bf48af13eecbc243a6176ab53921b4",
     "website_repository": "kujolang/kujolang.ai"
   },
   "catalog": "data/catalog.json",
