@@ -238,3 +238,6 @@ The hosted service collects daily aggregate usage counters, without raw queries 
 ## Website Cloner discovery
 
 The Website Cloner 0.1.1 record links to its local application installer and public preview release. It exports editable Kujo SSG projects from public WordPress sites, with no AI required by default. The catalog only returns guidance; it does not crawl sites, install the application, call models or publish clones. Website Cloner is not a native Kennel package.
+
+
+The November 10 Source refresh records [Source 0.2.0](https://github.com/kujolang/source/releases/tag/v0.2.0), its Git/npm installation and experimental Node.js scope. Source supports candidate integration, secondary remotes and authenticated PostgreSQL submission recovery. The catalog remains read-only and does not submit code, synchronize repositories or execute installation commands. Source is not a Kennel-installable package.

@@ -1284,14 +1284,14 @@
       "category": "Primitives",
       "description": "Connect Git changes to tasks, agent sessions, evidence and authorized review decisions. Run Source locally or promote accepted changes to Cloudflare Artifacts.",
       "github_url": "https://github.com/kujolang/source",
-      "install_command": "git clone --branch v0.1.1 https://github.com/kujolang/source.git",
+      "install_command": "git clone --branch v0.2.0 https://github.com/kujolang/source.git",
       "keywords": "Source, Kujo, Git review, agent collaboration, evidence, Cloudflare Artifacts",
       "kind": "project",
-      "last_updated": "2026-10-21",
-      "latest_release_url": "https://github.com/kujolang/source/releases/tag/v0.1.1",
+      "last_updated": "2026-11-10",
+      "latest_release_url": "https://github.com/kujolang/source/releases/tag/v0.2.0",
       "launch_story": "Make the path from an agent's proposal to accepted code explicit and inspectable.",
-      "release_status": "Published MIT maintenance release. Experimental 0.x software; publication does not certify production readiness.",
-      "scope_note": "Source 0.1.1 is an experimental self-hosted Node.js application. Use Git and npm, not kennel add. Local demos use scripted contributors. The Cloudflare profile runs review locally and canonical Git on Artifacts. Exposed deployments require the documented storage, TLS and writer controls.",
+      "release_status": "Published MIT feature release. Experimental 0.x software; publication does not certify production readiness.",
+      "scope_note": "Source 0.2.0 is an experimental self-hosted Node.js application. Use Git and npm, not kennel add. Local demos use scripted contributors. The Cloudflare profile runs review locally and canonical Git on Artifacts. Exposed deployments require the documented storage, TLS and writer controls.",
       "slug": "source",
       "source_path": "content/ecosystem/61-source.md",
       "tags": [
@@ -1301,7 +1301,7 @@
         "Agents"
       ],
       "title": "Source",
-      "version": "0.1.1",
+      "version": "0.2.0",
       "website_url": "https://kujolang.ai/ecosystem/source/"
     },
     {
@@ -4821,10 +4821,10 @@
   ],
   "schema_version": "kujolang-mcp/catalog-v1",
   "source": {
-    "content_sha256": "47bc49a5bbba9c5248908f8f447fd69039b99f3fc905cb1bf2abe2d976da1793",
+    "content_sha256": "bc56a7993c8fd8f0014a1dd0be2d1fb339068d1dfc0b7f33500eefcbd79c5bc7",
     "name": "Kujolang.ai",
     "repository": "https://github.com/kujolang/kujolang.ai",
-    "snapshot_sha256": "e356a98086d37877ef11c278a5d27918010fcbd08e031f9981dcf1c1f0d846fb",
+    "snapshot_sha256": "0422f0418e25cbbef07401a0f75372e2b5dc97ecaff3ebf7be84c19573939e09",
     "url": "https://kujolang.ai",
     "version": "1.3.1"
   }
