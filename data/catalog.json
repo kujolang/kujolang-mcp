@@ -198,7 +198,7 @@
     },
     {
       "category": "Primitives",
-      "description": "Deterministic checks for files, commands, HTTP, JSON, snapshots, policy, and workflow artifacts with CI-friendly verdicts.",
+      "description": "Check agent outputs, commands, HTTP, JSON and workflow artifacts with declared assertions and CI-friendly verdicts.",
       "github_url": "https://github.com/kujolang/eval",
       "install_command": "kennel add eval",
       "keywords": "Eval, Kujo ecosystem, Primitive, Verification",
@@ -251,7 +251,7 @@
       "latest_release_url": "https://github.com/kujolang/watchdog/releases/latest",
       "launch_story": "Track model requests, tool calls, and agent steps in one local dashboard.",
       "release_status": "",
-      "scope_note": "Your telemetry stays in a local SQLite database. Costs are estimates of direct API usage, not invoices.",
+      "scope_note": "Telemetry is stored locally in SQLite; optional JSONL and OTLP exports can send it elsewhere. Costs are estimates of direct API usage, not invoices.",
       "slug": "watchdog",
       "source_path": "content/ecosystem/15-watchdog.md",
       "tags": [
@@ -573,7 +573,7 @@
     },
     {
       "category": "Tooling",
-      "description": "Deterministic browser checks, screenshots, console and network evidence, accessibility findings, visual baselines, flows, and repair briefs.",
+      "description": "Run configured browser checks and collect screenshots, accessibility findings, visual baselines and repair evidence.",
       "github_url": "https://github.com/kujolang/lens",
       "install_command": "kennel add lens",
       "keywords": "Lens, Kujo ecosystem, Tool, Browser QA",
@@ -732,8 +732,8 @@
       "install_command": "kennel add sitekit",
       "keywords": "SiteKit, Kujo ecosystem, design system, accessible components, static websites",
       "kind": "project",
-      "last_updated": "2026-10-22",
-      "latest_release_url": "https://github.com/kujolang/site-kit/releases/tag/v1.1.1",
+      "last_updated": "2026-11-12",
+      "latest_release_url": "https://github.com/kujolang/site-kit/releases/tag/v1.2.0",
       "launch_story": "Give people and agents a stable set of tokens, schemas, semantic templates, components, and page recipes to build from.",
       "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
       "scope_note": "SiteKit provides tested source components and distribution assets, not accessibility certification for arbitrary downstream pages or a hosted component service.",
@@ -744,7 +744,7 @@
         "Design System"
       ],
       "title": "SiteKit",
-      "version": "1.1.1",
+      "version": "1.2.0",
       "website_url": "https://kujolang.ai/ecosystem/sitekit/"
     },
     {
@@ -3964,7 +3964,7 @@
       "website_url": "https://kujolang.ai/ecosystem/skills/webops-web-performance/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Prove the complete repository-owned Kujo Agent Project lifecycle with inspectable evidence.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/owned-agent-project",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && owned-agent-project/scripts/run.sh",
@@ -3974,7 +3974,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "owned-agent-project",
       "source_path": "content/workflows/001-owned-agent-project.md",
       "tags": [],
@@ -3983,7 +3983,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/owned-agent-project/"
     },
     {
-      "category": "experimental",
+      "category": "Local preview: experimental",
       "description": "Turn an agency task and site profile into a resumable local proof packet.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/agency-runner",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && agency-runner/bin/agency-loop",
@@ -3993,7 +3993,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: experimental. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: experimental. Review the workflow README before live-provider or host-affecting use.",
       "slug": "agency-runner",
       "source_path": "content/workflows/002-agency-runner.md",
       "tags": [],
@@ -4002,7 +4002,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/agency-runner/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Demonstrate a deterministic browser-visible fix with staged evidence and handoff.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/agency-verified-fix-loop",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && agency-verified-fix-loop/scripts/run-loop.sh",
@@ -4012,7 +4012,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "agency-verified-fix-loop",
       "source_path": "content/workflows/003-agency-verified-fix-loop.md",
       "tags": [],
@@ -4021,7 +4021,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/agency-verified-fix-loop/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Compare raw and Muzzle-mediated AI SDK runs with token and transcript evidence.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/ai-sdk-muzzle-benchmark",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && ai-sdk-muzzle-benchmark/scripts/run-benchmark.sh",
@@ -4031,7 +4031,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "ai-sdk-muzzle-benchmark",
       "source_path": "content/workflows/004-ai-sdk-muzzle-benchmark.md",
       "tags": [],
@@ -4040,7 +4040,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/ai-sdk-muzzle-benchmark/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Route AI SDK chat traffic through Watchdog and export telemetry.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/ai-sdk-watchdog-showcase",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && ai-sdk-watchdog-showcase/scripts/run-showcase.sh",
@@ -4050,7 +4050,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "ai-sdk-watchdog-showcase",
       "source_path": "content/workflows/005-ai-sdk-watchdog-showcase.md",
       "tags": [],
@@ -4059,7 +4059,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/ai-sdk-watchdog-showcase/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Capture a deterministic failure into a redacted incident evidence bundle.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/casefile-incident-evidence-packet",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && casefile-incident-evidence-packet/scripts/run-workflow.sh",
@@ -4069,7 +4069,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "casefile-incident-evidence-packet",
       "source_path": "content/workflows/006-casefile-incident-evidence-packet.md",
       "tags": [],
@@ -4078,7 +4078,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/casefile-incident-evidence-packet/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Reduce unnecessary repository code and complexity through evidence-classified analysis, reviewer-approved mechanical cleanup, verification rollback, and structured reporting.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/codebase-cleanup",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && codebase-cleanup/scripts/run-workflow.sh",
@@ -4088,7 +4088,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "codebase-cleanup",
       "source_path": "content/workflows/007-codebase-cleanup.md",
       "tags": [],
@@ -4097,7 +4097,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/codebase-cleanup/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Generate a reviewable DocsGen contract packet for a chosen repository.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/docsgen-repo-contract-runner",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && docsgen-repo-contract-runner/scripts/run-workflow.sh",
@@ -4107,7 +4107,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "docsgen-repo-contract-runner",
       "source_path": "content/workflows/008-docsgen-repo-contract-runner.md",
       "tags": [],
@@ -4116,7 +4116,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/docsgen-repo-contract-runner/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Run a resumable Dispatch workflow with an explicit approval boundary and diagnostics.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/enterprise-dispatch-approval-router",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && enterprise-dispatch-approval-router/scripts/run-workflow.sh",
@@ -4126,7 +4126,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "enterprise-dispatch-approval-router",
       "source_path": "content/workflows/009-enterprise-dispatch-approval-router.md",
       "tags": [],
@@ -4135,7 +4135,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/enterprise-dispatch-approval-router/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Convert a developer task card into scoped implementation, verification, evidence and handoff.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/feature-card-workflow",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && feature-card-workflow/muzzle-template/workflows/feature-card-full.sh",
@@ -4145,7 +4145,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "feature-card-workflow",
       "source_path": "content/workflows/010-feature-card-workflow.md",
       "tags": [],
@@ -4154,7 +4154,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/feature-card-workflow/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Render deterministic content assets from real Kujo examples and a manifest.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/howl-content-factory",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && howl-content-factory/scripts/run-workflow.sh",
@@ -4164,7 +4164,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "howl-content-factory",
       "source_path": "content/workflows/011-howl-content-factory.md",
       "tags": [],
@@ -4173,7 +4173,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/howl-content-factory/"
     },
     {
-      "category": "production ready",
+      "category": "Local preview: production ready",
       "description": "Run a bounded Goal to Context to Act to Evaluate to Record to Stop loop in any repository.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/loop-engineering",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && loop-engineering/scripts/run-workflow.sh",
@@ -4183,7 +4183,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production ready. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production ready. Review the workflow README before live-provider or host-affecting use.",
       "slug": "loop-engineering",
       "source_path": "content/workflows/012-loop-engineering.md",
       "tags": [],
@@ -4192,7 +4192,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/loop-engineering/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Generate and validate a constrained MCP server scaffold and safety packet for a repository.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/mcp-agent-gateway-review",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && mcp-agent-gateway-review/scripts/run-workflow.sh",
@@ -4202,7 +4202,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "mcp-agent-gateway-review",
       "source_path": "content/workflows/013-mcp-agent-gateway-review.md",
       "tags": [],
@@ -4211,7 +4211,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/mcp-agent-gateway-review/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Create a versioned cross-format adaptation plan without expanding approved claim boundaries.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/publishing-house-adaptation",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && publishing-house-adaptation/bin/run",
@@ -4221,7 +4221,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "publishing-house-adaptation",
       "source_path": "content/workflows/014-publishing-house-adaptation.md",
       "tags": [],
@@ -4230,7 +4230,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/publishing-house-adaptation/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Pause for checksum-bound VersionSeal approval and perform only bounded PressWire effects.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/publishing-house-approval-publication",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && publishing-house-approval-publication/bin/run",
@@ -4240,7 +4240,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "publishing-house-approval-publication",
       "source_path": "content/workflows/015-publishing-house-approval-publication.md",
       "tags": [],
@@ -4249,7 +4249,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/publishing-house-approval-publication/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Plan and package supported accessible media assets with provenance.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/publishing-house-asset-production",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && publishing-house-asset-production/bin/run",
@@ -4259,7 +4259,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "publishing-house-asset-production",
       "source_path": "content/workflows/016-publishing-house-asset-production.md",
       "tags": [],
@@ -4268,7 +4268,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/publishing-house-asset-production/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Create a specific Editorial Brief, assignments, and evidence work order.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/publishing-house-commissioning",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && publishing-house-commissioning/bin/run",
@@ -4278,7 +4278,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "publishing-house-commissioning",
       "source_path": "content/workflows/017-publishing-house-commissioning.md",
       "tags": [],
@@ -4287,7 +4287,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/publishing-house-commissioning/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Validate and route a normalized daily editorial packet.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/publishing-house-daily-desk",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && publishing-house-daily-desk/bin/run",
@@ -4297,7 +4297,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "publishing-house-daily-desk",
       "source_path": "content/workflows/018-publishing-house-daily-desk.md",
       "tags": [],
@@ -4306,7 +4306,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/publishing-house-daily-desk/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Review exact packages and run a bounded revision loop.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/publishing-house-editorial-review",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && publishing-house-editorial-review/bin/run",
@@ -4316,7 +4316,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "publishing-house-editorial-review",
       "source_path": "content/workflows/019-publishing-house-editorial-review.md",
       "tags": [],
@@ -4325,7 +4325,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/publishing-house-editorial-review/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Create independently reviewed claim, source, evidence, rights, and packet records.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/publishing-house-evidence-dossier",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && publishing-house-evidence-dossier/bin/run",
@@ -4335,7 +4335,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "publishing-house-evidence-dossier",
       "source_path": "content/workflows/020-publishing-house-evidence-dossier.md",
       "tags": [],
@@ -4344,7 +4344,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/publishing-house-evidence-dossier/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Produce reviewable newsletter, social, case-study, and video/audio packages from approved lineage.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/publishing-house-format-production",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && publishing-house-format-production/bin/run",
@@ -4354,7 +4354,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "publishing-house-format-production",
       "source_path": "content/workflows/021-publishing-house-format-production.md",
       "tags": [],
@@ -4363,7 +4363,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/publishing-house-format-production/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Set a bounded house mandate, portfolio decision, operating priorities, and accountable handoffs.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/publishing-house-governance",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && publishing-house-governance/bin/run",
@@ -4373,7 +4373,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "publishing-house-governance",
       "source_path": "content/workflows/022-publishing-house-governance.md",
       "tags": [],
@@ -4382,7 +4382,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/publishing-house-governance/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Record measurements, feedback, learning, and a non-commissioning follow-up recommendation.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/publishing-house-post-publication",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && publishing-house-post-publication/bin/run",
@@ -4392,7 +4392,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "publishing-house-post-publication",
       "source_path": "content/workflows/023-publishing-house-post-publication.md",
       "tags": [],
@@ -4401,7 +4401,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/publishing-house-post-publication/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Create and package the authoritative evidence-linked primary artifact.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/publishing-house-primary-piece",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && publishing-house-primary-piece/bin/run",
@@ -4411,7 +4411,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "publishing-house-primary-piece",
       "source_path": "content/workflows/024-publishing-house-primary-piece.md",
       "tags": [],
@@ -4420,7 +4420,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/publishing-house-primary-piece/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Ingest an approved local corpus and query it with namespace-scoped citations.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/rag-enterprise-knowledge-gate",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && rag-enterprise-knowledge-gate/scripts/run-workflow.sh",
@@ -4430,7 +4430,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "rag-enterprise-knowledge-gate",
       "source_path": "content/workflows/025-rag-enterprise-knowledge-gate.md",
       "tags": [],
@@ -4439,7 +4439,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/rag-enterprise-knowledge-gate/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Exercise Relay pause/resume, integrity-checked export, and a local persisted handoff receipt.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/relay-lifecycle-handoff",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && relay-lifecycle-handoff/scripts/run.sh",
@@ -4449,7 +4449,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "relay-lifecycle-handoff",
       "source_path": "content/workflows/026-relay-lifecycle-handoff.md",
       "tags": [],
@@ -4458,7 +4458,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/relay-lifecycle-handoff/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Run an advisory Tribunal mock review and emit a verified, versioned decision receipt.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/tribunal-decision-gate",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && tribunal-decision-gate/scripts/run.sh",
@@ -4468,7 +4468,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "tribunal-decision-gate",
       "source_path": "content/workflows/027-tribunal-decision-gate.md",
       "tags": [],
@@ -4477,7 +4477,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/tribunal-decision-gate/"
     },
     {
-      "category": "experimental",
+      "category": "Local preview: experimental",
       "description": "Run a fixed longitudinal query suite across explicitly available AI/search surfaces without fabricated availability.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/webops-ai-visibility-benchmark",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && webops-ai-visibility-benchmark/scripts/run.sh",
@@ -4487,7 +4487,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: experimental. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: experimental. Review the workflow README before live-provider or host-affecting use.",
       "slug": "webops-ai-visibility-benchmark",
       "source_path": "content/workflows/028-webops-ai-visibility-benchmark.md",
       "tags": [],
@@ -4496,7 +4496,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/webops-ai-visibility-benchmark/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Turn decay and accuracy evidence into a Spec, approved update boundary, verification, and future measurement cue.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/webops-content-refresh",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && webops-content-refresh/scripts/run.sh",
@@ -4506,7 +4506,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "webops-content-refresh",
       "source_path": "content/workflows/029-webops-content-refresh.md",
       "tags": [],
@@ -4515,7 +4515,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/webops-content-refresh/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Move one stable WebOps finding through Spec, proposal, approval, implementation boundary, Eval, Lens, SiteProbe, and receipt evidence.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/webops-finding-to-fix",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && webops-finding-to-fix/scripts/run.sh",
@@ -4525,7 +4525,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "webops-finding-to-fix",
       "source_path": "content/workflows/030-webops-finding-to-fix.md",
       "tags": [],
@@ -4534,7 +4534,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/webops-finding-to-fix/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Synthesize monthly specialist SEO evidence without duplicating specialist analysis.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/webops-monthly-seo-review",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && webops-monthly-seo-review/scripts/run.sh",
@@ -4544,7 +4544,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "webops-monthly-seo-review",
       "source_path": "content/workflows/031-webops-monthly-seo-review.md",
       "tags": [],
@@ -4553,7 +4553,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/webops-monthly-seo-review/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Verify newly published content, relationships, rendered quality, optional submission, distribution assets, and receipts.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/webops-post-publish",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && webops-post-publish/scripts/run.sh",
@@ -4563,7 +4563,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "webops-post-publish",
       "source_path": "content/workflows/032-webops-post-publish.md",
       "tags": [],
@@ -4572,7 +4572,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/webops-post-publish/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Classify the content portfolio from graph, search, analytics, decay, pruning, and information-architecture evidence.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/webops-quarterly-content-portfolio",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && webops-quarterly-content-portfolio/scripts/run.sh",
@@ -4582,7 +4582,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "webops-quarterly-content-portfolio",
       "source_path": "content/workflows/033-webops-quarterly-content-portfolio.md",
       "tags": [],
@@ -4591,7 +4591,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/webops-quarterly-content-portfolio/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Establish a credential-free initial website, repository, content-graph, browser, and reporting baseline.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/webops-site-bootstrap",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && webops-site-bootstrap/scripts/run.sh",
@@ -4601,7 +4601,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "webops-site-bootstrap",
       "source_path": "content/workflows/034-webops-site-bootstrap.md",
       "tags": [],
@@ -4610,7 +4610,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/webops-site-bootstrap/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Combine trends, query opportunity, content relationships, gaps, accuracy, and internal-link proposals.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/webops-weekly-content-intelligence",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && webops-weekly-content-intelligence/scripts/run.sh",
@@ -4620,7 +4620,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "webops-weekly-content-intelligence",
       "source_path": "content/workflows/035-webops-weekly-content-intelligence.md",
       "tags": [],
@@ -4629,7 +4629,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/webops-weekly-content-intelligence/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Compare measured search evidence, keyword opportunities, and decay signals with capability-level degradation.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/webops-weekly-search-intelligence",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && webops-weekly-search-intelligence/scripts/run.sh",
@@ -4639,7 +4639,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "webops-weekly-search-intelligence",
       "source_path": "content/workflows/036-webops-weekly-search-intelligence.md",
       "tags": [],
@@ -4648,7 +4648,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/webops-weekly-search-intelligence/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Compare weekly crawl and rendered site health, links, performance, accessibility, schema, and metadata.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/webops-weekly-site-health",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && webops-weekly-site-health/scripts/run.sh",
@@ -4658,7 +4658,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "webops-weekly-site-health",
       "source_path": "content/workflows/037-webops-weekly-site-health.md",
       "tags": [],
@@ -4667,7 +4667,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/webops-weekly-site-health/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Validate, inspect, and attempt bounded Workcell Docker execution with explicit completion evidence.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/workcell-execution-gate",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && workcell-execution-gate/scripts/run.sh",
@@ -4677,7 +4677,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "workcell-execution-gate",
       "source_path": "content/workflows/038-workcell-execution-gate.md",
       "tags": [],
@@ -4686,7 +4686,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/workcell-execution-gate/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Initialize a real arbitrary production and emit a harness-neutral invocation for the VideoOps Producer.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/videoops-production",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && videoops-production/bin/run",
@@ -4696,7 +4696,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "videoops-production",
       "source_path": "content/workflows/039-videoops-production.md",
       "tags": [],
@@ -4705,7 +4705,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/videoops-production/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Turn validated PackWrite intake into a timed executable video plan.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/videoops-creative-planning",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && videoops-creative-planning/bin/run",
@@ -4715,7 +4715,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "videoops-creative-planning",
       "source_path": "content/workflows/040-videoops-creative-planning.md",
       "tags": [],
@@ -4724,7 +4724,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/videoops-creative-planning/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Resolve every asset requirement with rights-aware status and provenance.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/videoops-asset-resolution",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && videoops-asset-resolution/bin/run",
@@ -4734,7 +4734,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "videoops-asset-resolution",
       "source_path": "content/workflows/041-videoops-asset-resolution.md",
       "tags": [],
@@ -4743,7 +4743,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/videoops-asset-resolution/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Generate only explicit GENERATE items and register inspected outputs.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/videoops-media-generation",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && videoops-media-generation/bin/run",
@@ -4753,7 +4753,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "videoops-media-generation",
       "source_path": "content/workflows/042-videoops-media-generation.md",
       "tags": [],
@@ -4762,7 +4762,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/videoops-media-generation/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Render and revise a deterministic HyperFrames composition after asset preflight.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/videoops-hyperframes-edit",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && videoops-hyperframes-edit/bin/run",
@@ -4772,7 +4772,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "videoops-hyperframes-edit",
       "source_path": "content/workflows/043-videoops-hyperframes-edit.md",
       "tags": [],
@@ -4781,7 +4781,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/videoops-hyperframes-edit/"
     },
     {
-      "category": "production capable with limitations",
+      "category": "Local preview: production capable with limitations",
       "description": "Run deterministic and independent structured review with bounded revision routing.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/videoops-quality-review",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && videoops-quality-review/bin/run",
@@ -4791,7 +4791,7 @@
       "latest_release_url": "",
       "launch_story": "A local-first workflow kit with explicit inputs, outputs, evidence, recovery, and approval boundaries.",
       "release_status": "",
-      "scope_note": "Current readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
+      "scope_note": "Local preview readiness: production capable with limitations. Review the workflow README before live-provider or host-affecting use.",
       "slug": "videoops-quality-review",
       "source_path": "content/workflows/044-videoops-quality-review.md",
       "tags": [],
@@ -4800,7 +4800,7 @@
       "website_url": "https://kujolang.ai/ecosystem/workflows/videoops-quality-review/"
     },
     {
-      "category": "production-capable control plane",
+      "category": "Local preview: production-capable control plane",
       "description": "Run the Kujo Publishing House as a resumable, policy-bound editorial control loop.",
       "github_url": "https://github.com/kujolang/kujo-workflows/tree/v0.6.2/publishing-house-operator",
       "install_command": "git clone --branch v0.6.2 --depth 1 https://github.com/kujolang/kujo-workflows.git && cd kujo-workflows && publishing-house-operator/bin/publishing-house --json init",
@@ -4821,10 +4821,10 @@
   ],
   "schema_version": "kujolang-mcp/catalog-v1",
   "source": {
-    "content_sha256": "bc56a7993c8fd8f0014a1dd0be2d1fb339068d1dfc0b7f33500eefcbd79c5bc7",
+    "content_sha256": "d53865aa728c9453404fae059678c7e1d48b2d9ac58414dfbea99e837b929978",
     "name": "Kujolang.ai",
     "repository": "https://github.com/kujolang/kujolang.ai",
-    "snapshot_sha256": "0422f0418e25cbbef07401a0f75372e2b5dc97ecaff3ebf7be84c19573939e09",
+    "snapshot_sha256": "f83bfd7b12d7995fa56defa002cd8484ac509ff05359421edbd1b5afe4250769",
     "url": "https://kujolang.ai",
     "version": "1.3.1"
   }
