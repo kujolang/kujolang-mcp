@@ -1147,14 +1147,14 @@
     },
     {
       "category": "Tooling",
-      "description": "Project knowledge, repository understanding, native quality checks and human-approved Kujo workflows in Paperclip.",
+      "description": "Verify agent work with approved execution, browser checks, acceptance decisions and retained evidence in Paperclip.",
       "github_url": "https://github.com/kujolang/paperclip",
       "install_command": "npx paperclipai plugin install @kujolang/paperclip",
       "keywords": "Kujo Paperclip plugin, Paperclip agents, context pack, change review, failure evidence",
       "kind": "project",
-      "last_updated": "2026-10-21",
-      "latest_release_url": "https://github.com/kujolang/paperclip/releases/tag/v0.2.1",
-      "launch_story": "Understand repositories, ask local project knowledge questions and run explicitly approved Kujo workflows inside Paperclip.",
+      "last_updated": "2026-11-12",
+      "latest_release_url": "https://github.com/kujolang/paperclip/releases/tag/v0.3.0",
+      "launch_story": "Verify agent work with approved execution, browser evidence and human acceptance inside Paperclip.",
       "release_status": "Version identifies the latest published GitHub Release. Unpinned clone commands select default-branch source; see scope_note for release boundaries.",
       "scope_note": "Local bundled tools with explicit human approval for execution; offline project knowledge and shipped workflow examples. No custom host fork required.",
       "slug": "paperclip",
@@ -1164,7 +1164,7 @@
         "Agents"
       ],
       "title": "Kujo for Paperclip",
-      "version": "0.2.1",
+      "version": "0.3.0",
       "website_url": "https://kujolang.ai/ecosystem/paperclip/"
     },
     {
@@ -4821,10 +4821,10 @@
   ],
   "schema_version": "kujolang-mcp/catalog-v1",
   "source": {
-    "content_sha256": "d53865aa728c9453404fae059678c7e1d48b2d9ac58414dfbea99e837b929978",
+    "content_sha256": "48f7770e3d35d99b47247d8b6709000b43154ee6c1fcec1a0d91cc9f7d33bddd",
     "name": "Kujolang.ai",
     "repository": "https://github.com/kujolang/kujolang.ai",
-    "snapshot_sha256": "f83bfd7b12d7995fa56defa002cd8484ac509ff05359421edbd1b5afe4250769",
+    "snapshot_sha256": "b140f418e15d5809caadef1df254eb066a4fe1cd446e2194c2518433ea5837bd",
     "url": "https://kujolang.ai",
     "version": "1.3.1"
   }

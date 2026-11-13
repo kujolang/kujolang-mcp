@@ -241,3 +241,5 @@ The Website Cloner 0.1.1 record links to its local application installer and pub
 
 
 The November 10 Source refresh records [Source 0.2.0](https://github.com/kujolang/source/releases/tag/v0.2.0), its Git/npm installation and experimental Node.js scope. Source supports candidate integration, secondary remotes and authenticated PostgreSQL submission recovery. The catalog remains read-only and does not submit code, synchronize repositories or execute installation commands. Source is not a Kennel-installable package.
+
+The November 12 Paperclip refresh records [Paperclip 0.3.0](https://github.com/kujolang/paperclip/releases/tag/v0.3.0), approved assurance workflows, issue-level verification, current-source acceptance and paginated delegated evidence. Execution prerequisites and platform limits remain explicit. This MCP catalog only provides discovery and installation guidance; it does not approve or execute Paperclip work.
