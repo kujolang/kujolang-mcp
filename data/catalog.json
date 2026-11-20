@@ -90,14 +90,14 @@
       "category": "Primitives",
       "description": "The VM-first programming language and runtime for AI-native software, local-first automation, agentic workflows, and practical scripting.",
       "github_url": "https://github.com/kujolang/kujo",
-      "install_command": "curl -fsSL https://kujolang.ai/install.sh | KUJO_RELEASE_VERSION=v1.9.0 bash",
+      "install_command": "curl -fsSL https://kujolang.ai/install.sh | KUJO_RELEASE_VERSION=v1.10.0 bash",
       "keywords": "Kujo, Kujo ecosystem, Core, Language",
       "kind": "project",
-      "last_updated": "2026-10-22",
-      "latest_release_url": "https://github.com/kujolang/kujo/releases/tag/v1.9.0",
+      "last_updated": "2026-11-20",
+      "latest_release_url": "https://github.com/kujolang/kujo/releases/tag/v1.10.0",
       "launch_story": "The ecosystem core: readable source, explicit capabilities, deterministic tooling contracts, and strong native APIs.",
       "release_status": "Version identifies the latest published GitHub Release. Unpinned clone commands select default-branch source; see scope_note for release boundaries.",
-      "scope_note": "Kujo 1.9.0 is released for Linux x64/arm64, macOS x64/arm64 and Windows x64 through native archives and npm. The 1.8 series adds stronger optional inference and shared editor analysis, measured generator performance improvements, and expanded VM/interpreter parity coverage. Wave C beta and Wave D alpha remain experimental; participant SDK packages remain private/unpublished.",
+      "scope_note": "Kujo 1.10.0 is released for Linux x64/arm64, macOS x64/arm64 and Windows x64 through native archives and npm. The 1.10 release improves VM loop reuse and collection updates and fixes runtime error handling. Wave C beta and Wave D alpha remain experimental; participant SDK packages remain private/unpublished.",
       "slug": "kujo",
       "source_path": "content/ecosystem/01-kujo.md",
       "tags": [
@@ -105,7 +105,7 @@
         "Language"
       ],
       "title": "Kujo",
-      "version": "1.9.0",
+      "version": "1.10.0",
       "website_url": "https://kujolang.ai/ecosystem/kujo/"
     },
     {
@@ -4923,10 +4923,10 @@
   ],
   "schema_version": "kujolang-mcp/catalog-v1",
   "source": {
-    "content_sha256": "50b0234ead7b3efba5173fbf1485b2f40adad59a66534b1dcf061571ae02bc1d",
+    "content_sha256": "d3cc15f0ba1e461313b6c2706608a9dba2c81dd36a333950667375d19efefc65",
     "name": "Kujolang.ai",
     "repository": "https://github.com/kujolang/kujolang.ai",
-    "snapshot_sha256": "09cffbeb2fcecb8ea01fd5bee06047a4e91ba0b094cbb86cc5a6d0b140e38a43",
+    "snapshot_sha256": "9e5d02479c1d439ff2a6a6f69acd291b4537c9e092da9c6f93bdc6bc77531807",
     "url": "https://kujolang.ai",
     "version": "1.3.1"
   }
