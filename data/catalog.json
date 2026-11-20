@@ -137,11 +137,11 @@
       "install_command": "kennel add ai-sdk@1.2.0",
       "keywords": "AI SDK, Kujo ecosystem, Primitive, AI",
       "kind": "project",
-      "last_updated": "2026-10-13",
+      "last_updated": "2026-11-20",
       "latest_release_url": "https://github.com/kujolang/ai-sdk/releases/tag/v1.2.0",
       "launch_story": "Call chat and embedding models through one Kujo response contract.",
-      "release_status": "Version identifies the published release. The Kennel command selects the latest stable registry package; see scope_note for release boundaries.",
-      "scope_note": "Requires Kujo 1.6.0 or newer. Strict accounting is opt-in; memory state is process-local. Incremental chunk callbacks require a runtime with http_stream_collect and are unavailable in published Kujo 1.5/1.6. Provider credentials are needed for live calls.",
+      "release_status": "Version identifies the published release. The Kennel command pins AI SDK 1.2.0. The scope note links to the newer source setup.",
+      "scope_note": "Requires Kujo 1.6.0 or newer. Strict accounting is opt-in; memory state is process-local. Incremental chunk callbacks require a runtime with http_stream_collect and are unavailable in published Kujo 1.5/1.6. Provider credentials are needed for live calls when the endpoint requires them. The common setup for 35 integrations uses a newer pinned source checkout: https://docs.kujolang.ai/ecosystem/providers/#configure-a-provider",
       "slug": "ai-sdk",
       "source_path": "content/ecosystem/10-ai-sdk.md",
       "tags": [
@@ -4923,10 +4923,10 @@
   ],
   "schema_version": "kujolang-mcp/catalog-v1",
   "source": {
-    "content_sha256": "b0119fc59b587109c1b1ee6ef3e73073d8fb58b164169c1e9e40010858b26c60",
+    "content_sha256": "50b0234ead7b3efba5173fbf1485b2f40adad59a66534b1dcf061571ae02bc1d",
     "name": "Kujolang.ai",
     "repository": "https://github.com/kujolang/kujolang.ai",
-    "snapshot_sha256": "05089bacc53adf713a67c9c6f9911301229862d06bf41559e1bd9b446625f98e",
+    "snapshot_sha256": "09cffbeb2fcecb8ea01fd5bee06047a4e91ba0b094cbb86cc5a6d0b140e38a43",
     "url": "https://kujolang.ai",
     "version": "1.3.1"
   }
