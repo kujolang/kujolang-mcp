@@ -124,9 +124,9 @@ export func guard_request(req, policy, auth_token, rate_state, apply_rate_limit)
         if len(auth_parts) != 2 || to_lower(auth_parts[0]) != "bearer" || auth_parts[1] == "" {
             return {"ok": false, "status": 401, "message": "Unauthorized request"}
         }
-        # Compare fixed-size keyed digests so an early exit cannot expose a raw bearer prefix.
         compare_key := hmac_sha256(auth_token, "kujolang-mcp/native-bearer/v1")
-        if hmac_sha256(compare_key, auth_parts[1]) != hmac_sha256(compare_key, auth_token) {
+        expected := hmac_sha256(compare_key, auth_token)
+        if !hmac_sha256_verify(compare_key, auth_parts[1], expected) {
             return {"ok": false, "status": 401, "message": "Unauthorized request"}
         }
     }
