@@ -175,6 +175,8 @@ kujo run scripts/generate_worker.kujo -- --framework /path/to/mcp
 node --check dist/worker.js
 ```
 
+The Worker generator verifies the framework template against `framework_template_sha256` in `build-inputs.json`. When reviewing a framework update, record the new template digest together with the framework commit.
+
 ## Production deployment contract
 
 Select the production configuration explicitly:

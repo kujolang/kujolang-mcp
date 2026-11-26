@@ -2,6 +2,7 @@
   "build_inputs": {
     "framework_commit": "8ae321844dece12d5e5f5c33614e7806555ad021",
     "framework_repository": "kujolang/mcp",
+    "framework_template_sha256": "119698b68d98d2c311dd336321852a9fbd04cad1d326f5cec939c3094bc4ced3",
     "kujo_version": "v1.10.0",
     "schema_version": 1,
     "website_commit": "fbfd274f7121da70880acde44983a47ceffe42ba",
@@ -15,13 +16,13 @@
   "framework_template": "src/cloudflare/worker_template.js",
   "generated_from": "Kujo source and reviewed catalog",
   "generator": "kujolang-mcp/scripts/generate_worker.kujo",
-  "generator_sha256": "758d9473bf83bfd799be189bc20f20e8ec6f144ebabafd35d6d354f1dc89276c",
-  "generator_version": "3",
+  "generator_sha256": "12ce1525348101356f539777196ff74c4de634c61c85d6e5c5fa7a7e757474ad",
+  "generator_version": "4",
   "json_numbers_source_sha256": "3eceb7f0d935b69899501a61e2780d4565e81d29c4600e31632e9b111f21d862",
   "parity_fixtures_sha256": "6a9f22b01deed84ae8a738e78e841c0d38955fd63f263727b26317b75e49f54c",
   "protocol_source_sha256": "ac43db4ed5e46eb3050ef0770d0216f0402b29f7bd5a3ff969e3c363117712a4",
   "registry_source_sha256": "88081052bc95e1af1d049ecc0c0ec803f6662e9786ffafd8ca23d3ed5996d5f6",
-  "telemetry_bundle_sha256": "ae6fc4e453e1109a8a92a73eda849c4fc164df1b81656ef6000a8642afa121fb",
+  "telemetry_bundle_sha256": "b607ff577d4c4437ed5f5a51e3aa11adbd972945649bcb6d35c8adb059bf635b",
   "template_sha256": "119698b68d98d2c311dd336321852a9fbd04cad1d326f5cec939c3094bc4ced3",
-  "worker_sha256": "98f7b6df2c338e1f5f31381008cfd9cb6ae1eb7b4b1e0eec61b519f0222e21e7"
+  "worker_sha256": "5c6d8ad7c22920638212eacf3c043de9c9b5a6c66e25c7e0bc92dc6502141815"
 }

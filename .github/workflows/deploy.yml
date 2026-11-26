@@ -22,7 +22,7 @@ jobs:
       - name: Set up patched Node.js
         uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
-          node-version: "24.22.1"
+          node-version: "24.22.3"
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
@@ -35,7 +35,7 @@ jobs:
       - name: Read reviewed build inputs
         id: inputs
         run: |
-          node -e 'const x=require("./build-inputs.json"); for(const k of ["website_commit","framework_commit"]) if(!/^[a-f0-9]{40}$/.test(x[k])) throw Error(k); if(!/^v[0-9]+\.[0-9]+\.[0-9]+$/.test(x.kujo_version)) throw Error("runtime version");'
+          node -e 'const x=require("./build-inputs.json"); for(const k of ["website_commit","framework_commit"]) if(!/^[a-f0-9]{40}$/.test(x[k])) throw Error(k); if(!/^[a-f0-9]{64}$/.test(x.framework_template_sha256)) throw Error("framework template hash"); if(!/^v[0-9]+\.[0-9]+\.[0-9]+$/.test(x.kujo_version)) throw Error("runtime version");'
           echo "website=$(jq -r '.website_commit' build-inputs.json)" >> "$GITHUB_OUTPUT"
           echo "framework=$(jq -r '.framework_commit' build-inputs.json)" >> "$GITHUB_OUTPUT"
           echo "kujo=$(jq -r '.kujo_version' build-inputs.json)" >> "$GITHUB_OUTPUT"
