@@ -18,7 +18,7 @@ for(let i=0;i<1100;i++)put.run('2024-03-01','item','item_'+String(i).padStart(4,
 let p=await page(env,q('from=2024-01-01&to=2024-12-31'));assert.equal(p.rows.length,500);let all=[...p.rows];while(p.next_cursor){p=await page(env,q('from=2024-01-01&to=2024-12-31&cursor='+encodeURIComponent(p.next_cursor)));all.push(...p.rows);}assert.equal(all.length,1103);assert.equal(new Set(all.map(r=>[r.day,r.dimension,r.value].join('|'))).size,1103);
 let months=await page(env,q('from=2024-01-01&to=2024-02-28&group=month'));assert.equal(months.rows[0].count,30);
 let weeks=await page(env,q('from=2024-01-01&to=2024-01-07&group=week'));assert.equal(weeks.rows.length,1);assert.equal(weeks.rows[0].count,30);
-for(const input of ['from=2024-02-30','from=2025-01-01&to=2024-01-01','dataset=oops','group=anything','dataset=details&tool=a%27','dataset=details&revision=raw','tool=search','cursor=evil'])await assert.rejects(async()=>page(env,q(input)),RangeError);
+for(const input of ['from=2024-02-30','from=2025-01-01&to=2024-01-01','dataset=oops','dataset=totals&dataset=details','group=anything','dataset=details&tool=a%27','dataset=details&revision=raw','tool=search','cursor=evil','cursor='+encodeURIComponent(btoa('null'))])await assert.rejects(async()=>page(env,q(input)),RangeError);
 p=await page(env,q('from=2024-01-01&to=2024-12-31'));await assert.rejects(()=>page(env,q('from=2024-01-02&to=2024-12-31&cursor='+encodeURIComponent(p.next_cursor))),RangeError);
 const rev='a'.repeat(64),detail=db.prepare('INSERT INTO daily_details VALUES(?,?,?,?,?,?,?,?,?,?)');
 detail.run('2024-01-01','search_kujo_catalog','agents','empty','under_10ms',rev,'','','zero',2);

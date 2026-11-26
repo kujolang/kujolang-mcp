@@ -5,6 +5,9 @@ function analyticsDate(value) {
   return value;
 }
 function analyticsQuery(params) {
+  for(const key of ['dataset','from','to','group','tool','topic','revision','cursor','format']){
+    if(params.getAll(key).length>1)throw new RangeError();
+  }
   const q={dataset:params.get('dataset')||'totals',from:analyticsDate(params.get('from')||'2000-01-01'),to:analyticsDate(params.get('to')||analyticsToday()),group:params.get('group')||'day',tool:params.get('tool')||'',topic:params.get('topic')||'',revision:params.get('revision')||'',cursor:params.get('cursor')||''};
   if (!['totals','details','clients'].includes(q.dataset)||!['day','week','month'].includes(q.group)||q.from>q.to||q.to>analyticsToday()||q.cursor.length>4096) throw new RangeError();
   if (q.tool&&!/^[a-zA-Z0-9_]{1,128}$/.test(q.tool)||q.topic&&!['not_applicable','unclassified',...analyticsTopics.map(([t])=>t)].includes(q.topic)||q.revision&&!/^[a-f0-9]{64}$/.test(q.revision)) throw new RangeError();
@@ -20,7 +23,7 @@ async function analyticsPage(env,q) {
   let after='';
   if(q.cursor){
     let c;try{c=JSON.parse(atob(q.cursor));}catch{throw new RangeError();}
-    if(c.query!==analyticsQueryIdentity(q)||!Array.isArray(c.keys)||c.keys.length!==keys.length||c.keys.some(k=>typeof k!=='string'||k.length>128))throw new RangeError();
+    if(!c||typeof c!=='object'||Array.isArray(c)||c.query!==analyticsQueryIdentity(q)||!Array.isArray(c.keys)||c.keys.length!==keys.length||c.keys.some(k=>typeof k!=='string'||k.length>128))throw new RangeError();
     after=' WHERE ('+keys.join(',')+') > ('+keys.map(()=>'?').join(',')+')';bindings.push(...c.keys);
   }
   const sql=`SELECT * FROM (SELECT ${period} AS day,${rest.join(',')},SUM(count) AS count FROM ${q.dataset==='totals'?'daily_metrics':q.dataset==='clients'?'daily_clients':'daily_details'} WHERE ${where.join(' AND ')} GROUP BY ${period},${rest.join(',')})${after} ORDER BY ${keys.join(',')} LIMIT 501`;
@@ -36,14 +39,16 @@ function analyticsExport(env,q,format) {
   const stream=new ReadableStream({async pull(controller){
     if(done)return;
     try{
-      const page=await analyticsPage(env,{...q,cursor});let text='';
+      const page=await analyticsPage(env,{...q,cursor});
+      if(done)return;
+      let text='';
       if(!started)text=format==='csv'?keys.join(',')+'\r\n':JSON.stringify({schema_version:3,dataset:q.dataset,from:q.from,to:q.to,group:q.group,exported_at:new Date().toISOString(),live_day_provisional:true}).slice(0,-1)+',"rows":[';
       if(format==='csv')text+=page.rows.map(r=>keys.map(k=>quote(r[k])).join(',')+'\r\n').join('');
       else text+=(started&&page.rows.length?',':'')+page.rows.map(r=>JSON.stringify(r)).join(',');
       cursor=page.next_cursor;started=true;
       if(!cursor){done=true;if(format==='json')text+=']}';}
       controller.enqueue(encoder.encode(text));if(done)controller.close();
-    }catch(error){done=true;controller.error(Error('Export interrupted; retry the download.'));}
+    }catch{if(!done){done=true;controller.error(Error('Export interrupted; retry the download.'));}}
   },cancel(){done=true;}});
   const response=analyticsResponse(stream,format==='csv'?'text/csv; charset=utf-8':'application/json');
   response.headers.set('content-disposition',`attachment; filename="kujo-${q.dataset}-${q.from}-${q.to}.${format}"`);return response;
