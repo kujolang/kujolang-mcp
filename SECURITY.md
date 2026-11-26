@@ -51,7 +51,7 @@ The repository does not provide TLS termination, native pre-buffer enforcement a
 
 Report suspected vulnerabilities through the private security-reporting channel configured on the GitHub repository. Do not include live credentials or private user data in a public issue.
 
-Current evidence and remaining gates are in `docs/PRODUCTION_HARDENING.md` and `evidence/hardening-findings.md`. The optional native bearer comparison is not constant-time; authenticated ingress or a reviewed runtime primitive is required before privileged deployment.
+Current evidence and remaining gates are in `docs/PRODUCTION_HARDENING.md` and `evidence/hardening-findings.md`. Optional native bearer verification compares fixed-size keyed digests. Privileged deployments still require authenticated ingress.
 
 ## Hosted analytics boundary
 

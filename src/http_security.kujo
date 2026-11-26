@@ -45,11 +45,14 @@ export func json_text_safe(text) {
     tokens := regex_find_all(text, "\"([^\"\\\\]|\\\\.)*\"[ \\t\\r\\n]*:|\"([^\"\\\\]|\\\\.)*\"|[{}\\[\\]]")
     depth := 0
     seen := {}
+    counts := {}
     for token in tokens {
         if token == "{" || token == "[" {
             depth = depth + 1
             if depth > 64 { return false }
-            seen[to_string(depth)] := {}
+            slot := to_string(depth)
+            seen[slot] := {}
+            counts[slot] := 0
         } else if token == "}" || token == "]" {
             depth = depth - 1
             if depth < 0 { return false }
@@ -59,10 +62,11 @@ export func json_text_safe(text) {
             slot := to_string(depth)
             if has_field(seen, slot) == false { return false }
             level := seen[slot]
-            if len(keys(level)) >= 1024 { return false }
+            if counts[slot] >= 1024 { return false }
             if has_field(level, key) { return false }
             level[key] := true
             seen[slot] := level
+            counts[slot] := counts[slot] + 1
         }
     }
     return depth == 0
@@ -101,8 +105,13 @@ export func guard_request(req, policy, auth_token, rate_state, apply_rate_limit)
         if len(values) > 1 || count > 1 { return {"ok": false, "status": 400, "message": "Duplicate singleton header"} }
         if regex_match(header_value(req, name), "[\\x00-\\x08\\x0a-\\x1f\\x7f]") { return {"ok": false, "status": 400, "message": "Invalid header value"} }
     }
-    body := to_string(dict_value(req, "body", ""))
-    if len(dict_value(req, "body_bytes", utf8_encode(body))) > policy["max_body"] { return {"ok": false, "status": 413, "message": "Request body exceeds configured maximum"} }
+    body_size := 0
+    if has_field(req, "body_bytes") {
+        body_size = len(req["body_bytes"])
+    } else {
+        body_size = len(utf8_encode(to_string(dict_value(req, "body", ""))))
+    }
+    if body_size > policy["max_body"] { return {"ok": false, "status": 413, "message": "Request body exceeds configured maximum"} }
     host := normalized_host(header_value(req, "Host"))
     if host == "" || includes_text(policy["allowed_hosts"], host) == false { return {"ok": false, "status": 403, "message": "Host header is missing or not allowed"} }
     origin := header_value(req, "Origin")
@@ -111,7 +120,16 @@ export func guard_request(req, policy, auth_token, rate_state, apply_rate_limit)
     if origin_present && (origin == "" || index_of(policy["allowed_origins"], origin) < 0) { return {"ok": false, "status": 403, "message": "Origin header is not allowed"} }
     authorization := header_value(req, "Authorization")
     auth_parts := split(authorization, " ")
-    if policy["auth_enabled"] && (len(auth_parts) != 2 || to_lower(auth_parts[0]) != "bearer" || auth_parts[1] != auth_token) { return {"ok": false, "status": 401, "message": "Unauthorized request"} }
+    if policy["auth_enabled"] {
+        if len(auth_parts) != 2 || to_lower(auth_parts[0]) != "bearer" || auth_parts[1] == "" {
+            return {"ok": false, "status": 401, "message": "Unauthorized request"}
+        }
+        # Compare fixed-size keyed digests so an early exit cannot expose a raw bearer prefix.
+        compare_key := hmac_sha256(auth_token, "kujolang-mcp/native-bearer/v1")
+        if hmac_sha256(compare_key, auth_parts[1]) != hmac_sha256(compare_key, auth_token) {
+            return {"ok": false, "status": 401, "message": "Unauthorized request"}
+        }
+    }
     if apply_rate_limit && policy["rate_limit_enabled"] {
         window := format_date(now(), "YYYY-MM-DD HH:mm")
         if rate_state["window"] != window { rate_state["window"] := window; rate_state["buckets"] := {} }

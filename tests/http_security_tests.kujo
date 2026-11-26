@@ -1,5 +1,13 @@
 test_setup {
-    from src.http_security import guard_request, validate_string_array
+    from src.http_security import guard_request, json_text_safe, validate_string_array
+}
+
+test "native JSON key budgets reset at each nested object" {
+    entries := {}
+    for number in range(0, 1024) { entries["key_" + to_string(number)] := number }
+    assert_equal(json_text_safe(to_json({"first": entries, "second": entries})), true)
+    entries["over_budget"] := true
+    assert_equal(json_text_safe(to_json(entries)), false)
 }
 
 test "request guard requires an allowed Host" {
