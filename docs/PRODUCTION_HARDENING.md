@@ -55,9 +55,9 @@ There is no Worker/global/distributed limiter in this repository.
 
 Optional native bearer tokens are read from an environment variable and never
 logged. Duplicate Authorization is rejected, scheme comparison is insensitive,
-and 401 includes a Bearer challenge. String equality is not constant-time: keep
-privileged/private deployment gated on a reviewed constant-time runtime primitive
-or an authenticated ingress. Public read-only access remains unauthenticated.
+and 401 includes a Bearer challenge. Native verification compares fixed-size
+keyed digests. Use authenticated ingress for privileged deployments. Public
+read-only access remains unauthenticated.
 
 ## Operator validation gates (not applied)
 
